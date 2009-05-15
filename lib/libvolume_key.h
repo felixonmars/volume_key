@@ -113,6 +113,39 @@ extern void libvk_ui_set_passphrase_cb (struct libvk_ui *ui,
 extern void libvk_ui_set_nss_pwfn_arg (struct libvk_ui *ui, void *data,
 				       void (*free_data) (void *data));
 
+ /* A volume property. */
+
+struct libvk_volume_property;
+
+/* Free PROP. */
+extern void libvk_vp_free (struct libvk_volume_property *prop);
+
+/* Get a label of PROP (user-readable, in current locale encoding).
+   Return property label, for g_free (). */
+extern char *libvk_vp_get_label (const struct libvk_volume_property *prop);
+
+/* Get an invariant name of PROP (useful for programs).
+   Return property name, for g_free (). */
+extern char *libvk_vp_get_name (const struct libvk_volume_property *prop);
+
+enum libvk_vp_type
+  {
+    LIBVK_VP_IDENTIFICATION,	/* Which volume is this? */
+    LIBVK_VP_CONFIGURATION,	/* Information about the volume */
+    LIBVK_VP_SECRET,		/* A "secret" managed by libvolume_key */
+  };
+
+/* Return type of PROP.
+   Make sure the caller can handle unknown values! */
+extern enum libvk_vp_type libvk_vp_get_type
+	(const struct libvk_volume_property *prop);
+
+/* Get the value of PROP.
+   Return property value, for g_free ().
+   The caller might want to zero the memory of LIBVK_VP_SECRET values before
+   freeing them. */
+extern char *libvk_vp_get_value (const struct libvk_volume_property *prop);
+
  /* Volume operations. */
 
 /* Volume information.
@@ -158,9 +191,8 @@ extern char *libvk_volume_get_format (const struct libvk_volume *vol);
 
 /* Return a list of all properties of VOL, including "secrets" if WITH_SECRETS
    != 0.
-   Each element of the list is a two-member GPtrArray, with
-   [0] == property description and [1] == property value.  The caller should
-   g_free () each string and the GPtrArrays.
+   Each element of the list is struct libvk_volume_property.  The caller should
+   call libvk_vp_free () on each element, and free each GSList element.
    Be careful with the secrets! */
 extern GSList *libvk_volume_dump_properties (const struct libvk_volume *vol,
 					     int with_secrets);
@@ -236,7 +268,8 @@ extern void *libvk_volume_create_packet_with_passphrase
 	(const struct libvk_volume *vol, size_t *size,
 	 enum libvk_secret secret_type, const char *passphrase, GError **error);
 
-/* Return a format of PACKET of SIZE, or LIBVK_PACKET_FORMAT_UNKNOWN */
+/* Return a format of PACKET of SIZE, or LIBVK_PACKET_FORMAT_UNKNOWN.
+   Make sure the caller can handle unknown values! */
 extern enum libvk_packet_format libvk_packet_get_format (const void *packet,
 							 size_t size,
 							 GError **error);

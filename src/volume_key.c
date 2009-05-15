@@ -178,16 +178,37 @@ print_volume_info (const struct libvk_volume *vol)
 
   for (list = libvk_volume_dump_properties (vol, 1); list != NULL; list = next)
     {
-      GPtrArray *a;
-      char *name, *value;
+      struct libvk_volume_property *prop;
+      const char *type;
+      char *name, *label, *value;
 
-      a = list->data;
-      name = g_ptr_array_index (a, 0);
-      value = g_ptr_array_index (a, 1);
-      fprintf (stderr, "%s:\t%s\n", name, value);
+      prop = list->data;
+      label = libvk_vp_get_label (prop);
+      name = libvk_vp_get_name (prop);
+      value = libvk_vp_get_value (prop);
+      switch (libvk_vp_get_type (prop))
+	{
+	case LIBVK_VP_IDENTIFICATION:
+	  type = "id";
+	  break;
+
+	case LIBVK_VP_CONFIGURATION:
+	  type = "cfg";
+	  break;
+
+	case LIBVK_VP_SECRET:
+	  type = "!!";
+	  break;
+
+	default:
+	  type = "???";
+	  break;
+	}
+      fprintf (stderr, "%s: %s (%s):\t%s\n", type, label, name, value);
+      g_free (label);
       g_free (name);
       g_free (value);
-      g_ptr_array_free (a, TRUE);
+      libvk_vp_free (prop);
       next = list->next;
       g_slist_free_1 (list);
     }

@@ -85,19 +85,6 @@ error_from_cryptsetup (GError **error, LIBVKError code, int res)
     }
 }
 
-/* Add NAME (constant) and VALUE (for g_free ()) to start of LIST, return
-   new list. */
-static GSList *
-dump_add (GSList *list, const char *name, char *value)
-{
-  GPtrArray *a;
-
-  a = g_ptr_array_sized_new (2);
-  g_ptr_array_add (a, g_strdup (name));
-  g_ptr_array_add (a, value);
-  return g_slist_prepend (list, a);
-}
-
  /* Common KMIP code */
 
 /* Add a "strings" attribute using ATTR_NAME, NAME and VALUE to KEY_VALUE */
@@ -256,6 +243,85 @@ get_attribute (const struct kmip_key_value *key_value, guint32 tag,
   return NULL;
 }
 
+ /* Volume property handling */
+
+struct libvk_volume_property
+{
+  const char *label, *name;
+  enum libvk_vp_type type;
+  char *value;			/* For g_free (). */
+};
+
+/* Free PROP. */
+void
+libvk_vp_free (struct libvk_volume_property *prop)
+{
+  g_return_if_fail (prop != NULL);
+
+  if (prop->type == LIBVK_VP_SECRET)
+    memset (prop->value, 0, strlen (prop->value));
+  g_free (prop->value);
+  g_free (prop);
+}
+
+/* Get a label of PROP (user-readable, in current locale encoding).
+   Return property label, for g_free (). */
+char *
+libvk_vp_get_label (const struct libvk_volume_property *prop)
+{
+  g_return_val_if_fail (prop != NULL, NULL);
+
+  return g_strdup (prop->label);
+}
+
+/* Get an invariant name of PROP (useful for programs).
+   Return property name, for g_free (). */
+char *
+libvk_vp_get_name (const struct libvk_volume_property *prop)
+{
+  g_return_val_if_fail (prop != NULL, NULL);
+
+  return g_strdup (prop->name);
+}
+
+/* Return type of PROP.
+   Make sure the caller can handle unknown values! */
+enum libvk_vp_type
+libvk_vp_get_type (const struct libvk_volume_property *prop)
+{
+  g_return_val_if_fail (prop != NULL, 0); /* Return whatever. */
+
+  return prop->type;
+}
+
+/* Get the value of PROP.
+   Return property value, for g_free ().
+   The caller might want to zero the memory of LIBVK_VP_SECRET values before
+   freeing them. */
+char *
+libvk_vp_get_value (const struct libvk_volume_property *prop)
+{
+  g_return_val_if_fail (prop != NULL, NULL);
+
+  return g_strdup (prop->value);
+}
+
+/* Add NAME (constant) and VALUE (for g_free ()) to start of LIST, return
+   new list. */
+static GSList *
+add_vp (GSList *list, const char *label, const char *name,
+	enum libvk_vp_type type, char *value)
+{
+  struct libvk_volume_property *prop;
+
+  prop = g_new (struct libvk_volume_property, 1);
+  prop->label = label;
+  prop->name = name;
+  prop->type = type;
+  prop->value = value;
+  return g_slist_prepend (list, prop);
+}
+
  /* LUKS - specific code */
 
 /* g_free() LUKS and everything it points to. */
@@ -333,12 +399,15 @@ luks_volume_dump_properties (GSList *res, const struct luks_volume *luks,
 			     int with_secrets)
 {
   if (luks->cipher_name != NULL)
-    res = dump_add (res, _("LUKS cipher name"), g_strdup (luks->cipher_name));
+    res = add_vp (res, _("LUKS cipher name"), "luks/cipher_name",
+		  LIBVK_VP_CONFIGURATION, g_strdup (luks->cipher_name));
   if (luks->cipher_mode != NULL)
-    res = dump_add (res, _("LUKS cipher mode"), g_strdup (luks->cipher_mode));
+    res = add_vp (res, _("LUKS cipher mode"), "luks/cipher_mode",
+		  LIBVK_VP_CONFIGURATION, g_strdup (luks->cipher_mode));
   if (luks->key_bytes != 0)
-    res = dump_add (res, _("Key size (bits)"),
-		    g_strdup_printf ("%zu", 8 * luks->key_bytes));
+    res = add_vp (res, _("Key size (bits)"), "luks/key_bits",
+		  LIBVK_VP_CONFIGURATION,
+		  g_strdup_printf ("%zu", 8 * luks->key_bytes));
   if (with_secrets != 0 && luks->key != NULL)
     {
       static const char hex[16] = "0123456789ABCDEF";
@@ -356,13 +425,16 @@ luks_volume_dump_properties (GSList *res, const struct luks_volume *luks,
 	  s[i * 2 + 1] = hex[b & 0x0F];
 	}
       s[2 * i] = '\0';
-      res = dump_add (res, _("Data encryption key"), s);
+      res = add_vp (res, _("Data encryption key"), "luks/key", LIBVK_VP_SECRET,
+		    s);
     }
   if (with_secrets != 0 && luks->passphrase != NULL)
-    res = dump_add (res, _("Passphrase"), g_strdup (luks->passphrase));
+    res = add_vp (res, _("Passphrase"), "luks/passphrase", LIBVK_VP_SECRET,
+		  g_strdup (luks->passphrase));
   if (luks->passphrase != NULL && luks->passphrase_slot != -1)
-    res = dump_add (res, _("Passphrase slot"),
-		    g_strdup_printf ("%d", luks->passphrase_slot));
+    res = add_vp (res, _("Passphrase slot"), "luks/passphrase_slot",
+		  LIBVK_VP_IDENTIFICATION,
+		  g_strdup_printf ("%d", luks->passphrase_slot));
   return res;
 }
 
@@ -1014,13 +1086,18 @@ libvk_volume_dump_properties (const struct libvk_volume *vol, int with_secrets)
   g_return_val_if_fail (vol != NULL, NULL);
 
   res = NULL;
-  res = dump_add (res, _("Host name"), g_strdup (vol->hostname));
-  res = dump_add (res, _("Volume format"), g_strdup (vol->format));
+  res = add_vp (res, _("Host name"), "hostname", LIBVK_VP_IDENTIFICATION,
+		g_strdup (vol->hostname));
+  res = add_vp (res, _("Volume format"), "volume_format",
+		LIBVK_VP_IDENTIFICATION, g_strdup (vol->format));
   if (vol->uuid != NULL)
-    res = dump_add (res, _("Volume UUID"), g_strdup (vol->uuid));
+    res = add_vp (res, _("Volume UUID"), "volume_uuid", LIBVK_VP_IDENTIFICATION,
+		  g_strdup (vol->uuid));
   if (vol->label != NULL)
-    res = dump_add (res, _("Volume label"), g_strdup (vol->label));
-  res = dump_add (res, _("Volume path"), g_strdup (vol->path));
+    res = add_vp (res, _("Volume label"), "volume_label",
+		  LIBVK_VP_IDENTIFICATION, g_strdup (vol->label));
+  res = add_vp (res, _("Volume path"), "volume_path",
+		LIBVK_VP_IDENTIFICATION, g_strdup (vol->path));
   if (strcmp (vol->format, LIBVK_VOLUME_FORMAT_LUKS) == 0)
     res = luks_volume_dump_properties (res, vol->v.luks, with_secrets);
   return g_slist_reverse (res);

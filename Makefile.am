@@ -30,11 +30,12 @@ pkginclude_HEADERS = lib/libvolume_key.h
 
 TESTS = tests/crypto_roundtrips.sh tests/kmip_roundtrip
 
-EXTRA_DIST = tests/crypto_roundtrips.sh tests/kmip_roundtrip_packet
+EXTRA_DIST = tests/crypto_roundtrips.sh \
+	tests/kmip_roundtrip_luks_passphrase tests/kmip_roundtrip_luks_symmetric
 
 ## Dependency data
 lib_libvolume_key_la_SOURCES = lib/crypto.c lib/crypto.h lib/kmip.c lib/kmip.h \
-	lib/libvolume_key.c lib/libvolume_key.h lib/ui.c lib/volume.c \
+	lib/libvolume_key.c lib/libvolume_key.h lib/ui.c lib/ui.h lib/volume.c \
 	lib/volume.h
 # -Ilib so that "../config.h" is the result of configure
 lib_libvolume_key_la_LDFLAGS = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \

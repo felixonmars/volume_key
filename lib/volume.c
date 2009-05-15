@@ -944,6 +944,76 @@ luks_parse_escrow_packet (struct libvk_volume *vol,
   return -1;
 }
 
+/* Open VOL using volume format-specific NAME, using "secrets" from PACKET.
+   Return 0 if OK, -1 on error.
+
+   NAME is currently always a device-mapper name, please try not to rely on
+   it. */
+int
+luks_open_with_packet (struct libvk_volume *vol,
+		       const struct libvk_volume *packet, const char *name,
+		       GError **error)
+{
+  unsigned char *to_free;
+  const unsigned char *key;
+  int r;
+  size_t key_size;
+
+  // FIXME: use passphrase?
+  if (packet->v.luks->key != NULL)
+    {
+      key = packet->v.luks->key;
+      key_size = vol->v.luks->key_bytes;
+      to_free = NULL;
+    }
+  else if (packet->v.luks->passphrase != NULL)
+    {
+      r = crypt_luks_get_master_key (&to_free, &key_size, vol->path,
+				     (const unsigned char *)
+				     packet->v.luks->passphrase,
+				     strlen (packet->v.luks->passphrase),
+				     dummy_luks_log);
+      if (r < 0)
+	{
+	  error_from_cryptsetup (error, LIBVK_ERROR_FAILED, r);
+	  g_prefix_error (error, _("Error getting LUKS data encryption key: "));
+	  goto err;
+	}
+      key = to_free;
+    }
+  else
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_NEED_SECRET,
+		   _("Data encryption key unknown"));
+      goto err;
+    }
+
+  r = crypt_luks_open_by_master_key (name, vol->path, key, key_size, 0,
+				     dummy_luks_log);
+  if (r < 0)
+    {
+      error_from_cryptsetup (error, LIBVK_ERROR_FAILED, r);
+      g_prefix_error (error, _("Error opening LUKS volume: "));
+      goto err_to_free;
+    }
+
+  if (to_free != NULL)
+    {
+      memset (to_free, 0, key_size);
+      free (to_free);
+    }
+  return 0;
+
+ err_to_free:
+  if (to_free != NULL)
+    {
+      memset (to_free, 0, key_size);
+      free (to_free);
+    }
+ err:
+  return -1;
+}
+
  /* Volume format-independent code */
 
 /* Free VOL and everything it points to. */
@@ -1293,6 +1363,33 @@ volume_create_escrow_packet (const struct libvk_volume *vol, size_t *size,
   kmip_libvk_packet_free (pack);
   *size = kmip.size;
   return kmip.data;
+}
+
+/* Open VOL using volume format-specific NAME, using "secrets" from PACKET.
+   Return 0 if OK, -1 on error.
+
+   NAME is currently always a device-mapper name, please try not to rely on
+   it. */
+int
+libvk_volume_open_with_packet (struct libvk_volume *vol,
+			       const struct libvk_volume *packet,
+			       const char *name, GError **error)
+{
+  g_return_val_if_fail (vol != NULL, -1);
+  g_return_val_if_fail (vol->source == VOLUME_SOURCE_LOCAL, -1);
+  g_return_val_if_fail (packet != NULL, -1);
+  g_return_val_if_fail (packet->source == VOLUME_SOURCE_PACKET, -1);
+  g_return_val_if_fail (name != NULL, -1);
+  g_return_val_if_fail (error == NULL || *error == NULL, -1);
+
+  if (strcmp (vol->format, LIBVK_VOLUME_FORMAT_LUKS) == 0)
+    return luks_open_with_packet (vol, packet, name, error);
+  else
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
+		   _("Volume \"%s\" has unsupported format"), vol->path);
+      return -1;
+    }
 }
 
  /* KMIP interaction */

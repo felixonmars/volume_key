@@ -227,6 +227,15 @@ extern int libvk_volume_add_secret (struct libvk_volume *vol,
 				    const void *secret, size_t size,
 				    GError **error);
 
+/* Open VOL using volume format-specific NAME, using "secrets" from PACKET.
+   Return 0 if OK, -1 on error.
+
+   NAME is currently always a device-mapper name, please try not to rely on
+   it. */
+extern int libvk_volume_open_with_packet (struct libvk_volume *vol,
+					  const struct libvk_volume *packet,
+					  const char *name, GError **error);
+
  /* Escrow packet handling */
 
 enum libvk_packet_format

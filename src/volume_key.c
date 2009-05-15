@@ -229,6 +229,36 @@ print_volume_info (const struct libvk_volume *vol)
   g_free (s);
 }
 
+static void
+print_packet_info (const void *packet, size_t size)
+{
+  GError *error;
+
+  error = NULL;
+  switch (libvk_packet_get_format (packet, size, &error))
+    {
+    case LIBVK_PACKET_FORMAT_UNKNOWN:
+      fprintf (stderr, "Invalid packet: %s\n", error->message);
+      g_clear_error (&error);
+      break;
+
+    case LIBVK_PACKET_FORMAT_CLEARTEXT:
+      printf ("Clear-text packet:\n");
+      break;
+
+    case LIBVK_PACKET_FORMAT_ASSYMETRIC:
+      printf ("Cert-encrypted packet:\n");
+      break;
+
+    case LIBVK_PACKET_FORMAT_PASSPHRASE:
+      printf ("Passphrase-protected packet:\n");
+      break;
+
+    default:
+      abort ();
+    }
+}
+
 static struct libvk_volume *
 open_volume (const char *path, struct libvk_ui *ui, GError **error)
 {
@@ -416,28 +446,7 @@ apply_packet (int argc, char *argv[])
     return EXIT_FAILURE;
 
   ui = create_ui ();
-  switch (libvk_packet_get_format (packet, size, &error))
-    {
-    case LIBVK_PACKET_FORMAT_UNKNOWN:
-      fprintf (stderr, "Invalid packet: %s\n", error->message);
-      g_clear_error (&error);
-      break;
-
-    case LIBVK_PACKET_FORMAT_CLEARTEXT:
-      printf ("Clear-text packet:\n");
-      break;
-
-    case LIBVK_PACKET_FORMAT_ASSYMETRIC:
-      printf ("Cert-encrypted packet:\n");
-      break;
-
-    case LIBVK_PACKET_FORMAT_PASSPHRASE:
-      printf ("Passphrase-protected packet:\n");
-      break;
-
-    default:
-      abort ();
-    }
+  print_packet_info (packet, size);
   pack = libvk_packet_open (packet, size, ui, &error);
   g_free (packet);
 
@@ -582,6 +591,86 @@ random_passphrase (int argc, char *argv[])
 #undef PASSPHRASE_LENGTH
 }
 
+int
+open_with_packet (int argc, char *argv[])
+{
+  GError *error;
+  GPtrArray *warnings;
+  void *packet;
+  size_t size;
+  struct libvk_volume *pack, *v;
+  struct libvk_ui *ui;
+
+  (void)argc;
+  error = NULL;
+  packet = data_from_file (&size, argv[1]);
+  if (packet == NULL)
+    return EXIT_FAILURE;
+
+  ui = create_ui ();
+  print_packet_info (packet, size);
+  pack = libvk_packet_open (packet, size, ui, &error);
+  g_free (packet);
+
+  if (pack == NULL)
+    {
+      fprintf (stderr, "Error opening packet: %s\n", error->message);
+      return EXIT_FAILURE;
+    }
+  print_volume_info (pack);
+
+  v = libvk_volume_open (argv[2], &error);
+  if (v == NULL)
+    {
+      fprintf (stderr, "Error opening volume: %s\n", error->message);
+      return EXIT_FAILURE;
+    }
+
+  warnings = g_ptr_array_new ();
+  switch (libvk_packet_match_volume (pack, v, warnings, &error))
+    {
+    case LIBVK_PACKET_MATCH_OK:
+      break;
+
+    case LIBVK_PACKET_MATCH_ERROR:
+      fprintf (stderr, "Packet does not match volume: %s\n", error->message);
+      return EXIT_FAILURE;
+
+    case LIBVK_PACKET_MATCH_UNSURE:
+      {
+	size_t i;
+	char c[2];
+
+	fprintf (stderr, "Are you sure you want to apply this packet?\n");
+	for (i = 0; i < warnings->len; i++)
+	  {
+	    char *s;
+
+	    s = g_ptr_array_index (warnings, i);
+	    fprintf (stderr, "  %s\n", s);
+	    g_free (s);
+	  }
+	fprintf (stderr, "(y/n)");
+	if (fscanf (stderr, " %1[yYnN]", c) != 1
+	    || (c[0] != 'y' && c[0] != 'Y'))
+	  return EXIT_FAILURE;
+	break;
+      }
+    }
+  g_ptr_array_free (warnings, TRUE);
+
+  if (libvk_volume_open_with_packet (v, pack, argv[3], &error) != 0)
+    {
+      fprintf (stderr, "Error opening volume: %s\n", error->message);
+      return EXIT_FAILURE;
+    }
+
+  libvk_volume_free (v);
+  libvk_volume_free (pack);
+  libvk_ui_free (ui);
+  return EXIT_SUCCESS;
+}
+
 
 int
 main (int argc, char *argv[])
@@ -608,8 +697,10 @@ main (int argc, char *argv[])
     res = escrow_packet_for_passphrase (argc, argv);
   else if (0)
     res = apply_packet (argc, argv);
-  else if (1)
+  else if (0)
     res = random_passphrase (argc, argv);
+  else if (1)
+    res = open_with_packet (argc, argv);
 
 
   NSS_Shutdown();

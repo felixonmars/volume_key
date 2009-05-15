@@ -22,6 +22,10 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 
 #include <glib.h>
 
+#include "libvolume_key.h"
+
+struct kmip_key_value;
+
 enum volume_source
   {
     VOLUME_SOURCE_LOCAL,
@@ -43,16 +47,52 @@ struct libvk_volume
   } v;
 };
 
-/* LUKS volume information, if available. */
-struct luks_volume
-{
-  /* From LUKS header, may be NULL in packets */
-  char *cipher_name, *cipher_mode;
-  size_t key_bytes;		   /* From LUKS header, may be 0 in packets */
-  void *key;			   /* If known, or NULL */
-  char *passphrase;		   /* If known, or NULL */
-  int passphrase_slot;		   /* If passphrase != NULL and known, or -1 */
-};
+ /* Utilities */
+
+/* Add NAME (constant) and VALUE (for g_free ()) to start of LIST, return
+   new list. */
+G_GNUC_INTERNAL
+extern GSList *add_vp (GSList *list, const char *label, const char *name,
+		       enum libvk_vp_type type, char *value);
+
+/* Add a "strings" attribute using ATTR_NAME, NAME and VALUE to KEY_VALUE */
+G_GNUC_INTERNAL
+extern void add_attribute_strings (struct kmip_key_value *key_value,
+				   const char *attr_name, const char *name,
+				   const char *value);
+
+/* Find an KMIP_TAG_APP_SPECIFIC attribute with ATTR_NAME and NAME.
+   Return attribute value if found, NULL otherwise (reporting it in ERROR). */
+G_GNUC_INTERNAL
+extern const char *get_attribute_strings
+	(const struct kmip_key_value *key_value, const char *attr_name,
+	 const char *name, GError **error);
+
+/* Find an attribute with TAG and NAME.
+   Return attribute if found, NULL otherwise (reporting it in ERROR). */
+G_GNUC_INTERNAL
+extern const struct kmip_attribute *get_attribute
+	(const struct kmip_key_value *key_value, guint32 tag, const char *name,
+	 GError **error);
+
+/* Create a KMIP packet structure for VOL that contains a data encryption KEY
+   of KEY_BYTES.
+   On success return the KMIP data, store the kmip_key_value component to KV.
+   Return NULL on error. */
+G_GNUC_INTERNAL
+extern struct kmip_libvk_packet *volume_create_data_encryption_key_packet
+	(struct kmip_key_value **kv, const struct libvk_volume *vol,
+	 const void *key, size_t key_bytes, GError **error);
+
+/* Create a KMIP packet structure for VOL that contains PASSPHRASE of SIZE.
+   On success return the KMIP data, store the kmip_key_value component to KV.
+   Return NULL on error. */
+G_GNUC_INTERNAL
+extern struct kmip_libvk_packet *volume_create_passphrase_packet
+	(struct kmip_key_value **kv, const struct libvk_volume *vol,
+	 const void *passphrase, size_t size);
+
+ /* Internal operations */
 
 /* Create a key escrow packet for SECRET in VOL, set SIZE to its size.
    Return packet data (for g_free ()) if OK, NULL on error. */

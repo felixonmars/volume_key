@@ -36,7 +36,7 @@ EXTRA_DIST = tests/crypto_roundtrips.sh \
 ## Dependency data
 lib_libvolume_key_la_SOURCES = lib/crypto.c lib/crypto.h lib/kmip.c lib/kmip.h \
 	lib/libvolume_key.c lib/libvolume_key.h lib/ui.c lib/ui.h lib/volume.c \
-	lib/volume.h
+	lib/volume.h lib/volume_luks.c lib/volume_luks.h
 # -Ilib so that "../config.h" is the result of configure
 lib_libvolume_key_la_LDFLAGS = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \
 	$(nss_LIBS) -lcryptsetup -version-info 0:0:0

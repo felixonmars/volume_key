@@ -72,6 +72,12 @@ extern enum libvk_packet_match_result luks_packet_match_volume
 	 enum libvk_packet_match_result res, GPtrArray *warnings,
 	 GError **error);
 
+/* Load "secrets" from PACKET, verify them if possible and store them with VOL.
+   Return 0 if OK, -1 on error. */
+G_GNUC_INTERNAL
+extern int luks_load_packet (struct libvk_volume *vol,
+			     const struct libvk_volume *packet, GError **error);
+
 /* Apply the "secret" of SECRET_TYPE in PACKET to restore conventional access
    to VOL, using UI to gather more information.
    Return 0 if OK, -1 on error.

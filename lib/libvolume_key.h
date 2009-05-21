@@ -25,6 +25,9 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 
 G_BEGIN_DECLS
 
+/* Initialize libvolume_key. */
+extern void libvk_init (void);
+
 /* GError definitions. */
 extern GQuark libvk_error_quark(void);
 #define LIBVK_ERROR libvk_error_quark()
@@ -206,32 +209,47 @@ extern int libvk_volume_get_secret (struct libvk_volume *vol,
 				    enum libvk_secret secret_type,
 				    const struct libvk_ui *ui, GError **error);
 
+/* Add SECRET with SIZE and SECRET_TYPE to VOLUME.
+   Return 0 if OK, -1 on error.
+   This operation should not be destructive.  Details are format-specific;
+   for example, this may allow adding a LIBVK_SECRET_PASSPHRASE, assuming
+   LIBVK_SECRET_DEFAULT was obtained before.
+   If SECRET is a string, SIZE should include the terminating NUL.
+   This can be used only on volumes returned by libvk_volume_open (), not
+   by volumes created from escrow packets. */
+extern int libvk_volume_add_secret (struct libvk_volume *vol,
+				    enum libvk_secret secret_type,
+				    const void *secret, size_t size,
+				    GError **error);
+
+/* Load "secrets" from PACKET, verify them if possible and store them with VOL.
+   Return 0 if OK, -1 on error.
+   This can be used only on volumes returned by libvk_volume_open (), not
+   by volumes created from escrow packets. */
+extern int libvk_volume_load_packet (struct libvk_volume *vol,
+				     const struct libvk_volume *packet,
+				     GError **error);
+
 /* Apply the "secret" of SECRET_TYPE in PACKET to restore conventional access
    to VOL, using UI to gather more information.
    Return 0 if OK, -1 on error.
-   "Restore conventional access" usually means "prompt for a new passphrase". */
+   "Restore conventional access" means something like "prompt for a new
+   passphrase".
+   This can be used only on volumes returned by libvk_volume_open (), not
+   by volumes created from escrow packets. */
 extern int libvk_volume_apply_packet (struct libvk_volume *vol,
 				      const struct libvk_volume *packet,
 				      enum libvk_secret secret_type,
 				      const struct libvk_ui *ui,
 				      GError **error);
 
-/* Add SECRET with SIZE and SECRET_TYPE to VOLUME.
-   Return 0 if OK, -1 on error.
-   This operation should not be destructive.  Details are format-specific;
-   for example, this may allow adding a LIBVK_SECRET_PASSPHRASE, assuming
-   LIBVK_SECRET_DEFAULT was obtained before.
-   If SECRET is a string, SIZE should include the terminating NUL. */
-extern int libvk_volume_add_secret (struct libvk_volume *vol,
-				    enum libvk_secret secret_type,
-				    const void *secret, size_t size,
-				    GError **error);
-
 /* Open VOL using volume format-specific NAME, using "secrets" from PACKET.
    Return 0 if OK, -1 on error.
 
    NAME is currently always a device-mapper name, please try not to rely on
-   it. */
+   it.
+   This can be used only on volumes returned by libvk_volume_open (), not
+   by volumes created from escrow packets. */
 extern int libvk_volume_open_with_packet (struct libvk_volume *vol,
 					  const struct libvk_volume *packet,
 					  const char *name, GError **error);
@@ -266,7 +284,7 @@ extern void *libvk_volume_create_packet_cleartext
 extern void *libvk_volume_create_packet_assymetric
 	(const struct libvk_volume *vol, size_t *size,
 	 enum libvk_secret secret_type, CERTCertificate *cert,
-	 struct libvk_ui *ui, GError **error);
+	 const struct libvk_ui *ui, GError **error);
 
 /* Create an escrow packet encrypted using PASSPHRASE with secret of SECRET_TYPE
    from VOL, store its size into SIZE.

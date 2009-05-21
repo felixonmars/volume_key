@@ -89,6 +89,49 @@ error_from_cryptsetup (GError **error, LIBVKError code, int res)
     }
 }
 
+/* Clear PASSPHRASE and g_free () it. */
+static void
+g_free_passphrase (char *passphrase)
+{
+  memset (passphrase, 0, strlen (passphrase));
+  g_free (passphrase);
+}
+
+/* Clear KEY with SIZE and free () (not g_free!) it. */
+static void
+free_key (void *key, size_t size)
+{
+  memset (key, 0, size);
+  free (key);
+}
+
+/* Replace the key in VOL, if any, by KEY (with size VOL->v.luks->key_bytes) */
+static void
+luks_replace_key (struct libvk_volume *vol, const void *key)
+{
+  struct luks_volume *luks;
+
+  luks = vol->v.luks;
+  if (luks->key != NULL)
+    {
+      memset (luks->key, 0, luks->key_bytes);
+      g_free (luks->key);
+    }
+  luks->key = g_memdup (key, luks->key_bytes);
+}
+
+/* Replace the passphrase in VOL, if any, by PASSPHRASE */
+static void
+luks_replace_passphrase (struct libvk_volume *vol, const char *passphrase)
+{
+  struct luks_volume *luks;
+
+  luks = vol->v.luks;
+  if (luks->passphrase != NULL)
+    g_free_passphrase (luks->passphrase);
+  luks->passphrase = g_strdup (passphrase);
+}
+
 /* g_free() LUKS and everything it points to. */
 void
 luks_volume_free (struct luks_volume *luks)
@@ -101,10 +144,7 @@ luks_volume_free (struct luks_volume *luks)
       g_free (luks->key);
     }
   if (luks->passphrase != NULL)
-    {
-      memset (luks->passphrase, 0, strlen (luks->passphrase));
-      g_free (luks->passphrase);
-    }
+    g_free_passphrase (luks->passphrase);
   g_free (luks);
 }
 
@@ -124,7 +164,7 @@ luks_volume_open (struct libvk_volume *vol, const char *path, GError **error)
     {
       error_from_cryptsetup (error, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT, r);
       g_prefix_error (error,
-		      _("Error getting information about volume \"%s\": "),
+		      _("Error getting information about volume `%s': "),
 		      path);
       return NULL;
     }
@@ -133,8 +173,8 @@ luks_volume_open (struct libvk_volume *vol, const char *path, GError **error)
   if (strcmp (vol->uuid, c) != 0)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
-		   _("UUID mismatch between libblkid and libcryptsetup: \"%s\" "
-		     "vs. \"%s\""), vol->uuid, c);
+		   _("UUID mismatch between libblkid and libcryptsetup: `%s' "
+		     "vs. `%s'"), vol->uuid, c);
       free (c);
       crypt_luks_vi_free (vi);
       return NULL;
@@ -230,7 +270,7 @@ luks_get_secret (struct libvk_volume *vol, enum libvk_secret secret_type,
 		   _("Encryption information type unsupported in LUKS"));
       return -1;
     }
-  prompt = g_strdup_printf (_("Passphrase for \"%s\""), vol->path);
+  prompt = g_strdup_printf (_("Passphrase for `%s'"), vol->path);
   /* Our only real concern is overflow of the failed counter; limit the
      number of iterations just in case the application programmer is always
      returning the same passphrase from the callback, regardless of the
@@ -250,8 +290,7 @@ luks_get_secret (struct libvk_volume *vol, enum libvk_secret secret_type,
 	  slot = r;
 	  goto got_passphrase;
 	}
-      memset (passphrase, 0, strlen (passphrase));
-      g_free (passphrase);
+      g_free_passphrase (passphrase);
       if (r != -EPERM)
 	{
 	  error_from_cryptsetup (error, LIBVK_ERROR_FAILED, r);
@@ -265,21 +304,11 @@ luks_get_secret (struct libvk_volume *vol, enum libvk_secret secret_type,
 
  got_passphrase:
   vol->v.luks->key_bytes = key_length;
-  if (vol->v.luks->key != NULL)
-    {
-      memset (vol->v.luks->key, 0, vol->v.luks->key_bytes);
-      g_free (vol->v.luks->key);
-    }
-  vol->v.luks->key = g_memdup (key, key_length);
-  memset (key, 0, key_length);
-  free (key);
+  luks_replace_key (vol, key);
+  free_key (key, key_length);
 
-  if (vol->v.luks->passphrase != NULL)
-    {
-      memset (vol->v.luks->passphrase, 0, strlen (vol->v.luks->passphrase));
-      g_free (vol->v.luks->passphrase);
-    }
-  vol->v.luks->passphrase = passphrase;
+  luks_replace_passphrase (vol, passphrase);
+  g_free_passphrase (passphrase);
   vol->v.luks->passphrase_slot = slot;
   g_free (prompt);
   return 0;
@@ -308,14 +337,14 @@ luks_packet_match_volume (const struct libvk_volume *packet,
   if (p->cipher_name != NULL && strcmp (p->cipher_name, v->cipher_name) != 0)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_PACKET_VOLUME_MISMATCH,
-		   _("Cipher name mismatch (packet \"%s\", volume \"%s\")"),
+		   _("Cipher name mismatch (packet `%s', volume `%s')"),
 		   p->cipher_name, v->cipher_name);
       return LIBVK_PACKET_MATCH_ERROR;
     }
   if (p->cipher_mode != NULL && strcmp (p->cipher_mode, v->cipher_mode) != 0)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_PACKET_VOLUME_MISMATCH,
-		   _("Cipher mode mismatch (packet \"%s\", volume \"%s\")"),
+		   _("Cipher mode mismatch (packet `%s', volume `%s')"),
 		   p->cipher_mode, v->cipher_mode);
       return LIBVK_PACKET_MATCH_ERROR;
     }
@@ -329,6 +358,59 @@ luks_packet_match_volume (const struct libvk_volume *packet,
   /* Don't verify the key or passphrase here, it takes a lot of time and it
      will be verified when the key or passphrase will be used. */
   return res;
+}
+
+/* Load "secrets" from PACKET, verify them if possible and store them with VOL.
+   Return 0 if OK, -1 on error. */
+int
+luks_load_packet (struct libvk_volume *vol, const struct libvk_volume *packet,
+		  GError **error)
+{
+  if (packet->v.luks->key != NULL)
+    {
+      int r;
+
+      g_return_val_if_fail (vol->v.luks->key_bytes == packet->v.luks->key_bytes,
+			    -1);
+      r = crypt_luks_verify_master_key (vol->path, packet->v.luks->key,
+					packet->v.luks->key_bytes);
+      if (r < 0)
+	{
+	  error_from_cryptsetup (error, LIBVK_ERROR_PACKET_VOLUME_MISMATCH, r);
+	  g_prefix_error (error, _("LUKS data encryption key in packet is "
+				   "invalid: "));
+	  return -1;
+	}
+      luks_replace_key (vol, packet->v.luks->key);
+    }
+  if (packet->v.luks->passphrase != NULL)
+    {
+      unsigned char *key;
+      size_t key_size;
+      int r;
+
+      r = crypt_luks_get_master_key (&key, &key_size, vol->path,
+				     (const unsigned char *)
+				     packet->v.luks->passphrase,
+				     strlen (packet->v.luks->passphrase),
+				     dummy_luks_log);
+      if (r < 0)
+	{
+	  error_from_cryptsetup (error, LIBVK_ERROR_PACKET_VOLUME_MISMATCH, r);
+	  g_prefix_error (error, _("LUKS passphrase in packet is invalid: "));
+	  return -1;
+	}
+      luks_replace_passphrase (vol, packet->v.luks->passphrase);
+      if (packet->v.luks->passphrase_slot != -1)
+	vol->v.luks->passphrase_slot = packet->v.luks->passphrase_slot;
+      if (packet->v.luks->key == NULL)
+	{
+	  g_return_val_if_fail (vol->v.luks->key_bytes == key_size, -1);
+	  luks_replace_key (vol, key);
+	}
+      free_key (key, key_size);
+    }
+  return 0;
 }
 
 /* Apply the "secret" of SECRET_TYPE in PACKET to restore conventional access
@@ -359,10 +441,10 @@ luks_apply_secret (struct libvk_volume *vol, const struct libvk_volume *packet,
       goto err;
     }
 
-  prompt = g_strdup_printf (_("New passphrase for \"%s\""), vol->path);
-  prompt2 = g_strdup_printf (_("Repeat new passphrase for \"%s\""), vol->path);
+  prompt = g_strdup_printf (_("New passphrase for `%s'"), vol->path);
+  prompt2 = g_strdup_printf (_("Repeat new passphrase for `%s'"), vol->path);
   error_prompt = g_strdup_printf (_("Passphrases do not match.  New passphrase "
-				    "for \"%s\""), vol->path);
+				    "for `%s'"), vol->path);
   /* Our only real concern is overflow of the failed counter; limit the
      number of iterations just in case the application programmer is always
      returning the same passphrase from the callback, regardless of the
@@ -380,12 +462,10 @@ luks_apply_secret (struct libvk_volume *vol, const struct libvk_volume *packet,
       if (passphrase2 == NULL)
 	goto err_passphrase;
       passphrase_ok = strcmp (passphrase, passphrase2) == 0;
-      memset (passphrase2, 0, strlen (passphrase2));
-      g_free (passphrase2);
+      g_free_passphrase (passphrase2);
       if (passphrase_ok)
 	goto got_passphrase;
-      memset (passphrase, 0, strlen (passphrase));
-      g_free (passphrase);
+      g_free_passphrase (passphrase);
     }
   g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
 	       _("Too many attempts to get a passphrase"));
@@ -405,29 +485,20 @@ luks_apply_secret (struct libvk_volume *vol, const struct libvk_volume *packet,
       goto err_passphrase;
     }
 
-  if (vol->v.luks->key != NULL)
-    {
-      memset (vol->v.luks->key, 0, vol->v.luks->key_bytes);
-      g_free (vol->v.luks->key);
-    }
-  vol->v.luks->key = g_memdup (packet->v.luks->key, packet->v.luks->key_bytes);
-  if (vol->v.luks->passphrase != NULL)
-    {
-      memset (vol->v.luks->passphrase, 0, strlen (vol->v.luks->passphrase));
-      g_free (vol->v.luks->passphrase);
-    }
-  vol->v.luks->passphrase = passphrase;
+  g_return_val_if_fail (vol->v.luks->key_bytes == packet->v.luks->key_bytes,
+			-1);
+  luks_replace_key (vol, packet->v.luks->key);
+  luks_replace_passphrase (vol, passphrase);
   vol->v.luks->passphrase_slot = res;
 
-  /* don't free "passphrase" */
+  g_free_passphrase (passphrase);
   g_free (error_prompt);
   g_free (prompt2);
   g_free (prompt);
   return 0;
 
  err_passphrase:
-  memset (passphrase, 0, strlen (passphrase));
-  g_free (passphrase);
+  g_free_passphrase (passphrase);
  err_prompts:
   g_free (error_prompt);
   g_free (prompt2);
@@ -474,12 +545,7 @@ luks_add_secret (struct libvk_volume *vol, enum libvk_secret secret_type,
       return -1;
     }
 
-  if (vol->v.luks->passphrase != NULL)
-    {
-      memset (vol->v.luks->passphrase, 0, strlen (vol->v.luks->passphrase));
-      g_free (vol->v.luks->passphrase);
-    }
-  vol->v.luks->passphrase = g_strdup (secret);
+  luks_replace_passphrase (vol, secret);
   vol->v.luks->passphrase_slot = res;
   return 0;
 }
@@ -552,7 +618,7 @@ luks_create_escrow_packet (const struct libvk_volume *vol,
     {
     case LIBVK_SECRET_DEFAULT:
     case LIBVK_SECRET_DATA_ENCRYPTION_KEY:
-      if (vol->v.luks->key == NULL)
+      if (vol->v.luks->key_bytes == 0 || vol->v.luks->key == NULL)
 	{
 	  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_NEED_SECRET,
 		       _("Data encryption key unknown"));
@@ -672,7 +738,7 @@ luks_parse_escrow_packet (struct libvk_volume *vol,
 	  if (errno != 0 || *p != 0 || p == s || slot < 0 || (int)slot != slot)
 	    {
 	      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_INVALID_INPUT,
-			   _("Invalid slot number \"%s\""), s);
+			   _("Invalid slot number `%s'"), s);
 	      goto err;
 	    }
 	  vol->v.luks->passphrase_slot = slot;
@@ -715,7 +781,6 @@ luks_open_with_packet (struct libvk_volume *vol,
   int r;
   size_t key_size;
 
-  // FIXME: use passphrase?
   if (packet->v.luks->key != NULL)
     {
       key = packet->v.luks->key;
@@ -754,18 +819,12 @@ luks_open_with_packet (struct libvk_volume *vol,
     }
 
   if (to_free != NULL)
-    {
-      memset (to_free, 0, key_size);
-      free (to_free);
-    }
+    free_key (to_free, key_size);
   return 0;
 
  err_to_free:
   if (to_free != NULL)
-    {
-      memset (to_free, 0, key_size);
-      free (to_free);
-    }
+    free_key (to_free, key_size);
  err:
   return -1;
 }

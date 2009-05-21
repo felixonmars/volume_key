@@ -162,7 +162,7 @@ get_attribute_strings (const struct kmip_key_value *key_value,
 	return a->v.strings.value;
     }
   g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNEXPECTED_FORMAT,
-	       _("Required attribute \"%s\" not found"), name);
+	       _("Required attribute `%s' not found"), name);
   return NULL;
 }
 
@@ -183,7 +183,7 @@ get_attribute (const struct kmip_key_value *key_value, guint32 tag,
 	return a;
     }
   g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNEXPECTED_FORMAT,
-	       _("Required attribute \"%s\" not found"), name);
+	       _("Required attribute `%s' not found"), name);
   return NULL;
 }
 
@@ -305,7 +305,7 @@ libvk_volume_open (const char *path, GError **error)
   if (c == NULL)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
-		   _("Cannot get attributes of \"%s\""), path);
+		   _("Cannot get attributes of `%s'"), path);
       vol = NULL;
       goto out;
     }
@@ -444,7 +444,7 @@ libvk_volume_get_secret (struct libvk_volume *vol,
   else
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
-		   _("Volume \"%s\" has unsupported format"), vol->path);
+		   _("Volume `%s' has unsupported format"), vol->path);
       return -1;
     }
 }
@@ -474,7 +474,7 @@ libvk_packet_match_volume (const struct libvk_volume *packet,
   if (strcmp (packet->format, vol->format) != 0)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_PACKET_VOLUME_MISMATCH,
-		   _("Volume format mismatch (packet \"%s\", volume \"%s\")"),
+		   _("Volume format mismatch (packet `%s', volume `%s')"),
 		   packet->format, vol->format);
       return LIBVK_PACKET_MATCH_ERROR;
     }
@@ -498,34 +498,73 @@ libvk_packet_match_volume (const struct libvk_volume *packet,
     {
       char *s;
 
+      /* Re-test UUID now. */
+      if (packet->uuid != NULL && vol->uuid != NULL
+	  && strcmp (packet->uuid, vol->uuid) != 0)
+	{
+	  s = g_strdup_printf (_("UUID mismatch (packet `%s', volume `%s')"),
+			       packet->uuid, vol->uuid);
+	  g_ptr_array_add (warnings, s);
+	}
       if (strcmp (packet->hostname, vol->hostname) != 0)
 	{
-	  s = g_strdup_printf (_("Host name mismatch (packet \"%s\", volume "
-				 "\"%s\")"), packet->hostname, vol->hostname);
+	  s = g_strdup_printf (_("Host name mismatch (packet `%s', volume "
+				 "`%s')"), packet->hostname, vol->hostname);
 	  g_ptr_array_add (warnings, s);
 	}
       if (packet->label != NULL && vol->label != NULL
 	  && strcmp (packet->label, vol->label) != 0)
 	{
-	  s = g_strdup_printf (_("Volume label mismatch (packet \"%s\", volume "
-				 "\"%s\")"), packet->label, vol->label);
+	  s = g_strdup_printf (_("Volume label mismatch (packet `%s', volume "
+				 "`%s')"), packet->label, vol->label);
 	  g_ptr_array_add (warnings, s);
 	}
       if (packet->path != NULL && vol->path != NULL
 	  && strcmp (packet->path, vol->path) != 0)
 	{
-	  s = g_strdup_printf (_("Volume path mismatch (packet \"%s\", volume "
-				 "\"%s\")"), packet->path, vol->path);
+	  s = g_strdup_printf (_("Volume path mismatch (packet `%s', volume "
+				 "`%s')"), packet->path, vol->path);
 	  g_ptr_array_add (warnings, s);
 	}
     }
   return LIBVK_PACKET_MATCH_UNSURE;
 }
 
+/* Load "secrets" from PACKET, verify them if possible and store them with VOL.
+   Return 0 if OK, -1 on error.
+   This can be used only on volumes returned by libvk_volume_open (), not
+   by volumes created from escrow packets. */
+int
+libvk_volume_load_packet (struct libvk_volume *vol,
+			  const struct libvk_volume *packet, GError **error)
+{
+  g_return_val_if_fail (vol != NULL, -1);
+  g_return_val_if_fail (vol->source == VOLUME_SOURCE_LOCAL, -1);
+  g_return_val_if_fail (packet != NULL, -1);
+  g_return_val_if_fail (packet->source == VOLUME_SOURCE_PACKET, -1);
+  g_return_val_if_fail (error == NULL || *error == NULL, -1);
+
+  if (libvk_packet_match_volume (packet, vol, NULL, error)
+      == LIBVK_PACKET_MATCH_ERROR)
+    return -1;
+
+  if (strcmp (vol->format, LIBVK_VOLUME_FORMAT_LUKS) == 0)
+    return luks_load_packet (vol, packet, error);
+  else
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
+		   _("Volume `%s' has unsupported format"), vol->path);
+      return -1;
+    }
+}
+
 /* Apply the "secret" of SECRET_TYPE in PACKET to restore conventional access
    to VOL, using UI to gather more information.
    Return 0 if OK, -1 on error.
-   "Restore conventional access" usually means "prompt for a new passphrase". */
+   "Restore conventional access" usually means something like "prompt for a new
+   passphrase".
+   This can be used only on volumes returned by libvk_volume_open (), not
+   by volumes created from escrow packets. */
 int
 libvk_volume_apply_packet (struct libvk_volume *vol,
 			   const struct libvk_volume *packet,
@@ -548,7 +587,7 @@ libvk_volume_apply_packet (struct libvk_volume *vol,
   else
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
-		   _("Volume \"%s\" has unsupported format"), vol->path);
+		   _("Volume `%s' has unsupported format"), vol->path);
       return -1;
     }
 }
@@ -557,7 +596,9 @@ libvk_volume_apply_packet (struct libvk_volume *vol,
    Return 0 if OK, -1 on error.
    This operation should not be destructive.  Details are format-specific;
    for example, this may allow adding a LIBVK_SECRET_PASSPHRASE, assuming
-   LIBVK_SECRET_DEFAULT was obtained before. */
+   LIBVK_SECRET_DEFAULT was obtained before.
+   This can be used only on volumes returned by libvk_volume_open (), not
+   by volumes created from escrow packets. */
 int
 libvk_volume_add_secret (struct libvk_volume *vol,
 			 enum libvk_secret secret_type, const void *secret,
@@ -574,54 +615,18 @@ libvk_volume_add_secret (struct libvk_volume *vol,
   else
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
-		   _("Volume \"%s\" has unsupported format"), vol->path);
+		   _("Volume `%s' has unsupported format"), vol->path);
       return -1;
     }
-}
-
-/* Create a key escrow packet for SECRET in VOL, set SIZE to its size.
-   Return packet data (for g_free ()) if OK, NULL on error. */
-void *
-volume_create_escrow_packet (const struct libvk_volume *vol, size_t *size,
-			     enum libvk_secret secret_type, GError **error)
-{
-  struct kmip_encoding_state kmip;
-  struct kmip_libvk_packet *pack;
-
-  if (strcmp (vol->format, LIBVK_VOLUME_FORMAT_LUKS) == 0)
-    pack = luks_create_escrow_packet (vol, secret_type, error);
-  else
-    {
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
-		   _("Volume \"%s\" has unsupported format"), vol->path);
-      return NULL;
-    }
-  if (pack == NULL)
-    return NULL;
-
-  kmip.data = NULL;
-  kmip.offset = 0;
-  kmip.size = SIZE_MAX;
-  if (kmip_encode_packet (&kmip, KMIP_TAG_LIBVK_PACKET, pack, error) != 0)
-    {
-      kmip_libvk_packet_free (pack);
-      return NULL;
-    }
-  kmip.data = g_malloc (kmip.offset);
-  kmip.size = kmip.offset;
-  kmip.offset = 0;
-  if (kmip_encode_packet (&kmip, KMIP_TAG_LIBVK_PACKET, pack, error) != 0)
-    g_return_val_if_reached(NULL);
-  kmip_libvk_packet_free (pack);
-  *size = kmip.size;
-  return kmip.data;
 }
 
 /* Open VOL using volume format-specific NAME, using "secrets" from PACKET.
    Return 0 if OK, -1 on error.
 
    NAME is currently always a device-mapper name, please try not to rely on
-   it. */
+   it.
+   This can be used only on volumes returned by libvk_volume_open (), not
+   by volumes created from escrow packets. */
 int
 libvk_volume_open_with_packet (struct libvk_volume *vol,
 			       const struct libvk_volume *packet,
@@ -634,12 +639,16 @@ libvk_volume_open_with_packet (struct libvk_volume *vol,
   g_return_val_if_fail (name != NULL, -1);
   g_return_val_if_fail (error == NULL || *error == NULL, -1);
 
+  if (libvk_packet_match_volume (packet, vol, NULL, error)
+      == LIBVK_PACKET_MATCH_ERROR)
+    return -1;
+
   if (strcmp (vol->format, LIBVK_VOLUME_FORMAT_LUKS) == 0)
     return luks_open_with_packet (vol, packet, name, error);
   else
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
-		   _("Volume \"%s\" has unsupported format"), vol->path);
+		   _("Volume `%s' has unsupported format"), vol->path);
       return -1;
     }
 }
@@ -724,7 +733,7 @@ volume_load_escrow_packet (const void *packet, size_t size, GError **error)
   else
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported volume format \"%s\""), s);
+		   _("Unsupported volume format `%s'"), s);
       goto err_vol;
     }
 
@@ -736,4 +745,42 @@ volume_load_escrow_packet (const void *packet, size_t size, GError **error)
  err:
   kmip_libvk_packet_free (pack);
   return NULL;
+}
+
+/* Create a key escrow packet for SECRET in VOL, set SIZE to its size.
+   Return packet data (for g_free ()) if OK, NULL on error. */
+void *
+volume_create_escrow_packet (const struct libvk_volume *vol, size_t *size,
+			     enum libvk_secret secret_type, GError **error)
+{
+  struct kmip_encoding_state kmip;
+  struct kmip_libvk_packet *pack;
+
+  if (strcmp (vol->format, LIBVK_VOLUME_FORMAT_LUKS) == 0)
+    pack = luks_create_escrow_packet (vol, secret_type, error);
+  else
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
+		   _("Volume `%s' has unsupported format"), vol->path);
+      return NULL;
+    }
+  if (pack == NULL)
+    return NULL;
+
+  kmip.data = NULL;
+  kmip.offset = 0;
+  kmip.size = SIZE_MAX;
+  if (kmip_encode_packet (&kmip, KMIP_TAG_LIBVK_PACKET, pack, error) != 0)
+    {
+      kmip_libvk_packet_free (pack);
+      return NULL;
+    }
+  kmip.data = g_malloc (kmip.offset);
+  kmip.size = kmip.offset;
+  kmip.offset = 0;
+  if (kmip_encode_packet (&kmip, KMIP_TAG_LIBVK_PACKET, pack, error) != 0)
+    g_return_val_if_reached(NULL);
+  kmip_libvk_packet_free (pack);
+  *size = kmip.size;
+  return kmip.data;
 }

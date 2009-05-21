@@ -1275,7 +1275,7 @@ kmip_dump_sub (FILE *file, const void *data_, size_t size, unsigned level)
 	    fprintf (file, "ERROR converting string from UTF-8\n");
 	    return consumed;
 	  }
-	fprintf (file, "string \"%s\"", t);
+	fprintf (file, "string `%s'", t);
 	g_free (t);
 	if (bytes_read < data_size)
 	  {

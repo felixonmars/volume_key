@@ -24,6 +24,13 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include "ui.h"
 #include "volume.h"
 
+/* Initialize libvolume_key. */
+void
+libvk_init (void)
+{
+  bindtextdomain (PACKAGE_NAME, LOCALEDIR);
+}
+
 GQuark
 libvk_error_quark(void)
 {
@@ -57,7 +64,6 @@ libvk_volume_create_packet_cleartext (const struct libvk_volume *vol,
   struct packet_header hdr;
 
   g_return_val_if_fail (vol != NULL, NULL);
-  g_return_val_if_fail (vol->source == VOLUME_SOURCE_LOCAL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
   g_return_val_if_fail (secret_type < LIBVK_SECRET_END__, NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -94,7 +100,8 @@ libvk_volume_create_packet_assymetric (const struct libvk_volume *vol,
 				       size_t *size,
 				       enum libvk_secret secret_type,
 				       CERTCertificate *cert,
-				       struct libvk_ui *ui, GError **error)
+				       const struct libvk_ui *ui,
+				       GError **error)
 {
   void *inner, *encrypted;
   unsigned char *res;
@@ -102,7 +109,6 @@ libvk_volume_create_packet_assymetric (const struct libvk_volume *vol,
   struct packet_header hdr;
 
   g_return_val_if_fail (vol != NULL, NULL);
-  g_return_val_if_fail (vol->source == VOLUME_SOURCE_LOCAL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
   g_return_val_if_fail (secret_type < LIBVK_SECRET_END__, NULL);
   g_return_val_if_fail (cert != NULL, NULL);
@@ -155,7 +161,6 @@ libvk_volume_create_packet_with_passphrase (const struct libvk_volume *vol,
   struct packet_header hdr;
 
   g_return_val_if_fail (vol != NULL, NULL);
-  g_return_val_if_fail (vol->source == VOLUME_SOURCE_LOCAL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
   g_return_val_if_fail (secret_type < LIBVK_SECRET_END__, NULL);
   g_return_val_if_fail (passphrase != NULL, NULL);

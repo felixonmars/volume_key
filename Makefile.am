@@ -18,6 +18,7 @@
 ## Settings
 ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = $(blkid_CFLAGS) $(glib_CFLAGS) $(GPGME_CFLAGS) $(nss_CFLAGS)
+LOCALEDIR_CPPFLAGS = -DLOCALEDIR='"$(localedir)"'
 
 ## Targets
 SUBDIRS = po
@@ -37,15 +38,14 @@ EXTRA_DIST = tests/crypto_roundtrips.sh \
 lib_libvolume_key_la_SOURCES = lib/crypto.c lib/crypto.h lib/kmip.c lib/kmip.h \
 	lib/libvolume_key.c lib/libvolume_key.h lib/ui.c lib/ui.h lib/volume.c \
 	lib/volume.h lib/volume_luks.c lib/volume_luks.h
-# -Ilib so that "../config.h" is the result of configure
+lib_libvolume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
 lib_libvolume_key_la_LDFLAGS = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \
 	$(nss_LIBS) -lcryptsetup -version-info 0:0:0
 lib_libvolume_key_la_LIBADD = $(LTLIBINTL)
 
 src_volume_key_SOURCES = src/volume_key.c
+src_volume_key_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
 src_volume_key_LDADD = lib/libvolume_key.la
-# FIXME: this should not be necessary after the API is finalized
-src_volume_key_LDFLAGS = -static
 
 tests_kmip_roundtrip_SOURCES = tests/kmip_roundtrip.c
 tests_kmip_roundtrip_LDADD = lib/libvolume_key.la

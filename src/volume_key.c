@@ -17,72 +17,92 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <config.h>
 
 #include <assert.h>
+#include <langinfo.h>
+#include <locale.h>
+#include <regex.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <glib.h>
+#include <glib/gi18n.h>
+#include <libintl.h>
 #include <nss.h>
 #include <pk11pub.h>
 #include <prerror.h>
 #include <prinit.h>
+#include <prmem.h>
 #include <secmod.h>
 
 // FIXME: use the actual include paths?
-#include "../lib/crypto.h"
 #include "../lib/libvolume_key.h"
-#include "../lib/kmip.h"
-#include "../lib/volume.h"
 
-static char *
-nss_password_fn (PK11SlotInfo *slot, PRBool retry, void *arg)
+ /* General utilities */
+
+/* Print an error message FMT, ... (without trailing '\n') to stderr, and
+   exit (EXIT_FAILURE). */
+G_GNUC_NORETURN
+static void
+error_exit (const char *fmt, ...)
 {
-  char *prompt, *res;
+  va_list ap;
 
-  fprintf (stderr, "%s", (char *)arg);
-  if (retry)
-    fprintf (stderr, "Error, try again.\n");
-  prompt = g_strdup_printf ("Enter password for \"%s\": ",
-			    PK11_GetTokenName (slot));
-  res = getpass (prompt);
-  g_free (prompt);
-  return PL_strdup (res);
+  fprintf (stderr, _("%s: "), g_get_prgname ());
+  va_start (ap, fmt);
+  vfprintf (stderr, fmt, ap);
+  va_end (ap);
+  fputc ('\n', stderr);
+  exit (EXIT_FAILURE);
 }
 
-static void *
-data_from_file (size_t *res_size, const char *filename)
+/* Interactively ask the user a "yes" or "no" QUESTION.
+   Return 1 on "yes", 0 on "no", -1 on error. */
+static int
+yes_or_no (const char *question)
 {
-  struct stat st;
-  FILE *f;
-  void *res;
-  size_t size;
+  regex_t re_yes, re_no;
+  int res;
 
-  if (stat (filename, &st) != 0)
+  if (regcomp (&re_yes, nl_langinfo (YESEXPR), REG_EXTENDED | REG_NOSUB) != 0)
+    g_return_val_if_reached (-1);
+  if (regcomp (&re_no, nl_langinfo (NOEXPR), REG_EXTENDED | REG_NOSUB) != 0)
+    g_return_val_if_reached (-1);
+  nl_langinfo (NOEXPR);
+  for (;;)
     {
-      perror ("stat ()");
-      return NULL;
+      char buf[LINE_MAX];
+      size_t len;
+
+      /* TRASLATORS: The "(y/n)" part should indicate to the user that input
+	 matching (locale yesexpr) and (locale noexpr) is expected. */
+      fprintf (stderr, _("%s (y/n) "), question);
+      fflush (stderr);
+      /* FIXME: use getline () after it becomes visible from glibc without
+	 defining _GNU_SOURCE (which changes strerror_r () to non-POSIX). */
+      if (fgets (buf, sizeof (buf), stdin) == NULL)
+	continue;
+      len = strlen (buf);
+      if (len != 0 && buf[len - 1] == '\n')
+	buf[len - 1] = '\0';
+      if (regexec (&re_yes, buf, 0, NULL, 0) == 0)
+	{
+	  res = 1;
+	  break;
+	}
+      else if (regexec (&re_no, buf, 0, NULL, 0) == 0)
+	{
+	  res = 0;
+	  break;
+	}
     }
-  size = st.st_size;
-  assert ((off_t)size == st.st_size);
-  f = fopen (filename, "rb");
-  if (f == NULL)
-    {
-      perror ("fopen ()");
-      return NULL;
-    }
-  res = g_malloc (size != 0 ? size : 1);
-  if (fread (res, 1, size, f) != size)
-    {
-      perror ("fread ()");
-      fclose (f);
-      return NULL;
-    }
-  fclose (f);
-  *res_size = size;
+  regfree (&re_yes);
+  regfree (&re_no);
   return res;
 }
 
+/* Set up ERROR based on NSPR error state. */
 static void
 error_from_pr (GError **error)
 {
@@ -110,16 +130,271 @@ error_from_pr (GError **error)
   g_free (err);
 }
 
+ /* Options */
+
+/* A directory that contains a NSS database, or NULL. */
+static gchar *nss_dir; /* = NULL; */
+
+/* Operation modes */
+static gboolean mode_version, mode_save, mode_restore, mode_setup_volume;
+static gboolean mode_reencrypt, mode_dump, mode_secrets; /* All = FALSE; */
+
+/* Run in batch mode */
+static gboolean batch_mode; /* = FALSE; */
+
+/* if (mode_dump), include secrets in output */
+static gboolean dump_with_secrets; /* = FALSE; */
+
+/* Output format: */
+/* Use clear-text instead of certificate or passphrase encryption */
+static gboolean output_format_cleartext; /* = FALSE */
+/* Certificate file path, or NULL to use some other output format. */
+static gchar *output_certificate; /* = NULL; */
+
+/* Packet output files, or NULL */
+static gchar *output_default; /* = NULL; */
+static gchar *output_data_encryption_key; /* = NULL; */
+static gchar *output_passphrase; /* = NULL; */
+/* Random passphrase output file, or NULL */
+static gchar *output_created_random_passphrase; /* = NULL; */
+
+/* Use G_OPTION_ARG_FILENAME for all strings to avoid the conversion to
+   UTF-8. */
+static const GOptionEntry option_descriptions[] =
+  {
+    /* Operation modes */
+    {
+      "version", 0, 0, G_OPTION_ARG_NONE, &mode_version, N_("Show version"),
+      NULL
+    },
+    {
+      "save", 0, 0, G_OPTION_ARG_NONE, &mode_save,
+      N_("Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."),
+      NULL
+    },
+    {
+      "restore", 0, 0, G_OPTION_ARG_NONE, &mode_restore,
+      N_("Restore volume secrets from a packet.  Expects operands VOLUME "
+	 "PACKET."), NULL
+    },
+    {
+      "setup-volume", 0, 0, G_OPTION_ARG_NONE, &mode_setup_volume,
+      N_("Set up an encrypted volume using secrets from a packet.  Expects "
+	 "operands VOLUME PACKET NAME."), NULL
+    },
+    {
+      "reencrypt", 0, 0, G_OPTION_ARG_NONE, &mode_reencrypt,
+      N_("Re-encrypt an escrow packet.  Expects operand PACKET."), NULL
+    },
+    {
+      "dump", 0, 0, G_OPTION_ARG_NONE, &mode_dump,
+      N_("Show information contained in a packet.  Expects operand PACKET."),
+      NULL
+    },
+    {
+      "secrets", 0, 0, G_OPTION_ARG_NONE, &mode_secrets,
+      N_("Show secrets contained in a packet.  Expects operand PACKET."), NULL
+    },
+    /* Common options */
+    {
+      "nss-dir", 'd', 0, G_OPTION_ARG_FILENAME, &nss_dir,
+      N_("Use the NSS database in DIR"), N_("DIR")
+    },
+    {
+      "batch", 'b', 0, G_OPTION_ARG_NONE, &batch_mode, N_("Run in batch mode"),
+      NULL
+    },
+    /* Mode-specific options */
+    {
+      "output", 'o', 0, G_OPTION_ARG_FILENAME, &output_default,
+      N_("Write the default secret to PACKET"), N_("PACKET")
+    },
+    {
+      "output-data-encryption-key", 0, 0, G_OPTION_ARG_FILENAME,
+      &output_data_encryption_key, N_("Write data encryption key to PACKET"),
+      N_("PACKET")
+    },
+    {
+      "output-passphrase", 0, 0, G_OPTION_ARG_FILENAME, &output_passphrase,
+      N_("Write passphrase to PACKET"), N_("PACKET")
+    },
+    {
+      "create-random-passphrase", 0, 0, G_OPTION_ARG_FILENAME,
+      &output_created_random_passphrase,
+      N_("Create a random passphrase and store it in PACKET"), N_("PACKET")
+    },
+    {
+      "unencrypted-yes-really", 0, G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_NONE,
+      &output_format_cleartext, NULL, NULL
+    },
+    {
+      "certificate", 'c', 0, G_OPTION_ARG_FILENAME, &output_certificate,
+      N_("Encrypt for the certificate in CERT"), N_("CERT")
+    },
+    {
+      "with-secrets", 0, 0, G_OPTION_ARG_NONE, &dump_with_secrets,
+      N_("Include secrets in --dump output"), NULL
+    },
+    { NULL, 0, 0, G_OPTION_ARG_NONE, NULL, NULL, NULL }
+  };
+
+/* Parse options, modify ARGC and ARGV to contain only operands.
+   May exit (). */
+static void
+parse_options (int *argc, char ***argv)
+{
+  GOptionContext *options;
+  GError *error;
+  char *s;
+
+  error = NULL;
+  options = g_option_context_new (_("OPERANDS"));
+  g_option_context_set_summary
+    (options, _("Manages encrypted volume keys and passphrases."));
+  s = g_strdup_printf (_("Report bugs to %s"), PACKAGE_BUGREPORT);
+  g_option_context_set_description (options, s);
+  g_free (s);
+
+  g_option_context_add_main_entries (options, option_descriptions,
+				     PACKAGE_NAME);
+  if (g_option_context_parse (options, argc, argv, &error) == FALSE)
+    {
+      fprintf (stderr, _("%s: %s\n"
+			 "Run `%s --help' for more information.\n"),
+	       g_get_prgname (), error->message, g_get_prgname ());
+      g_option_context_free (options);
+      exit (EXIT_FAILURE);
+    }
+  g_option_context_free (options);
+
+  if (mode_version != 0)
+    {
+      puts (PACKAGE_NAME " " PACKAGE_VERSION);
+      puts (_("Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
+	      "This software is distributed under the GPL v.2.\n"
+	      "\n"
+	      "This program is provided with NO WARRANTY, to the extent "
+	      "permitted by law."));
+      exit (EXIT_SUCCESS);
+    }
+
+  switch ((mode_save != 0) + (mode_restore != 0) + (mode_setup_volume != 0)
+	  + (mode_reencrypt != 0) + (mode_dump != 0) + (mode_secrets != 0))
+    {
+    case 0:
+      error_exit (_("Operation mode not specified"));
+
+    case 1:
+      break; /* OK */
+
+    default:
+      error_exit (_("Ambiguous operation mode"));
+    }
+
+  if (dump_with_secrets != 0 && mode_dump == 0)
+    error_exit (_("`--%s' is only valid with `--%s'"), "with-secrets", "dump");
+  if (mode_save == 0 && mode_reencrypt == 0)
+    {
+      if (output_default != NULL || output_data_encryption_key != NULL
+	  || output_passphrase != NULL || output_format_cleartext != 0
+	  || output_certificate != NULL)
+	error_exit (_("Output can be specified only with `--save' or "
+		      "`--reencrypt'"));
+    }
+  else {
+    if (output_default == NULL && output_data_encryption_key == NULL
+	&& output_passphrase == NULL
+	&& output_created_random_passphrase == NULL)
+      error_exit (_("No output specified"));
+    if (output_format_cleartext != 0 && output_certificate != NULL)
+      error_exit (_("Ambiguous output format"));
+  }
+  if (output_created_random_passphrase != NULL && mode_save == 0)
+    error_exit (_("`--%s' is only valid with `--%s'"),
+		"create-random-passphrase", "save");
+}
+
+ /* User interface */
+
+/* Read a NUL-terminated string from stdin.
+   Return a string for g_free (), or NULL. */
+static char *
+read_batch_string (void)
+{
+  char *res;
+  size_t n, size;
+  unsigned char c;
+
+  /* FIXME: Use getdelim () after glibc declares it without forcing its
+     strerror_r () on us. */
+  size = 64; /* Arbitrary */
+  n = 0;
+  res = g_malloc (size);
+  do
+    {
+      if (n == size)
+	{
+	  size *= 2;
+	  res = g_realloc (res, size);
+	}
+      if (fread (&c, 1, 1, stdin) != 1)
+	{
+	  g_free (res);
+	  return NULL;
+	}
+      res[n] = c;
+      n++;
+    }
+  while (c != '\0');
+  return g_realloc (res, n);
+}
+
+/* A PK11_SetPaswordFunc handler */
+static char *
+nss_password_fn (PK11SlotInfo *slot, PRBool retry, void *arg)
+{
+  if (batch_mode == 0)
+    {
+      char *prompt, *s;
+
+      (void)arg;
+      if (retry)
+	fprintf (stderr, _("Error, try again.\n"));
+      prompt = g_strdup_printf (_("Enter password for `%s': "),
+				PK11_GetTokenName (slot));
+      s = getpass (prompt);
+      g_free (prompt);
+      if (s == NULL)
+	return NULL;
+      return PL_strdup (s);
+    }
+  else
+    {
+      char *s, *res;
+
+      s = read_batch_string ();
+      if (s == NULL)
+	return NULL;
+      res = PL_strdup (s);
+      g_free (s);
+      return res;
+    }
+}
+
+/* A "generic" struct libvk_ui callback. */
 static char *
 generic_ui_cb (void *id, const char *prompt, int echo)
 {
-  if (echo)
+  (void)id;
+  if (batch_mode != 0)
+    return read_batch_string ();
+  else if (echo != 0)
     {
-      char *res;
+      char *s, *res;
 
-      fputs (id, stderr);
-      putc (' ', stderr);
-      res = getpass (prompt);
+      s = g_strdup_printf (_("%s: "), prompt);
+      res = getpass (s);
+      g_free (s);
       if (res != NULL && res[0] != '\0')
 	return g_strdup (res);
       return NULL;
@@ -129,8 +404,10 @@ generic_ui_cb (void *id, const char *prompt, int echo)
       char buf[LINE_MAX];
       size_t len;
 
-      fprintf (stderr, "%s %s", (char *)id, prompt);
+      fprintf (stderr, "%s: ", prompt);
       fflush (stderr);
+      /* FIXME: use getline () after it becomes visible from glibc without
+	 defining _GNU_SOURCE (which changes strerror_r () to non-POSIX). */
       if (fgets (buf, sizeof (buf), stdin) == NULL)
 	return NULL;
       len = strlen (buf);
@@ -145,341 +422,311 @@ generic_ui_cb (void *id, const char *prompt, int echo)
     }
 }
 
+/* A "passphrase" struct libvk_ui callback. */
 static char *
-passphrase_ui_cb (void *id, const char *prompt, unsigned failed_attempts)
+passphrase_ui_cb (void *data, const char *prompt, unsigned failed_attempts)
 {
-  char *res;
+  char *s, *res;
 
-  fprintf (stderr, "%s (%u failed attempts) ", (char *)id, failed_attempts);
-  res = getpass (prompt);
+  (void)data;
+  if (batch_mode != 0)
+    {
+      if (failed_attempts != 0)
+	return NULL;
+      return read_batch_string ();
+    }
+  s = g_strdup_printf (_("%s: "), prompt);
+  res = getpass (s);
+  g_free (s);
   if (res != NULL && res[0] != '\0')
     return g_strdup (res);
   return NULL;
 }
 
+/* Set up a struct libvk_ui * and return it. */
 static struct libvk_ui *
 create_ui (void)
 {
   struct libvk_ui *ui;
 
   ui = libvk_ui_new ();
-  libvk_ui_set_generic_cb (ui, generic_ui_cb, g_strdup ("(Generic)"), g_free);
-  libvk_ui_set_passphrase_cb (ui, passphrase_ui_cb, g_strdup ("(Passphrase)"),
-			    g_free);
-  libvk_ui_set_nss_pwfn_arg (ui, g_strdup ("(NSS arg)"), g_free);
+  libvk_ui_set_generic_cb (ui, generic_ui_cb, NULL, NULL);
+  libvk_ui_set_passphrase_cb (ui, passphrase_ui_cb, NULL, NULL);
   return ui;
 }
 
-static void
-print_volume_info (const struct libvk_volume *vol)
-{
-  GSList *list, *next;
-  char *s;
+ /* Operation implementations */
 
-  for (list = libvk_volume_dump_properties (vol, 1); list != NULL; list = next)
-    {
-      struct libvk_volume_property *prop;
-      const char *type;
-      char *name, *label, *value;
-
-      prop = list->data;
-      label = libvk_vp_get_label (prop);
-      name = libvk_vp_get_name (prop);
-      value = libvk_vp_get_value (prop);
-      switch (libvk_vp_get_type (prop))
-	{
-	case LIBVK_VP_IDENTIFICATION:
-	  type = "id";
-	  break;
-
-	case LIBVK_VP_CONFIGURATION:
-	  type = "cfg";
-	  break;
-
-	case LIBVK_VP_SECRET:
-	  type = "!!";
-	  break;
-
-	default:
-	  type = "???";
-	  break;
-	}
-      fprintf (stderr, "%s: %s (%s):\t%s\n", type, label, name, value);
-      g_free (label);
-      g_free (name);
-      g_free (value);
-      libvk_vp_free (prop);
-      next = list->next;
-      g_slist_free_1 (list);
-    }
-  s = libvk_volume_get_hostname (vol);
-  fprintf (stderr, "Host name:\t%s\n", s);
-  g_free (s);
-  s = libvk_volume_get_uuid (vol);
-  fprintf (stderr, "UUID:\t%s\n", s);
-  g_free (s);
-  s = libvk_volume_get_label (vol);
-  fprintf (stderr, "Label:\t%s\n", s);
-  g_free (s);
-  s = libvk_volume_get_path (vol);
-  fprintf (stderr, "Path:\t%s\n", s);
-  g_free (s);
-  s = libvk_volume_get_format (vol);
-  fprintf (stderr, "Format:\t%s\n", s);
-  g_free (s);
-}
-
-static void
-print_packet_info (const void *packet, size_t size)
-{
-  GError *error;
-
-  error = NULL;
-  switch (libvk_packet_get_format (packet, size, &error))
-    {
-    case LIBVK_PACKET_FORMAT_UNKNOWN:
-      fprintf (stderr, "Invalid packet: %s\n", error->message);
-      g_clear_error (&error);
-      break;
-
-    case LIBVK_PACKET_FORMAT_CLEARTEXT:
-      printf ("Clear-text packet:\n");
-      break;
-
-    case LIBVK_PACKET_FORMAT_ASSYMETRIC:
-      printf ("Cert-encrypted packet:\n");
-      break;
-
-    case LIBVK_PACKET_FORMAT_PASSPHRASE:
-      printf ("Passphrase-protected packet:\n");
-      break;
-
-    default:
-      abort ();
-    }
-}
-
+/* Load a packet from FILENAME using UI.
+   Return the packet if OK, NULL on error. */
 static struct libvk_volume *
-open_volume (const char *path, struct libvk_ui *ui, GError **error)
+open_packet_file (const char *filename, struct libvk_ui *ui, GError **error)
 {
-  struct libvk_volume *v;
+  gchar *packet;
+  gsize size;
+  struct libvk_volume *pack;
 
-  v = libvk_volume_open (path, error);
-  if (v == NULL)
-    return NULL;
-
-  if (libvk_volume_get_secret (v, LIBVK_SECRET_DEFAULT, ui, error) != 0)
+  if (g_file_get_contents (filename, &packet, &size, error) == FALSE)
     {
-      libvk_volume_free (v);
+      g_prefix_error (error, _("Error reading `%s': "), filename);
       return NULL;
     }
-
-  print_volume_info (v);
-
-  return v;
+  pack = libvk_packet_open (packet, size, ui, error);
+  g_free (packet);
+  if (pack == NULL)
+    {
+      g_prefix_error (error, _("Error decoding `%s': "), filename);
+      return NULL;
+    }
+  return pack;
 }
 
-int
-create_escrow_packet (int argc, char *argv[])
+/* A user interaction state for all packet output methods. */
+struct packet_output_state
 {
-  GError *error;
-  struct libvk_volume *v;
-  struct libvk_ui *ui;
-  void *packet;
-  size_t size;
+  CERTCertificate *cert;
+  char *passphrase;
+};
 
-  (void)argc;
-  error = NULL;
-  ui = create_ui ();
-  v = open_volume (argv[1], ui, &error);
-  libvk_ui_free (ui);
-  if (v == NULL)
+/* Init POS.
+   Return 0 if OK, -1 on error. */
+static int
+pos_init (struct packet_output_state *pos, GError **error)
+{
+  pos->cert = NULL;
+  pos->passphrase = NULL;
+  if (output_format_cleartext != 0)
     {
-      fprintf (stderr, "Error opening volume: %s\n", error->message);
-      g_error_free (error);
-      return EXIT_FAILURE;
+      /* Nothing */
     }
-
-  packet = libvk_volume_create_packet_cleartext (v, &size, LIBVK_SECRET_DEFAULT,
-						 &error);
-  if (packet == NULL)
+  else if (output_certificate != NULL)
     {
-      fprintf (stderr, "Error creating escrow packet: %s\n", error->message);
-      g_error_free (error);
-      return EXIT_FAILURE;
-    }
-  libvk_volume_free (v);
+      gchar *data;
+      gsize size;
 
-  kmip_dump (stderr, (const unsigned char *)packet + 12, size - 12);
-  fwrite (packet, 1, size, stdout);
-
-  v = volume_load_escrow_packet ((const unsigned char *)packet + 12, size - 12,
-				 &error);
-  memset (packet, 0, size);
-  g_free (packet);
-
-  if (v == NULL)
-    {
-      fprintf (stderr, "Error loading escrow packet: %s\n", error->message);
-      return EXIT_FAILURE;
+      if (g_file_get_contents (output_certificate, &data, &size, error)
+	  == FALSE)
+	{
+	  g_prefix_error (error, _("Error reading `%s': "), output_certificate);
+	  return -1;
+	}
+      pos->cert = CERT_DecodeCertFromPackage (data, size);
+      g_free (data);
+      if (pos->cert == NULL)
+	{
+	  error_from_pr (error);
+	  g_prefix_error (error, _("Error reading `%s': "), output_certificate);
+	  return -1;
+	}
     }
   else
     {
-      libvk_volume_free (v);
-      fprintf (stderr, "OK");
+      char *passphrase;
+      unsigned failed;
+
+      /* Ask twice even in batch mode, because that's what we do when
+	 libvolume_key calls passphrase_ui_cb () as well. */
+      for (failed = 0; failed < 64; failed++)
+	{
+	  char *passphrase2;
+	  int passphrase_ok;
+
+	  passphrase = passphrase_ui_cb (NULL,
+					 failed == 0
+					 ? _("New packet passphrase")
+					 : _("Passphrases do not match.  "
+					     "New packet passphrase"), failed);
+	  if (passphrase == NULL)
+	    return -1;
+	  passphrase2 = passphrase_ui_cb (NULL,
+					  _("Repeat new packet passphrase"),
+					  failed);
+	  if (passphrase2 == NULL)
+	    {
+	      memset (passphrase, 0, strlen (passphrase));
+	      g_free (passphrase);
+	      return -1;
+	    }
+	  passphrase_ok = strcmp (passphrase, passphrase2) == 0;
+	  memset (passphrase2, 0, strlen (passphrase2));
+	  g_free (passphrase2);
+	  if (passphrase_ok)
+	    goto got_passphrase;
+	  memset (passphrase, 0, strlen (passphrase));
+	  g_free (passphrase);
+	}
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
+		   _("Too many attempts to get a passphrase"));
+      return -1;
+
+    got_passphrase:
+      pos->passphrase = passphrase;
     }
-  return EXIT_SUCCESS;
+  return 0;
 }
 
-int
-escrow_packet_for_cert (int argc, char *argv[])
+/* Free data in POS */
+static void
+pos_free (struct packet_output_state *pos)
 {
-  GError *error;
-  struct libvk_volume *v;
-  struct libvk_ui *ui;
-  void *packet, *cert_data;
-  size_t size, cert_size;
-  CERTCertificate *cert;
-
-  (void)argc;
-  error = NULL;
-  ui = create_ui ();
-  v = open_volume (argv[1], ui, &error);
-  if (v == NULL)
-    {
-      fprintf (stderr, "Error opening volume: %s\n", error->message);
-      g_error_free (error);
-      libvk_ui_free (ui);
-      return EXIT_FAILURE;
-    }
-
-  cert_data = data_from_file (&cert_size, argv[2]);
-  if (cert_data == NULL)
-    return EXIT_FAILURE;
-  cert = CERT_DecodeCertFromPackage (cert_data, cert_size);
-  g_free (cert_data);
-  if (cert == NULL)
-    {
-      error_from_pr (&error);
-      return EXIT_FAILURE;
-    }
-
-  packet = libvk_volume_create_packet_assymetric (v, &size,
-						  LIBVK_SECRET_DEFAULT, cert,
-						  ui, &error);
-  CERT_DestroyCertificate (cert);
-  libvk_volume_free (v);
-  libvk_ui_free (ui);
-  if (packet == NULL)
-    {
-      fprintf (stderr, "Error creating escrow packet: %s\n", error->message);
-      g_error_free (error);
-      return EXIT_FAILURE;
-    }
-
-  if (fwrite (packet, 1, size, stdout) != size)
-    {
-      perror ("fwrite ()");
-      return EXIT_FAILURE;
-    }
-  g_free (packet);
-
-  return EXIT_SUCCESS;
+  if (pos->cert != NULL)
+    CERT_DestroyCertificate (pos->cert);
+  g_free (pos->passphrase);
 }
 
-int
-escrow_packet_for_passphrase (int argc, char *argv[])
+/* Write a packet with SECRET_TYPE of VOL to FILENAME using UI.
+   Return 0 if OK, -1 on error. */
+static int
+write_packet (struct packet_output_state *pos, const char *filename,
+	      const struct libvk_volume *vol, enum libvk_secret secret_type,
+	      const struct libvk_ui *ui, GError **error)
 {
-  GError *error;
-  struct libvk_volume *v;
-  struct libvk_ui *ui;
   void *packet;
   size_t size;
 
-  (void)argc;
-  error = NULL;
-  ui = create_ui ();
-  v = open_volume (argv[1], ui, &error);
-  libvk_ui_free (ui);
-  if (v == NULL)
+  if (output_format_cleartext != 0)
+    packet = libvk_volume_create_packet_cleartext (vol, &size, secret_type,
+						   error);
+  else if (output_certificate != NULL)
+    packet = libvk_volume_create_packet_assymetric (vol, &size, secret_type,
+						    pos->cert, ui, error);
+  else
+    packet = libvk_volume_create_packet_with_passphrase (vol, &size,
+							 secret_type,
+							 pos->passphrase,
+							 error);
+  if (packet == NULL
+      || g_file_set_contents (filename, packet, size, error) == FALSE)
     {
-      fprintf (stderr, "Error opening volume: %s\n", error->message);
-      g_error_free (error);
-      return EXIT_FAILURE;
+      g_prefix_error (error, _("Error creating `%s': "), filename);
+      return -1;
     }
-
-  packet = libvk_volume_create_packet_with_passphrase (v, &size,
-						       LIBVK_SECRET_DEFAULT,
-						       "password", &error);
-  libvk_volume_free (v);
-  if (packet == NULL)
-    {
-      fprintf (stderr, "Error creating escrow packet: %s\n", error->message);
-      g_error_free (error);
-      return EXIT_FAILURE;
-    }
-
-  if (fwrite (packet, 1, size, stdout) != size)
-    {
-      perror ("fwrite ()");
-      return EXIT_FAILURE;
-    }
+  if (output_format_cleartext != 0)
+    memset (packet, 0, size);
   g_free (packet);
-
-  return EXIT_SUCCESS;
+  return 0;
 }
 
-int
-apply_packet (int argc, char *argv[])
+/* Write packet of VOL to destinations specified by --output-* using UI.
+   Return 0 if OK, -1 on error. */
+static int
+output_packet (struct packet_output_state *pos, const struct libvk_volume *vol,
+	       const struct libvk_ui *ui, GError **error)
+{
+  if (output_default != NULL
+      && write_packet (pos, output_default, vol, LIBVK_SECRET_DEFAULT, ui,
+		       error) != 0)
+    return -1;
+  if (output_data_encryption_key != NULL
+      && write_packet (pos, output_data_encryption_key, vol,
+		       LIBVK_SECRET_DATA_ENCRYPTION_KEY, ui, error) != 0)
+    return -1;
+  if (output_passphrase != NULL
+      && write_packet (pos, output_passphrase, vol, LIBVK_SECRET_PASSPHRASE, ui,
+		       error) != 0)
+    return -1;
+  return 0;
+}
+
+/* Implement --save */
+static void
+do_save (int argc, char *argv[])
 {
   GError *error;
+  struct libvk_volume *v;
+  struct libvk_ui *ui;
+  struct packet_output_state pos;
+
+  if (argc < 2 || argc > 3)
+    error_exit (_("Usage: %s --save VOLUME [PACKET]"), g_get_prgname ());
+
+  error = NULL;
+  v = libvk_volume_open (argv[1], &error);
+  if (v == NULL)
+    error_exit (_("Error opening `%s': %s"), argv[1], error->message);
+
+  ui = create_ui ();
+  if (argc == 3)
+    {
+      struct libvk_volume *pack;
+
+      pack = open_packet_file (argv[2], ui, &error);
+      if (pack == NULL)
+	error_exit ("%s", error->message);
+      if (libvk_volume_load_packet (v, pack, &error) != 0)
+	error_exit (_("Error loading `%s': %s"), argv[2], error->message);
+      libvk_volume_free (pack);
+    }
+  else if (libvk_volume_get_secret (v, LIBVK_SECRET_DEFAULT, ui, &error) != 0)
+    error_exit (_("Error opening `%s': %s"), argv[1], error->message);
+
+  if (pos_init (&pos, &error) != 0
+      || output_packet (&pos, v, ui, &error) != 0)
+    error_exit ("%s", error->message);
+  if (output_created_random_passphrase != NULL)
+    {
+#define PASSPHRASE_LENGTH 8
+      unsigned char rnd[PASSPHRASE_LENGTH];
+      char passphrase[PASSPHRASE_LENGTH + 1];
+      size_t i;
+
+      if (PK11_GenerateRandom (rnd, sizeof (rnd)) != SECSuccess)
+	{
+	  error_from_pr (&error);
+	  error_exit (_("Error generating passphrase: %s"), error->message);
+	}
+      for (i = 0; i < sizeof (passphrase) - 1; i++)
+	{
+	  static const char set[36] = "0123456789zbcdefghijklmnopqrstuvwxyz";
+
+	  passphrase[i] = set[rnd[i] % sizeof (set)];
+	}
+      passphrase[i] = '\0';
+
+      if (libvk_volume_add_secret (v, LIBVK_SECRET_PASSPHRASE, passphrase,
+				   strlen (passphrase) + 1, &error) != 0)
+	error_exit (_("Error creating a passphrase: %s"), error->message);
+      if (write_packet (&pos, output_created_random_passphrase, v,
+			LIBVK_SECRET_PASSPHRASE, ui, &error) != 0)
+	error_exit ("%s", error->message);
+#undef PASSPHRASE_LENGTH
+    }
+  pos_free (&pos);
+  libvk_ui_free (ui);
+  libvk_volume_free (v);
+}
+
+/* Return TRUE if PACKET (from PACKET_FILENAME) matches VOL (from VOL_FILENAME),
+   FALSE if not or if the user has aborted the operation.
+   Set ERROR unless the user has aborted the operation. */
+static gboolean
+packet_matches_volume (const struct libvk_volume *packet,
+		       const struct libvk_volume *vol,
+		       const char *packet_filename, const char *vol_filename,
+		       GError **error)
+{
   GPtrArray *warnings;
-  void *packet;
-  size_t size;
-  struct libvk_volume *pack, *v;
-  struct libvk_ui *ui;
-
-  (void)argc;
-  error = NULL;
-  packet = data_from_file (&size, argv[1]);
-  if (packet == NULL)
-    return EXIT_FAILURE;
-
-  ui = create_ui ();
-  print_packet_info (packet, size);
-  pack = libvk_packet_open (packet, size, ui, &error);
-  g_free (packet);
-
-  if (pack == NULL)
-    {
-      fprintf (stderr, "Error opening packet: %s\n", error->message);
-      return EXIT_FAILURE;
-    }
-  print_volume_info (pack);
-
-  v = libvk_volume_open (argv[2], &error);
-  if (v == NULL)
-    {
-      fprintf (stderr, "Error opening volume: %s\n", error->message);
-      return EXIT_FAILURE;
-    }
+  gboolean res;
 
   warnings = g_ptr_array_new ();
-  switch (libvk_packet_match_volume (pack, v, warnings, &error))
+  switch (libvk_packet_match_volume (packet, vol, warnings, error))
     {
     case LIBVK_PACKET_MATCH_OK:
+      res = TRUE;
       break;
 
     case LIBVK_PACKET_MATCH_ERROR:
-      fprintf (stderr, "Packet does not match volume: %s\n", error->message);
-      return EXIT_FAILURE;
+      g_prefix_error (error, _("`%s' does not match `%s': "), packet_filename,
+		      vol_filename);
+      res = FALSE;
+      break;
 
     case LIBVK_PACKET_MATCH_UNSURE:
       {
 	size_t i;
-	char c[2];
 
-	fprintf (stderr, "Are you sure you want to apply this packet?\n");
+	fprintf (stderr, _("`%s' perhaps does not match `%s'"), packet_filename,
+		 vol_filename);
 	for (i = 0; i < warnings->len; i++)
 	  {
 	    char *s;
@@ -488,222 +735,257 @@ apply_packet (int argc, char *argv[])
 	    fprintf (stderr, "  %s\n", s);
 	    g_free (s);
 	  }
-	fprintf (stderr, "(y/n)");
-	if (fscanf (stderr, " %1[yYnN]", c) != 1
-	    || (c[0] != 'y' && c[0] != 'Y'))
-	  return EXIT_FAILURE;
+	if (batch_mode != 0)
+	  {
+	    res = FALSE;
+	    break;
+	  }
+	switch (yes_or_no (_("Are you sure you want to apply this packet?")))
+	  {
+	  case 1:
+	    res = TRUE;
+	    break;
+
+	  case 0:
+	    res = FALSE;
+	    break;
+
+	  case -1:
+	    g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
+			 _("Error getting a yes/no answer"));
+	    res = FALSE;
+	    break;
+
+	  default:
+	    g_return_val_if_reached (0);
+	  }
 	break;
       }
+
+    default:
+      g_return_val_if_reached (0);
     }
   g_ptr_array_free (warnings, TRUE);
+  return res;
+}
+
+/* Implement --restore */
+static void
+do_restore (int argc, char *argv[])
+{
+  GError *error;
+  struct libvk_ui *ui;
+  struct libvk_volume *v, *pack;
+
+  if (argc != 3)
+    error_exit (_("Usage: %s --%s VOLUME PACKET"), g_get_prgname (), "restore");
+
+  error = NULL;
+  v = libvk_volume_open (argv[1], &error);
+  if (v == NULL)
+    error_exit (_("Error opening `%s': %s"), argv[1], error->message);
+
+  error = NULL;
+  ui = create_ui ();
+  pack = open_packet_file (argv[2], ui, &error);
+  if (pack == NULL)
+    error_exit ("%s", error->message);
+  if (packet_matches_volume (pack, v, argv[2], argv[1], &error) == FALSE)
+    {
+      if (error != NULL)
+	error_exit ("%s", error->message);
+      exit (EXIT_FAILURE);
+    }
 
   if (libvk_volume_apply_packet (v, pack, LIBVK_SECRET_DEFAULT, ui, &error)
       != 0)
-    {
-      fprintf (stderr, "Error restoring access: %s\n", error->message);
-      return EXIT_FAILURE;
-    }
-
-  libvk_volume_free (v);
+    error_exit (_("Error restoring access to `%s': %s"), argv[1],
+		error->message);
   libvk_volume_free (pack);
   libvk_ui_free (ui);
-  return EXIT_SUCCESS;
-}
-
-int
-random_passphrase (int argc, char *argv[])
-{
-#define PASSPHRASE_LENGTH 8
-  GError *error;
-  struct libvk_volume *v;
-  struct libvk_ui *ui;
-  void *packet;
-  size_t size, i;
-  unsigned char rnd[PASSPHRASE_LENGTH];
-  char passphrase[PASSPHRASE_LENGTH + 1];
-
-  (void)argc;
-  error = NULL;
-  ui = create_ui ();
-  v = open_volume (argv[1], ui, &error);
-  libvk_ui_free (ui);
-  if (v == NULL)
-    {
-      fprintf (stderr, "Error opening volume: %s\n", error->message);
-      g_error_free (error);
-      return EXIT_FAILURE;
-    }
-
-  if (PK11_GenerateRandom (rnd, sizeof (rnd)) != SECSuccess)
-    {
-      error_from_pr (&error);
-      fprintf (stderr, "Error generating passphrase: %s\n", error->message);
-      return EXIT_FAILURE;
-    }
-
-  for (i = 0; i < sizeof (passphrase) - 1; i++)
-    {
-      static const char set[36] = "0123456789zbcdefghijklmnopqrstuvwxyz";
-
-      passphrase[i] = set[rnd[i] % sizeof (set)];
-    }
-  passphrase[i] = '\0';
-
-  if (libvk_volume_add_secret (v, LIBVK_SECRET_PASSPHRASE, passphrase,
-			       strlen (passphrase) + 1, &error) != 0)
-    {
-      fprintf (stderr, "Error setting a passphrase: %s\n", error->message);
-      return EXIT_FAILURE;
-    }
-  fprintf (stderr, "-> Generated passphrase: %s\n", passphrase);
-  print_volume_info (v);
-
-  packet = libvk_volume_create_packet_cleartext (v, &size,
-						 LIBVK_SECRET_PASSPHRASE,
-						 &error);
-  if (packet == NULL)
-    {
-      fprintf (stderr, "Error creating escrow packet: %s\n", error->message);
-      g_error_free (error);
-      return EXIT_FAILURE;
-    }
   libvk_volume_free (v);
-
-  kmip_dump (stderr, (const unsigned char *)packet + 12, size - 12);
-  fwrite (packet, 1, size, stdout);
-
-  v = volume_load_escrow_packet ((const unsigned char *)packet + 12, size - 12,
-				 &error);
-  memset (packet, 0, size);
-  g_free (packet);
-
-  if (v == NULL)
-    {
-      fprintf (stderr, "Error loading escrow packet: %s\n", error->message);
-      return EXIT_FAILURE;
-    }
-  else
-    {
-      libvk_volume_free (v);
-      fprintf (stderr, "OK");
-    }
-  return EXIT_SUCCESS;
-#undef PASSPHRASE_LENGTH
 }
 
-int
-open_with_packet (int argc, char *argv[])
+/* Implement --setup-volume */
+static void
+do_setup_volume (int argc, char *argv[])
 {
   GError *error;
-  GPtrArray *warnings;
-  void *packet;
-  size_t size;
-  struct libvk_volume *pack, *v;
   struct libvk_ui *ui;
+  struct libvk_volume *v, *pack;
 
-  (void)argc;
+  if (argc != 4)
+    error_exit (_("Usage: %s --%s VOLUME PACKET NAME"), g_get_prgname (),
+		"setup-volume");
+
   error = NULL;
-  packet = data_from_file (&size, argv[1]);
-  if (packet == NULL)
-    return EXIT_FAILURE;
-
-  ui = create_ui ();
-  print_packet_info (packet, size);
-  pack = libvk_packet_open (packet, size, ui, &error);
-  g_free (packet);
-
-  if (pack == NULL)
-    {
-      fprintf (stderr, "Error opening packet: %s\n", error->message);
-      return EXIT_FAILURE;
-    }
-  print_volume_info (pack);
-
-  v = libvk_volume_open (argv[2], &error);
+  v = libvk_volume_open (argv[1], &error);
   if (v == NULL)
+    error_exit (_("Error opening `%s': %s"), argv[1], error->message);
+
+  error = NULL;
+  ui = create_ui ();
+  pack = open_packet_file (argv[2], ui, &error);
+  libvk_ui_free (ui);
+  if (pack == NULL)
+    error_exit ("%s", error->message);
+  if (packet_matches_volume (pack, v, argv[2], argv[1], &error) == FALSE)
     {
-      fprintf (stderr, "Error opening volume: %s\n", error->message);
-      return EXIT_FAILURE;
+      if (error != NULL)
+	error_exit ("%s", error->message);
+      exit (EXIT_FAILURE);
     }
-
-  warnings = g_ptr_array_new ();
-  switch (libvk_packet_match_volume (pack, v, warnings, &error))
-    {
-    case LIBVK_PACKET_MATCH_OK:
-      break;
-
-    case LIBVK_PACKET_MATCH_ERROR:
-      fprintf (stderr, "Packet does not match volume: %s\n", error->message);
-      return EXIT_FAILURE;
-
-    case LIBVK_PACKET_MATCH_UNSURE:
-      {
-	size_t i;
-	char c[2];
-
-	fprintf (stderr, "Are you sure you want to apply this packet?\n");
-	for (i = 0; i < warnings->len; i++)
-	  {
-	    char *s;
-
-	    s = g_ptr_array_index (warnings, i);
-	    fprintf (stderr, "  %s\n", s);
-	    g_free (s);
-	  }
-	fprintf (stderr, "(y/n)");
-	if (fscanf (stderr, " %1[yYnN]", c) != 1
-	    || (c[0] != 'y' && c[0] != 'Y'))
-	  return EXIT_FAILURE;
-	break;
-      }
-    }
-  g_ptr_array_free (warnings, TRUE);
 
   if (libvk_volume_open_with_packet (v, pack, argv[3], &error) != 0)
-    {
-      fprintf (stderr, "Error opening volume: %s\n", error->message);
-      return EXIT_FAILURE;
-    }
-
+    error_exit (_("Error setting up `%s': %s"), argv[3], error->message);
   libvk_volume_free (v);
   libvk_volume_free (pack);
-  libvk_ui_free (ui);
-  return EXIT_SUCCESS;
 }
 
+/* Implement --reencrypt */
+static void
+do_reencrypt (int argc, char *argv[])
+{
+  GError *error;
+  struct libvk_ui *ui;
+  struct libvk_volume *pack;
+  struct packet_output_state pos;
+
+  if (argc != 2)
+    error_exit (_("Usage: %s --%s PACKET"), g_get_prgname (), "restore");
+
+  error = NULL;
+  ui = create_ui ();
+  pack = open_packet_file (argv[1], ui, &error);
+  if (pack == NULL)
+    error_exit ("%s", error->message);
+
+  if (pos_init (&pos, &error) != 0
+      || output_packet (&pos, pack, ui, &error) != 0)
+    error_exit ("%s", error->message);
+  pos_free (&pos);
+  libvk_volume_free (pack);
+  libvk_ui_free (ui);
+}
+
+/* Implement --dump and --secrets */
+static void
+do_dump (int argc, char *argv[])
+{
+  GError *error;
+  gchar *packet;
+  gsize size;
+  const char *format;
+  struct libvk_volume *pack;
+  struct libvk_ui *ui;
+  GSList *list;
+
+  if (argc != 2)
+    error_exit (_("Usage: %s --%s PACKET"), g_get_prgname (),
+		mode_dump != 0 ? "dump" : "secrets");
+
+  error = NULL;
+  if (g_file_get_contents (argv[1], &packet, &size, &error) == FALSE)
+    error_exit (_("Error reading `%s': %s"), argv[1], error->message);
+
+  switch (libvk_packet_get_format (packet, size, &error))
+    {
+    case LIBVK_PACKET_FORMAT_UNKNOWN:
+      error_exit (_("Invalid packet: %s"), error->message);
+
+    case LIBVK_PACKET_FORMAT_CLEARTEXT:
+      format = _("Clear-text");
+      break;
+
+    case LIBVK_PACKET_FORMAT_ASSYMETRIC:
+      format = _("Public key-encrypted");
+      break;
+
+    case LIBVK_PACKET_FORMAT_PASSPHRASE:
+      format = _("Passphrase-encrypted");
+      break;
+
+    default:
+      g_return_if_reached ();
+    }
+  if (mode_dump != 0)
+    printf (_("%s:\t%s\n"), _("Packet format"), format);
+
+  ui = create_ui ();
+  pack = libvk_packet_open (packet, size, ui, &error);
+  libvk_ui_free (ui);
+  g_free (packet);
+  if (pack == NULL)
+    error_exit (_("Error decoding `%s': %s"), argv[1], error->message);
+
+  list = libvk_volume_dump_properties (pack, mode_secrets != 0
+				       || dump_with_secrets != 0);
+  while (list != NULL)
+    {
+      GSList *next;
+      struct libvk_volume_property *prop;
+      char *label, *value;
+
+      prop = list->data;
+      if (mode_secrets == 0 || libvk_vp_get_type (prop) == LIBVK_VP_SECRET)
+	{
+	  label = libvk_vp_get_label (prop);
+	  value = libvk_vp_get_value (prop);
+	  printf (_("%s:\t%s\n"), label, value);
+	  g_free (label);
+	  memset (value, 0, strlen (value));
+	  g_free (value);
+	}
+      libvk_vp_free (prop);
+      next = list->next;
+      g_slist_free_1 (list);
+      list = next;
+    }
+
+  libvk_volume_free (pack);
+}
+
+ /* Top level */
 
 int
 main (int argc, char *argv[])
 {
   GError *error;
-  int res;
+  SECStatus status;
 
-  (void)argc;
+  setlocale (LC_ALL, "");
+  textdomain (PACKAGE_NAME);
+  bindtextdomain (PACKAGE_NAME, LOCALEDIR);
+
+  parse_options (&argc, &argv); /* May exit () */
+
   error = NULL;
   PR_Init(PR_USER_THREAD, PR_PRIORITY_NORMAL, 0);
-  if (NSS_Init("nss_db") != SECSuccess) // FIXME: path
+  PK11_SetPasswordFunc (nss_password_fn);
+  if (nss_dir != NULL)
+    status = NSS_Init (nss_dir);
+  else
+    status = NSS_NoDB_Init (NULL);
+  if (status != SECSuccess)
     {
       error_from_pr (&error);
-      fprintf (stderr, "Error initializing NSS: %s\n", error->message);
-      return EXIT_FAILURE;
+      error_exit ("Error initializing NSS: %s", error->message);
     }
-  PK11_SetPasswordFunc (nss_password_fn);
 
-  if (0)
-    res = create_escrow_packet (argc, argv);
-  else if (0)
-    res = escrow_packet_for_cert (argc, argv);
-  else if (0)
-    res = escrow_packet_for_passphrase (argc, argv);
-  else if (0)
-    res = apply_packet (argc, argv);
-  else if (0)
-    res = random_passphrase (argc, argv);
-  else if (1)
-    res = open_with_packet (argc, argv);
-
+  if (mode_save != 0)
+    do_save (argc, argv);
+  else if (mode_restore != 0)
+    do_restore (argc, argv);
+  else if (mode_setup_volume != 0)
+    do_setup_volume (argc, argv);
+  else if (mode_reencrypt != 0)
+    do_reencrypt (argc, argv);
+  else if (mode_dump != 0 || mode_secrets != 0)
+    do_dump (argc, argv);
+  else
+    g_return_val_if_reached (EXIT_FAILURE);
 
   NSS_Shutdown();
 
-  return res;
+  return EXIT_SUCCESS;
 }

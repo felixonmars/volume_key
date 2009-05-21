@@ -221,7 +221,7 @@ static const GOptionEntry option_descriptions[] =
     {
       "create-random-passphrase", 0, 0, G_OPTION_ARG_FILENAME,
       &output_created_random_passphrase,
-      N_("Create a random passphrase and store it in PACKET"), N_("PACKET")
+      N_("Create a random passphrase and write it to PACKET"), N_("PACKET")
     },
     {
       "unencrypted-yes-really", 0, G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_NONE,
@@ -740,7 +740,7 @@ packet_matches_volume (const struct libvk_volume *packet,
 	    res = FALSE;
 	    break;
 	  }
-	switch (yes_or_no (_("Are you sure you want to apply this packet?")))
+	switch (yes_or_no (_("Are you sure you want to use this packet?")))
 	  {
 	  case 1:
 	    res = TRUE;
@@ -894,7 +894,7 @@ do_dump (int argc, char *argv[])
       error_exit (_("Invalid packet: %s"), error->message);
 
     case LIBVK_PACKET_FORMAT_CLEARTEXT:
-      format = _("Clear-text");
+      format = _("Unencrypted");
       break;
 
     case LIBVK_PACKET_FORMAT_ASSYMETRIC:
@@ -971,6 +971,7 @@ main (int argc, char *argv[])
       error_from_pr (&error);
       error_exit ("Error initializing NSS: %s", error->message);
     }
+  libvk_init ();
 
   if (mode_save != 0)
     do_save (argc, argv);

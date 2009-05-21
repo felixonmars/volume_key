@@ -644,7 +644,7 @@ luks_create_escrow_packet (const struct libvk_volume *vol,
       if (vol->v.luks->passphrase == NULL)
 	{
 	  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_NEED_SECRET,
-		       _("Passphrase key unknown"));
+		       _("Passphrase unknown"));
 	  return NULL;
 	}
       pack = volume_create_passphrase_packet (&key_value, vol,

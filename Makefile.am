@@ -24,9 +24,9 @@ LOCALEDIR_CPPFLAGS = -DLOCALEDIR='"$(localedir)"'
 SUBDIRS = po
 
 bin_PROGRAMS = src/volume_key
+dist_man_MANS = doc/volume_key.8
 
 lib_LTLIBRARIES = lib/libvolume_key.la
-
 pkginclude_HEADERS = lib/libvolume_key.h
 
 TESTS = tests/crypto_roundtrips.sh tests/kmip_roundtrip

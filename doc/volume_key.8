@@ -1,0 +1,256 @@
+.\" A man page for volume_key(8).
+.\"
+.\" Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+.\"
+.\" This copyrighted material is made available to anyone wishing to use,
+.\" modify, copy, or redistribute it subject to the terms and conditions of the
+.\" GNU General Public License v.2.
+.\"
+.\" This program is distributed in the hope that it will be useful, but WITHOUT
+.\" ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+.\" FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+.\" more details.
+.\"
+.\" You should have received a copy of the GNU General Public License along with
+.\" this program; if not, write to the Free Software Foundation, Inc., 51
+.\" Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+.\"
+.\" Author: Miloslav Trmač <mitr@redhat.com>])
+.TH volume_key 8 "May 2009" volume_key
+
+.SH NAME
+volume_key \- work with volume encryption secrets and escrow packets
+
+.SH SYNOPIS
+
+\fBvolume_key\fP [\fIOPTION\fP]... \fIOPERAND\fP...
+
+.SH DESCRIPTION
+.B volume_key
+extracts "secrets" used for volume encryption
+(for example keys or passphrases)
+and stores them into separate encrypted "escrow packets",
+uses a previously created escrow packet to restore access to a volume
+(e.g. if the user forgets a passphrase),
+or manipulates the information in escrow packets.
+
+The mode of operation and operands of
+.B volume_key
+are determined by specifying one of the \fB\-\-save\fP, \fB\-\-restore\fP,
+\fB\-\-setup\-volume\fP, \fB\-\-reencrypt\fP, 
+.B -\-dump
+or
+.B -\-secrets
+options.
+See the OPTIONS sections for details.
+
+.SH OPTIONS
+The following options determine the mode of operation and expected operands of
+\fBvolume_key\fP:
+
+.TP
+\fB\-\-save\fP
+Expects operands
+.I VOLUME
+[\fIPACKET\fP].
+Open \fIVOLUME\fP.  If
+.I PACKET
+is provided,
+load the secrets from it.
+Otherwise, extract secrets from \fIVOLUME\fP,
+prompting the user if necessary.
+In any case, store secrets in one or more output packets.
+
+.TP
+\fB\-\-restore\fP
+Expects operands
+.I VOLUME
+\fIPACKET\fP.
+Open
+.I VOLUME
+and use the secrets in
+.I PACKET
+to make
+.I VOLUME
+accessible again,
+prompting the user if necessary
+(e.g. by letting the user enter a new passphrase).
+
+.TP
+\fB\-\-setup\-volume\fP
+Expects operands
+.I VOLUME PACKET
+\fINAME\fP.
+Open
+.I VOLUME
+and use the secrets in
+.I PACKET
+to set up
+.I VOLUME
+for use of the decrypted data as \fINAME\fP.
+
+Currently
+.I NAME
+is a name of a dm-crypt volume,
+and this operation makes the decrypted volume available as
+\fB/dev/mapper/\fP\fINAME\fP.
+
+This operation should not permanently alter
+.I VOLUME
+(e.g. by adding a new passphrase);
+the user can of course access and modify the decrypted volume,
+modifying
+.I VOLUME
+in the process.
+
+.TP
+\fB\-\-reencrypt\fP
+Expects operand \fIPACKET\fP.
+Open \fIPACKET\fP, decrypting it if necessary,
+and store the information in one or more new output packets.
+
+.TP
+\fB\-\-dump\fP
+Expects operand \fIPACKET\fP.
+Open \fIPACKET\fP, decrypting it if necessary,
+and output the contents of \fIPACKET\fP.
+The secrets are not output by default.
+
+.TP
+\fB\-\-secrets\fP
+Expects operand \fIPACKET\fP.
+Open \fIPACKET\fP, decrypting it if necessary,
+and output secrets contained in \fIPACKET\fP.
+
+.TP
+\fB\-\-help\fP
+Show usage information.
+
+.TP
+\fB\-\-version\fP
+Show version of \fBvolume_key\fP.
+
+.P
+The following options alter the behavior of the specified operation:
+
+.TP
+\fB\-b\fP, \fB\-\-batch\fP
+Run in batch mode.
+Read passwords and passphrases from standard input,
+each terminated by a NUL character.
+If a packet does not match a volume exactly, fail instead of prompting the user.
+
+.TP
+\fB\-d\fP, \fB\-\-nss\-dir\fP \fIDIR\fP
+Use private keys in NSS database in
+.I DIR
+to decrypt public key-encrypted packets.
+
+.TP
+\fB\-o\fP, \fB\-\-output\fP \fIPACKET\fP
+Write the default secret to \fIPACKET\fP.
+
+Which secret is the default depends on volume format:
+it should not be likely to expire,
+and it should allow restoring access to the volume using \fB\-\-restore\fP.
+
+.TP
+\fB\-\-output\-data\-encryption\-key\fP \fIPACKET\fP
+Write the data encryption key (the key directly used to encrypt the actual
+volume data) to \fIPACKET\fP.
+
+.TP
+\fB\-\-output\-passphrase\fP \fIPACKET\fP
+Write a passphrase that can be used to access the volume to \fIPACKET\fP.
+
+.TP
+\fB\-\-create\-random\-passphrase\fP \fIPACKET\fP
+Generate a random alphanumeric passphrase,
+add it to
+.I VOLUME
+(without affecting other passphrases)
+and store the random passphrase into \fIPACKET\fP.
+
+.\" --unencrypted-yes-really is intentionally not documented.
+
+.TP
+\fB\-c\fP, \fB\-\-certificate\fP \fICERT\fP
+Load a certificate from the file specified by
+.I CERT
+and encrypt all output packets using the public key contained in the
+certificate.
+If this option is not specified,
+all output packets are encrypted using a passphrase.
+
+Note that
+.I CERT
+is a certificate file name, not a NSS certificate nickname.
+
+.TP
+\fB\-\-with\-secrets\fP
+Include secrets in the output of \fB\-\-dump\fP
+
+.SH EXIT STATUS
+.B volume_key
+returns with exit status 0 on success, 1 on error.
+
+.SH NOTES
+The only currently supported volume format is LUKS.
+
+.SH EXAMPLE
+
+Typical usage of
+.B volume_key
+proceeds as follows.
+During system installation or soon after,
+back up the default secret of a volume, and add a system-specific random
+passphrase.
+Encrypt both using a certificate:
+.RS
+.B volume_key \-\-save
+.I VOLUME
+.B \-c
+.I CERT
+.B \-o
+.I PACKET_DEFAULT
+.B \-\-create\-random\-passphrase
+.I PACKET_PASSPHRASE
+.RE
+Store
+.I PACKET_DEFAULT
+and
+.I PACKET_PASSPHRASE
+outside of the computer.
+
+If the user forgets a passphrase,
+and the you can access the computer,
+decrypt
+.I PACKET_DEFAULT
+using the certificate private key
+(which should never leave a secure machine):
+.RS
+.B volume_key \-\-reencrypt \-d
+.I NSS_DB
+.I PACKET_DEFAULT
+.B \-o
+.I PACKET_DEFAULT_PW
+.RE
+Then boot the computer (e.g. using a "rescue mode"),
+copy
+.I PACKET_DEFAULT_PW
+to it,
+and restore access to the volume:
+.RS
+.B volume_key \-\-restore
+.I VOLUME PACKET_DEFAULT_PW
+.RE
+
+If the user forgets the passphrase, and you cannot access the computer,
+decrypt the backup passphrase:
+.RS
+.B volume_key \-\-secrets
+.I PACKET_PASSPHRASE
+.RE
+and tell the backup passphrase to the user.
+(You can later generate a new backup passphrase.)
+

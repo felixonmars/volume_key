@@ -1,0 +1,7 @@
+2009-05-25  Miloslav Trmač  <mitr@redhat.com>
+
+	* po/LINGUAS: Add "pl".
+
+2009-05-25  Piotr Drąg <piotrdrag@gmail.com>
+
+	* po/pl.po: New Polish translation.

@@ -1,1 +1,154 @@
-FIXME
+About
+=====
+The volume_key project provides a libvolume_key, a library for manipulating
+storage volume encryption keys and storing them separately from volumes, and an
+associated command-line tool, named volume_key.
+
+The main goal of the software is to allow restoring access to an encrypted
+hard drive if the primary user forgets the passphrase.  The encryption key
+back up can also be useful for extracting data after a hardware or software
+failure that corrupts the header of the encrypted volume, or to access the
+company data after an employee leaves abruptly.
+
+In a corporate setting the IT help desk could use it to back up the encryption
+keys before handing the computer over to the end user.  volume_key can be used
+by individual users as well.
+
+volume_key currently supports only the LUKS volume encryption format.  Support
+for other formats is possible, some formats are planned for future releases.
+
+The project is home page is at https://fedorahosted.org/volume_key/ .
+
+Requirements
+============
+(FIXME: update this before first release.)
+volume_key currently depends on a patched crytpsetup-luks.  The patch is
+available at https://fedorahosted.org/releases/v/o/volume_key/ .
+
+Using volume_key stand-alone
+============================
+As an individual user, you can use volume_key to save the encryption keys like
+this:
+
+* Run
+        volume_key --save /path/to/volume -o escrow-packet
+  You will be prompted for an escrow packet passphrase to protect the key.
+* Save the generated `escrow-packet' file, make sure you won't forget the
+  passphrase.
+
+If you forget the volume passphrase and want to use the saved escrow packet to
+restore access to your data:
+
+* Boot the system in an environment where you can run volume_key and you have
+  the escrow packet available (e.g. a rescue mode).
+* Run
+        volume_key --restore /path/to/volume escrow-packet
+  You will be prompted for the escrow packet passphrase you used when creating
+  the escrow packet, and for a new passphrase for the volume.
+* You can now mount the volume using the chosen volume passphrase.
+  If you want to, you can remove the old passphrase you forgot by using e.g.
+  (cryptsetup luksKillSlot), to free up the passphrase slot in the LUKS header
+  of your encrypted volume.
+
+Using volume_key in a larger organization
+=========================================
+
+In a larger organization, it is impractical to use a single password known
+by every system administrator that installs a system, as well as to keep
+track of a separate password for each system.  volume_key can use asymmetric
+cryptography to minimize the number of people who know the password necessary
+to access encrypted data on any computer.
+
+Preparation
+-----------
+
+A little preparation is necessary before saving encryption keys:
+* Create a X509 certificate/private key pair.  Consider signing the certificate
+  by your company CA, if you have one.
+* Designate users that will be able to decrypt the escrow packets.  These
+  users are trusted not to compromise the private key.
+* Choose which systems will be used to decrypt the escrow packets.
+* On these systems, set up a NSS database that contains the private key.  If
+  the private key was not created in a NSS database in the first place, follow
+  these steps:
+  * Store the certificate and private key in a PKCS#12 file.
+  * Run
+        certutil -d /your/nss/directory -N
+    You'll be able to choose a NSS database password at this point.  Each NSS
+    database can have a different password (the designated users do not need to
+    share a single password if each user uses a separate NSS database).
+  * Run
+        pk12util -d /your/nss/directory -i your-pkcs12-file
+* Distribute the certificate to everyone who will be installing systems or
+  saving keys on existing systems.
+* Prepare storage for the saved private keys, that allows you to look them up
+  by machine and volume..  This can be e.g. a simple directory with one
+  subdirectory per machine, or a database that you use for other system
+  management tasks as well.
+
+Saving encryption keys
+----------------------
+
+* Run
+	volume_key --save /path/to/volume -c /path/to/cert -o escrow-packet
+  where /path/to/cert points to the certificate distributed in the preparation
+  phase.
+* Save the generated `escrow-packet' file in the prepared storage, associating
+  it with the system and the volume.
+
+These steps can be performed manually, or scripted as a part of system
+installation.
+
+Restoring access to a volume
+----------------------------
+
+* Get the escrow packet for the volume from your packet storage, send it to
+  one of the designated users for decryption.
+* The designated user will run
+        volume_key --reencrypt -d /your/nss/directory escrow-packet-in \
+                -o escrow-packet-out
+  After providing the NSS database password, the designated user chooses a
+  passphrase for encrypting escrow-packet-out.  This passphrase can be different
+  each time, and only protects the encryption keys while they are moved from
+  the designated user to the target system.
+* Get the `escrow-packet-out' file and the passphrase from the designated user.
+* Boot the target system in an environment where you can run volume_key and you
+  have the `escrow-packet-out' file available (e.g. a rescue mode).
+* Run
+        volume_key --restore /path/to/volume escrow-packet-out
+  You will be prompted for the packet passphrase chosen by the designated user,
+  and for a new passphrase for the volume.
+* You can now mount the volume using the chosen volume passphrase.
+  If you want to, you can remove the old passphrase you forgot by using e.g.
+  (cryptsetup luksKillSlot), to free up the passphrase slot in the LUKS header
+  of your encrypted volume.
+
+Setting up emergency passphrases
+--------------------------------
+In some cases (e.g. business travel) it is not practical for system
+administrators to work with the affected systems directly, but users still need
+access to their data.  To handle this case, volume_key can work with passphrases
+as well as encryption keys.
+
+During system installation, run
+	volume_key --save /path/to/volume -c /path/to/cert \
+                --create-random-passphrase passphrase-packet
+This will generate a random passphrase, add it to the specified volume, and
+store it to `passphrase-packet'.  (You can also combine the
+--create-random-passphrase and -o options to generate both packet at the same
+time.)
+
+When an user forgets the password, let the designated user run
+        volume_key --secrets -d /your/nss/directory passphrase-packet
+This will show the random passphrase.  Give this passphrase to the end user.
+
+More
+====
+See volume_key(8) for more possibilities how to use the volume_key utility.
+
+Bugs
+====
+Please consider reporting the bug to your distribution's bug tracking system.
+
+Otherwise, please report bugs at https://fedorahosted.org/volume_key/ .  Bug
+reports with patches are especially welcome.

@@ -1,5 +1,7 @@
 2009-06-03  Miloslav Trmač  <mitr@redhat.com>
 
+	* README: Write it.
+
 	* po/Makevars (MSGID_BUGS_ADDRESS): Update.
 
 	* configure.ac: Release 0.1.

@@ -1,5 +1,7 @@
 2009-06-03  Miloslav Trmač  <mitr@redhat.com>
 
+	* po/Makevars (MSGID_BUGS_ADDRESS): Update.
+
 	* configure.ac: Release 0.1.
 
 	* tests/crypto_roundtrips.sh: Fix line wrapping.

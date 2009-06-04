@@ -527,8 +527,7 @@ luks_add_secret (struct libvk_volume *vol, enum libvk_secret secret_type,
 		   _("Data encryption key unknown"));
       return -1;
     }
-  if (size == 0 || memchr (secret, '\0', size) !=
-      (const unsigned char *)secret + size - 1)
+  if (memchr (secret, '\0', size) != NULL)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_INVALID_SECRET,
 		   _("The passphrase must be a string"));
@@ -536,8 +535,7 @@ luks_add_secret (struct libvk_volume *vol, enum libvk_secret secret_type,
     }
   res = crypt_luks_add_passphrase_by_master_key (vol->path, vol->v.luks->key,
 						 vol->v.luks->key_bytes, -1,
-						 secret, size - 1,
-						 dummy_luks_log);
+						 secret, size, dummy_luks_log);
   if (res < 0)
     {
       error_from_cryptsetup (error, LIBVK_ERROR_FAILED, res);

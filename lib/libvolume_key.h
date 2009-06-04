@@ -214,7 +214,7 @@ extern int libvk_volume_get_secret (struct libvk_volume *vol,
    This operation should not be destructive.  Details are format-specific;
    for example, this may allow adding a LIBVK_SECRET_PASSPHRASE, assuming
    LIBVK_SECRET_DEFAULT was obtained before.
-   If SECRET is a string, SIZE should include the terminating NUL.
+   If SECRET is a string, SIZE does not include the terminating NUL.
    This can be used only on volumes returned by libvk_volume_open (), not
    by volumes created from escrow packets. */
 extern int libvk_volume_add_secret (struct libvk_volume *vol,

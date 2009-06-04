@@ -597,6 +597,7 @@ libvk_volume_apply_packet (struct libvk_volume *vol,
    This operation should not be destructive.  Details are format-specific;
    for example, this may allow adding a LIBVK_SECRET_PASSPHRASE, assuming
    LIBVK_SECRET_DEFAULT was obtained before.
+   If SECRET is a string, SIZE does not include the terminating NUL.
    This can be used only on volumes returned by libvk_volume_open (), not
    by volumes created from escrow packets. */
 int

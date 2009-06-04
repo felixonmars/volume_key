@@ -684,7 +684,7 @@ do_save (int argc, char *argv[])
       passphrase[i] = '\0';
 
       if (libvk_volume_add_secret (v, LIBVK_SECRET_PASSPHRASE, passphrase,
-				   strlen (passphrase) + 1, &error) != 0)
+				   strlen (passphrase), &error) != 0)
 	error_exit (_("Error creating a passphrase: %s"), error->message);
       if (write_packet (&pos, output_created_random_passphrase, v,
 			LIBVK_SECRET_PASSPHRASE, ui, &error) != 0)

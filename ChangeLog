@@ -1,5 +1,11 @@
 2009-06-04  Miloslav Trmač  <mitr@redhat.com>
 
+	* lib/volume_luks.c (luks_add_secret): Do not count terminating NUL
+	in `size'.
+	* lib/volume.c
+	* lib/libvolume_key.h: Update comment.
+	* src/volume_key.c (do_save): Update.
+
 	* lib/ui.c (libvk_ui_set_generic_cb, libvk_ui_set_passphrase_cb)
 	(libvk_ui_set_nss_pwfn_arg): Free the previous data before overwriting
 	it.

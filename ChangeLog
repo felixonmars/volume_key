@@ -1,3 +1,12 @@
+2009-06-04  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/libvolume_key.c (libvk_volume_create_packet_cleartext)
+	(libvk_volume_create_packet_assymetric)
+	(libvk_volume_create_packet_with_passphrase)
+	* lib/volume.c (libvk_volume_get_secret)
+	(libvk_volume_add_secret): Reject invalid negative enum libvk_secret
+	values if the enum is compatible with a signed type.
+
 2009-06-03  Miloslav Trmač  <mitr@redhat.com>
 
 	* README: Write it.

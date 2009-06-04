@@ -435,7 +435,7 @@ libvk_volume_get_secret (struct libvk_volume *vol,
 {
   g_return_val_if_fail (vol != NULL, -1);
   g_return_val_if_fail (vol->source == VOLUME_SOURCE_LOCAL, -1);
-  g_return_val_if_fail (secret_type < LIBVK_SECRET_END__, -1);
+  g_return_val_if_fail ((unsigned)secret_type < LIBVK_SECRET_END__, -1);
   g_return_val_if_fail (ui != NULL, -1);
   g_return_val_if_fail (error == NULL || *error == NULL, -1);
 
@@ -606,7 +606,7 @@ libvk_volume_add_secret (struct libvk_volume *vol,
 {
   g_return_val_if_fail (vol != NULL, -1);
   g_return_val_if_fail (vol->source == VOLUME_SOURCE_LOCAL, -1);
-  g_return_val_if_fail (secret_type <= LIBVK_SECRET_END__, -1);
+  g_return_val_if_fail ((unsigned)secret_type <= LIBVK_SECRET_END__, -1);
   g_return_val_if_fail (secret != NULL, -1);
   g_return_val_if_fail (error == NULL || *error == NULL, -1);
 

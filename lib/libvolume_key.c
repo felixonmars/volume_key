@@ -65,7 +65,7 @@ libvk_volume_create_packet_cleartext (const struct libvk_volume *vol,
 
   g_return_val_if_fail (vol != NULL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
-  g_return_val_if_fail (secret_type < LIBVK_SECRET_END__, NULL);
+  g_return_val_if_fail ((unsigned)secret_type < LIBVK_SECRET_END__, NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
   inner = volume_create_escrow_packet (vol, &inner_size, secret_type, error);
@@ -110,7 +110,7 @@ libvk_volume_create_packet_assymetric (const struct libvk_volume *vol,
 
   g_return_val_if_fail (vol != NULL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
-  g_return_val_if_fail (secret_type < LIBVK_SECRET_END__, NULL);
+  g_return_val_if_fail ((unsigned)secret_type < LIBVK_SECRET_END__, NULL);
   g_return_val_if_fail (cert != NULL, NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
@@ -162,7 +162,7 @@ libvk_volume_create_packet_with_passphrase (const struct libvk_volume *vol,
 
   g_return_val_if_fail (vol != NULL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
-  g_return_val_if_fail (secret_type < LIBVK_SECRET_END__, NULL);
+  g_return_val_if_fail ((unsigned)secret_type < LIBVK_SECRET_END__, NULL);
   g_return_val_if_fail (passphrase != NULL, NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 

@@ -85,8 +85,8 @@ extern void libvk_ui_free (struct libvk_ui *ui);
    whether the response should be echoed.  It returns a response (for
    g_free ()), or NULL on error.
 
-   Upon libvk_ui_free (UI), FREE_DATA (DATA) will be called if FREE_DATA is not
-   NULL. */
+   Upon libvk_ui_free (UI) or subsequent libvk_ui_set_generic_cb (UI, ...),
+   FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
 extern void libvk_ui_set_generic_cb (struct libvk_ui *ui,
 				     char *(*cb) (void *data,
 						  const char *prompt, int echo),
@@ -101,8 +101,8 @@ extern void libvk_ui_set_generic_cb (struct libvk_ui *ui,
    preceding failed attempts.  It returns a passphrase (for g_free ()), or
    NULL on error.
 
-   Upon libvk_ui_free (UI), FREE_DATA (DATA) will be called if FREE_DATA is not
-   NULL. */
+   Upon libvk_ui_free (UI) or subsequent libvk_ui_set_passphrase_cb (UI, ...),
+   FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
 extern void libvk_ui_set_passphrase_cb (struct libvk_ui *ui,
 					char *(*cb) (void *data,
 						     const char *prompt,
@@ -111,8 +111,8 @@ extern void libvk_ui_set_passphrase_cb (struct libvk_ui *ui,
 					void (*free_data) (void *data));
 /* Set a NSS password callback (set by PK11_SetPasswordFunc) parameter to DATA.
 
-   Upon libvk_ui_free (UI), FREE_DATA (DATA) will be called if FREE_DATA is not
-   NULL. */
+   Upon libvk_ui_free (UI) or subsequent libvk_ui_set_nss_pwfn_arg (UI, ...),
+   FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
 extern void libvk_ui_set_nss_pwfn_arg (struct libvk_ui *ui, void *data,
 				       void (*free_data) (void *data));
 

@@ -50,14 +50,16 @@ libvk_ui_free (struct libvk_ui *ui)
    whether the response should be echoed.  It returns a response (for
    g_free ()), or NULL on error.
 
-   Upon libvk_ui_free (UI), FREE_DATA (DATA) will be called if FREE_DATA is not
-   NULL. */
+   Upon libvk_ui_free (UI) or subsequent libvk_ui_set_generic_cb (UI, ...),
+   FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
 void
 libvk_ui_set_generic_cb (struct libvk_ui *ui,
 			 char *(*cb) (void *data, const char *prompt, int echo),
 			 void *data, void (*free_data) (void *data))
 {
   g_return_if_fail (ui != NULL);
+  if (ui->generic_free_data != NULL)
+    ui->generic_free_data (ui->generic_data);
   ui->generic_cb = cb;
   ui->generic_data = data;
   ui->generic_free_data = free_data;
@@ -71,8 +73,8 @@ libvk_ui_set_generic_cb (struct libvk_ui *ui,
    preceding failed attempts.  It returns a passphrase (for g_free ()), or
    NULL on error.
 
-   Upon libvk_ui_free (UI), FREE_DATA (DATA) will be called if FREE_DATA is not
-   NULL. */
+   Upon libvk_ui_free (UI) or subsequent libvk_ui_set_passphrase_cb (UI, ...),
+   FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
 void
 libvk_ui_set_passphrase_cb (struct libvk_ui *ui,
 			  char *(*cb) (void *data, const char *prompt,
@@ -80,6 +82,8 @@ libvk_ui_set_passphrase_cb (struct libvk_ui *ui,
 			  void *data, void (*free_data) (void *data))
 {
   g_return_if_fail (ui != NULL);
+  if (ui->passphrase_free_data != NULL)
+    ui->passphrase_free_data (ui->passphrase_data);
   ui->passphrase_cb = cb;
   ui->passphrase_data = data;
   ui->passphrase_free_data = free_data;
@@ -87,13 +91,15 @@ libvk_ui_set_passphrase_cb (struct libvk_ui *ui,
 
 /* Set a NSS password callback (set by PK11_SetPasswordFunc) parameter to DATA.
 
-   Upon libvk_ui_free (UI), FREE_DATA (DATA) will be called if FREE_DATA is not
-   NULL. */
+   Upon libvk_ui_free (UI) or subsequent libvk_ui_set_nss_pwfn_arg (UI, ...),
+   FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
 void
 libvk_ui_set_nss_pwfn_arg (struct libvk_ui *ui, void *data,
 			   void (*free_data) (void *data))
 {
   g_return_if_fail (ui != NULL);
+  if (ui->nss_pwfn_free_arg != NULL)
+    ui->nss_pwfn_free_arg (ui->nss_pwfn_arg);
   ui->nss_pwfn_arg = data;
   ui->nss_pwfn_free_arg = free_data;
 }

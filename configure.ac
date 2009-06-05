@@ -24,6 +24,7 @@ AM_INIT_AUTOMAKE([dist-bzip2 no-define subdir-objects -Wall])
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
+AM_PATH_PYTHON
 
 dnl Not gpg2, it cannot receive passphrases from gpgme
 AC_PATH_PROG([GPG], [gpg])

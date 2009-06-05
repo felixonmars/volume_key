@@ -7,3 +7,4 @@
 /config.h.in
 Makefile.in
 *~
+*.py[co]

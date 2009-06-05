@@ -1,5 +1,15 @@
 2009-06-05  Miloslav Trmač  <mitr@redhat.com>
 
+	* python/volume_key.i: New file.
+	* doc/demo.py: New file.
+	* configure.ac: Add AM_PATH_PYTHON.
+	* Makefile.am (PYTHON_CPPFLAGS): New setting.
+	(pyexec_PYTHON, pyexec_LTLIBRARIES): New targets.  Associated rules
+	and dependency data added as well.
+
+	* Makefile.as (lib_libvolume_key_la_LDFLAGS)
+	(lib_libvolume_key_la_LIBADD): Move library references to _LIBADD.
+
 	* src/volume_key.c (yes_or_no): Remove a stray nl_langinfo () call.
 	(generic_ui_cb): Fix "echo" interpretation.
 	(packet_matches_volume): Add missing \n.

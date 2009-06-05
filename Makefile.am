@@ -19,6 +19,7 @@
 ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = $(blkid_CFLAGS) $(glib_CFLAGS) $(GPGME_CFLAGS) $(nss_CFLAGS)
 LOCALEDIR_CPPFLAGS = -DLOCALEDIR='"$(localedir)"'
+PYTHON_CPPFLAGS = -I/usr/include/python$(PYTHON_VERSION)
 
 ## Targets
 SUBDIRS = po
@@ -29,19 +30,35 @@ dist_man_MANS = doc/volume_key.8
 lib_LTLIBRARIES = lib/libvolume_key.la
 pkginclude_HEADERS = lib/libvolume_key.h
 
+pyexec_PYTHON = python/volume_key.py
+pyexec_LTLIBRARIES = python/_volume_key.la
+
 TESTS = tests/crypto_roundtrips.sh tests/kmip_roundtrip
 
-EXTRA_DIST = tests/crypto_roundtrips.sh \
+EXTRA_DIST = python/volume_key.i \
+	tests/crypto_roundtrips.sh \
 	tests/kmip_roundtrip_luks_passphrase tests/kmip_roundtrip_luks_symmetric
+
+## Rules
+python/volume_key_wrap.c python/volume_key.py: python/volume_key.i
+	swig -Wall -python -I$(top_srcdir) -o python/volume_key_wrap.c \
+		$(top_srcdir)/python/volume_key.i
+
+python/volume_key.py: python/volume_key_wrap.c
 
 ## Dependency data
 lib_libvolume_key_la_SOURCES = lib/crypto.c lib/crypto.h lib/kmip.c lib/kmip.h \
 	lib/libvolume_key.c lib/libvolume_key.h lib/ui.c lib/ui.h lib/volume.c \
 	lib/volume.h lib/volume_luks.c lib/volume_luks.h
 lib_libvolume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
-lib_libvolume_key_la_LDFLAGS = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \
-	$(nss_LIBS) -lcryptsetup -version-info 0:0:0
-lib_libvolume_key_la_LIBADD = $(LTLIBINTL)
+lib_libvolume_key_la_LDFLAGS = -version-info 0:0:0
+lib_libvolume_key_la_LIBADD = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \
+	$(LTLIBINTL) $(nss_LIBS) -lcryptsetup
+
+python__volume_key_la_SOURCES = python/volume_key_wrap.c
+python__volume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(PYTHON_CPPFLAGS)
+python__volume_key_la_LDFLAGS = -module -avoid-version $(glib_LIBS)
+python__volume_key_la_LIBADD = lib/libvolume_key.la -lpython$(PYTHON_VERSION)
 
 src_volume_key_SOURCES = src/volume_key.c
 src_volume_key_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)

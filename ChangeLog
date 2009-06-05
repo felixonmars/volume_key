@@ -1,5 +1,7 @@
 2009-06-05  Miloslav Trmač  <mitr@redhat.com>
 
+	* po/cs.po: Update Czech translation.
+
 	* python/volume_key.i: New file.
 	* doc/demo.py: New file.
 	* configure.ac: Add AM_PATH_PYTHON.

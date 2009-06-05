@@ -1,5 +1,10 @@
 2009-06-05  Miloslav Trmač  <mitr@redhat.com>
 
+	* src/volume_key.c (yes_or_no): Remove a stray nl_langinfo () call.
+	(generic_ui_cb): Fix "echo" interpretation.
+	(packet_matches_volume): Add missing \n.
+	(do_reencrypt): Fix help output.
+
 	* lib/libvolume_key.c (libvk_packet_open): Clear error pointer after
 	each failed attempt.
 

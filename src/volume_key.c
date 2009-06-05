@@ -69,7 +69,6 @@ yes_or_no (const char *question)
     g_return_val_if_reached (-1);
   if (regcomp (&re_no, nl_langinfo (NOEXPR), REG_EXTENDED | REG_NOSUB) != 0)
     g_return_val_if_reached (-1);
-  nl_langinfo (NOEXPR);
   for (;;)
     {
       char buf[LINE_MAX];
@@ -388,7 +387,7 @@ generic_ui_cb (void *id, const char *prompt, int echo)
   (void)id;
   if (batch_mode != 0)
     return read_batch_string ();
-  else if (echo != 0)
+  else if (echo == 0)
     {
       char *s, *res;
 
@@ -725,8 +724,8 @@ packet_matches_volume (const struct libvk_volume *packet,
       {
 	size_t i;
 
-	fprintf (stderr, _("`%s' perhaps does not match `%s'"), packet_filename,
-		 vol_filename);
+	fprintf (stderr, _("`%s' perhaps does not match `%s'\n"),
+		 packet_filename, vol_filename);
 	for (i = 0; i < warnings->len; i++)
 	  {
 	    char *s;
@@ -852,7 +851,7 @@ do_reencrypt (int argc, char *argv[])
   struct packet_output_state pos;
 
   if (argc != 2)
-    error_exit (_("Usage: %s --%s PACKET"), g_get_prgname (), "restore");
+    error_exit (_("Usage: %s --%s PACKET"), g_get_prgname (), "reencrypt");
 
   error = NULL;
   ui = create_ui ();

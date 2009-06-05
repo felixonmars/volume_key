@@ -1,5 +1,8 @@
 2009-06-05  Miloslav Trmač  <mitr@redhat.com>
 
+	* python/volume_key.i (python_generic_cb, python_passphrase_cb): Remove
+	obsolete FIXME.
+
 	* po/cs.po: Update Czech translation.
 
 	* python/volume_key.i: New file.

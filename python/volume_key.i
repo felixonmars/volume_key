@@ -172,8 +172,7 @@ python_generic_cb (void *data, const char *prompt, int echo)
   /* On exception this callback returns NULL, leaving the "top-level" function
      wrapper to recognize the exception and return an error.  In the unlikely
      case the callback is called again after an error, just clear the error
-     state and start anew.
-     FIXME: implement this in the top-level functions. */
+     state and start anew. */
   PyErr_Clear ();
   fn = data;
   res = PyObject_CallFunction (fn, (char *)"sN", prompt,
@@ -206,8 +205,7 @@ python_passphrase_cb (void *data, const char *prompt, unsigned failed_attempts)
   /* On exception this callback returns NULL, leaving the "top-level" function
      wrapper to recognize the exception and return an error.  In the unlikely
      case the callback is called again after an error, just clear the error
-     state and start anew.
-     FIXME: implement this in the top-level functions. */
+     state and start anew. */
   PyErr_Clear ();
   fn = data;
   res = PyObject_CallFunction (fn, (char *)"sI", prompt, failed_attempts);

@@ -295,6 +295,7 @@ libvk_packet_open (const void *packet, size_t size, const struct libvk_ui *ui,
 		inner_size = clear_size;
 		goto got_passphrase;
 	      }
+	    g_clear_error(error);
 	  }
 	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
 		     _("Too many attempts to get a valid passphrase"));

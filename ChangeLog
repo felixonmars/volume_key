@@ -1,3 +1,8 @@
+2009-06-05  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/libvolume_key.c (libvk_packet_open): Clear error pointer after
+	each failed attempt.
+
 2009-06-04  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/volume_luks.c (luks_add_secret): Do not count terminating NUL

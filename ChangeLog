@@ -1,3 +1,8 @@
+2009-06-14  Miloslav Trmač  <mitr@redhat.com>
+
+	* Makefile.am (AM_CPPFLAGS): Define G_DISABLE_DEPREACATED and
+	G_DISABLE_SINGLE_INCLUDES.
+
 2009-06-05  Miloslav Trmač  <mitr@redhat.com>
 
 	* python/volume_key.i (python_generic_cb, python_passphrase_cb): Remove

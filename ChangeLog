@@ -1,5 +1,10 @@
 2009-06-14  Miloslav Trmač  <mitr@redhat.com>
 
+	* configure.ac: Add AC_CONFIG_MACRO_DIR.  Update for libtool 2.
+
+	* Makefile.am (AM_CPPFLAGS): Remove the G_* macros again,
+	G_DISABLE_DEPREACATED is already defined by configure.ac.
+
 	* Makefile.am (AM_CPPFLAGS): Define G_DISABLE_DEPREACATED and
 	G_DISABLE_SINGLE_INCLUDES.
 

@@ -16,6 +16,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 Author: Miloslav Trmač <mitr@redhat.com>])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([lib/libvolume_key.h])
 AC_CONFIG_AUX_DIR([admin])
 AM_INIT_AUTOMAKE([dist-bzip2 no-define subdir-objects -Wall])
@@ -23,7 +24,7 @@ AM_INIT_AUTOMAKE([dist-bzip2 no-define subdir-objects -Wall])
 # Checks for programs.
 AC_PROG_CC
 AM_PROG_CC_C_O
-AC_PROG_LIBTOOL
+LT_INIT
 AM_PATH_PYTHON
 
 dnl Not gpg2, it cannot receive passphrases from gpgme
@@ -38,7 +39,7 @@ AC_DEFINE(G_DISABLE_DEPRECATED, 1,
 	  [Stay away from deprecated glib functionality.])
 PKG_CHECK_MODULES(nss, [nss])
 
-AM_PATH_GPGME()
+AM_PATH_GPGME
 
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])

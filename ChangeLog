@@ -1,3 +1,26 @@
+2009-06-15  Miloslav Trmač  <mitr@redhat.com>
+
+	* src/volume_key.c (yes_or_no, read_batch_string, generic_ui_cb): Use
+	getline () and getdelim ().
+	(pos_init): Use a more specific error message.
+
+	* python/volume_key.i
+	(struct libvk_volume::create_packet_assymetric_from_cert_data): New
+	method.
+	* po/POTFILES.in: Add python/volume_key.i.
+	* doc/demo.py (PacketOutputState.__init__)
+	(PacketOutputState.write_packet): Add assymetric encryption.
+
+	* lib/libvolume_key.c (libvk_volume_create_packet_cleartext)
+	(libvk_volume_create_packet_assymetric)
+	(libvk_volume_create_packet_with_passphrase)
+	(libvk_packet_get_format)
+	* lib/volume_luks.c (luks_parse_escrow_packet): Use G_STATIC_ASSERT.
+
+	* doc/demo.py (PacketOutputState.__init__): Fix failure counter.
+	(PacketOutputState.__init__, PacketOutputState.write_packet): Add
+	assymetric encryption.
+
 2009-06-14  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Add AC_CONFIG_MACRO_DIR.  Update for libtool 2.

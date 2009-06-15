@@ -5,4 +5,5 @@ lib/libvolume_key.c
 lib/ui.c
 lib/volume.c
 lib/volume_luks.c
+python/volume_key.i
 src/volume_key.c

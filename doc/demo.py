@@ -187,7 +187,8 @@ class PacketOutputState(object):
         if options.output_format_cleartext:
             pass
         elif options.output_certificate:
-            sys.exit('what to do?')
+            with open(options.output_certificate, 'rb') as f:
+                self.cert = f.read()
         else:
             failed = 0
             while True:
@@ -204,13 +205,15 @@ class PacketOutputState(object):
                     sys.exit('')
                 if passphrase == passphrase2:
                     break
+                failed += 1
             self.passphrase = passphrase
 
     def write_packet(self, filename, vol, secret_type, ui):
         if options.output_format_cleartext:
             packet = vol.create_packet_cleartext(secret_type)
         elif options.output_certificate is not None:
-            packet = vol.create_packet_assymetric(secret_type, self.cert, ui)
+            packet = vol.create_packet_assymetric_from_cert_data(secret_type,
+                                                                 self.cert, ui)
         else:
             packet = vol.create_packet_with_passphrase(secret_type,
                                                        self.passphrase)

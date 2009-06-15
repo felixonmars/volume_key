@@ -72,9 +72,7 @@ libvk_volume_create_packet_cleartext (const struct libvk_volume *vol,
   if (inner == NULL)
     return NULL;
   {
-    /* FIXME: GLib 2.19 will support compile-time assertions natively. */
-    typedef char assertion__[sizeof (hdr.magic) == sizeof (packet_magic)
-			     ? 1 : -1];
+    G_STATIC_ASSERT (sizeof (hdr.magic) == sizeof (packet_magic));
   }
   memcpy (hdr.magic, packet_magic, sizeof (hdr.magic));
   hdr.format = LIBVK_PACKET_FORMAT_CLEARTEXT;
@@ -126,9 +124,7 @@ libvk_volume_create_packet_assymetric (const struct libvk_volume *vol,
     return NULL;
 
   {
-    /* FIXME: GLib 2.19 will support compile-time assertions natively. */
-    typedef char assertion__[sizeof (hdr.magic) == sizeof (packet_magic)
-			     ? 1 : -1];
+    G_STATIC_ASSERT (sizeof (hdr.magic) == sizeof (packet_magic));
   }
   memcpy (hdr.magic, packet_magic, sizeof (hdr.magic));
   hdr.format = LIBVK_PACKET_FORMAT_ASSYMETRIC;
@@ -178,9 +174,7 @@ libvk_volume_create_packet_with_passphrase (const struct libvk_volume *vol,
     return NULL;
 
   {
-    /* FIXME: GLib 2.19 will support compile-time assertions natively. */
-    typedef char assertion__[sizeof (hdr.magic) == sizeof (packet_magic)
-			     ? 1 : -1];
+    G_STATIC_ASSERT (sizeof (hdr.magic) == sizeof (packet_magic));
   }
   memcpy (hdr.magic, packet_magic, sizeof (hdr.magic));
   hdr.format = LIBVK_PACKET_FORMAT_PASSPHRASE;
@@ -213,9 +207,7 @@ libvk_packet_get_format (const void *packet, size_t size, GError **error)
     }
   memcpy (&hdr, packet, sizeof (hdr));
   {
-    /* FIXME: GLib 2.19 will support compile-time assertions natively. */
-    typedef char assertion__[sizeof (hdr.magic) == sizeof (packet_magic)
-			     ? 1 : -1];
+    G_STATIC_ASSERT (sizeof (hdr.magic) == sizeof (packet_magic));
   }
   if (memcmp (hdr.magic, packet_magic, sizeof (hdr.magic)) != 0)
     {

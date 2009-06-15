@@ -706,8 +706,7 @@ luks_parse_escrow_packet (struct libvk_volume *vol,
 	  goto err;
 	}
       {
-	/* FIXME: GLib 2.19 will support compile-time assertions natively. */
-	typedef char assertion__[sizeof (gint32) <= sizeof (size_t) ? 1 : -1];
+	G_STATIC_ASSERT (sizeof (gint32) <= sizeof (size_t));
       }
       vol->v.luks->key_bytes = a->v.int32_value / 8;
       if (key_value->v.key->len != vol->v.luks->key_bytes)

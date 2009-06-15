@@ -36,7 +36,6 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <prmem.h>
 #include <secmod.h>
 
-// FIXME: use the actual include paths?
 #include "../lib/libvolume_key.h"
 
  /* General utilities */
@@ -63,26 +62,27 @@ static int
 yes_or_no (const char *question)
 {
   regex_t re_yes, re_no;
+  char *buf;
+  size_t buf_size;
   int res;
 
   if (regcomp (&re_yes, nl_langinfo (YESEXPR), REG_EXTENDED | REG_NOSUB) != 0)
     g_return_val_if_reached (-1);
   if (regcomp (&re_no, nl_langinfo (NOEXPR), REG_EXTENDED | REG_NOSUB) != 0)
     g_return_val_if_reached (-1);
+  buf = NULL;
+  buf_size = 0;
   for (;;)
     {
-      char buf[LINE_MAX];
-      size_t len;
+      ssize_t len;
 
       /* TRASLATORS: The "(y/n)" part should indicate to the user that input
 	 matching (locale yesexpr) and (locale noexpr) is expected. */
       fprintf (stderr, _("%s (y/n) "), question);
       fflush (stderr);
-      /* FIXME: use getline () after it becomes visible from glibc without
-	 defining _GNU_SOURCE (which changes strerror_r () to non-POSIX). */
-      if (fgets (buf, sizeof (buf), stdin) == NULL)
+      len = getline (&buf, &buf_size, stdin);
+      if (len == -1)
 	continue;
-      len = strlen (buf);
       if (len != 0 && buf[len - 1] == '\n')
 	buf[len - 1] = '\0';
       if (regexec (&re_yes, buf, 0, NULL, 0) == 0)
@@ -96,6 +96,7 @@ yes_or_no (const char *question)
 	  break;
 	}
     }
+  free (buf);
   regfree (&re_yes);
   regfree (&re_no);
   return res;
@@ -320,32 +321,21 @@ parse_options (int *argc, char ***argv)
 static char *
 read_batch_string (void)
 {
-  char *res;
-  size_t n, size;
-  unsigned char c;
+  char *buf, *res;
+  size_t buf_size;
+  ssize_t len;
 
-  /* FIXME: Use getdelim () after glibc declares it without forcing its
-     strerror_r () on us. */
-  size = 64; /* Arbitrary */
-  n = 0;
-  res = g_malloc (size);
-  do
+  buf = NULL;
+  buf_size = 0;
+  len = getdelim (&buf, &buf_size, '\0', stdin);
+  if (len == -1 || len == 0 || buf[len - 1] != '\0')
     {
-      if (n == size)
-	{
-	  size *= 2;
-	  res = g_realloc (res, size);
-	}
-      if (fread (&c, 1, 1, stdin) != 1)
-	{
-	  g_free (res);
-	  return NULL;
-	}
-      res[n] = c;
-      n++;
+      free (buf);
+      return NULL;
     }
-  while (c != '\0');
-  return g_realloc (res, n);
+  res = g_memdup (buf, len);
+  free (buf);
+  return res;
 }
 
 /* A PK11_SetPaswordFunc handler */
@@ -400,24 +390,33 @@ generic_ui_cb (void *id, const char *prompt, int echo)
     }
   else
     {
-      char buf[LINE_MAX];
-      size_t len;
+      char *buf, *res;
+      size_t buf_size;
+      ssize_t len;
 
       fprintf (stderr, "%s: ", prompt);
       fflush (stderr);
-      /* FIXME: use getline () after it becomes visible from glibc without
-	 defining _GNU_SOURCE (which changes strerror_r () to non-POSIX). */
-      if (fgets (buf, sizeof (buf), stdin) == NULL)
-	return NULL;
-      len = strlen (buf);
+      buf = NULL;
+      buf_size = 0;
+      len = getline (&buf, &buf_size, stdin);
+      if (len == -1)
+	{
+	  free (buf);
+	  return NULL;
+	}
       if (len != 0 && buf[len - 1] == '\n')
 	{
 	  len--;
 	  buf[len] = '\0';
 	}
       if (len == 0)
-	return NULL;
-      return g_memdup (buf, len + 1);
+	{
+	  free (buf);
+	  return NULL;
+	}
+      res = g_memdup (buf, len + 1);
+      free (buf);
+      return res;
     }
 }
 
@@ -514,7 +513,8 @@ pos_init (struct packet_output_state *pos, GError **error)
       if (pos->cert == NULL)
 	{
 	  error_from_pr (error);
-	  g_prefix_error (error, _("Error reading `%s': "), output_certificate);
+	  g_prefix_error (error, _("Error decoding `%s': "),
+			  output_certificate);
 	  return -1;
 	}
     }

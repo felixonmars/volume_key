@@ -21,7 +21,7 @@ The project is home page is at https://fedorahosted.org/volume_key/ .
 
 Requirements
 ============
-(FIXME: update this before first release.)
+(FIXME: update this later.)
 volume_key currently depends on a patched crytpsetup-luks.  The patch is
 available at https://fedorahosted.org/releases/v/o/volume_key/ .
 

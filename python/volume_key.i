@@ -20,7 +20,12 @@ Author: Miloslav Trmač <mitr@redhat.com> */
  /* Header, common helper functions. */
 
 %{
+#include <config.h>
+
 #include <stdbool.h>
+
+#include <glib/gi18n-lib.h>
+#include <libintl.h>
 
 #include "lib/libvolume_key.h"
 
@@ -413,6 +418,40 @@ struct libvk_volume {};
   void *create_packet_assymetric (size_t *size, enum libvk_secret secret_type,
 				  CERTCertificate *cert,
 				  const struct libvk_ui *ui, GError **error);
+
+  /* An ugly workaround for the above problem with interfacing to python-nss. */
+  %typemap(in) (const void *cert_data, size_t cert_size) {
+    char *buf;
+    Py_ssize_t len;
+
+    if (PyString_AsStringAndSize ($input, &buf, &len) != 0)
+      SWIG_exception (SWIG_TypeError, "(cert_data, cert_size)");
+    $1 = buf;
+    $2 = len;
+  }
+  void *create_packet_assymetric_from_cert_data (size_t *size,
+						 enum libvk_secret secret_type,
+						 const void *cert_data,
+						 size_t cert_size,
+						 const struct libvk_ui *ui,
+						 GError **error) {
+
+    CERTCertificate *cert;
+    void *res;
+
+    cert = CERT_DecodeCertFromPackage ((char *)cert_data, cert_size);
+    if (cert == NULL)
+      {
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
+		     _("Error decoding certificate"));
+	return NULL;
+      }
+    res = libvk_volume_create_packet_assymetric ($self, size, secret_type, cert,
+						 ui, error);
+    CERT_DestroyCertificate (cert);
+    return res;
+  }
+  %typemap(in) (const void *cert_data, size_t cert_size);
 
   %apply Pointer NONNULL { const char *passphrase };
   void *create_packet_with_passphrase (size_t *size,

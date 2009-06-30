@@ -1,2 +1,6 @@
+# To regenerate: (cd po; ls | sed -n 's/\.po$//p').  Then remove languages with
+# no translations.
 cs
+de_CH
+es
 pl

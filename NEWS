@@ -1,0 +1,8 @@
+Changes in version 0.2:
+- New Python bindings.
+- Terminating NUL is not considered a part of the secret in
+  libvk_volume_add_secret ().
+- When an UI callback is replaced, the previous callback data is freed.
+- Minor bug fixes, mostly in the command-line utility.
+- Stricter parameter checking.
+- README added.

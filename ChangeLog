@@ -1,3 +1,10 @@
+2009-06-30  Miloslav Trmač  <mitr@redhat.com>
+
+	* configure.ac: Release 0.2.
+	* NEWS: Update.
+	* po/LINGUAS: Update.
+	* Makefile.am (lib_libvolume_key_la_LDFLAGS): Update version info.
+
 2009-06-15  Miloslav Trmač  <mitr@redhat.com>
 
 	* src/volume_key.c (yes_or_no, read_batch_string, generic_ui_cb): Use
@@ -26,9 +33,9 @@
 	* configure.ac: Add AC_CONFIG_MACRO_DIR.  Update for libtool 2.
 
 	* Makefile.am (AM_CPPFLAGS): Remove the G_* macros again,
-	G_DISABLE_DEPREACATED is already defined by configure.ac.
+	G_DISABLE_DEPRECATED is already defined by configure.ac.
 
-	* Makefile.am (AM_CPPFLAGS): Define G_DISABLE_DEPREACATED and
+	* Makefile.am (AM_CPPFLAGS): Define G_DISABLE_DEPRECATED and
 	G_DISABLE_SINGLE_INCLUDES.
 
 2009-06-05  Miloslav Trmač  <mitr@redhat.com>
@@ -60,8 +67,8 @@
 
 	* lib/volume_luks.c (luks_add_secret): Do not count terminating NUL
 	in `size'.
-	* lib/volume.c
-	* lib/libvolume_key.h: Update comment.
+	* lib/volume.c (libvk_volume_add_secret)
+	* lib/libvolume_key.h (libvk_volume_add_secret): Update comment.
 	* src/volume_key.c (do_save): Update.
 
 	* lib/ui.c (libvk_ui_set_generic_cb, libvk_ui_set_passphrase_cb)

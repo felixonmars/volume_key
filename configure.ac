@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([volume_key], [0.1], [mitr@redhat.com])
+AC_INIT([volume_key], [0.2], [mitr@redhat.com])
 AC_COPYRIGHT(
 [Copyright (C) 2009 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,

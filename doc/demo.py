@@ -251,7 +251,7 @@ def do_save(argv):
         PASSPHRASE_LENGTH = 8
         rnd = nss.nss.generate_random(PASSPHRASE_LENGTH)
         charset = '0123456789zbcdefghijklmnopqrstuvwxyz'
-        passphrase = ''.join([charset[c % len(charset)] for c in rnd])
+        passphrase = ''.join([charset[ord(c) % len(charset)] for c in rnd])
         v.add_secret(volume_key.SECRET_PASSPHRASE, passphrase)
         pos.write_packet(options.output_created_random_passphrase, v,
                          volume_key.SECRET_PASSPHRASE, ui)

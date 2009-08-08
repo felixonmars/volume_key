@@ -311,7 +311,11 @@ libvk_volume_open (const char *path, GError **error)
     }
   vol = g_new (struct libvk_volume, 1);
   vol->source = VOLUME_SOURCE_LOCAL;
-  vol->format = g_strdup (c);
+  /* The LUKS type identifier returned by blkid has changed. */
+  if (strcmp (c, "crypto_LUKS") == 0)
+    vol->format = g_strdup (LIBVK_VOLUME_FORMAT_LUKS);
+  else
+    vol->format = g_strdup (c);
   free (c);
 
   vol->hostname = g_strdup (g_get_host_name ());

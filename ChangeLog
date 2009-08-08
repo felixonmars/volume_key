@@ -1,3 +1,8 @@
+2009-08-08  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/volume.c (libvk_volume_open): Handle both "crypt_LUKS" and
+	"crypto_LUKS" type value returned from libblkid.
+
 2009-07-15  Miloslav Trmač  <mitr@redhat.com>
 
 	* doc/demo.py (do_save): Fix passphrase generation.

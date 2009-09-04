@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: volume_key.master.volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2009-09-02 02:33+0000\n"
-"PO-Revision-Date: 2009-09-03 16:53+0530\n"
+"PO-Revision-Date: 2009-09-04 11:30+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 
 #: ../lib/crypto.c:57 ../lib/crypto.c:257
 #, c-format
@@ -285,79 +286,66 @@ msgid "LUKS data encryption key in packet is invalid: "
 msgstr "LUKS आँकड़ा गोपन कुंजी अवैध है पैकेट में: "
 
 #: ../lib/volume_luks.c:400
-#, fuzzy
 msgid "LUKS passphrase in packet is invalid: "
-msgstr "इंच है अवैध "
+msgstr "पैकेट में LUKS कूटशब्द अवैध है: "
 
 #: ../lib/volume_luks.c:439
 #, c-format
-#, fuzzy
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr "नहीं आँकड़ा"
+msgstr "एस्क्रो पैकेट में LUKS आँकड़ा गोपन कुंजी समाहित नहीं है"
 
 #: ../lib/volume_luks.c:444
 #, c-format
-#, fuzzy
 msgid "New passphrase for `%s'"
-msgstr "नया के लिए से."
+msgstr "`%s' के लिए नया कूटशब्द"
 
 #: ../lib/volume_luks.c:445
 #, c-format
-#, fuzzy
 msgid "Repeat new passphrase for `%s'"
-msgstr "दोहराएँ नया के लिए से."
+msgstr "`%s' के लिए नया कूटशब्द दोहराएँ"
 
 #: ../lib/volume_luks.c:446
 #, c-format
-#, fuzzy
 msgid "Passphrases do not match.  New passphrase for `%s'"
-msgstr "नहीं नया के लिए से."
+msgstr "कूटशब्द मेल नहीं खाता है.  `%s' के लिए नया कूटशब्द"
 
 #: ../lib/volume_luks.c:471 ../src/volume_key.c:558
 #, c-format
-#, fuzzy
 msgid "Too many attempts to get a passphrase"
-msgstr "को पाएं a"
+msgstr "किसी कूटशब्द को पाने के लिए कई प्रयास"
 
 #: ../lib/volume_luks.c:484 ../lib/volume_luks.c:542
-#, fuzzy
 msgid "Error adding a LUKS passphrase"
-msgstr "त्रुटि संयोजन a"
+msgstr "किसी LUKS कूटशब्द जोड़ने में त्रुटि"
 
 #: ../lib/volume_luks.c:521
 #, c-format
-#, fuzzy
 msgid "Can not add a secret of this type"
-msgstr "नहीं जोड़ें a का यह क़िस्म"
+msgstr "इस प्रकार का गुप्त नहीं जोड़ सकता है"
 
 #: ../lib/volume_luks.c:527 ../lib/volume_luks.c:622 ../lib/volume_luks.c:805
 #, c-format
-#, fuzzy
 msgid "Data encryption key unknown"
-msgstr "डाटा अज्ञात"
+msgstr "आँकड़ा गोपन कुंजी अज्ञात"
 
 #: ../lib/volume_luks.c:533
 #, c-format
-#, fuzzy
 msgid "The passphrase must be a string"
-msgstr "a स्ट्रिंग"
+msgstr "कूटशब्द को जरूर कोई स्ट्रिंग होना चाहिए"
 
 #: ../lib/volume_luks.c:645
 #, c-format
-#, fuzzy
 msgid "Passphrase unknown"
 msgstr "कूटशब्द वाक्यांश अज्ञात"
 
 #: ../lib/volume_luks.c:704
-#, fuzzy
 msgid "Unsupported key length %"
-msgstr "असमर्थित लंबाई"
+msgstr "असमर्थित कुंजी लंबाई %"
 
 #: ../lib/volume_luks.c:715
 #, c-format
-#, fuzzy
 msgid "Key length mismatch"
-msgstr "कुंजी लंबाई"
+msgstr "कुंजी लंबाई बेमेल"
 
 #: ../lib/volume_luks.c:738
 #, c-format
@@ -395,55 +383,48 @@ msgid "Show version"
 msgstr "संस्करण दिखाएं"
 
 #: ../src/volume_key.c:172
-#, fuzzy
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
-msgstr "सहेजें को a."
+msgstr "पैकेट में आयतन गुप्त बातें सहेजें.  operands VOLUME [PACKET] की आशा है."
 
 #: ../src/volume_key.c:177
-#, fuzzy
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
-msgstr "पुरानी स्तिथी में लाऐं से a."
+msgstr "किसी पैकेट से आयतन गोपित पुनर्बहाल करें.  operands VOLUME PACKET की आशा करता है."
 
 #: ../src/volume_key.c:182
-#, fuzzy
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
-msgstr "सेट ऊपर प्रयोग कर रहा है से a नाम."
+msgstr ""
+"किसी पैकेट से गुप्त चीजों के प्रयोग से गोपित आयतन सेटअप करता है.  operands "
+"VOLUME PACKET NAME की आशा करता है."
 
 #: ../src/volume_key.c:187
-#, fuzzy
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "encrypt."
+msgstr "कोई एस्क्रो पैकेट पुनर्गोपित करें.  operand PACKET की आशा है."
 
 #: ../src/volume_key.c:191
-#, fuzzy
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr "दिखाएँ इंच a."
+msgstr "किसी पैकेट में समाहित सूचना दिखाता है.  operand PACKET की आशा है."
 
 #: ../src/volume_key.c:196
-#, fuzzy
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr "दिखाएँ इंच a."
+msgstr "किसी पैकेट में समाहित गुप्त चीजें दिखाता है.  operand PACKET की आशा है."
 
 #: ../src/volume_key.c:201
-#, fuzzy
 msgid "Use the NSS database in DIR"
-msgstr "उपयोग NSS डाटाबेस इंच DIR"
+msgstr "NSS डेटाबेस को DIR में प्रयोग करें"
 
 #: ../src/volume_key.c:201
 msgid "DIR"
 msgstr "DIR"
 
 #: ../src/volume_key.c:204
-#, fuzzy
 msgid "Run in batch mode"
-msgstr "चलाएँ इंच मोड"
+msgstr "बैच मोड में चलाएँ"
 
 #: ../src/volume_key.c:210
-#, fuzzy
 msgid "Write the default secret to PACKET"
-msgstr "लिखें मूलभूत को"
+msgstr "पैकेट में तयशुदा गुप्त चीजें लिखें"
 
 #: ../src/volume_key.c:210 ../src/volume_key.c:215 ../src/volume_key.c:219
 #: ../src/volume_key.c:224
@@ -451,56 +432,50 @@ msgid "PACKET"
 msgstr "PACKET"
 
 #: ../src/volume_key.c:214
-#, fuzzy
 msgid "Write data encryption key to PACKET"
-msgstr "लिखें आँकड़ा को"
+msgstr "पैकेट में आँकड़ा गोपन कुंजी लिखें"
 
 #: ../src/volume_key.c:219
-#, fuzzy
 msgid "Write passphrase to PACKET"
-msgstr "लिखें को"
+msgstr "पैकेट में कूटशब्द लिखें"
 
 #: ../src/volume_key.c:224
-#, fuzzy
 msgid "Create a random passphrase and write it to PACKET"
-msgstr "बनाएँ a बेतरतीब और लिखें को"
+msgstr "पैकेट में यादृच्छिक कूटशब्द बनाएँ और लिखें"
 
 #: ../src/volume_key.c:232
-#, fuzzy
 msgid "Encrypt for the certificate in CERT"
-msgstr "गोपन करें के लिए इंच"
+msgstr "CERT में प्रमाणपत्र के लिए गोपित करें"
 
 #: ../src/volume_key.c:232
 msgid "CERT"
 msgstr "CERT"
 
 #: ../src/volume_key.c:236
-#, fuzzy
 msgid "Include secrets in --dump output"
-msgstr "इनक्लूड इंच आउटपुट"
+msgstr "--dump आउटपुच में गुप्त शामिल करें"
 
 #: ../src/volume_key.c:251
 msgid "OPERANDS"
 msgstr "OPERANDS"
 
 #: ../src/volume_key.c:253
-#, fuzzy
 msgid "Manages encrypted volume keys and passphrases."
-msgstr "और."
+msgstr "गोपित आयतन कुंजी और कूटशब्द प्रबंधित करें."
 
 #: ../src/volume_key.c:254
 #, c-format
-#, fuzzy
 msgid "Report bugs to %s"
-msgstr "रिपोर्ट को से."
+msgstr "%s में बग रिपोर्ट करें"
 
 #: ../src/volume_key.c:262
 #, c-format
-#, fuzzy
 msgid ""
 "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr "से. से. से. मदद के लिए अधिक नहीं"
+msgstr ""
+"%s: %s\n"
+"`%s --help' को अधिक सूचना के लिए चलाएँ.\n"
 
 #: ../src/volume_key.c:273
 msgid ""
@@ -515,35 +490,29 @@ msgstr ""
 "This program is provided with NO WARRANTY, to the extent permitted by law."
 
 #: ../src/volume_key.c:285
-#, fuzzy
 msgid "Operation mode not specified"
-msgstr "ऑपरेशन मोड नहीं"
+msgstr "संक्रिया मोड निर्दिष्ट नहीं"
 
 #: ../src/volume_key.c:291
-#, fuzzy
 msgid "Ambiguous operation mode"
-msgstr "द्वैध मोड"
+msgstr "द्वैध संक्रिया मोड"
 
 #: ../src/volume_key.c:295 ../src/volume_key.c:313
 #, c-format
-#, fuzzy
 msgid "`--%s' is only valid with `--%s'"
-msgstr "से. है के साथ से."
+msgstr "`--%s' इसके साथ वैध है `--%s'"
 
 #: ../src/volume_key.c:301
-#, fuzzy
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr "आउटपुट के साथ सहेजें या"
+msgstr "आउटपुट को `--save' या `--reencrypt' के साथ निर्दिष्ट किया जा सकता है"
 
 #: ../src/volume_key.c:308
-#, fuzzy
 msgid "No output specified"
-msgstr "नहीं आउटपुट"
+msgstr "कोई आउटपुट निर्दिष्ट नहीं"
 
 #: ../src/volume_key.c:310
-#, fuzzy
 msgid "Ambiguous output format"
-msgstr "द्वैध आउटपुट"
+msgstr "द्वैध आउटपुट प्रारूप"
 
 #: ../src/volume_key.c:351
 #, c-format
@@ -552,9 +521,8 @@ msgstr "त्रुटि, फिर कोशिश करें.\n"
 
 #: ../src/volume_key.c:352
 #, c-format
-#, fuzzy
 msgid "Enter password for `%s': "
-msgstr "प्रविष्ट करें शब्दकूट के लिए से. "
+msgstr "`%s' के लिए कूटशब्द दाखिल करें: "
 
 #: ../src/volume_key.c:469 ../src/volume_key.c:508
 #, c-format
@@ -567,109 +535,91 @@ msgid "Error decoding `%s': "
 msgstr "`%s' के डिकोड में त्रुटि: "
 
 #: ../src/volume_key.c:535
-#, fuzzy
 msgid "New packet passphrase"
-msgstr "नया"
+msgstr "नया पैकेट कूटशब्द"
 
 #: ../src/volume_key.c:536
-#, fuzzy
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr "नहीं नया"
+msgstr "कूटशब्द मेल नहीं खाता है.  नया पैकेट कूटशब्द"
 
 #: ../src/volume_key.c:541
-#, fuzzy
 msgid "Repeat new packet passphrase"
-msgstr "दोहराएँ नया"
+msgstr "नया पैकेट कूटशब्द दोहराएँ"
 
 #: ../src/volume_key.c:600
 #, c-format
-#, fuzzy
 msgid "Error creating `%s': "
-msgstr "त्रुटि बनाया जा रहा है से. "
+msgstr "`%s' को बनाने में त्रुटि: "
 
 #: ../src/volume_key.c:640
 #, c-format
-#, fuzzy
 msgid "Usage: %s --save VOLUME [PACKET]"
-msgstr "प्रयोग से. सहेजें"
+msgstr "प्रयोग: %s --save VOLUME [PACKET]"
 
 #: ../src/volume_key.c:645 ../src/volume_key.c:660 ../src/volume_key.c:785
 #: ../src/volume_key.c:823
 #, c-format
-#, fuzzy
 msgid "Error opening `%s': %s"
-msgstr "त्रुटि खोला जा रहा है से. से."
+msgstr "`%s' खोलने में त्रुटि: %s"
 
 #: ../src/volume_key.c:656
 #, c-format
-#, fuzzy
 msgid "Error loading `%s': %s"
-msgstr "त्रुटि से. से."
+msgstr "`%s' लोडिंग में त्रुटि: %s"
 
 #: ../src/volume_key.c:675
 #, c-format
-#, fuzzy
 msgid "Error generating passphrase: %s"
-msgstr "त्रुटि बनाया जा रहा है से."
+msgstr "कूटशब्द बनाने में त्रुटि: %s"
 
 #: ../src/volume_key.c:687
 #, c-format
-#, fuzzy
 msgid "Error creating a passphrase: %s"
-msgstr "त्रुटि बनाया जा रहा है a से."
+msgstr "किसी कूटशब्द को बनाने में त्रुटि: %s"
 
 #: ../src/volume_key.c:718
 #, c-format
-#, fuzzy
 msgid "`%s' does not match `%s': "
-msgstr "से. नहीं से. "
+msgstr "`%s' मेल नहीं खाता है `%s': "
 
 #: ../src/volume_key.c:727
 #, c-format
-#, fuzzy
 msgid "`%s' perhaps does not match `%s'\n"
-msgstr "से. नहीं से. नहीं"
+msgstr "`%s' संभवतः मेल नहीं खाता है `%s'\n"
 
 #: ../src/volume_key.c:742
-#, fuzzy
 msgid "Are you sure you want to use this packet?"
-msgstr "को यह?"
+msgstr "क्या आप वाकई इस पैकेट का प्रयोग करना चाहते हैं?"
 
 #: ../src/volume_key.c:754
 #, c-format
-#, fuzzy
 msgid "Error getting a yes/no answer"
-msgstr "त्रुटि a हाँ नहीं"
+msgstr "हाँ/नहीं उत्तर पाने में त्रुटि"
 
 #: ../src/volume_key.c:780
 #, c-format
-#, fuzzy
 msgid "Usage: %s --%s VOLUME PACKET"
-msgstr "प्रयोग से. से."
+msgstr "प्रयोग: %s --%s VOLUME PACKET"
 
 #: ../src/volume_key.c:801
 #, c-format
-#, fuzzy
 msgid "Error restoring access to `%s': %s"
-msgstr "त्रुटि पुनर्भंडारण अभिगम को से. से."
+msgstr "`%s' में पहुँच बनाने में त्रुटि: %s"
 
 #: ../src/volume_key.c:817
 #, c-format
-#, fuzzy
 msgid "Usage: %s --%s VOLUME PACKET NAME"
-msgstr "प्रयोग से. से. नाम"
+msgstr "प्रयोग: %s --%s VOLUME PACKET NAME"
 
 #: ../src/volume_key.c:839
 #, c-format
-#, fuzzy
 msgid "Error setting up `%s': %s"
-msgstr "त्रुटि ऊपर से. से."
+msgstr "`%s' के सेटअप में त्रुटि: %s"
 
 #: ../src/volume_key.c:854 ../src/volume_key.c:883
 #, c-format
-#, fuzzy
 msgid "Usage: %s --%s PACKET"
-msgstr "प्रयोग से. से."
+msgstr "प्रयोग: %s --%s PACKET"
 
 #: ../src/volume_key.c:888
 #, c-format
@@ -678,29 +628,25 @@ msgstr "`%s' पढ़ने में त्रुटि: %s"
 
 #: ../src/volume_key.c:893
 #, c-format
-#, fuzzy
 msgid "Invalid packet: %s"
-msgstr "अवैध से."
+msgstr "अवैध पैकेट: %s"
 
 #: ../src/volume_key.c:896
 msgid "Unencrypted"
 msgstr "विगोपित"
 
 #: ../src/volume_key.c:900
-#, fuzzy
 msgid "Public key-encrypted"
-msgstr "सार्वजनिक"
+msgstr "सार्वजनिक कुंजी गोपित"
 
 #: ../src/volume_key.c:904
-#, fuzzy
 msgid "Passphrase-encrypted"
-msgstr "कूटशब्द वाक्यांश"
+msgstr "कूटशब्द गोपित"
 
 #: ../src/volume_key.c:911 ../src/volume_key.c:933
 #, c-format
-#, fuzzy
 msgid "%s:\t%s\n"
-msgstr "से. से. नहीं"
+msgstr "%s:\t%s\n"
 
 #: ../src/volume_key.c:911
 msgid "Packet format"
@@ -708,7 +654,6 @@ msgstr "पैकेट प्रारूप"
 
 #: ../src/volume_key.c:918
 #, c-format
-#, fuzzy
 msgid "Error decoding `%s': %s"
-msgstr "त्रुटि से. से."
+msgstr "`%s' डिकोड करने में त्रुटि: %s"
 

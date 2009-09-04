@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: volume_key.master.volume_key.ml\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2009-09-02 08:32+0000\n"
-"PO-Revision-Date: 2009-09-02 22:43+0530\n"
+"PO-Revision-Date: 2009-09-04 11:22+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -105,7 +105,7 @@ msgstr "ഇന്‍പുട്ട് പാക്കറ്റ് വളരെ 
 #: ../lib/libvolume_key.c:215
 #, c-format
 msgid "Input is not a volume_key escrow packet"
-msgstr "ഇന്‍പുട്ട് ഒരു volume_key escrow പാക്കറ്റല്ല"
+msgstr "ഇന്‍പുട്ട് ഒരു volume_key എസ്ക്രോ പാക്കറ്റല്ല"
 
 #: ../lib/libvolume_key.c:221
 #, c-format
@@ -114,7 +114,7 @@ msgstr "പിന്തുണയില്ലാത്ത പാക്കറ്�
 
 #: ../lib/libvolume_key.c:277
 msgid "Escrow packet passphrase"
-msgstr "Escrow പാക്കറ്റ് പാസ്ഫ്രെയിസ്"
+msgstr "എസ്ക്രോ പാക്കറ്റ് പാസ്ഫ്രെയിസ്"
 
 #: ../lib/libvolume_key.c:293 ../lib/volume_luks.c:302
 #, c-format
@@ -290,7 +290,7 @@ msgstr "പാക്കറ്റിലുള്ള LUKS പാസ്ഫ്രെ
 #: ../lib/volume_luks.c:439
 #, c-format
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr "Escrow പാക്കറ്റില്‍ LUKS ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ ലഭ്യമല്ല"
+msgstr "എസ്ക്രോ പാക്കറ്റില്‍ LUKS ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ ലഭ്യമല്ല"
 
 #: ../lib/volume_luks.c:444
 #, c-format
@@ -398,7 +398,7 @@ msgstr ""
 
 #: ../src/volume_key.c:187
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "ഒരു escrow പാക്കറ്റ് വീണ്ടും എന്‍ക്രിപ്റ്റ് ചെയ്യുക.  ഓപറണ്ട് PACKET പ്രതീക്ഷിക്കുന്നു."
+msgstr "ഒരു എസ്ക്രോ പാക്കറ്റ് വീണ്ടും എന്‍ക്രിപ്റ്റ് ചെയ്യുക.  ഓപറണ്ട് PACKET പ്രതീക്ഷിക്കുന്നു."
 
 #: ../src/volume_key.c:191
 msgid "Show information contained in a packet.  Expects operand PACKET."

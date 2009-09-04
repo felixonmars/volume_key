@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2009-09-03 08:30+0000\n"
-"PO-Revision-Date: 2009-09-03 16:44+0530\n"
+"PO-Revision-Date: 2009-09-04 11:33+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -55,12 +55,12 @@ msgstr ""
 #: ../lib/kmip.c:593 ../lib/kmip.c:726 ../lib/kmip.c:773
 #, c-format
 msgid "Unexpected item type 0x%02X"
-msgstr ""
+msgstr "અનિચ્છનિય વસ્તુ પ્રકાર 0x%02X"
 
 #: ../lib/kmip.c:599
 #, c-format
 msgid "Unexpected item size"
-msgstr ""
+msgstr "અનિચ્છનિય વસ્તુ માપ"
 
 #: ../lib/kmip.c:637 ../lib/kmip.c:989
 msgid "Unsupported enum value %"
@@ -130,42 +130,42 @@ msgstr ""
 #: ../lib/ui.c:129
 #, c-format
 msgid "Passphrase not provided"
-msgstr ""
+msgstr "પાસફ્રેજ પૂરો પાડેલ નથી"
 
 #: ../lib/volume.c:92
 #, c-format
 msgid "The key is too long"
-msgstr ""
+msgstr "કી ઘણી લાંબી છે"
 
 #: ../lib/volume.c:165 ../lib/volume.c:186
 #, c-format
 msgid "Required attribute `%s' not found"
-msgstr ""
+msgstr "જરૂરી ગુણધર્મ `%s' મળ્યુ નથી"
 
 #: ../lib/volume.c:308
 #, c-format
 msgid "Cannot get attributes of `%s'"
-msgstr ""
+msgstr "`%s' નાં ગુણધર્મો મેળવી શકાતા નથી"
 
 #: ../lib/volume.c:415
 msgid "Host name"
-msgstr ""
+msgstr "યજમાન નામ"
 
 #: ../lib/volume.c:417
 msgid "Volume format"
-msgstr ""
+msgstr "વોલ્યુમ બંધારણ"
 
 #: ../lib/volume.c:420
 msgid "Volume UUID"
-msgstr ""
+msgstr "વોલ્યુમ UUID"
 
 #: ../lib/volume.c:423
 msgid "Volume label"
-msgstr ""
+msgstr "વોલ્યુમ લેબલ"
 
 #: ../lib/volume.c:425
 msgid "Volume path"
-msgstr ""
+msgstr "વોલ્યુમ પાથ"
 
 #: ../lib/volume.c:451 ../lib/volume.c:560 ../lib/volume.c:594
 #: ../lib/volume.c:623 ../lib/volume.c:656 ../lib/volume.c:769
@@ -205,22 +205,22 @@ msgstr ""
 
 #: ../lib/volume.c:706 ../lib/volume_luks.c:757
 msgid "Unsupported packet type %"
-msgstr ""
+msgstr "બિનઆધારભૂત પેકેટ પ્રકાર %"
 
 #: ../lib/volume.c:741
 #, c-format
 msgid "Unsupported volume format `%s'"
-msgstr ""
+msgstr "બિનઆધારભૂત વોલ્યુમ બંધારણ `%s'"
 
 #: ../lib/volume_luks.c:62
 #, c-format
 msgid "Unknown error %d"
-msgstr ""
+msgstr "અજ્ઞાત ભૂલ %d"
 
 #: ../lib/volume_luks.c:167
 #, c-format
 msgid "Error getting information about volume `%s': "
-msgstr ""
+msgstr "વોલ્યુમ `%s' વિશે જાણકારી મેળવી રહ્યા હોય ત્યારે ભૂલ: "
 
 #: ../lib/volume_luks.c:176
 #, c-format
@@ -229,19 +229,19 @@ msgstr ""
 
 #: ../lib/volume_luks.c:207
 msgid "LUKS cipher name"
-msgstr ""
+msgstr "LUKS સાઇફર નામ"
 
 #: ../lib/volume_luks.c:210
 msgid "LUKS cipher mode"
-msgstr ""
+msgstr "LUKS સાઇફર સ્થિતિ"
 
 #: ../lib/volume_luks.c:213
 msgid "Key size (bits)"
-msgstr ""
+msgstr "કી માપ (બીટો)"
 
 #: ../lib/volume_luks.c:233
 msgid "Data encryption key"
-msgstr ""
+msgstr "માહિતી એનક્રિપ્શન કી"
 
 #: ../lib/volume_luks.c:237
 msgid "Passphrase"
@@ -254,7 +254,7 @@ msgstr ""
 #: ../lib/volume_luks.c:270 ../lib/volume_luks.c:433 ../lib/volume_luks.c:664
 #, c-format
 msgid "Encryption information type unsupported in LUKS"
-msgstr ""
+msgstr "LUKS માં બિનઆધારભૂત એનક્રિપ્શન જાણકારી પ્રકાર"
 
 #: ../lib/volume_luks.c:273
 #, c-format
@@ -263,55 +263,55 @@ msgstr "`%s' માટે પાસફ્રેઝ"
 
 #: ../lib/volume_luks.c:297 ../lib/volume_luks.c:797
 msgid "Error getting LUKS data encryption key: "
-msgstr ""
+msgstr "LUKS માહિતી એનક્રિપ્શન કીને મેળવી રહ્યા હોય ત્યારે ભૂલ: "
 
 #: ../lib/volume_luks.c:340
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "સાઇફર નામ બંધબેસતુ નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
 #: ../lib/volume_luks.c:347
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "સાઇફર સ્થિતિ બંધબેસતી નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
 #: ../lib/volume_luks.c:354
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
-msgstr ""
+msgstr "કી માપ બંધબેસતુ નથી (પેકેટ %zu, વોલ્યુમ %zu)"
 
 #: ../lib/volume_luks.c:380
 msgid "LUKS data encryption key in packet is invalid: "
-msgstr ""
+msgstr "પેકેટ માં LUKS માહિતી એનક્રિપ્શન કી અયોગ્ય છે: "
 
 #: ../lib/volume_luks.c:400
 msgid "LUKS passphrase in packet is invalid: "
-msgstr ""
+msgstr "પેકેટમાં LUKS પાસફ્રેજ અયોગ્ય છે: "
 
 #: ../lib/volume_luks.c:439
 #, c-format
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr ""
+msgstr "Escrow પેકેટ LUKS માહિતી એનક્રિપ્શન કીને સમાવતુ નથી"
 
 #: ../lib/volume_luks.c:444
 #, c-format
 msgid "New passphrase for `%s'"
-msgstr ""
+msgstr "`%s' માટે નવો પાસફ્રેજ"
 
 #: ../lib/volume_luks.c:445
 #, c-format
 msgid "Repeat new passphrase for `%s'"
-msgstr ""
+msgstr "`%s' માટે નવા પાસફ્રેજને ફરીથી લખો"
 
 #: ../lib/volume_luks.c:446
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
-msgstr ""
+msgstr "પાસફ્રેજો બંધબેસતા નથી.  `%s' માટે નવો પાસફ્રેજ"
 
 #: ../lib/volume_luks.c:471 ../src/volume_key.c:558
 #, c-format
 msgid "Too many attempts to get a passphrase"
-msgstr ""
+msgstr "પાસફ્રેજને મેળવવા માટે ઘણા બધા પ્રયત્ન કરે છે"
 
 #: ../lib/volume_luks.c:484 ../lib/volume_luks.c:542
 msgid "Error adding a LUKS passphrase"
@@ -320,12 +320,12 @@ msgstr "LUKS પાસફ્રેજને ઉમેરી રહ્યા હ�
 #: ../lib/volume_luks.c:521
 #, c-format
 msgid "Can not add a secret of this type"
-msgstr ""
+msgstr "આ પ્રકારની ગુપ્તતાને ઉમેરી શકાતી નથી"
 
 #: ../lib/volume_luks.c:527 ../lib/volume_luks.c:622 ../lib/volume_luks.c:805
 #, c-format
 msgid "Data encryption key unknown"
-msgstr ""
+msgstr "માહિતી એનક્રિપ્શન કી અજ્ઞાત"
 
 #: ../lib/volume_luks.c:533
 #, c-format
@@ -401,7 +401,7 @@ msgstr ""
 
 #: ../src/volume_key.c:191
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr ""
+msgstr "પેકેટમાં રહેલ જાણકારી ને બતાવો. ઓપરેન્ડ PACKET ઇચ્છા રાખે છે."
 
 #: ../src/volume_key.c:196
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
@@ -430,7 +430,7 @@ msgstr "PACKET"
 
 #: ../src/volume_key.c:214
 msgid "Write data encryption key to PACKET"
-msgstr ""
+msgstr "PACKET માં માહિતી એનક્રિપ્શન કીને લખો"
 
 #: ../src/volume_key.c:219
 msgid "Write passphrase to PACKET"
@@ -438,11 +438,11 @@ msgstr "PACKET માં પાસફ્રેજ ને લખો"
 
 #: ../src/volume_key.c:224
 msgid "Create a random passphrase and write it to PACKET"
-msgstr ""
+msgstr "ગમે તેમ પાસફ્રેજ બનાવો અને PACKET માં તેને લખો"
 
 #: ../src/volume_key.c:232
 msgid "Encrypt for the certificate in CERT"
-msgstr ""
+msgstr "CERT માં પ્રમાણપત્ર માટે એનક્રિપ્ટ કરો"
 
 #: ../src/volume_key.c:232
 msgid "CERT"
@@ -458,7 +458,7 @@ msgstr "OPERANDS"
 
 #: ../src/volume_key.c:253
 msgid "Manages encrypted volume keys and passphrases."
-msgstr ""
+msgstr "એનક્રિપ્ટ થયેલ વોલ્યુમ કીઓ અને પાસફ્રેજોને સંચાલિત કરો."
 
 #: ../src/volume_key.c:254
 #, c-format
@@ -497,7 +497,7 @@ msgstr ""
 #: ../src/volume_key.c:295 ../src/volume_key.c:313
 #, c-format
 msgid "`--%s' is only valid with `--%s'"
-msgstr ""
+msgstr "`--%s' એ માત્ર `--%s' સાથે યોગ્ય છે"
 
 #: ../src/volume_key.c:301
 msgid "Output can be specified only with `--save' or `--reencrypt'"
@@ -537,7 +537,7 @@ msgstr "નવું પેકેટ પાસફ્રેજ"
 
 #: ../src/volume_key.c:536
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr ""
+msgstr "પાસફ્રેજો બંધબેસતા નથી.  નવું પેકેટ પાસફ્રેજ"
 
 #: ../src/volume_key.c:541
 msgid "Repeat new packet passphrase"
@@ -577,7 +577,7 @@ msgstr "પાસફ્રેજ ને બનાવી રહ્યા હો�
 #: ../src/volume_key.c:718
 #, c-format
 msgid "`%s' does not match `%s': "
-msgstr ""
+msgstr "`%s' એ `%s' સાથે બંધબેસતો નથી: "
 
 #: ../src/volume_key.c:727
 #, c-format
@@ -611,7 +611,7 @@ msgstr "વપરાશ: %s --%s VOLUME PACKET NAME"
 #: ../src/volume_key.c:839
 #, c-format
 msgid "Error setting up `%s': %s"
-msgstr ""
+msgstr "`%s' ને સુયોજિત કરી રહ્યા હોય ત્યારે ભૂલ: %s"
 
 #: ../src/volume_key.c:854 ../src/volume_key.c:883
 #, c-format
@@ -621,7 +621,7 @@ msgstr "વપરાશ: %s --%s PACKET"
 #: ../src/volume_key.c:888
 #, c-format
 msgid "Error reading `%s': %s"
-msgstr ""
+msgstr "`%s' ને વાંચી રહ્યા હોય ત્યારે ભૂલ: %s"
 
 #: ../src/volume_key.c:893
 #, c-format
@@ -630,15 +630,15 @@ msgstr "અયોગ્ય પેકેટ: %s"
 
 #: ../src/volume_key.c:896
 msgid "Unencrypted"
-msgstr ""
+msgstr "એનક્રિપ્ટ થયેલ નથી"
 
 #: ../src/volume_key.c:900
 msgid "Public key-encrypted"
-msgstr ""
+msgstr "સાર્વજનિક કી-એનક્રિપ્ટ થયેલ"
 
 #: ../src/volume_key.c:904
 msgid "Passphrase-encrypted"
-msgstr ""
+msgstr "પાસફ્રેજ-એનક્રિપ્ટ થયેલ"
 
 #: ../src/volume_key.c:911 ../src/volume_key.c:933
 #, c-format
@@ -652,5 +652,5 @@ msgstr "પેકેટ બંધારણ"
 #: ../src/volume_key.c:918
 #, c-format
 msgid "Error decoding `%s': %s"
-msgstr ""
+msgstr "`%s' ને ડિકોડ કરી રહ્યા હોય ત્યારે ભૂલ: %s"
 

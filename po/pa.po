@@ -1,19 +1,20 @@
+# translation of volume_key.master.pa.po to Punjabi
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# , 2009.
+# Jaswinder Singh <jsingh@redhat.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: volume_key.master.pa\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-09-07 19:45+0000\n"
-"PO-Revision-Date: 2009-09-08 08:23+0530\n"
-"Last-Translator: \n"
-"Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
+"POT-Creation-Date: 2009-09-08 08:39+0000\n"
+"PO-Revision-Date: 2009-09-08 16:48+0530\n"
+"Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
+"Language-Team: Punjabi <Punjabi-users@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../lib/crypto.c:57 ../lib/crypto.c:257
@@ -393,9 +394,8 @@ msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"ਪੈਕੇਟ ਤੋਂ ਸੀਕਰੇਟ ਵਰਤ ਕੇ ਇੱਕ ਇਨਕ੍ਰਿਪਟਡ ਵਾਲੀਅਮ ਨਿਰਧਾਰਤ ਕਰੋ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ "
-"ਹਨ "
-"VOLUME PACKET NAME।"
+"ਪੈਕੇਟ ਤੋਂ ਸੀਕਰੇਟ ਵਰਤ ਕੇ ਇੱਕ ਇਨਕ੍ਰਿਪਟਡ ਵਾਲੀਅਮ ਨਿਰਧਾਰਤ ਕਰੋ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ ਹਨ VOLUME PACKET "
+"NAME।"
 
 #: ../src/volume_key.c:187
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
@@ -483,14 +483,18 @@ msgid ""
 "\n"
 "This program is provided with NO WARRANTY, to the extent permitted by law."
 msgstr ""
+"ਕਾਪੀ ਰਾਈਟ (C) 2009 Red Hat, Inc. ਸਭ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।\n"
+"ਇਹ ਸਾਪਟਵੇਅਰ GPL v.2 ਦੇ ਅਧੀਨ ਡਿਸਟਰੀਬਿਊਟ ਕੀਤਾ ਗਿਆ ਹੈ।\n"
+"\n"
+"ਇਹ ਪਰੋਗਰਾਮ ਬਿਨਾਂ ਵਾਰੰਟੀ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਜੋ ਕਿ ਕਾਨੂੰਨੀ ਤੌਰ ਤੇ ਹੈ।"
 
 #: ../src/volume_key.c:285
 msgid "Operation mode not specified"
-msgstr ""
+msgstr "ਕਾਰਵਾਈ ਮੋਡ ਨਹੀਂ ਦਿੱਤਾ ਹੈ"
 
 #: ../src/volume_key.c:291
 msgid "Ambiguous operation mode"
-msgstr ""
+msgstr "ਅਸ਼ਪਸ਼ਟ ਕਾਰਵਾਈ ਮੋਡ"
 
 #: ../src/volume_key.c:295 ../src/volume_key.c:313
 #, c-format
@@ -499,7 +503,7 @@ msgstr "`--%s' ਸਿਰਫ `--%s' ਨਾਲ ਯੋਗ ਹੈ"
 
 #: ../src/volume_key.c:301
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr ""
+msgstr "ਆਊਟਪੁੱਟ ਨੂੰ `--save' ਜਾਂ `--reencrypt' ਨਾਲ ਨਿਰਧਾਰਤ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: ../src/volume_key.c:308
 msgid "No output specified"
@@ -507,7 +511,7 @@ msgstr "ਕੋਈ ਆਊਟਪੁੱਟ ਨਹੀਂ ਦਿੱਤੀ"
 
 #: ../src/volume_key.c:310
 msgid "Ambiguous output format"
-msgstr ""
+msgstr "ਅਸ਼ਪਸ਼ਟ ਆਊਟਪੁੱਟ ਫਾਰਮੈਟ"
 
 #: ../src/volume_key.c:351
 #, c-format
@@ -522,29 +526,29 @@ msgstr " `%s' ਲਈ ਪਾਸਵਰਡ ਦਿਓ: "
 #: ../src/volume_key.c:469 ../src/volume_key.c:508
 #, c-format
 msgid "Error reading `%s': "
-msgstr ""
+msgstr "`%s' ਨੂੰ ਪੜਨ ਵਿੱਚ ਗਲਤੀ: "
 
 #: ../src/volume_key.c:476 ../src/volume_key.c:516
 #, c-format
 msgid "Error decoding `%s': "
-msgstr ""
+msgstr "`%s' ਨੂੰ ਡੀਕੋਡ ਕਰਨ ਵਿੱਚ ਗਲਤੀ: "
 
 #: ../src/volume_key.c:535
 msgid "New packet passphrase"
-msgstr ""
+msgstr "ਨਵਾਂ ਪੈਕੇਟ ਗੁਪਤਕੋਡ"
 
 #: ../src/volume_key.c:536
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।  ਨਵਾਂ ਪੈਕੇਟ ਗੁਪਤਕੋਡ"
 
 #: ../src/volume_key.c:541
 msgid "Repeat new packet passphrase"
-msgstr ""
+msgstr "ਨਵਾਂ ਪੈਕੇਟ ਗੁਪਤਕੋਡ ਦੁਹਰਾਓ"
 
 #: ../src/volume_key.c:600
 #, c-format
 msgid "Error creating `%s': "
-msgstr ""
+msgstr "`%s' ਨੂੰ ਬਣਾਉਣ ਵੇਲੇ ਗਲਤੀ: "
 
 #: ../src/volume_key.c:640
 #, c-format
@@ -555,41 +559,41 @@ msgstr "ਵਰਤੋਂ: %s --save VOLUME [PACKET]"
 #: ../src/volume_key.c:823
 #, c-format
 msgid "Error opening `%s': %s"
-msgstr ""
+msgstr "`%s' ਨੂੰ ਖੋਲਣ ਵੇਲੇ ਗਲਤੀ: %s"
 
 #: ../src/volume_key.c:656
 #, c-format
 msgid "Error loading `%s': %s"
-msgstr ""
+msgstr "`%s' ਨੂੰ ਲੋਡ ਕਰਨ ਵੇਲੇ ਗਲਤੀ: %s"
 
 #: ../src/volume_key.c:675
 #, c-format
 msgid "Error generating passphrase: %s"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਬਣਾਉਣ ਵੇਲੇ ਗਲਤੀ: %s"
 
 #: ../src/volume_key.c:687
 #, c-format
 msgid "Error creating a passphrase: %s"
-msgstr ""
+msgstr "ਇੱਕ ਗੁਪਤਕੋਡ ਬਣਾਉਣ ਵੇਲੇ ਗਲਤੀ: %s"
 
 #: ../src/volume_key.c:718
 #, c-format
 msgid "`%s' does not match `%s': "
-msgstr ""
+msgstr "`%s' ਦਾ ਮੇਲ `%s' ਨਾਲ ਨਹੀਂ ਹੈ: "
 
 #: ../src/volume_key.c:727
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
-msgstr ""
+msgstr "`%s' ਸ਼ਾਇਦ `%s' ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ\n"
 
 #: ../src/volume_key.c:742
 msgid "Are you sure you want to use this packet?"
-msgstr ""
+msgstr "ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਇਸ ਪੈਕੇਟ ਨੂੰ ਵਰਤਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../src/volume_key.c:754
 #, c-format
 msgid "Error getting a yes/no answer"
-msgstr ""
+msgstr "ਇੱਕ ਹਾਂ/ਨਹੀਂ ਜਵਾਬ ਲੈਣ ਵੇਲੇ ਗਲਤੀ"
 
 #: ../src/volume_key.c:780
 #, c-format
@@ -599,7 +603,7 @@ msgstr "ਵਰਤੋਂ: %s --%s VOLUME PACKET"
 #: ../src/volume_key.c:801
 #, c-format
 msgid "Error restoring access to `%s': %s"
-msgstr ""
+msgstr "`%s' ਨੂੰ ਪਹੁੰਚ ਮੁੜ-ਪ੍ਰਾਪਤ ਕਰਨ ਵੇਲੇ ਗਲਤੀ: %s"
 
 #: ../src/volume_key.c:817
 #, c-format
@@ -609,7 +613,7 @@ msgstr "ਵਰਤੋਂ: %s --%s VOLUME PACKET NAME"
 #: ../src/volume_key.c:839
 #, c-format
 msgid "Error setting up `%s': %s"
-msgstr ""
+msgstr "`%s' ਦਾ ਸੈੱਟਅੱਪ ਕਰਨ ਵੇਲੇ ਗਲਤੀ: %s"
 
 #: ../src/volume_key.c:854 ../src/volume_key.c:883
 #, c-format
@@ -619,24 +623,24 @@ msgstr "ਵਰਤੋਂ: %s --%s PACKET"
 #: ../src/volume_key.c:888
 #, c-format
 msgid "Error reading `%s': %s"
-msgstr ""
+msgstr "`%s' ਨੂੰ ਪੜਨ ਵੇਲੇ ਗਲਤੀ: %s"
 
 #: ../src/volume_key.c:893
 #, c-format
 msgid "Invalid packet: %s"
-msgstr ""
+msgstr "ਗਲਤ ਪੈਕੇਟ: %s"
 
 #: ../src/volume_key.c:896
 msgid "Unencrypted"
-msgstr ""
+msgstr "ਅਨ-ਇਨਕ੍ਰਿਪਟਡ"
 
 #: ../src/volume_key.c:900
 msgid "Public key-encrypted"
-msgstr ""
+msgstr "ਪਬਲਿਕ ਕੁੰਜੀ-ਇਨਕ੍ਰਿਪਟਡ"
 
 #: ../src/volume_key.c:904
 msgid "Passphrase-encrypted"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ-ਇਨਕ੍ਰਿਪਟਡ"
 
 #: ../src/volume_key.c:911 ../src/volume_key.c:933
 #, c-format
@@ -645,11 +649,10 @@ msgstr "%s:\t%s\n"
 
 #: ../src/volume_key.c:911
 msgid "Packet format"
-msgstr ""
+msgstr "ਪੈਕੇਟ ਫਾਰਮੈਟ"
 
 #: ../src/volume_key.c:918
 #, c-format
 msgid "Error decoding `%s': %s"
-msgstr ""
-
+msgstr "`%s' ਡੀਕੋਡ ਕਰਨ ਵੇਲੇ ਗਲਤੀ: %s"
 

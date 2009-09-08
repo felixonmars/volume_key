@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-09-07 14:44+0000\n"
-"PO-Revision-Date: 2009-09-07 22:52+0530\n"
+"POT-Creation-Date: 2009-09-07 19:45+0000\n"
+"PO-Revision-Date: 2009-09-08 08:23+0530\n"
 "Last-Translator: \n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,391 +24,394 @@ msgstr "%s: %s"
 #: ../lib/kmip.c:156 ../lib/kmip.c:272
 #, c-format
 msgid "Not enough space provided to store a KMIP packet"
-msgstr ""
+msgstr "KMIP ਪੈਕਟ ਸੰਭਾਲਣ ਲਈ ਲੋੜੀਂਦੀ ਸਪੇਸ ਨਹੀਂ ਦਿੱਤੀ"
 
 #: ../lib/kmip.c:223 ../lib/kmip.c:689
 #, c-format
 msgid "A string is too long"
-msgstr ""
+msgstr "ਸਤਰ ਬਹੁਤ ਲੰਬੀ ਹੈ"
 
 #: ../lib/kmip.c:241 ../lib/kmip.c:733
 #, c-format
 msgid "Binary data is too long"
-msgstr ""
+msgstr "ਬਾਇਨਰੀ ਡਾਟਾ ਬਹੁਤ ਲੰਬਾ ਹੈ"
 
 #: ../lib/kmip.c:292
 #, c-format
 msgid "A KMIP structure is too long"
-msgstr ""
+msgstr "KMIP ਬਣਤਰ ਬਹੁਤ ਲੰਬੀ ਹੈ"
 
 #: ../lib/kmip.c:561 ../lib/kmip.c:676 ../lib/kmip.c:739
 #, c-format
 msgid "Unexpected end of data"
-msgstr ""
+msgstr "ਡਾਟਾ ਦਾ ਅਚਾਨਕ ਅੰਤ"
 
 #: ../lib/kmip.c:586 ../lib/kmip.c:662 ../lib/kmip.c:719 ../lib/kmip.c:766
 #, c-format
 msgid "Unexpected item tag 0x%08lX"
-msgstr ""
+msgstr "ਅਣਜਾਣ ਆਈਟਮ ਟੈਗ 0x%08lX"
 
 #: ../lib/kmip.c:593 ../lib/kmip.c:726 ../lib/kmip.c:773
 #, c-format
 msgid "Unexpected item type 0x%02X"
-msgstr ""
+msgstr "ਆਣਜਾਣ ਆਈਟਮ ਕਿਸਮ 0x%02X"
 
 #: ../lib/kmip.c:599
 #, c-format
 msgid "Unexpected item size"
-msgstr ""
+msgstr "ਅਣਜਾਣ ਆਈਟਨ ਅਕਾਰ"
 
 #: ../lib/kmip.c:637 ../lib/kmip.c:989
 msgid "Unsupported enum value %"
-msgstr ""
+msgstr "ਅਣਜਾਣ enum ਮੁੱਲ %"
 
 #: ../lib/kmip.c:669
 #, c-format
 msgid "String item expected, got %02X"
-msgstr ""
+msgstr "ਸਤਰ ਆਈਟਮ ਦੀ ਉਮੀਦ ਹੈ, %02X ਪ੍ਰਾਪਤ ਹੋਈ"
 
 #: ../lib/kmip.c:781
 #, c-format
 msgid "Structure does not fit in its container"
-msgstr ""
+msgstr "ਢਾਂਚਾ ਇਸ ਦੇ ਕੰਟੇਨਰ ਵਿੱਚ ਫਿੱਟ ਨਹੀਂ ਹੁੰਦਾ"
 
 #: ../lib/kmip.c:797
 #, c-format
 msgid "Unexpected data in structure"
-msgstr ""
+msgstr "ਢਾਂਚੇ ਵਿੱਚ ਅਣਜਾਣ ਡਾਟਾ"
 
 #: ../lib/kmip.c:836
 #, c-format
 msgid "Number of key bits is not positive"
-msgstr ""
+msgstr "ਕੁੰਜੀ ਬਿੱਟਾਂ ਦੀ ਗਿਣਤੀ ਪਾਜ਼ੈਟਿਵ ਨਹੀਂ ਹੈ"
 
 #: ../lib/kmip.c:1022 ../lib/kmip.c:1056
 msgid "Unsupported symmetric key format %"
-msgstr ""
+msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਸਮਿੱਟਰਿਕ ਕੁੰਜੀ ਫਾਰਮੈਟ %"
 
 #: ../lib/kmip.c:1089 ../lib/volume.c:689
 msgid "Unsupported KMIP version %"
-msgstr ""
+msgstr "ਨਾ-ਸਹਿਯੋਗੀ KMIP ਵਰਜਨ %"
 
 #: ../lib/kmip.c:1136
 msgid "Unsupported object type %"
-msgstr ""
+msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਆਬਜੈਕਟ ਕਿਸਮ %"
 
 #: ../lib/libvolume_key.c:205
 #, c-format
 msgid "Input packet is too small"
-msgstr ""
+msgstr "ਇੰਪੁੱਟ ਪੈਕੇਟ ਬਹੁਤ ਛੋਟਾ ਹੈ"
 
 #: ../lib/libvolume_key.c:215
 #, c-format
 msgid "Input is not a volume_key escrow packet"
-msgstr ""
+msgstr "ਇੰਪੁੱਟ ਇੱਕ volume_key escrow ਪੈਕੇਟ ਨਹੀਂ ਹੈ"
 
 #: ../lib/libvolume_key.c:221
 #, c-format
 msgid "Unsupported packet format"
-msgstr ""
+msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਪੈਕੇਟ ਫਾਰਮੈਟ"
 
 #: ../lib/libvolume_key.c:277
 msgid "Escrow packet passphrase"
-msgstr ""
+msgstr "Escrow ਪੈਕੇਟ ਗੁਪਤਕੋਡ"
 
 #: ../lib/libvolume_key.c:293 ../lib/volume_luks.c:302
 #, c-format
 msgid "Too many attempts to get a valid passphrase"
-msgstr ""
+msgstr "ਇੱਕ ਯੋਗ ਗੁਪਤਕੋਡ ਲੈਣ ਲਈ ਬਹੁਤ ਕੋਸ਼ਿਸ਼ਾਂ"
 
 #: ../lib/ui.c:123
 #, c-format
 msgid "User interface callbacks not provided"
-msgstr ""
+msgstr "ਯੂਜ਼ਰ ਇੰਟਰਫੇਸ ਕਾਲਬੈਕ ਨਹੀਂ ਦਿੱਤੀ"
 
 #: ../lib/ui.c:129
 #, c-format
 msgid "Passphrase not provided"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਨਹੀਂ ਦਿੱਤਾ"
 
 #: ../lib/volume.c:92
 #, c-format
 msgid "The key is too long"
-msgstr ""
+msgstr "ਕੁੰਜੀ ਬਹੁਤ ਲੰਬੀ ਹੈ"
 
 #: ../lib/volume.c:165 ../lib/volume.c:186
 #, c-format
 msgid "Required attribute `%s' not found"
-msgstr ""
+msgstr "ਲੋੜੀਂਦਾ ਐਟਰੀਬਿਊਟ `%s' ਨਹੀਂ ਲੱਭਿਆ"
 
 #: ../lib/volume.c:308
 #, c-format
 msgid "Cannot get attributes of `%s'"
-msgstr ""
+msgstr "`%s' ਦੇ ਐਟਰੀਬਿਊਟ ਨਹੀਂ ਲੱਭੇ"
 
 #: ../lib/volume.c:415
 msgid "Host name"
-msgstr ""
+msgstr "ਹੋਸਟ ਨਾਂ"
 
 #: ../lib/volume.c:417
 msgid "Volume format"
-msgstr "ਅਵਾਜ਼ ਫਾਰਮੈਟ"
+msgstr "ਵਾਲੀਅਮ ਫਾਰਮੈਟ"
 
 #: ../lib/volume.c:420
 msgid "Volume UUID"
-msgstr "ਅਵਾਜ਼ UUID"
+msgstr "ਵਾਲੀਅਮ UUID"
 
 #: ../lib/volume.c:423
 msgid "Volume label"
-msgstr "ਅਵਾਜ਼ ਲੇਬਲ"
+msgstr "ਵਾਲੀਅਮ ਲੇਬਲ"
 
 #: ../lib/volume.c:425
 msgid "Volume path"
-msgstr "ਅਵਾਜ਼ ਟਿਕਾਣਾ"
+msgstr "ਵਾਲੀਅਮ ਟਿਕਾਣਾ"
 
 #: ../lib/volume.c:451 ../lib/volume.c:560 ../lib/volume.c:594
 #: ../lib/volume.c:623 ../lib/volume.c:656 ../lib/volume.c:769
 #, c-format
 msgid "Volume `%s' has unsupported format"
-msgstr ""
+msgstr "ਵਾਲੀਅਮ `%s' ਦਾ ਨਾ-ਸਹਿਯੋਗੀ ਫਾਰਮੈਟ ਹੈ"
 
 #: ../lib/volume.c:481
 #, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "ਵਾਲੀਅਮ ਫਾਰਮੈਟ ਵਖਰੇਵਾਂ (ਪੈਕੇਟ `%s', ਵਾਲੀਅਮ `%s')"
 
 #: ../lib/volume.c:509
 #, c-format
 msgid "UUID mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "UUID ਵਖਰੇਵਾਂ (ਪੈਕੇਟ `%s', ਵਾਲੀਅਮ `%s')"
 
 #: ../lib/volume.c:515
 #, c-format
 msgid "Host name mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "ਹੋਸਟ ਨਾਂ ਵਖਰੇਵਾਂ (ਪੈਕੇਟ `%s', ਵਾਲੀਅਮ `%s')"
 
 #: ../lib/volume.c:522
 #, c-format
 msgid "Volume label mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "ਵਾਲੀਅਮ ਲੇਬਲ ਵਖਰੇਵਾਂ (ਪੈਕੇਟ `%s', ਵਾਲੀਅਮ `%s')"
 
 #: ../lib/volume.c:529
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "ਵਾਲੀਅਮ ਟਿਕਾਣਾ ਵਖਰੇਵਾਂ (ਪੈਕੇਟ `%s', ਵਾਲੀਅਮ `%s')"
 
 #: ../lib/volume.c:682
 #, c-format
 msgid "Unexpected data after packet"
-msgstr ""
+msgstr "ਪੈਕੇਟ ਤੋਂ ਬਾਅਦ ਅਚਾਨਕ ਡਾਟਾ"
 
 #: ../lib/volume.c:706 ../lib/volume_luks.c:757
 msgid "Unsupported packet type %"
-msgstr ""
+msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਪੈਕੇਟ ਕਿਸਮ %"
 
 #: ../lib/volume.c:741
 #, c-format
 msgid "Unsupported volume format `%s'"
-msgstr ""
+msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਵਾਲੀਅਮ ਫਾਰਮੈਟ `%s'"
 
 #: ../lib/volume_luks.c:62
 #, c-format
 msgid "Unknown error %d"
-msgstr ""
+msgstr "ਅਣਜਾਣ ਗਲਤੀ %d"
 
 #: ../lib/volume_luks.c:167
 #, c-format
 msgid "Error getting information about volume `%s': "
-msgstr ""
+msgstr "ਵਾਲੀਅਮ ਬਾਰੇ ਜਾਣਕਾਰੀ ਲੈਣ ਦੌਰਾਮ ਗਲਤੀ `%s': "
 
 #: ../lib/volume_luks.c:176
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
-msgstr "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
+msgstr "libblkid ਅਤੇ libcryptsetup ਵਿਚਕਾਰ UUID ਵਖਰੇਵਾਂ : `%s' vs. `%s'"
 
 #: ../lib/volume_luks.c:207
 msgid "LUKS cipher name"
-msgstr ""
+msgstr "LUKS ਸਾਈਫਰ ਨਾਂ"
 
 #: ../lib/volume_luks.c:210
 msgid "LUKS cipher mode"
-msgstr ""
+msgstr "LUKS ਸਾਈਫਰ ਮੋਡ"
 
 #: ../lib/volume_luks.c:213
 msgid "Key size (bits)"
-msgstr ""
+msgstr "ਕੁੰਜੀ ਅਕਾਰ (bits)"
 
 #: ../lib/volume_luks.c:233
 msgid "Data encryption key"
-msgstr ""
+msgstr "ਡਾਟਾ ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ"
 
 #: ../lib/volume_luks.c:237
 msgid "Passphrase"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ"
 
 #: ../lib/volume_luks.c:240
 msgid "Passphrase slot"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਸਲਾਟ"
 
 #: ../lib/volume_luks.c:270 ../lib/volume_luks.c:433 ../lib/volume_luks.c:664
 #, c-format
 msgid "Encryption information type unsupported in LUKS"
-msgstr ""
+msgstr "LUKS ਵਿੱਚ ਇਨਕ੍ਰਿਪਸ਼ਨ ਜਾਣਕਾਰੀ ਕਿਸਮ ਨਾ-ਸਹਿਯੋਗੀ ਹੈ"
 
 #: ../lib/volume_luks.c:273
 #, c-format
 msgid "Passphrase for `%s'"
-msgstr ""
+msgstr "`%s' ਲਈ ਗੁਪਤਕੋਡ"
 
 #: ../lib/volume_luks.c:297 ../lib/volume_luks.c:797
 msgid "Error getting LUKS data encryption key: "
-msgstr ""
+msgstr "LUKS ਡਾਟਾ ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਪ੍ਰਾਪਤ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ: "
 
 #: ../lib/volume_luks.c:340
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "ਸਾਈਫਰ ਨਾਂ ਵਖਰੇਵਾਂ (ਪੈਕੇਟ `%s', ਵਾਲੀਅਮ `%s')"
 
 #: ../lib/volume_luks.c:347
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "ਸਾਈਫਰ ਮੋਡ ਵਖਰੇਵਾਂ (ਪੈਕੇਟ `%s', ਵਾਲੀਅਮ `%s')"
 
 #: ../lib/volume_luks.c:354
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
-msgstr ""
+msgstr "ਕੁੰਜੀ ਅਕਾਰ ਵਖਰੇਵਾਂ (ਪੈਕੇਟ %zu, ਵਾਲੀਅਮ %zu)"
 
 #: ../lib/volume_luks.c:380
 msgid "LUKS data encryption key in packet is invalid: "
-msgstr ""
+msgstr "ਪੈਕੇਟ ਵਿਚਲੀ LUKS ਡਾਟਾ ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਗਲਤ ਹੈ: "
 
 #: ../lib/volume_luks.c:400
 msgid "LUKS passphrase in packet is invalid: "
-msgstr ""
+msgstr "ਪੈਕੇਟ ਵਿਚਲਾ LUKS ਗੁਪਤਕੋਡ ਗਲਤ ਹੈ: "
 
 #: ../lib/volume_luks.c:439
 #, c-format
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr ""
+msgstr "Escrow ਪੈਕੇਟ ਵਿੱਚ LUKS ਡਾਟਾ ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਸ਼ਾਮਿਲ ਨਹੀਂ ਹੈ"
 
 #: ../lib/volume_luks.c:444
 #, c-format
 msgid "New passphrase for `%s'"
-msgstr ""
+msgstr "`%s' ਲਈ ਨਵਾਂ ਗੁਪਤਕੋਡ"
 
 #: ../lib/volume_luks.c:445
 #, c-format
 msgid "Repeat new passphrase for `%s'"
-msgstr ""
+msgstr "`%s' ਲਈ ਨਵਾਂ ਗੁਪਤਕੋਡ ਦੁਹਰਾਓ"
 
 #: ../lib/volume_luks.c:446
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।  `%s' ਲਈ ਨਵਾਂ ਗੁਪਤਕੋਡ"
 
 #: ../lib/volume_luks.c:471 ../src/volume_key.c:558
 #, c-format
 msgid "Too many attempts to get a passphrase"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਲੈਣ ਲਈ ਬਹੁਤ ਕੋਸ਼ਿਸ਼ਾਂ"
 
 #: ../lib/volume_luks.c:484 ../lib/volume_luks.c:542
 msgid "Error adding a LUKS passphrase"
-msgstr ""
+msgstr "ਇੱਕ LUKS ਗੁਪਤਕੋਡ ਸ਼ਾਮਿਲ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ"
 
 #: ../lib/volume_luks.c:521
 #, c-format
 msgid "Can not add a secret of this type"
-msgstr ""
+msgstr "ਇਸ ਕਿਸਮ ਦਾ ਸੀਕਰੇਟ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕਰ ਸਕਦਾ"
 
 #: ../lib/volume_luks.c:527 ../lib/volume_luks.c:622 ../lib/volume_luks.c:805
 #, c-format
 msgid "Data encryption key unknown"
-msgstr ""
+msgstr "ਡਾਟਾ ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਅਣਜਾਣ ਹੈ"
 
 #: ../lib/volume_luks.c:533
 #, c-format
 msgid "The passphrase must be a string"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਇੱਕ ਸਤਰ ਹੋਣੀ ਜਰੂਰੀ ਹੈ"
 
 #: ../lib/volume_luks.c:645
 #, c-format
 msgid "Passphrase unknown"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਅਣਜਾਣ ਹੈ"
 
 #: ../lib/volume_luks.c:704
 msgid "Unsupported key length %"
-msgstr ""
+msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਕੁੰਜੀ ਲੰਬਾਈ %"
 
 #: ../lib/volume_luks.c:715
 #, c-format
 msgid "Key length mismatch"
-msgstr ""
+msgstr "ਕੁੰਜੀ ਲੰਬਾਈ ਵਖਰੇਵਾਂ"
 
 #: ../lib/volume_luks.c:738
 #, c-format
 msgid "Invalid slot number `%s'"
-msgstr ""
+msgstr "ਗਲਤ ਸਲਾਟ ਨੰਬਰ `%s'"
 
 #: ../lib/volume_luks.c:746
 #, c-format
 msgid "NUL byte in passphrase"
-msgstr ""
+msgstr "ਗੁਪਤਕੋਡ ਵਿੱਚ NUL ਬਾਈਟ"
 
 #: ../lib/volume_luks.c:814
 msgid "Error opening LUKS volume: "
-msgstr ""
+msgstr "LUKS ਵਾਲੀਅਮ ਖੋਲਣ ਦੌਰਾਨ ਗਲਤੀ: "
 
 #: ../python/volume_key.i:446
 #, c-format
 msgid "Error decoding certificate"
-msgstr ""
+msgstr "ਸਾਰਟੀਫਿਕੇਟ ਡੀਕੋਡਿੰਗ ਦੌਰਾਨ ਗਲਤੀ"
 
 #: ../src/volume_key.c:51 ../src/volume_key.c:384 ../src/volume_key.c:436
 #, c-format
 msgid "%s: "
-msgstr ""
+msgstr "%s: "
 
 #. TRASLATORS: The "(y/n)" part should indicate to the user that input
 #. matching (locale yesexpr) and (locale noexpr) is expected.
 #: ../src/volume_key.c:81
 #, c-format
 msgid "%s (y/n) "
-msgstr ""
+msgstr "%s (y/n) "
 
 #: ../src/volume_key.c:167
 msgid "Show version"
-msgstr ""
+msgstr "ਵਰਜਨ ਵੇਖਾਓ"
 
 #: ../src/volume_key.c:172
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
-msgstr ""
+msgstr "ਪੈਕੇਟ ਵਿੱਚ ਵਾਲੀਅਮ ਸੀਕਰੇਟ ਸੰਭਾਲੋ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ ਹਨ VOLUME [PACKET]।"
 
 #: ../src/volume_key.c:177
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
-msgstr ""
+msgstr "ਪੈਕੇਟ ਤੋਂ ਵਾਲੀਅਮ ਸੀਕਰੇਟ ਮੁੜ-ਸੰਭਾਲੋ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ ਹਨ VOLUME PACKET।"
 
 #: ../src/volume_key.c:182
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
+"ਪੈਕੇਟ ਤੋਂ ਸੀਕਰੇਟ ਵਰਤ ਕੇ ਇੱਕ ਇਨਕ੍ਰਿਪਟਡ ਵਾਲੀਅਮ ਨਿਰਧਾਰਤ ਕਰੋ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ "
+"ਹਨ "
+"VOLUME PACKET NAME।"
 
 #: ../src/volume_key.c:187
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr ""
+msgstr "ਇੱਕ escrow ਪੈਕੇਟ ਨੂੰ ਮੁੜ-ਇਮਕ੍ਰਿਪਟ ਕਰੋ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ ਹਨ PACKET।"
 
 #: ../src/volume_key.c:191
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr ""
+msgstr "ਪੈਕੇਟ ਵਿਚਲੀ ਜਾਣਕਾਰੀ ਵੇਖਾਓ। ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ ਹਨ PACKET।"
 
 #: ../src/volume_key.c:196
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr ""
+msgstr "ਪੈਕੇਟ ਵਿਚਲੇ ਸੀਕਰੇਟ ਵੇਖਾਓ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ ਹਨ PACKET।"
 
 #: ../src/volume_key.c:201
 msgid "Use the NSS database in DIR"
-msgstr ""
+msgstr "DIR ਵਿੱਚ NSS ਡਾਟਾਬੇਸ ਵਰਤੋ"
 
 #: ../src/volume_key.c:201
 msgid "DIR"
@@ -416,11 +419,11 @@ msgstr "DIR"
 
 #: ../src/volume_key.c:204
 msgid "Run in batch mode"
-msgstr ""
+msgstr "ਬੈਚ ਮੋਡ ਵਿੱਚ ਚਲਾਓ"
 
 #: ../src/volume_key.c:210
 msgid "Write the default secret to PACKET"
-msgstr ""
+msgstr "ਮੂਲ ਸੀਕਰੇਟ ਨੂੰ PACKET ਵਿੱਚ ਲਿਖੋ"
 
 #: ../src/volume_key.c:210 ../src/volume_key.c:215 ../src/volume_key.c:219
 #: ../src/volume_key.c:224
@@ -429,19 +432,19 @@ msgstr "PACKET"
 
 #: ../src/volume_key.c:214
 msgid "Write data encryption key to PACKET"
-msgstr ""
+msgstr "PACKET ਵਿੱਚ ਡਾਟਾ ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਲਿਖੋ"
 
 #: ../src/volume_key.c:219
 msgid "Write passphrase to PACKET"
-msgstr ""
+msgstr "PACKET ਵਿੱਚ ਗੁਪਤਕੋਡ ਲਿਖੋ"
 
 #: ../src/volume_key.c:224
 msgid "Create a random passphrase and write it to PACKET"
-msgstr ""
+msgstr "ਲਗਾਤਾਰ ਗੁਪਤਕੋਡ ਬਣਾਓ ਅਤੇ PACKET ਵਿੱਚ ਲਿਖੋ"
 
 #: ../src/volume_key.c:232
 msgid "Encrypt for the certificate in CERT"
-msgstr ""
+msgstr "CERT ਵਿੱਚ ਸਾਰਟੀਫਿਕੇਟ ਲਈ ਇਨਕ੍ਰਿਪਡ ਕਰੋ"
 
 #: ../src/volume_key.c:232
 msgid "CERT"
@@ -449,7 +452,7 @@ msgstr "CERT"
 
 #: ../src/volume_key.c:236
 msgid "Include secrets in --dump output"
-msgstr ""
+msgstr "--dump ਆਊਟਪੁੱਟ ਵਿੱਚ ਸੀਕਰੇਟ ਸ਼ਾਮਿਲ ਕਰੋ"
 
 #: ../src/volume_key.c:251
 msgid "OPERANDS"
@@ -457,12 +460,12 @@ msgstr "OPERANDS"
 
 #: ../src/volume_key.c:253
 msgid "Manages encrypted volume keys and passphrases."
-msgstr ""
+msgstr "ਇਨਕ੍ਰਿਪਟਡ ਵਾਲੀਅਮ ਕੁੰਜੀਆਂ ਅਤੇ ਗੁਪਤਕੋਡ ਦਾ ਪਰਬੰਧਨ ਕਰਦਾ ਹੈ।"
 
 #: ../src/volume_key.c:254
 #, c-format
 msgid "Report bugs to %s"
-msgstr ""
+msgstr "%s ਤੇ ਬੱਗ ਰਿਪੋਰਟ ਕਰੋ"
 
 #: ../src/volume_key.c:262
 #, c-format
@@ -471,7 +474,7 @@ msgid ""
 "Run `%s --help' for more information.\n"
 msgstr ""
 "%s: %s\n"
-"Run `%s --help' for more information.\n"
+"ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ `%s --help' ਚਲਾਓ।\n"
 
 #: ../src/volume_key.c:273
 msgid ""
@@ -648,4 +651,5 @@ msgstr ""
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr ""
+
 

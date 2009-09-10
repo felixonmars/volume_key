@@ -1,0 +1,662 @@
+# translation of volume_key.master.volume_key.as.po to Assamese
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Amitakhya Phukan <aphukan@fedoraproject.org>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: volume_key.master.volume_key.as\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
+"POT-Creation-Date: 2009-09-07 08:37+0000\n"
+"PO-Revision-Date: 2009-09-08 20:52+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
+"Language-Team: Assamese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: ../lib/crypto.c:57 ../lib/crypto.c:257
+#, c-format
+msgid "%s: %s"
+msgstr "%s: %s"
+
+#: ../lib/kmip.c:156 ../lib/kmip.c:272
+#, c-format
+msgid "Not enough space provided to store a KMIP packet"
+msgstr "KMIP সৰঞ্জাম সংৰক্ষণৰ বাবে পৰ্যাপ্ত স্থান উপলব্ধ কৰা নহয়"
+
+#: ../lib/kmip.c:223 ../lib/kmip.c:689
+#, c-format
+msgid "A string is too long"
+msgstr "পংক্তিটি অত্যাধিক দীঘল"
+
+#: ../lib/kmip.c:241 ../lib/kmip.c:733
+#, c-format
+msgid "Binary data is too long"
+msgstr "বাইনৰি তথ্য অত্যাধিক দীঘল"
+
+#: ../lib/kmip.c:292
+#, c-format
+msgid "A KMIP structure is too long"
+msgstr "এটা KMIP স্ট্ৰাকচাৰ অত্যাধিক দীঘল"
+
+#: ../lib/kmip.c:561 ../lib/kmip.c:676 ../lib/kmip.c:739
+#, c-format
+msgid "Unexpected end of data"
+msgstr "তথ্যৰ অপ্ৰত্যাশিত সমাপ্তি"
+
+#: ../lib/kmip.c:586 ../lib/kmip.c:662 ../lib/kmip.c:719 ../lib/kmip.c:766
+#, c-format
+msgid "Unexpected item tag 0x%08lX"
+msgstr "অপ্ৰত্যাশিত বস্তুৰ টেগ 0x%08lX"
+
+#: ../lib/kmip.c:593 ../lib/kmip.c:726 ../lib/kmip.c:773
+#, c-format
+msgid "Unexpected item type 0x%02X"
+msgstr "অপ্ৰত্যাশিত ধৰনৰ বস্তু 0x%02X"
+
+#: ../lib/kmip.c:599
+#, c-format
+msgid "Unexpected item size"
+msgstr "বস্তুৰ অপ্ৰত্যাশিত মাপ"
+
+#: ../lib/kmip.c:637 ../lib/kmip.c:989
+msgid "Unsupported enum value %"
+msgstr "অসমৰ্থিত enum মান %"
+
+#: ../lib/kmip.c:669
+#, c-format
+msgid "String item expected, got %02X"
+msgstr "পংক্তি ৰূপৰ বস্তু প্ৰত্যাশিত, %02X প্ৰাপ্ত হৈছে"
+
+#: ../lib/kmip.c:781
+#, c-format
+msgid "Structure does not fit in its container"
+msgstr "স্ট্ৰাকচাৰ সংশ্লিষ্ট ধাৰণকৰ্তাত অন্তৰ্ভুক্ত কৰাৰ যোগ্য নহয়"
+
+#: ../lib/kmip.c:797
+#, c-format
+msgid "Unexpected data in structure"
+msgstr "স্ট্ৰাকচাৰত অপ্ৰত্যাশিত তথ্য উপস্থিত আছে"
+
+#: ../lib/kmip.c:836
+#, c-format
+msgid "Number of key bits is not positive"
+msgstr "চাবি বিটৰ সংখ্যা শূণ্যৰ পৰা অধিক নহয়"
+
+#: ../lib/kmip.c:1022 ../lib/kmip.c:1056
+msgid "Unsupported symmetric key format %"
+msgstr "চিমেট্ৰিক চাবিৰ বিন্যাস সমৰ্থিত নহয় %"
+
+#: ../lib/kmip.c:1089 ../lib/volume.c:689
+msgid "Unsupported KMIP version %"
+msgstr "অসমৰ্থিত KMIP সংস্কৰণ %"
+
+#: ../lib/kmip.c:1136
+msgid "Unsupported object type %"
+msgstr "অবজেক্টৰ ধৰন সমৰ্থিত নহয় %"
+
+#: ../lib/libvolume_key.c:205
+#, c-format
+msgid "Input packet is too small"
+msgstr "ইনপুটৰ সৰঞ্জাম অত্যন্ত ক্ষুদ্ৰ"
+
+#: ../lib/libvolume_key.c:215
+#, c-format
+msgid "Input is not a volume_key escrow packet"
+msgstr "ইনপুট কৰা তথ্য volume_key escrow সৰঞ্জাম নহয়"
+
+#: ../lib/libvolume_key.c:221
+#, c-format
+msgid "Unsupported packet format"
+msgstr "পেকেট বিন্যাস সমৰ্থিত নহয়"
+
+#: ../lib/libvolume_key.c:277
+msgid "Escrow packet passphrase"
+msgstr "Escrow সৰঞ্জামৰ পৰিচয় পংক্তি"
+
+#: ../lib/libvolume_key.c:293 ../lib/volume_luks.c:302
+#, c-format
+msgid "Too many attempts to get a valid passphrase"
+msgstr "বৈধ পৰিচয়-পংক্তি প্ৰাপ্ত কৰাৰ অত্যাধিক প্ৰচেষ্টা কৰা হৈছে"
+
+#: ../lib/ui.c:123
+#, c-format
+msgid "User interface callbacks not provided"
+msgstr "ইউজাৰ ইন্টাৰফেসৰ কল-বেক উপলব্ধ কৰা নহয়"
+
+#: ../lib/ui.c:129
+#, c-format
+msgid "Passphrase not provided"
+msgstr "পৰিচয়-পংক্তি উপলব্ধ কৰা নহয়"
+
+#: ../lib/volume.c:92
+#, c-format
+msgid "The key is too long"
+msgstr "এই চাবি অত্যাধিক ডাঙৰ"
+
+#: ../lib/volume.c:165 ../lib/volume.c:186
+#, c-format
+msgid "Required attribute `%s' not found"
+msgstr "আৱশ্যক বৈশিষ্ট্য `%s' পোৱা নাযায়"
+
+#: ../lib/volume.c:308
+#, c-format
+msgid "Cannot get attributes of `%s'"
+msgstr "`%s'-ৰ বৈশিষ্ট্য পোৱা নাযায়"
+
+#: ../lib/volume.c:415
+msgid "Host name"
+msgstr "গৃহস্থৰ নাম"
+
+#: ../lib/volume.c:417
+msgid "Volume format"
+msgstr "ভলিউমৰ বিন্যাস"
+
+#: ../lib/volume.c:420
+msgid "Volume UUID"
+msgstr "ভলিউমৰ UUID"
+
+#: ../lib/volume.c:423
+msgid "Volume label"
+msgstr "ভলিউমৰ লেবেল"
+
+#: ../lib/volume.c:425
+msgid "Volume path"
+msgstr "ভলিউমৰ পাথ"
+
+#: ../lib/volume.c:451 ../lib/volume.c:560 ../lib/volume.c:594
+#: ../lib/volume.c:623 ../lib/volume.c:656 ../lib/volume.c:769
+#, c-format
+msgid "Volume `%s' has unsupported format"
+msgstr "`%s' ভলিউমৰ বিন্যাস সমৰ্থিত নহয়"
+
+#: ../lib/volume.c:481
+#, c-format
+msgid "Volume format mismatch (packet `%s', volume `%s')"
+msgstr "ভলিউমৰ বিন্যাসত অমিল (সৰঞ্জাম `%s', ভলিউম `%s')"
+
+#: ../lib/volume.c:509
+#, c-format
+msgid "UUID mismatch (packet `%s', volume `%s')"
+msgstr "UUID ত অমিল (সৰঞ্জাম `%s', ভলিউম `%s')"
+
+#: ../lib/volume.c:515
+#, c-format
+msgid "Host name mismatch (packet `%s', volume `%s')"
+msgstr "গৃহস্থৰ নামত অমিল (সৰঞ্জাম `%s', ভলিউম `%s')"
+
+#: ../lib/volume.c:522
+#, c-format
+msgid "Volume label mismatch (packet `%s', volume `%s')"
+msgstr "ভলিউম লেবেলত অমিল (সৰঞ্জাম `%s', ভলিউম `%s')"
+
+#: ../lib/volume.c:529
+#, c-format
+msgid "Volume path mismatch (packet `%s', volume `%s')"
+msgstr "ভলিউমৰ পাথত অমিল (সৰঞ্জাম `%s', ভলিউম `%s')"
+
+#: ../lib/volume.c:682
+#, c-format
+msgid "Unexpected data after packet"
+msgstr "সৰঞ্জামৰ পৰা অপ্ৰত্যাশিত তথ্য"
+
+#: ../lib/volume.c:706 ../lib/volume_luks.c:757
+msgid "Unsupported packet type %"
+msgstr "অসমৰ্থিত সৰঞ্জামৰ ধৰন %"
+
+#: ../lib/volume.c:741
+#, c-format
+msgid "Unsupported volume format `%s'"
+msgstr "অসমৰ্থিত ভলিউমৰ বিন্যাস `%s'"
+
+#: ../lib/volume_luks.c:62
+#, c-format
+msgid "Unknown error %d"
+msgstr "অজ্ঞাত ত্ৰুটি %d"
+
+#: ../lib/volume_luks.c:167
+#, c-format
+msgid "Error getting information about volume `%s': "
+msgstr "ভলিউম `%s' সম্পৰ্কে তথ্য প্ৰাপ্ত কৰিবলৈ সমস্যা: "
+
+#: ../lib/volume_luks.c:176
+#, c-format
+msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
+msgstr "libblkid আৰু libcryptsetup ত UUID ত অমিল: `%s' vs. `%s'"
+
+#: ../lib/volume_luks.c:207
+msgid "LUKS cipher name"
+msgstr "LUKS চাইফাৰৰ নাম"
+
+#: ../lib/volume_luks.c:210
+msgid "LUKS cipher mode"
+msgstr "LUKS চাইফাৰৰ মোড"
+
+#: ../lib/volume_luks.c:213
+msgid "Key size (bits)"
+msgstr "চাবিৰ মাপ (বিট অনুযায়ী)"
+
+#: ../lib/volume_luks.c:233
+msgid "Data encryption key"
+msgstr "তথ্য এনক্ৰিপশনৰ চাবি"
+
+#: ../lib/volume_luks.c:237
+msgid "Passphrase"
+msgstr "গুপ্তশব্দ"
+
+#: ../lib/volume_luks.c:240
+msgid "Passphrase slot"
+msgstr "পৰিচয় পংক্তিৰ স্লট"
+
+#: ../lib/volume_luks.c:270 ../lib/volume_luks.c:433 ../lib/volume_luks.c:664
+#, c-format
+msgid "Encryption information type unsupported in LUKS"
+msgstr "এনক্ৰিপশন তথ্যৰ ধৰন LUKS দ্বাৰা সমৰ্থিত নহয়"
+
+#: ../lib/volume_luks.c:273
+#, c-format
+msgid "Passphrase for `%s'"
+msgstr "`%s'-ৰ পৰিচয় পংক্তি"
+
+#: ../lib/volume_luks.c:297 ../lib/volume_luks.c:797
+msgid "Error getting LUKS data encryption key: "
+msgstr "LUKS-ৰ তথ্য এনক্ৰিপশনৰ চাবি প্ৰাপ্ত কৰিবলৈ ত্ৰুটি: "
+
+#: ../lib/volume_luks.c:340
+#, c-format
+msgid "Cipher name mismatch (packet `%s', volume `%s')"
+msgstr "চাইফাৰৰ নামত অমিল (সৰঞ্জাম `%s', ভলিউম `%s')"
+
+#: ../lib/volume_luks.c:347
+#, c-format
+msgid "Cipher mode mismatch (packet `%s', volume `%s')"
+msgstr "চাইফাৰ মোডত অমিল (সৰঞ্জাম `%s', ভলিউম `%s')"
+
+#: ../lib/volume_luks.c:354
+#, c-format
+msgid "Key size mismatch (packet %zu, volume %zu)"
+msgstr "চাবিৰ মাপত অমিল (সৰঞ্জাম %zu, ভলিউম %zu)"
+
+#: ../lib/volume_luks.c:380
+msgid "LUKS data encryption key in packet is invalid: "
+msgstr "সৰঞ্জামত উপস্থিত LUKS তথ্য এনক্ৰিপশনৰ চাবি বৈধ নহয়: "
+
+#: ../lib/volume_luks.c:400
+msgid "LUKS passphrase in packet is invalid: "
+msgstr "সৰঞ্জামত উপস্থিত LUKS পৰিচয়-পংক্তি বৈধ নহয়: "
+
+#: ../lib/volume_luks.c:439
+#, c-format
+msgid "Escrow packet does not contain the LUKS data encryption key"
+msgstr "Escrow সৰঞ্জামত LUKS তথ্য এনক্ৰিপশনৰ চাবি অনুপস্থিত"
+
+#: ../lib/volume_luks.c:444
+#, c-format
+msgid "New passphrase for `%s'"
+msgstr "`%s'-ৰ বাবে নতুন পৰিচয় পংক্তি"
+
+#: ../lib/volume_luks.c:445
+#, c-format
+msgid "Repeat new passphrase for `%s'"
+msgstr "`%s'-ৰ পৰিচয়-পংক্তি পুনঃ লিখক"
+
+#: ../lib/volume_luks.c:446
+#, c-format
+msgid "Passphrases do not match.  New passphrase for `%s'"
+msgstr "পৰিচয়-পংক্তিত অমিল । `%s'-ৰ বাবে নতুন পৰিচয় পংক্তি"
+
+#: ../lib/volume_luks.c:471 ../src/volume_key.c:558
+#, c-format
+msgid "Too many attempts to get a passphrase"
+msgstr "পৰিচয়-পংক্তি প্ৰাপ্ত কৰাৰ অতিৰিক্ত প্ৰচেষ্টা কৰা হৈছে"
+
+#: ../lib/volume_luks.c:484 ../lib/volume_luks.c:542
+msgid "Error adding a LUKS passphrase"
+msgstr "LUKS পৰিচয়-পংক্তি যোগ কৰিবলৈ ত্ৰুটি"
+
+#: ../lib/volume_luks.c:521
+#, c-format
+msgid "Can not add a secret of this type"
+msgstr "এই ধৰনৰ গোপনীয় তথ্য যোগ কৰা সম্ভৱ নহয়"
+
+#: ../lib/volume_luks.c:527 ../lib/volume_luks.c:622 ../lib/volume_luks.c:805
+#, c-format
+msgid "Data encryption key unknown"
+msgstr "তথ্য এনক্ৰিপশনৰ অজ্ঞাত চাবি"
+
+#: ../lib/volume_luks.c:533
+#, c-format
+msgid "The passphrase must be a string"
+msgstr "পৰিচয়-পংক্তিৰ ক্ষেত্ৰত পংক্তি উল্লেখ কৰা আৱশ্যক"
+
+#: ../lib/volume_luks.c:645
+#, c-format
+msgid "Passphrase unknown"
+msgstr "পৰিচয়-পংক্তি অজ্ঞাত"
+
+#: ../lib/volume_luks.c:704
+msgid "Unsupported key length %"
+msgstr "চাবিৰ দৈৰ্ঘ্য সমৰ্থিত নহয় %"
+
+#: ../lib/volume_luks.c:715
+#, c-format
+msgid "Key length mismatch"
+msgstr "চাবিৰ দৈৰ্ঘ্যে অমিল"
+
+#: ../lib/volume_luks.c:738
+#, c-format
+msgid "Invalid slot number `%s'"
+msgstr "স্লট সংখ্যা `%s' বৈধ নহয়"
+
+#: ../lib/volume_luks.c:746
+#, c-format
+msgid "NUL byte in passphrase"
+msgstr "পৰিচয়-পংক্তিত NUL বাইট"
+
+#: ../lib/volume_luks.c:814
+msgid "Error opening LUKS volume: "
+msgstr "LUKS ভলিউম খুলিবলৈ ত্ৰুটি: "
+
+#: ../python/volume_key.i:446
+#, c-format
+msgid "Error decoding certificate"
+msgstr "প্ৰমাণপত্ৰ ডি-কোড কৰিবলৈ ত্ৰুটি"
+
+#: ../src/volume_key.c:51 ../src/volume_key.c:384 ../src/volume_key.c:436
+#, c-format
+msgid "%s: "
+msgstr "%s: "
+
+#. TRASLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
+#: ../src/volume_key.c:81
+#, c-format
+msgid "%s (y/n) "
+msgstr "%s (হয়/নহয়) "
+
+#: ../src/volume_key.c:167
+msgid "Show version"
+msgstr "সংস্কৰণ দেখুৱাওক"
+
+#: ../src/volume_key.c:172
+msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
+msgstr ""
+"ভলিউম সংক্ৰান্ত গোপনীয় তথ্য পেকেটত সংৰক্ষণ কৰা হ'ব ।  VOLUME [PACKET] "
+"অপাৰেন্ড প্ৰত্যাশিত ।"
+
+#: ../src/volume_key.c:177
+msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
+msgstr ""
+"ভলিউম সংক্ৰান্ত গোপনীয় তথ্যসমূহ সৰঞ্জামৰ পৰা পুনৰুদ্ধাৰ কৰা হ'ব ।  VOLUME PACKET "
+"অপাৰেন্ড প্ৰত্যাশিত ।"
+
+#: ../src/volume_key.c:182
+msgid ""
+"Set up an encrypted volume using secrets from a packet.  Expects operands "
+"VOLUME PACKET NAME."
+msgstr ""
+"সৰঞ্জামত উপস্থিত গোপনীয় তথ্য প্ৰয়োগ কৰি এটা এনক্ৰিপ্ট কৰা ভলিউম নিৰ্ধাৰণ কৰা "
+"হ'ব ।  VOLUME PACKET NAME অপাৰেন্ড প্ৰত্যাশিত ।"
+
+#: ../src/volume_key.c:187
+msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
+msgstr "এটা escrow সৰঞ্জাম পুনঃ এনক্ৰিপ্ট কৰক ।  PACKET অপাৰেন্ড প্ৰত্যাশিত ।"
+
+#: ../src/volume_key.c:191
+msgid "Show information contained in a packet.  Expects operand PACKET."
+msgstr "সৰঞ্জামত উপস্থিত তথ্য প্ৰদৰ্শন কৰা হ'ব ।  PACKET অপাৰেন্ড প্ৰত্যাশিত ।"
+
+#: ../src/volume_key.c:196
+msgid "Show secrets contained in a packet.  Expects operand PACKET."
+msgstr "সৰঞ্জামত উপস্থিত গোপনীয় তথ্য প্ৰদৰ্শন কৰা হ'ব ।  PACKET অপাৰেন্ড প্ৰত্যাশিত ।"
+
+#: ../src/volume_key.c:201
+msgid "Use the NSS database in DIR"
+msgstr "DIR ত NSS তথ্যভঁৰাল ব্যৱহাৰ কৰা হ'ব"
+
+#: ../src/volume_key.c:201
+msgid "DIR"
+msgstr "DIR"
+
+#: ../src/volume_key.c:204
+msgid "Run in batch mode"
+msgstr "বেচ মোডত সঞ্চালিত হ'ব"
+
+#: ../src/volume_key.c:210
+msgid "Write the default secret to PACKET"
+msgstr "গোপনীয় অবিকল্পিত তথ্য PACKET ত লিখা হ'ব"
+
+#: ../src/volume_key.c:210 ../src/volume_key.c:215 ../src/volume_key.c:219
+#: ../src/volume_key.c:224
+msgid "PACKET"
+msgstr "PACKET"
+
+#: ../src/volume_key.c:214
+msgid "Write data encryption key to PACKET"
+msgstr "তথ্য এনক্ৰিপশনৰ চাবি PACKET ত লিখা হ'ব"
+
+#: ../src/volume_key.c:219
+msgid "Write passphrase to PACKET"
+msgstr "পৰিচয়-পংক্তি PACKET ত লিখা হ'ব"
+
+#: ../src/volume_key.c:224
+msgid "Create a random passphrase and write it to PACKET"
+msgstr "যিকোনো এটা পৰিচয়-পংক্ত নিৰ্মাণ কৰক আৰু PACKET ত লিখক"
+
+#: ../src/volume_key.c:232
+msgid "Encrypt for the certificate in CERT"
+msgstr "CERT ত উপস্থিত প্ৰমাণপত্ৰৰ বাবে এনক্ৰিপ্ট"
+
+#: ../src/volume_key.c:232
+msgid "CERT"
+msgstr "CERT"
+
+#: ../src/volume_key.c:236
+msgid "Include secrets in --dump output"
+msgstr "--dump আউটপুটত গোপনীয় তথ্য অন্তৰ্ভুক্ত কৰা হ'ব"
+
+#: ../src/volume_key.c:251
+msgid "OPERANDS"
+msgstr "OPERANDS"
+
+#: ../src/volume_key.c:253
+msgid "Manages encrypted volume keys and passphrases."
+msgstr "এনক্ৰিপ্ট কৰা ভলিউম আৰু পৰিচয়-পংক্তি পৰিচালনা কৰক ।"
+
+#: ../src/volume_key.c:254
+#, c-format
+msgid "Report bugs to %s"
+msgstr "%s ত বাগ প্ৰতিবেদন কৰক"
+
+#: ../src/volume_key.c:262
+#, c-format
+msgid ""
+"%s: %s\n"
+"Run `%s --help' for more information.\n"
+msgstr ""
+"%s: %s\n"
+"অধিক বিবৰণৰ বাবে `%s --help' চাওক ।\n"
+
+#: ../src/volume_key.c:273
+msgid ""
+"Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
+"This software is distributed under the GPL v.2.\n"
+"\n"
+"This program is provided with NO WARRANTY, to the extent permitted by law."
+msgstr ""
+"Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
+"This software is distributed under the GPL v.2.\n"
+"\n"
+"This program is provided with NO WARRANTY, to the extent permitted by law."
+
+#: ../src/volume_key.c:285
+msgid "Operation mode not specified"
+msgstr "কামৰ মোড নিৰ্দিষ্ট কৰা নহয়"
+
+#: ../src/volume_key.c:291
+msgid "Ambiguous operation mode"
+msgstr "কামৰ মোড স্পষ্ট নহয়"
+
+#: ../src/volume_key.c:295 ../src/volume_key.c:313
+#, c-format
+msgid "`--%s' is only valid with `--%s'"
+msgstr "`--%s'-ৰ ব্যৱহাৰ অকল `--%s'-ৰ সৈতে বৈধ"
+
+#: ../src/volume_key.c:301
+msgid "Output can be specified only with `--save' or `--reencrypt'"
+msgstr "অকল `--save' অথবা `--reencrypt' সহযোগে আউটপুট চিহ্নিত কৰা যাব"
+
+#: ../src/volume_key.c:308
+msgid "No output specified"
+msgstr "কোনো আউটপুট নিৰ্দিষ্ট কৰা নহয়"
+
+#: ../src/volume_key.c:310
+msgid "Ambiguous output format"
+msgstr "আউটপুটৰ বিন্যাস স্পষ্ট নহয়"
+
+#: ../src/volume_key.c:351
+#, c-format
+msgid "Error, try again.\n"
+msgstr "ত্ৰুটি, পুনঃ প্ৰচেষ্টা কৰক ।\n"
+
+#: ../src/volume_key.c:352
+#, c-format
+msgid "Enter password for `%s': "
+msgstr "`%s'-ৰ গুপ্তশব্দ লিখক: "
+
+#: ../src/volume_key.c:469 ../src/volume_key.c:508
+#, c-format
+msgid "Error reading `%s': "
+msgstr "`%s' পঢ়িবলৈ ত্ৰুটি: "
+
+#: ../src/volume_key.c:476 ../src/volume_key.c:516
+#, c-format
+msgid "Error decoding `%s': "
+msgstr "`%s' ডি-কোড কৰিবলৈ ত্ৰুটি: "
+
+#: ../src/volume_key.c:535
+msgid "New packet passphrase"
+msgstr "নতুন সৰঞ্জামৰ পৰিচয়-পংক্তি"
+
+#: ../src/volume_key.c:536
+msgid "Passphrases do not match.  New packet passphrase"
+msgstr "পৰিচয়-পংক্তিতে অমিল ।  নতুন সৰঞ্জামৰ পৰিচয়-পংক্তি"
+
+#: ../src/volume_key.c:541
+msgid "Repeat new packet passphrase"
+msgstr "নতুন সৰঞ্জামৰ পৰিচয়-পংক্তি পুনৰাবৃত্তি কৰা হ'ব"
+
+#: ../src/volume_key.c:600
+#, c-format
+msgid "Error creating `%s': "
+msgstr "`%s' নিৰ্মাণ কৰিবলৈ ত্ৰুটি: "
+
+#: ../src/volume_key.c:640
+#, c-format
+msgid "Usage: %s --save VOLUME [PACKET]"
+msgstr "ব্যৱহাৰপ্ৰণালী: %s --save VOLUME [PACKET]"
+
+#: ../src/volume_key.c:645 ../src/volume_key.c:660 ../src/volume_key.c:785
+#: ../src/volume_key.c:823
+#, c-format
+msgid "Error opening `%s': %s"
+msgstr "`%s' খুলিবলৈ ব্যৰ্থ: %s"
+
+#: ../src/volume_key.c:656
+#, c-format
+msgid "Error loading `%s': %s"
+msgstr "`%s' লোড কৰিবলৈ ত্ৰুটি: %s"
+
+#: ../src/volume_key.c:675
+#, c-format
+msgid "Error generating passphrase: %s"
+msgstr "পৰিচয়-পংক্তি নিৰ্মাণ কৰিবলৈ ত্ৰুটি: %s"
+
+#: ../src/volume_key.c:687
+#, c-format
+msgid "Error creating a passphrase: %s"
+msgstr "এটা পৰিচয়-পংক্তি নিৰ্মাণ কৰিবলৈ ব্যৰ্থ: %s"
+
+#: ../src/volume_key.c:718
+#, c-format
+msgid "`%s' does not match `%s': "
+msgstr "`%s' আৰু `%s' ত অমিল: "
+
+#: ../src/volume_key.c:727
+#, c-format
+msgid "`%s' perhaps does not match `%s'\n"
+msgstr "`%s' আৰু `%s' ত সম্ভৱত অমিল আছে\n"
+
+#: ../src/volume_key.c:742
+msgid "Are you sure you want to use this packet?"
+msgstr "আপুনি নিশ্চিতৰূপে এই সৰঞ্জাম ব্যৱহাৰ কৰিবলৈ ইচ্ছুক নে ?"
+
+#: ../src/volume_key.c:754
+#, c-format
+msgid "Error getting a yes/no answer"
+msgstr "হয়/নহয় সূচক উত্তৰ প্ৰাপ্ত কৰিবলৈ ত্ৰুটি"
+
+#: ../src/volume_key.c:780
+#, c-format
+msgid "Usage: %s --%s VOLUME PACKET"
+msgstr "ব্যৱহাৰপ্ৰণালী: %s --%s VOLUME PACKET"
+
+#: ../src/volume_key.c:801
+#, c-format
+msgid "Error restoring access to `%s': %s"
+msgstr "`%s' ব্যৱহাৰৰ অধিকাৰ পুনঃ ধাৰ্য কৰিবলৈ ত্ৰুটি: %s"
+
+#: ../src/volume_key.c:817
+#, c-format
+msgid "Usage: %s --%s VOLUME PACKET NAME"
+msgstr "ব্যৱহাৰ প্ৰণালী: %s --%s VOLUME PACKET NAME"
+
+#: ../src/volume_key.c:839
+#, c-format
+msgid "Error setting up `%s': %s"
+msgstr "`%s' প্ৰস্তুত কৰিবলৈ ত্ৰুটি: %s"
+
+#: ../src/volume_key.c:854 ../src/volume_key.c:883
+#, c-format
+msgid "Usage: %s --%s PACKET"
+msgstr "ব্যৱহাৰ প্ৰণালী: %s --%s PACKET"
+
+#: ../src/volume_key.c:888
+#, c-format
+msgid "Error reading `%s': %s"
+msgstr "`%s' পঢ়িবলৈ ত্ৰুটি: %s"
+
+#: ../src/volume_key.c:893
+#, c-format
+msgid "Invalid packet: %s"
+msgstr "অবৈধ সৰঞ্জাম: %s"
+
+#: ../src/volume_key.c:896
+msgid "Unencrypted"
+msgstr "এনক্ৰিপশন বিহীন"
+
+#: ../src/volume_key.c:900
+msgid "Public key-encrypted"
+msgstr "সাৰ্বজনীন চাবি দ্বাৰা এনক্ৰিপ্ট কৰা হৈছে"
+
+#: ../src/volume_key.c:904
+msgid "Passphrase-encrypted"
+msgstr "পৰিচয়-পংক্তি দ্বাৰা এনক্ৰিপ্ট কৰা"
+
+#: ../src/volume_key.c:911 ../src/volume_key.c:933
+#, c-format
+msgid "%s:\t%s\n"
+msgstr "%s:\t%s\n"
+
+#: ../src/volume_key.c:911
+msgid "Packet format"
+msgstr "সৰঞ্জামৰ বিন্যাস"
+
+#: ../src/volume_key.c:918
+#, c-format
+msgid "Error decoding `%s': %s"
+msgstr "`%s' ডি-কোড কৰিবলৈ ত্ৰুটি: %s"
+

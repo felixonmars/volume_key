@@ -1,74 +1,75 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of volume_key.master.po to Korean
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Eunju Kim <eukim@redhat.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: volume_key.master\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-09-04 04:39+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2009-09-09 21:57+0000\n"
+"PO-Revision-Date: 2009-09-10 15:54+1000\n"
+"Last-Translator: Eunju Kim <eukim@redhat.com>\n"
+"Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=1; plural=0;\n"
 
 #: ../lib/crypto.c:57 ../lib/crypto.c:257
 #, c-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../lib/kmip.c:156 ../lib/kmip.c:272
 #, c-format
 msgid "Not enough space provided to store a KMIP packet"
-msgstr ""
+msgstr "KMIP 패킷을 저장하기 위한 공간이 충분하지 않습니다  "
 
 #: ../lib/kmip.c:223 ../lib/kmip.c:689
 #, c-format
 msgid "A string is too long"
-msgstr ""
+msgstr "문자열이 너무 깁니다  "
 
 #: ../lib/kmip.c:241 ../lib/kmip.c:733
 #, c-format
 msgid "Binary data is too long"
-msgstr ""
+msgstr "바이너리 데이터가 너무 깁니다  "
 
 #: ../lib/kmip.c:292
 #, c-format
 msgid "A KMIP structure is too long"
-msgstr ""
+msgstr "KMIP 구조가 너무 깁니다  "
 
 #: ../lib/kmip.c:561 ../lib/kmip.c:676 ../lib/kmip.c:739
 #, c-format
 msgid "Unexpected end of data"
-msgstr ""
+msgstr "데이터의 예상치 못한 종료  "
 
 #: ../lib/kmip.c:586 ../lib/kmip.c:662 ../lib/kmip.c:719 ../lib/kmip.c:766
 #, c-format
 msgid "Unexpected item tag 0x%08lX"
-msgstr ""
+msgstr "예기치 않은 항목 태그 0x%08lX "
 
 #: ../lib/kmip.c:593 ../lib/kmip.c:726 ../lib/kmip.c:773
 #, c-format
 msgid "Unexpected item type 0x%02X"
-msgstr ""
+msgstr "예기치 않은 항목 유형 0x%02X   "
 
 #: ../lib/kmip.c:599
 #, c-format
 msgid "Unexpected item size"
-msgstr ""
+msgstr "예기치 않은 항목 크기  "
 
 #: ../lib/kmip.c:637 ../lib/kmip.c:989
 msgid "Unsupported enum value %"
-msgstr ""
+msgstr "지원되지 않은 enum 값 % "
 
 #: ../lib/kmip.c:669
 #, c-format
 msgid "String item expected, got %02X"
-msgstr ""
+msgstr "문자열 항목 예상, %02X 취함  "
 
 #: ../lib/kmip.c:781
 #, c-format
@@ -526,123 +527,124 @@ msgstr ""
 
 #: ../src/volume_key.c:535
 msgid "New packet passphrase"
-msgstr ""
+msgstr "새 패킷 암호 "
 
 #: ../src/volume_key.c:536
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr ""
+msgstr "암호가 일치하지 않음. 새 패킷 암호  "
 
 #: ../src/volume_key.c:541
 msgid "Repeat new packet passphrase"
-msgstr ""
+msgstr "새 패킷 암호 다시 입력   "
 
 #: ../src/volume_key.c:600
 #, c-format
 msgid "Error creating `%s': "
-msgstr ""
+msgstr "`%s'을(를) 생성하는 도중 오류 발생:  "
 
 #: ../src/volume_key.c:640
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
-msgstr ""
+msgstr "사용법: %s --save VOLUME [PACKET]  "
 
 #: ../src/volume_key.c:645 ../src/volume_key.c:660 ../src/volume_key.c:785
 #: ../src/volume_key.c:823
 #, c-format
 msgid "Error opening `%s': %s"
-msgstr ""
+msgstr "`%s'을(를) 여는 도중 오류 발생: %s "
 
 #: ../src/volume_key.c:656
 #, c-format
 msgid "Error loading `%s': %s"
-msgstr ""
+msgstr "`%s'을(를) 로딩하는 도중 오류 발생: %s  "
 
 #: ../src/volume_key.c:675
 #, c-format
 msgid "Error generating passphrase: %s"
-msgstr ""
+msgstr "암호를 생성하는 도중 오류 발생: %s  "
 
 #: ../src/volume_key.c:687
 #, c-format
 msgid "Error creating a passphrase: %s"
-msgstr ""
+msgstr "암호를 생성하는 도중 오류 발생: %s   "
 
 #: ../src/volume_key.c:718
 #, c-format
 msgid "`%s' does not match `%s': "
-msgstr ""
+msgstr "`%s'이(가) `%s'와 일치하지 않습니다:  "
 
 #: ../src/volume_key.c:727
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
-msgstr ""
+msgstr "`%s'이(가) `%s'와 일치하지 않습니다\n"
 
 #: ../src/volume_key.c:742
 msgid "Are you sure you want to use this packet?"
-msgstr ""
+msgstr "정말로 이 패킷을 사용하시겠습니까?   "
 
 #: ../src/volume_key.c:754
 #, c-format
 msgid "Error getting a yes/no answer"
-msgstr ""
+msgstr "예/아니오 답을 하는 도중 오류 발생   "
 
 #: ../src/volume_key.c:780
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
-msgstr ""
+msgstr "사용법: %s --%s VOLUME PACKET  "
 
 #: ../src/volume_key.c:801
 #, c-format
 msgid "Error restoring access to `%s': %s"
-msgstr ""
+msgstr "`%s'로의 액세스를 복구하는 도중 오류 발생: %s "
 
 #: ../src/volume_key.c:817
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
-msgstr ""
+msgstr "사용법: %s --%s VOLUME PACKET NAME  "
 
 #: ../src/volume_key.c:839
 #, c-format
 msgid "Error setting up `%s': %s"
-msgstr ""
+msgstr "`%s'을(를) 설정하는 도중 오류 발생: %s "
 
 #: ../src/volume_key.c:854 ../src/volume_key.c:883
 #, c-format
 msgid "Usage: %s --%s PACKET"
-msgstr ""
+msgstr "사용법: %s --%s PACKET "
 
 #: ../src/volume_key.c:888
 #, c-format
 msgid "Error reading `%s': %s"
-msgstr ""
+msgstr "`%s'을(를) 읽는 도주 오류 발생: %s "
 
 #: ../src/volume_key.c:893
 #, c-format
 msgid "Invalid packet: %s"
-msgstr ""
+msgstr "잘못된 패킷: %s  "
 
 #: ../src/volume_key.c:896
 msgid "Unencrypted"
-msgstr ""
+msgstr "암호화되지 않음  "
 
 #: ../src/volume_key.c:900
 msgid "Public key-encrypted"
-msgstr ""
+msgstr "공개키-암호화  "
 
 #: ../src/volume_key.c:904
 msgid "Passphrase-encrypted"
-msgstr ""
+msgstr "암호문-암호화   "
 
 #: ../src/volume_key.c:911 ../src/volume_key.c:933
 #, c-format
 msgid "%s:\t%s\n"
-msgstr ""
+msgstr "%s:\t%s\n"
 
 #: ../src/volume_key.c:911
 msgid "Packet format"
-msgstr ""
+msgstr "패킷 형식  "
 
 #: ../src/volume_key.c:918
 #, c-format
 msgid "Error decoding `%s': %s"
-msgstr ""
+msgstr "`%s'을(를) 디코딩하는 도중 오류 발생: %s "
+

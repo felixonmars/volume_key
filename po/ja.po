@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the volume_key package.
 # Hyu_gabaru Ryu_ichi  <hyu_gabaru@yahoo.co.jp>, 2009.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
@@ -636,7 +635,7 @@ msgstr ""
 #: ../src/volume_key.c:911 ../src/volume_key.c:933
 #, c-format
 msgid "%s:\t%s\n"
-msgstr ""
+msgstr "%s:\t%s\n"
 
 #: ../src/volume_key.c:911
 msgid "Packet format"

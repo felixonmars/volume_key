@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-06-18 21:58+0200\n"
-"PO-Revision-Date: 2009-06-18 22:02+0200\n"
+"POT-Creation-Date: 2009-09-22 08:39+0000\n"
+"PO-Revision-Date: 2009-09-27 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,7 +27,7 @@ msgstr ""
 #: ../lib/kmip.c:223 ../lib/kmip.c:689
 #, c-format
 msgid "A string is too long"
-msgstr "Łańcuch jest za długi"
+msgstr "Ciąg jest za długi"
 
 #: ../lib/kmip.c:241 ../lib/kmip.c:733
 #, c-format
@@ -66,7 +66,7 @@ msgstr "Nieobsługiwana wartość wyliczeniowa %"
 #: ../lib/kmip.c:669
 #, c-format
 msgid "String item expected, got %02X"
-msgstr "Oczekiwano elementu łańcucha, otrzymano %02X"
+msgstr "Oczekiwano elementu ciągu, otrzymano %02X"
 
 #: ../lib/kmip.c:781
 #, c-format
@@ -87,7 +87,7 @@ msgstr "Liczba bitów klucza nie jest dodatnia"
 msgid "Unsupported symmetric key format %"
 msgstr "Nieobsługiwany format klucza symetrycznego %"
 
-#: ../lib/kmip.c:1089 ../lib/volume.c:685
+#: ../lib/kmip.c:1089 ../lib/volume.c:689
 msgid "Unsupported KMIP version %"
 msgstr "Nieobsługiwana wersja KMIP %"
 
@@ -103,21 +103,21 @@ msgstr "Pakiet wejściowy jest za mały"
 #: ../lib/libvolume_key.c:215
 #, c-format
 msgid "Input is not a volume_key escrow packet"
-msgstr "Wejście nie jest pakietem escrow volume_key"
+msgstr "Wejście nie jest pakietem escrow programu volume_key"
 
 #: ../lib/libvolume_key.c:221
 #, c-format
 msgid "Unsupported packet format"
-msgstr "Nieobsługiwany typ pakietu"
+msgstr "Nieobsługiwany format pakietu"
 
 #: ../lib/libvolume_key.c:277
 msgid "Escrow packet passphrase"
-msgstr "Długie hasło pakietu escrow"
+msgstr "Hasło pakietu escrow"
 
 #: ../lib/libvolume_key.c:293 ../lib/volume_luks.c:302
 #, c-format
 msgid "Too many attempts to get a valid passphrase"
-msgstr "Za dużo prób uzyskania prawidłowego długiego hasła"
+msgstr "Za dużo prób uzyskania prawidłowego hasła"
 
 #: ../lib/ui.c:123
 #, c-format
@@ -127,7 +127,7 @@ msgstr "Nie podano wywołań zwrotnych interfejsu użytkownika"
 #: ../lib/ui.c:129
 #, c-format
 msgid "Passphrase not provided"
-msgstr "Nie podano długiego hasła"
+msgstr "Nie podano hasła"
 
 #: ../lib/volume.c:92
 #, c-format
@@ -137,77 +137,77 @@ msgstr "Klucz jest za długi"
 #: ../lib/volume.c:165 ../lib/volume.c:186
 #, c-format
 msgid "Required attribute `%s' not found"
-msgstr "Nie znaleziono wymaganego atrybutu `%s'"
+msgstr "Nie odnaleziono wymaganego atrybutu \"%s\""
 
 #: ../lib/volume.c:308
 #, c-format
 msgid "Cannot get attributes of `%s'"
-msgstr "Nie można uzyskać atrybutów `%s'"
+msgstr "Nie można uzyskać atrybutów \"%s\""
 
-#: ../lib/volume.c:411
+#: ../lib/volume.c:415
 msgid "Host name"
 msgstr "Nazwa komputera"
 
-#: ../lib/volume.c:413
+#: ../lib/volume.c:417
 msgid "Volume format"
 msgstr "Format woluminu"
 
-#: ../lib/volume.c:416
+#: ../lib/volume.c:420
 msgid "Volume UUID"
 msgstr "UUID woluminu"
 
-#: ../lib/volume.c:419
+#: ../lib/volume.c:423
 msgid "Volume label"
 msgstr "Etykieta woluminu"
 
-#: ../lib/volume.c:421
+#: ../lib/volume.c:425
 msgid "Volume path"
 msgstr "Ścieżka woluminu"
 
-#: ../lib/volume.c:447 ../lib/volume.c:556 ../lib/volume.c:590
-#: ../lib/volume.c:619 ../lib/volume.c:652 ../lib/volume.c:765
+#: ../lib/volume.c:451 ../lib/volume.c:560 ../lib/volume.c:594
+#: ../lib/volume.c:623 ../lib/volume.c:656 ../lib/volume.c:769
 #, c-format
 msgid "Volume `%s' has unsupported format"
-msgstr "Wolumin `%s' posiada nieobsługiwany format"
+msgstr "Wolumin \"%s\" posiada nieobsługiwany format"
 
-#: ../lib/volume.c:477
+#: ../lib/volume.c:481
 #, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
-msgstr "Format woluminu nie zgadza się (pakiet `%s', wolumin `%s')"
+msgstr "Format woluminu nie zgadza się (pakiet \"%s\", wolumin \"%s\")"
 
-#: ../lib/volume.c:505
+#: ../lib/volume.c:509
 #, c-format
 msgid "UUID mismatch (packet `%s', volume `%s')"
-msgstr "UUID nie zgadza się (pakiet `%s', wolumin `%s')"
+msgstr "UUID nie zgadza się (pakiet \"%s\", wolumin \"%s\")"
 
-#: ../lib/volume.c:511
+#: ../lib/volume.c:515
 #, c-format
 msgid "Host name mismatch (packet `%s', volume `%s')"
-msgstr "Nazwa komputera nie zgadza się (pakiet `%s', wolumin `%s')"
+msgstr "Nazwa komputera nie zgadza się (pakiet \"%s\", wolumin \"%s\")"
 
-#: ../lib/volume.c:518
+#: ../lib/volume.c:522
 #, c-format
 msgid "Volume label mismatch (packet `%s', volume `%s')"
-msgstr "Etykieta woluminu nie zgadza się  (pakiet `%s', wolumin `%s')"
+msgstr "Etykieta woluminu nie zgadza się  (pakiet \"%s\", wolumin \"%s\")"
 
-#: ../lib/volume.c:525
+#: ../lib/volume.c:529
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
-msgstr "Ścieżka woluminu nie zgadza się  (pakiet `%s', wolumin `%s')"
+msgstr "Ścieżka woluminu nie zgadza się  (pakiet \"%s\", wolumin \"%s\")"
 
-#: ../lib/volume.c:678
+#: ../lib/volume.c:682
 #, c-format
 msgid "Unexpected data after packet"
 msgstr "Nieoczekiwane dane po pakiecie"
 
-#: ../lib/volume.c:702 ../lib/volume_luks.c:757
+#: ../lib/volume.c:706 ../lib/volume_luks.c:757
 msgid "Unsupported packet type %"
 msgstr "Nieobsługiwany typ pakietu %"
 
-#: ../lib/volume.c:737
+#: ../lib/volume.c:741
 #, c-format
 msgid "Unsupported volume format `%s'"
-msgstr "Nieobsługiwany format woluminu `%s'"
+msgstr "Nieobsługiwany format woluminu \"%s\""
 
 #: ../lib/volume_luks.c:62
 #, c-format
@@ -217,12 +217,12 @@ msgstr "Nieznany błąd %d"
 #: ../lib/volume_luks.c:167
 #, c-format
 msgid "Error getting information about volume `%s': "
-msgstr "Błąd podczas uzyskiwania informacji o woluminie `%s': "
+msgstr "Błąd podczas uzyskiwania informacji o woluminie \"%s\": "
 
 #: ../lib/volume_luks.c:176
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
-msgstr "UUID nie zgadza się między libblkid a libcryptsetup: `%s' a `%s'"
+msgstr "UUID nie zgadza się między libblkid a libcryptsetup: \"%s\" a \"%s\""
 
 #: ../lib/volume_luks.c:207
 msgid "LUKS cipher name"
@@ -242,11 +242,11 @@ msgstr "Klucz szyfrowania danych"
 
 #: ../lib/volume_luks.c:237
 msgid "Passphrase"
-msgstr "Długie hasło"
+msgstr "Hasło"
 
 #: ../lib/volume_luks.c:240
 msgid "Passphrase slot"
-msgstr "Miejsce na długie hasło"
+msgstr "Miejsce na hasło"
 
 #: ../lib/volume_luks.c:270 ../lib/volume_luks.c:433 ../lib/volume_luks.c:664
 #, c-format
@@ -256,7 +256,7 @@ msgstr "Typ informacji szyfrowania jest nieobsługiwany przez LUKS"
 #: ../lib/volume_luks.c:273
 #, c-format
 msgid "Passphrase for `%s'"
-msgstr "Długie hasło dla `%s'"
+msgstr "Hasło dla \"%s\""
 
 #: ../lib/volume_luks.c:297 ../lib/volume_luks.c:797
 msgid "Error getting LUKS data encryption key: "
@@ -265,12 +265,12 @@ msgstr "Błąd podczas uzyskiwania klucza szyfrowania danych LUKS: "
 #: ../lib/volume_luks.c:340
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
-msgstr "Nazwa szyfru nie zgadza się (pakiet `%s', wolumin `%s')"
+msgstr "Nazwa szyfru nie zgadza się (pakiet \"%s\", wolumin \"%s\")"
 
 #: ../lib/volume_luks.c:347
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
-msgstr "Tryb szyfru nie zgadza się (pakiet `%s', wolumin `%s')"
+msgstr "Tryb szyfru nie zgadza się (pakiet \"%s\", wolumin \"%s\")"
 
 #: ../lib/volume_luks.c:354
 #, c-format
@@ -283,7 +283,7 @@ msgstr "Klucz szyfrowania danych LUKS w pakiecie jest nieprawidłowy: "
 
 #: ../lib/volume_luks.c:400
 msgid "LUKS passphrase in packet is invalid: "
-msgstr "Długie hasło LUKS w pakiecie jest nieprawidłowe: "
+msgstr "Hasło LUKS w pakiecie jest nieprawidłowe: "
 
 #: ../lib/volume_luks.c:439
 #, c-format
@@ -293,26 +293,26 @@ msgstr "Pakiet escrow nie zawiera klucza szyfrowania danych LUKS"
 #: ../lib/volume_luks.c:444
 #, c-format
 msgid "New passphrase for `%s'"
-msgstr "Nowe długie hasło dla `%s'"
+msgstr "Nowe hasło dla \"%s\""
 
 #: ../lib/volume_luks.c:445
 #, c-format
 msgid "Repeat new passphrase for `%s'"
-msgstr "Powtórz nowe długie hasło dla `%s'"
+msgstr "Proszę powtórzyć nowe hasło dla \"%s\""
 
 #: ../lib/volume_luks.c:446
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
-msgstr "Długie hasła nie zgadzają się. Nowe długie hasło dla `%s'"
+msgstr "Hasła nie zgadzają się. Nowe hasło dla \"%s\""
 
 #: ../lib/volume_luks.c:471 ../src/volume_key.c:558
 #, c-format
 msgid "Too many attempts to get a passphrase"
-msgstr "Za dużo prób uzyskania długiego hasła"
+msgstr "Za dużo prób uzyskania hasła"
 
 #: ../lib/volume_luks.c:484 ../lib/volume_luks.c:542
 msgid "Error adding a LUKS passphrase"
-msgstr "Błąd podczas dodawania długiego hasła LUKS"
+msgstr "Błąd podczas dodawania hasła LUKS"
 
 #: ../lib/volume_luks.c:521
 #, c-format
@@ -327,12 +327,12 @@ msgstr "Nieznany klucz szyfrowania danych"
 #: ../lib/volume_luks.c:533
 #, c-format
 msgid "The passphrase must be a string"
-msgstr "Długie hasło musi być łańcuchem"
+msgstr "Hasło musi być ciągiem"
 
 #: ../lib/volume_luks.c:645
 #, c-format
 msgid "Passphrase unknown"
-msgstr "Nieznane długie hasło"
+msgstr "Nieznane hasło"
 
 #: ../lib/volume_luks.c:704
 msgid "Unsupported key length %"
@@ -346,12 +346,12 @@ msgstr "Długość klucza nie zgadza się"
 #: ../lib/volume_luks.c:738
 #, c-format
 msgid "Invalid slot number `%s'"
-msgstr "Nieprawidłowy numer miejsca `%s'"
+msgstr "Nieprawidłowy numer miejsca \"%s\""
 
 #: ../lib/volume_luks.c:746
 #, c-format
 msgid "NUL byte in passphrase"
-msgstr "Bajt NUL w długim haśle"
+msgstr "Bajt NUL w haśle"
 
 #: ../lib/volume_luks.c:814
 msgid "Error opening LUKS volume: "
@@ -376,53 +376,53 @@ msgstr "%s (t/n) "
 
 #: ../src/volume_key.c:167
 msgid "Show version"
-msgstr "Wyświetl wersję"
+msgstr "Wyświetla wersję"
 
 #: ../src/volume_key.c:172
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr ""
-"Zapisz tajemnice woluminu w pakiecie. Oczekuje operandów WOLUMIN [PAKIET]."
+"Zapisuje tajemnice woluminu w pakiecie. Oczekuje operandów WOLUMIN [PAKIET]."
 
 #: ../src/volume_key.c:177
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"Przywróć tajemnice woluminu z pakietu. Oczekuje operandów WOLUMIN [PAKIET]."
+"Przywraca tajemnice woluminu z pakietu. Oczekuje operandów WOLUMIN [PAKIET]."
 
 #: ../src/volume_key.c:182
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"Ustaw zaszyfrowany wolumin używając tajemnic z pakietu. Oczekuje operandów "
+"Ustawia zaszyfrowany wolumin używając tajemnic z pakietu. Oczekuje operandów "
 "WOLUMIN NAZWA PAKIETU."
 
 #: ../src/volume_key.c:187
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "Ponownie zaszyfruj pakiet escrow. Oczekuje operand PAKIET."
+msgstr "Ponownie zaszyfrowuje pakiet escrow. Oczekuje operand PAKIET."
 
 #: ../src/volume_key.c:191
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr "Wyświetl informacje zawarte w pakiecie. Oczekuje operand PAKIET."
+msgstr "Wyświetla informacje zawarte w pakiecie. Oczekuje operand PAKIET."
 
 #: ../src/volume_key.c:196
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr "Wyświetl tajemnice zawarte w pakiecie. Oczekuje operand PAKIET."
+msgstr "Wyświetla tajemnice zawarte w pakiecie. Oczekuje operand PAKIET."
 
 #: ../src/volume_key.c:201
 msgid "Use the NSS database in DIR"
-msgstr "Użyj bazy danych NSS w FOLDERZE"
+msgstr "Używa bazy danych NSS w KATALOGU"
 
 #: ../src/volume_key.c:201
 msgid "DIR"
-msgstr "FOLDER"
+msgstr "KATALOG"
 
 #: ../src/volume_key.c:204
 msgid "Run in batch mode"
-msgstr "Uruchom w trybie wsadowym"
+msgstr "Uruchamia w trybie wsadowym"
 
 #: ../src/volume_key.c:210
 msgid "Write the default secret to PACKET"
-msgstr "Zapisz domyślną tajemnicę w PAKIECIE"
+msgstr "Zapisuje domyślną tajemnicę w PAKIECIE"
 
 #: ../src/volume_key.c:210 ../src/volume_key.c:215 ../src/volume_key.c:219
 #: ../src/volume_key.c:224
@@ -431,19 +431,19 @@ msgstr "PAKIET"
 
 #: ../src/volume_key.c:214
 msgid "Write data encryption key to PACKET"
-msgstr "Zapisz klucz szyfrowania danych w PAKIECIE"
+msgstr "Zapisuje klucz szyfrowania danych w PAKIECIE"
 
 #: ../src/volume_key.c:219
 msgid "Write passphrase to PACKET"
-msgstr "Zapisz długie hasło do PAKIETU"
+msgstr "Zapisuje hasło do PAKIETU"
 
 #: ../src/volume_key.c:224
 msgid "Create a random passphrase and write it to PACKET"
-msgstr "Utwórz losowe długie hasło i zapisz je w PAKIECIE"
+msgstr "Tworzy losowe hasło i zapisuje je w PAKIECIE"
 
 #: ../src/volume_key.c:232
 msgid "Encrypt for the certificate in CERT"
-msgstr "Zaszyfruj dla certyfikatu w CERTYFIKACIE"
+msgstr "Zaszyfrowuje dla certyfikatu w CERTYFIKACIE"
 
 #: ../src/volume_key.c:232
 msgid "CERT"
@@ -451,7 +451,7 @@ msgstr "CERTYFIKAT"
 
 #: ../src/volume_key.c:236
 msgid "Include secrets in --dump output"
-msgstr "Dołącz tajemnice w wyjściu --dump"
+msgstr "Dołącza tajemnice w wyjściu --dump"
 
 #: ../src/volume_key.c:251
 msgid "OPERANDS"
@@ -459,7 +459,7 @@ msgstr "OPERANDY"
 
 #: ../src/volume_key.c:253
 msgid "Manages encrypted volume keys and passphrases."
-msgstr "Zarządzaj kluczami zaszyfrowanych woluminów i długimi hasłami."
+msgstr "Zarządzanie kluczami zaszyfrowanych woluminów i hasłami."
 
 #: ../src/volume_key.c:254
 #, c-format
@@ -473,7 +473,7 @@ msgid ""
 "Run `%s --help' for more information.\n"
 msgstr ""
 "%s: %s\n"
-"Wykonaj `%s --help', aby dowiedzieć się więcej.\n"
+"Proszę wykonać \"%s --help\", aby dowiedzieć się więcej.\n"
 
 #: ../src/volume_key.c:273
 msgid ""
@@ -499,11 +499,11 @@ msgstr "Wieloznaczny tryb działania"
 #: ../src/volume_key.c:295 ../src/volume_key.c:313
 #, c-format
 msgid "`--%s' is only valid with `--%s'"
-msgstr "`--%s' jest prawidłowe tylko z `--%s'"
+msgstr "\"--%s\" jest prawidłowe tylko z \"--%s\""
 
 #: ../src/volume_key.c:301
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr "Wyjście może zostać podane tylko z `--save' or `--reencrypt'"
+msgstr "Wyjście może zostać podane tylko z \"--save\" lub \"--reencrypt\""
 
 #: ../src/volume_key.c:308
 msgid "No output specified"
@@ -516,39 +516,39 @@ msgstr "Wieloznaczny format wyjścia"
 #: ../src/volume_key.c:351
 #, c-format
 msgid "Error, try again.\n"
-msgstr "Błąd, spróbuj ponownie.\n"
+msgstr "Błąd, proszę spróbować ponownie.\n"
 
 #: ../src/volume_key.c:352
 #, c-format
 msgid "Enter password for `%s': "
-msgstr "Podaj hasło dla `%s': "
+msgstr "Proszę podać hasło dla \"%s\": "
 
 #: ../src/volume_key.c:469 ../src/volume_key.c:508
 #, c-format
 msgid "Error reading `%s': "
-msgstr "Błąd podczas odczytywania `%s': "
+msgstr "Błąd podczas odczytywania \"%s\": "
 
 #: ../src/volume_key.c:476 ../src/volume_key.c:516
 #, c-format
 msgid "Error decoding `%s': "
-msgstr "Błąd podczas dekodowania `%s': "
+msgstr "Błąd podczas dekodowania \"%s\": "
 
 #: ../src/volume_key.c:535
 msgid "New packet passphrase"
-msgstr "Nowe długie hasło pakietu"
+msgstr "Nowe hasło pakietu"
 
 #: ../src/volume_key.c:536
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr "Długie hasła nie zgadzają się. Nowe długie hasło pakietu"
+msgstr "Hasła nie zgadzają się. Nowe hasło pakietu"
 
 #: ../src/volume_key.c:541
 msgid "Repeat new packet passphrase"
-msgstr "Powtórz nowe długie hasło pakietu"
+msgstr "Proszę powtórzyć nowe hasło pakietu"
 
 #: ../src/volume_key.c:600
 #, c-format
 msgid "Error creating `%s': "
-msgstr "Błąd podczas tworzenia `%s': "
+msgstr "Błąd podczas tworzenia \"%s\": "
 
 #: ../src/volume_key.c:640
 #, c-format
@@ -559,36 +559,36 @@ msgstr "Użycie: %s --save WOLUMIN [PAKIET]"
 #: ../src/volume_key.c:823
 #, c-format
 msgid "Error opening `%s': %s"
-msgstr "Błąd podczas otwierania `%s': %s"
+msgstr "Błąd podczas otwierania \"%s\": %s"
 
 #: ../src/volume_key.c:656
 #, c-format
 msgid "Error loading `%s': %s"
-msgstr "Błąd podczas wczytywania `%s': %s"
+msgstr "Błąd podczas wczytywania \"%s\": %s"
 
 #: ../src/volume_key.c:675
 #, c-format
 msgid "Error generating passphrase: %s"
-msgstr "Błąd podczas tworzenia długiego hasła: %s"
+msgstr "Błąd podczas tworzenia hasła: %s"
 
 #: ../src/volume_key.c:687
 #, c-format
 msgid "Error creating a passphrase: %s"
-msgstr "Błąd podczas tworzenia długiego hasła: %s"
+msgstr "Błąd podczas tworzenia hasła: %s"
 
 #: ../src/volume_key.c:718
 #, c-format
 msgid "`%s' does not match `%s': "
-msgstr "`%s' nie zgadza się z `%s': "
+msgstr "\"%s\" nie zgadza się z \"%s\": "
 
 #: ../src/volume_key.c:727
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
-msgstr "`%s' chyba nie zgadza się z `%s'\n"
+msgstr "\"%s\" chyba nie zgadza się z \"%s\"\n"
 
 #: ../src/volume_key.c:742
 msgid "Are you sure you want to use this packet?"
-msgstr "Jesteś pewny, że chcesz użyć tego pakietu?"
+msgstr "Na pewno użyć tego pakietu?"
 
 #: ../src/volume_key.c:754
 #, c-format
@@ -603,7 +603,7 @@ msgstr "Użycie: %s --%s WOLUMIN PAKIET"
 #: ../src/volume_key.c:801
 #, c-format
 msgid "Error restoring access to `%s': %s"
-msgstr "Błąd podczas przywracania dostępu do `%s': %s"
+msgstr "Błąd podczas przywracania dostępu do \"%s\": %s"
 
 #: ../src/volume_key.c:817
 #, c-format
@@ -613,7 +613,7 @@ msgstr "Użycie: %s --%s WOLUMIN NAZWA PAKIETU"
 #: ../src/volume_key.c:839
 #, c-format
 msgid "Error setting up `%s': %s"
-msgstr "Błąd podczas ustawiania `%s': %s"
+msgstr "Błąd podczas ustawiania \"%s\": %s"
 
 #: ../src/volume_key.c:854 ../src/volume_key.c:883
 #, c-format
@@ -623,7 +623,7 @@ msgstr "Użycie %s --%s PAKIET"
 #: ../src/volume_key.c:888
 #, c-format
 msgid "Error reading `%s': %s"
-msgstr "Błąd podczas odczytywania `%s': %s"
+msgstr "Błąd podczas odczytywania \"%s\": %s"
 
 #: ../src/volume_key.c:893
 #, c-format
@@ -640,7 +640,7 @@ msgstr "Zaszyfrowany klucz publiczny"
 
 #: ../src/volume_key.c:904
 msgid "Passphrase-encrypted"
-msgstr "Zaszyfrowane długie hasło"
+msgstr "Zaszyfrowane hasło"
 
 #: ../src/volume_key.c:911 ../src/volume_key.c:933
 #, c-format
@@ -654,4 +654,4 @@ msgstr "Format pakietu"
 #: ../src/volume_key.c:918
 #, c-format
 msgid "Error decoding `%s': %s"
-msgstr "Błąd podczas dekodowania `%s': %s"
+msgstr "Błąd podczas dekodowania \"%s\": %s"

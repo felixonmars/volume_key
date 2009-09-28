@@ -1,5 +1,16 @@
 2009-09-28  Miloslav Trmač  <mitr@redhat.com>
 
+	* lib/kmip.h (KMIP_TAG_PADDING_METHOD): New definition.
+	(struct kmip_crypto_params): Split from struct kmip_attribute.
+	(KMIP_PADDING_*): New definitions.
+	(kmip_crypto_params_free): New declaration.
+	* lib/kmip.c (kmip_crypto_params_free, kmip_encode_crypto_params)
+	(kmip_decode_crypto_params): New functions.
+	(kmip_attribute_free, kmip_encode_attribute, kmip_decode_attribute): Use
+	separate functions for crypto_params.
+	* lib/volume_luks.c (add_attribute_luks_crypto_params): Update for split
+	crypto_params.
+
 	* lib/kmip.c (kmip_decode_attribute): Remove redundant k2.left checks.
 
 2009-08-08  Miloslav Trmač  <mitr@redhat.com>

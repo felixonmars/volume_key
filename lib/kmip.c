@@ -29,14 +29,27 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 
  /* Utilities */
 
+/* g_free() PARAMS and all data it points to. */
+void
+kmip_crypto_params_free (struct kmip_crypto_params *params)
+{
+  g_free (params);
+}
+
 /* g_free() ATTR and all data it points to. */
 void
 kmip_attribute_free (struct kmip_attribute *attr)
 {
-  if (attr->tag == KMIP_TAG_APP_SPECIFIC)
+  switch (attr->tag)
     {
+    case KMIP_TAG_CRYPTO_PARAMS:
+      kmip_crypto_params_free (attr->v.crypto_params);
+      break;
+
+    case KMIP_TAG_APP_SPECIFIC:
       g_free (attr->v.strings.name);
       g_free (attr->v.strings.value);
+      break;
     }
   g_free (attr->name);
   g_free (attr);
@@ -302,6 +315,34 @@ se_end (struct kmip_encoding_state *kmip, struct struct_encoding *state,
   return 0;
 }
 
+/* Encode PARAMS into KMIP as TAG.
+   Return 0 if OK, -1 on error. */
+static int
+kmip_encode_crypto_params (struct kmip_encoding_state *kmip, guint32 tag,
+			   const struct kmip_crypto_params *params,
+			   GError **error)
+{
+  struct struct_encoding se;
+
+  if (se_start (kmip, &se, tag, error) != 0)
+    return -1;
+  if (params->cipher_mode != KMIP_LIBVK_ENUM_NONE
+      && add_enum (kmip, KMIP_TAG_BLOCK_CIPHER_MODE, params->cipher_mode,
+		   error) != 0)
+    return -1;
+  if (params->padding_method != KMIP_LIBVK_ENUM_NONE
+      && add_enum (kmip, KMIP_TAG_PADDING_METHOD, params->padding_method,
+		   error) != 0)
+    return -1;
+  if (params->hash_algorithm != KMIP_LIBVK_ENUM_NONE
+      && add_enum (kmip, KMIP_TAG_HASH_ALGORITHM, params->hash_algorithm,
+		   error) != 0)
+    return -1;
+  if (se_end (kmip, &se, error) != 0)
+    return -1;
+  return 0;
+}
+
 /* Encode ATTR into KMIP as TAG.
    Return 0 if OK, -1 on error. */
 static int
@@ -328,23 +369,10 @@ kmip_encode_attribute (struct kmip_encoding_state *kmip, guint32 tag,
       break;
 
     case KMIP_TAG_CRYPTO_PARAMS:
-      {
-	struct struct_encoding se2;
-
-	if (se_start (kmip, &se2, KMIP_TAG_ATTRIBUTE_VALUE, error) != 0)
-	  return -1;
-	if (attr->v.crypto_params.cipher_mode != KMIP_LIBVK_ENUM_NONE
-	    && add_enum (kmip, KMIP_TAG_BLOCK_CIPHER_MODE,
-			 attr->v.crypto_params.cipher_mode, error) != 0)
-	  return -1;
-	if (attr->v.crypto_params.hash_algorithm != KMIP_LIBVK_ENUM_NONE
-	    && add_enum (kmip, KMIP_TAG_HASH_ALGORITHM,
-			 attr->v.crypto_params.hash_algorithm, error) != 0)
-	  return -1;
-	if (se_end (kmip, &se2, error) != 0)
-	  return -1;
-	break;
-      }
+      if (kmip_encode_crypto_params (kmip, KMIP_TAG_ATTRIBUTE_VALUE,
+				     attr->v.crypto_params, error) != 0)
+	return -1;
+      break;
 
     case KMIP_TAG_APP_SPECIFIC:
       {
@@ -800,6 +828,53 @@ sd_end (struct kmip_decoding_state *kmip2, GError **error)
   return 0;
 }
 
+/* Decode cryptographics parameters TAG from KMIP, store it into PARAMS.
+   Return 0 if OK, -1 on error. */
+static int
+kmip_decode_crypto_params (struct kmip_decoding_state *kmip,
+			   struct kmip_crypto_params **params, guint32 tag,
+			   GError **error)
+{
+  struct kmip_decoding_state k;
+  struct kmip_crypto_params *res;
+
+  res = g_new0 (struct kmip_crypto_params, 1);
+  if (sd_start (&k, kmip, tag, error) != 0)
+    goto err;
+  if (kmip_next_tag_is (&k, KMIP_TAG_BLOCK_CIPHER_MODE))
+    {
+      if (get_enum (&k, &res->cipher_mode, KMIP_TAG_BLOCK_CIPHER_MODE, 1,
+		    KMIP_END_MODES, error) != 0)
+	goto err;
+    }
+  else
+    res->cipher_mode = KMIP_LIBVK_ENUM_NONE;
+  if (kmip_next_tag_is (&k, KMIP_TAG_PADDING_METHOD))
+    {
+      if (get_enum (&k, &res->padding_method, KMIP_TAG_PADDING_METHOD, 1,
+		    KMIP_END_PADDINGS, error) != 0)
+	goto err;
+    }
+  else
+    res->padding_method = KMIP_LIBVK_ENUM_NONE;
+  if (kmip_next_tag_is (&k, KMIP_TAG_HASH_ALGORITHM))
+    {
+      if (get_enum (&k, &res->hash_algorithm, KMIP_TAG_HASH_ALGORITHM, 1,
+		    KMIP_END_HASHES, error) != 0)
+	goto err;
+    }
+  else
+    res->hash_algorithm = KMIP_LIBVK_ENUM_NONE;
+  if (sd_end (&k, error) != 0)
+    goto err;
+  *params = res;
+  return 0;
+
+ err:
+  kmip_crypto_params_free (res);
+  return -1;
+}
+
 /* Decode an attribute TAG from KMIP, store it into ATTR.
    Return 0 if OK, -1 on error. */
 static int
@@ -839,30 +914,9 @@ kmip_decode_attribute (struct kmip_decoding_state *kmip,
     }
   else if (strcmp (res->name, KMIP_ATTR_CRYPTO_PARAMS) == 0)
     {
-      struct kmip_decoding_state k2;
-
       res->tag = KMIP_TAG_CRYPTO_PARAMS;
-      if (sd_start (&k2, &k, KMIP_TAG_ATTRIBUTE_VALUE, error) != 0)
-	goto err;
-      if (kmip_next_tag_is (&k2, KMIP_TAG_BLOCK_CIPHER_MODE))
-	{
-	  if (get_enum (&k2, &res->v.crypto_params.cipher_mode,
-			KMIP_TAG_BLOCK_CIPHER_MODE, 1, KMIP_END_MODES,
-			error) != 0)
-	    goto err;
-	}
-      else
-	res->v.crypto_params.cipher_mode = KMIP_LIBVK_ENUM_NONE;
-      if (kmip_next_tag_is (&k2, KMIP_TAG_HASH_ALGORITHM))
-	{
-	  if (get_enum (&k2, &res->v.crypto_params.hash_algorithm,
-			KMIP_TAG_HASH_ALGORITHM, 1, KMIP_END_HASHES,
-			error) != 0)
-	    goto err;
-	}
-      else
-	res->v.crypto_params.hash_algorithm = KMIP_LIBVK_ENUM_NONE;
-      if (sd_end (&k2, error) != 0)
+      if (kmip_decode_crypto_params (&k, &res->v.crypto_params,
+				     KMIP_TAG_ATTRIBUTE_VALUE, error) != 0)
 	goto err;
     }
   else if (strcmp (res->name, KMIP_ATTR_APP_SPECIFIC) == 0

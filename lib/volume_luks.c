@@ -597,8 +597,10 @@ add_attribute_luks_crypto_params (struct kmip_key_value *key_value,
       a = g_new (struct kmip_attribute, 1);
       a->name = g_strdup (KMIP_ATTR_CRYPTO_PARAMS);
       a->tag = KMIP_TAG_CRYPTO_PARAMS;
-      a->v.crypto_params.cipher_mode = mode;
-      a->v.crypto_params.hash_algorithm = hash;
+      a->v.crypto_params = g_new (struct kmip_crypto_params, 1);
+      a->v.crypto_params->cipher_mode = mode;
+      a->v.crypto_params->padding_method = KMIP_LIBVK_ENUM_NONE;
+      a->v.crypto_params->hash_algorithm = hash;
       g_ptr_array_add (key_value->attributes, a);
     }
 }

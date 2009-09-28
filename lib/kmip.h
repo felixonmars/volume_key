@@ -81,6 +81,7 @@ enum
 #define KMIP_TAG_KEY_VALUE 0x4200003F
 #define KMIP_TAG_KEY_VALUE_TYPE 0x42000040
 #define KMIP_TAG_OBJECT_TYPE 0x42000052
+#define KMIP_TAG_PADDING_METHOD 0x4200005A
 #define KMIP_TAG_PROTOCOL_VERSION 0x42000065
 #define KMIP_TAG_PROTOCOL_VERSION_MAJOR 0x42000066
 #define KMIP_TAG_PROTOCOL_VERSION_MINOR 0x42000067
@@ -98,6 +99,60 @@ extern gboolean kmip_next_tag_is (const struct kmip_decoding_state *kmip,
 /* The value is from $RANDOM */
 #define KMIP_TAG_LIBVK_PACKET 0x420135F4
 
+struct kmip_crypto_params
+{
+  guint32 cipher_mode; /* See KMIP_ALGORITHM_* below, or KMIP_LIBVK_ENUM_NONE */
+  /* See KMIP_PADDING_* below, or KMIP_LIBVK_ENUM_NONE */
+  guint32 padding_method;
+  guint32 hash_algorithm; /* See KMIP_HASH_* below, or KMIP_LIBVK_ENUM_NONE */
+};
+
+enum
+  {
+    KMIP_MODE_CBC = 0x01,
+    KMIP_MODE_ECB = 0x02,
+    KMIP_MODE_PCBC = 0x03,
+    KMIP_MODE_CFB = 0x04,
+    KMIP_MODE_OFB = 0x05,
+    KMIP_MODE_CTR = 0x06,
+    KMIP_MODE_CMAC = 0x07,
+    KMIP_MODE_CCM = 0x08,
+    KMIP_MODE_GCM = 0x09,
+    KMIP_MODE_CBC_MAC = 0x0A,
+    KMIP_MODE_AESKEYWRAP = 0x0B,
+    KMIP_END_MODES
+  };
+
+enum
+  {
+    KMIP_PADDING_NONE = 0x01,
+    KMIP_PADDING_OAEP = 0x02,
+    KMIP_PADDING_PKCS5 = 0x03,
+    KMIP_PADDING_SSL3 = 0x04,
+    KMIP_PADDING_ZEROS = 0x05,
+    KMIP_PADDING_X9_23 = 0x06,
+    KMIP_PADDING_ISO_10126 = 0x07,
+    KMIP_PADDING_PKCS1_v1_5 = 0x08,
+    KMIP_END_PADDINGS
+  };
+
+enum
+  {
+    KMIP_HASH_MD2 = 0x01,
+    KMIP_HASH_MD4 = 0x02,
+    KMIP_HASH_MD5 = 0x03,
+    KMIP_HASH_SHA_1 = 0x04,
+    KMIP_HASH_SHA_256 = 0x05,
+    KMIP_HASH_SHA_384 = 0x06,
+    KMIP_HASH_SHA_512 = 0x07,
+    KMIP_HASH_SHA_224 = 0x08,
+    KMIP_END_HASHES
+  };
+
+/* g_free() PARAMS and all data it points to. */
+G_GNUC_INTERNAL
+extern void kmip_crypto_params_free (struct kmip_crypto_params *params);
+
 struct kmip_attribute
 {
   char *name;			/* We recognize KMIP_ATTR_* */
@@ -108,11 +163,7 @@ struct kmip_attribute
   {
     guint32 enum_value;		/* KMIP_TAG_CRYPTO_ALGORITHM */
     gint32 int32_value;		/* KMIP_TAG_CRYPTO_LENGTH */
-    struct
-    {
-      /* Each may be KMIP_LIBVK_ENUM_NONE if unknown */
-      guint32 cipher_mode, hash_algorithm;
-    } crypto_params;		/* KMIP_TAG_CRYPTO_PARAMS */
+    struct kmip_crypto_params *crypto_params;
     struct
     {
       char *name, *value;
@@ -139,7 +190,6 @@ struct kmip_attribute
 #define KMIP_ATTR_LIBVK_LUKS_MODE "x-redhat.com:volume_key LUKS Cipher Mode"
 #define KMIP_ATTR_LIBVK_LUKS_MODE_NAME "LUKS Cipher Mode"
 
-
 enum
   {
     KMIP_ALGORITHM_DES = 0x01,
@@ -155,35 +205,6 @@ enum
     KMIP_ALGORITHM_DH = 0x0B,
     KMIP_ALGORITHM_ECDH = 0x0C,
     KMIP_END_ALGORITHMS
-  };
-
-enum
-  {
-    KMIP_MODE_CBC = 0x01,
-    KMIP_MODE_ECB = 0x02,
-    KMIP_MODE_PCBC = 0x03,
-    KMIP_MODE_CFB = 0x04,
-    KMIP_MODE_OFB = 0x05,
-    KMIP_MODE_CTR = 0x06,
-    KMIP_MODE_CMAC = 0x07,
-    KMIP_MODE_CCM = 0x08,
-    KMIP_MODE_GCM = 0x09,
-    KMIP_MODE_CBC_MAC = 0x0A,
-    KMIP_MODE_AESKEYWRAP = 0x0B,
-    KMIP_END_MODES
-  };
-
-enum
-  {
-    KMIP_HASH_MD2 = 0x01,
-    KMIP_HASH_MD4 = 0x02,
-    KMIP_HASH_MD5 = 0x03,
-    KMIP_HASH_SHA_1 = 0x04,
-    KMIP_HASH_SHA_256 = 0x05,
-    KMIP_HASH_SHA_384 = 0x06,
-    KMIP_HASH_SHA_512 = 0x07,
-    KMIP_HASH_SHA_224 = 0x08,
-    KMIP_END_HASHES
   };
 
 /* g_free() ATTR and all data it points to. */

@@ -1,3 +1,7 @@
+2009-09-28  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/kmip.c (kmip_decode_attribute): Remove redundant k2.left checks.
+
 2009-08-08  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/volume.c (libvk_volume_open): Handle both "crypt_LUKS" and

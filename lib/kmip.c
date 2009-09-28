@@ -844,7 +844,7 @@ kmip_decode_attribute (struct kmip_decoding_state *kmip,
       res->tag = KMIP_TAG_CRYPTO_PARAMS;
       if (sd_start (&k2, &k, KMIP_TAG_ATTRIBUTE_VALUE, error) != 0)
 	goto err;
-      if (k2.left != 0 && kmip_next_tag_is (&k2, KMIP_TAG_BLOCK_CIPHER_MODE))
+      if (kmip_next_tag_is (&k2, KMIP_TAG_BLOCK_CIPHER_MODE))
 	{
 	  if (get_enum (&k2, &res->v.crypto_params.cipher_mode,
 			KMIP_TAG_BLOCK_CIPHER_MODE, 1, KMIP_END_MODES,
@@ -853,7 +853,7 @@ kmip_decode_attribute (struct kmip_decoding_state *kmip,
 	}
       else
 	res->v.crypto_params.cipher_mode = KMIP_LIBVK_ENUM_NONE;
-      if (k2.left != 0 && kmip_next_tag_is (&k2, KMIP_TAG_HASH_ALGORITHM))
+      if (kmip_next_tag_is (&k2, KMIP_TAG_HASH_ALGORITHM))
 	{
 	  if (get_enum (&k2, &res->v.crypto_params.hash_algorithm,
 			KMIP_TAG_HASH_ALGORITHM, 1, KMIP_END_HASHES,

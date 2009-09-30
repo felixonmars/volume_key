@@ -20,6 +20,7 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <glib/gi18n-lib.h>
 
 #include "crypto.h"
+#include "kmip.h"
 #include "libvolume_key.h"
 #include "ui.h"
 #include "volume.h"
@@ -47,6 +48,26 @@ struct packet_header
 
 static const unsigned char packet_magic[11] = "\0volume_key";
 
+/* Prepend packet header with FORMAT to KMIP with KMIP_SIZE.
+   Return new packet, set its PACKET_SIZE to its size. */
+static void *
+packet_prepend_header (size_t *packet_size, const void *kmip, size_t kmip_size,
+		       enum libvk_packet_format format)
+{
+  struct packet_header hdr;
+  void *res;
+  G_STATIC_ASSERT (sizeof (hdr.magic) == sizeof (packet_magic));
+
+  memcpy (hdr.magic, packet_magic, sizeof (hdr.magic));
+  hdr.format = format;
+
+  *packet_size = sizeof (hdr) + kmip_size;
+  res = g_malloc (*packet_size);
+  memcpy (res, &hdr, sizeof (hdr));
+  memcpy ((unsigned char *)res + sizeof (hdr), kmip, kmip_size);
+  return res;
+}
+
 /* Create a clear-text escrow packet with secret of SECRET_TYPE from VOL, store
    it into PACKET (for g_free()) and SIZE.
    Return 0 if OK, -1 on error.
@@ -58,29 +79,26 @@ libvk_volume_create_packet_cleartext (const struct libvk_volume *vol,
 				      enum libvk_secret secret_type,
 				      GError **error)
 {
+  struct kmip_libvk_packet *pack;
   void *inner;
   unsigned char *res;
   size_t inner_size;
-  struct packet_header hdr;
 
   g_return_val_if_fail (vol != NULL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
   g_return_val_if_fail ((unsigned)secret_type < LIBVK_SECRET_END__, NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-  inner = volume_create_escrow_packet (vol, &inner_size, secret_type, error);
+  pack = volume_create_escrow_packet (vol, secret_type, error);
+  if (pack == NULL)
+    return NULL;
+  inner = kmip_libvk_packet_encode (pack, &inner_size, error);
+  kmip_libvk_packet_free (pack);
   if (inner == NULL)
     return NULL;
-  {
-    G_STATIC_ASSERT (sizeof (hdr.magic) == sizeof (packet_magic));
-  }
-  memcpy (hdr.magic, packet_magic, sizeof (hdr.magic));
-  hdr.format = LIBVK_PACKET_FORMAT_CLEARTEXT;
-  *size = sizeof (hdr) + inner_size;
-  res = g_malloc (*size);
-  memcpy (res, &hdr, sizeof (hdr));
-  memcpy (res + sizeof (hdr), inner, inner_size);
 
+  res = packet_prepend_header (size, inner, inner_size,
+			       LIBVK_PACKET_FORMAT_CLEARTEXT);
   memset (inner, 0, inner_size);
   g_free (inner);
 
@@ -91,8 +109,27 @@ libvk_volume_create_packet_cleartext (const struct libvk_volume *vol,
    VOL, store its size into SIZE.
    Return the packet (for g_free ()) if OK, NULL on error.
    VOL must contain at least one "secret".
-   May use UI.
-   Be extremely careful with the results! */
+   May use UI. */
+void *
+libvk_volume_create_packet_asymmetric (const struct libvk_volume *vol,
+				       size_t *size,
+				       enum libvk_secret secret_type,
+				       CERTCertificate *cert,
+				       const struct libvk_ui *ui,
+				       GError **error)
+{
+  g_return_val_if_fail (vol != NULL, NULL);
+  g_return_val_if_fail (size != NULL, NULL);
+  g_return_val_if_fail ((unsigned)secret_type < LIBVK_SECRET_END__, NULL);
+  g_return_val_if_fail (cert != NULL, NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+
+  return libvk_volume_create_packet_asymmetric_with_format
+    (vol, size, secret_type, cert, ui,
+     LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY, error);
+}
+
+/* For compatibility */
 void *
 libvk_volume_create_packet_assymetric (const struct libvk_volume *vol,
 				       size_t *size,
@@ -101,49 +138,90 @@ libvk_volume_create_packet_assymetric (const struct libvk_volume *vol,
 				       const struct libvk_ui *ui,
 				       GError **error)
 {
-  void *inner, *encrypted;
-  unsigned char *res;
-  size_t inner_size, encrypted_size;
-  struct packet_header hdr;
+  return libvk_volume_create_packet_asymmetric (vol, size, secret_type, cert,
+						ui, error);
+}
+
+/* Create an escrow packet encrypted for CERT with secret of SECRET_TYPE from
+   VOL using FORMAT, store its size into SIZE.
+   Return the packet (for g_free ()) if OK, NULL on error.
+   VOL must contain at least one "secret".
+   May use UI. */
+void *
+libvk_volume_create_packet_asymmetric_with_format
+	(const struct libvk_volume *vol, size_t *size,
+	 enum libvk_secret secret_type, CERTCertificate *cert,
+	 const struct libvk_ui *ui, enum libvk_packet_format format,
+	 GError **error)
+{
+  struct kmip_libvk_packet *pack;
+  void *encrypted, *res;
+  size_t encrypted_size;
 
   g_return_val_if_fail (vol != NULL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
   g_return_val_if_fail ((unsigned)secret_type < LIBVK_SECRET_END__, NULL);
   g_return_val_if_fail (cert != NULL, NULL);
+  g_return_val_if_fail ((unsigned)format < LIBVK_PACKET_FORMAT_END__, NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-  inner = volume_create_escrow_packet (vol, &inner_size, secret_type, error);
-  if (inner == NULL)
-    return NULL;
+  pack = volume_create_escrow_packet (vol, secret_type, error);
+  if (pack == NULL)
+    goto err;
 
-  encrypted = encrypt_assymetric (&encrypted_size, inner, inner_size, cert,
-				  ui->nss_pwfn_arg, error);
-  memset (inner, 0, inner_size);
-  g_free (inner);
-  if (encrypted == NULL)
-    return NULL;
+  switch (format)
+    {
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC:
+      {
+	void *inner;
+	size_t inner_size;
 
-  {
-    G_STATIC_ASSERT (sizeof (hdr.magic) == sizeof (packet_magic));
-  }
-  memcpy (hdr.magic, packet_magic, sizeof (hdr.magic));
-  hdr.format = LIBVK_PACKET_FORMAT_ASSYMETRIC;
+	inner = kmip_libvk_packet_encode (pack, &inner_size, error);
+	if (inner == NULL)
+	  goto err_pack;
+	encrypted = encrypt_asymmetric (&encrypted_size, inner, inner_size,
+					cert, ui->nss_pwfn_arg, error);
+	memset (inner, 0, inner_size);
+	g_free (inner);
+	if (encrypted == NULL)
+	  goto err_pack;
+	break;
+      }
 
-  *size = sizeof (hdr) + encrypted_size;
-  res = g_malloc (*size);
-  memcpy (res, &hdr, sizeof (hdr));
-  memcpy (res + sizeof (hdr), encrypted, encrypted_size);
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY:
+      {
+	if (kmip_libvk_packet_wrap_secret_asymmetric (pack, cert, ui,
+						      error) != 0)
+	  goto err_pack;
+	encrypted = kmip_libvk_packet_encode (pack, &encrypted_size, error);
+	if (encrypted == NULL)
+	  goto err_pack;
+	break;
+      }
 
+    default:
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_FORMAT,
+		   _("Unsupported asymmetric encryption format"));
+      goto err_pack;
+    }
+
+  kmip_libvk_packet_free (pack);
+
+  res = packet_prepend_header (size, encrypted, encrypted_size, format);
   g_free (encrypted);
 
   return res;
+
+ err_pack:
+  kmip_libvk_packet_free (pack);
+ err:
+  return NULL;
 }
 
 /* Create an escrow packet encrypted using PASSPHRASE with secret of SECRET_TYPE
    from VOL, store its size into SIZE.
    Return the packet (for g_free ()) if OK, NULL on error.
-   VOL must contain at least one "secret".
-   Be extremely careful with the results! */
+   VOL must contain at least one "secret". */
 void *
 libvk_volume_create_packet_with_passphrase (const struct libvk_volume *vol,
 					    size_t *size,
@@ -151,10 +229,9 @@ libvk_volume_create_packet_with_passphrase (const struct libvk_volume *vol,
 					    const char *passphrase,
 					    GError **error)
 {
-  void *inner, *encrypted;
-  unsigned char *res;
+  struct kmip_libvk_packet *pack;
+  void *inner, *encrypted, *res;
   size_t inner_size, encrypted_size;
-  struct packet_header hdr;
 
   g_return_val_if_fail (vol != NULL, NULL);
   g_return_val_if_fail (size != NULL, NULL);
@@ -162,7 +239,11 @@ libvk_volume_create_packet_with_passphrase (const struct libvk_volume *vol,
   g_return_val_if_fail (passphrase != NULL, NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-  inner = volume_create_escrow_packet (vol, &inner_size, secret_type, error);
+  pack = volume_create_escrow_packet (vol, secret_type, error);
+  if (pack == NULL)
+    return NULL;
+  inner = kmip_libvk_packet_encode (pack, &inner_size, error);
+  kmip_libvk_packet_free (pack);
   if (inner == NULL)
     return NULL;
 
@@ -173,20 +254,59 @@ libvk_volume_create_packet_with_passphrase (const struct libvk_volume *vol,
   if (encrypted == NULL)
     return NULL;
 
-  {
-    G_STATIC_ASSERT (sizeof (hdr.magic) == sizeof (packet_magic));
-  }
-  memcpy (hdr.magic, packet_magic, sizeof (hdr.magic));
-  hdr.format = LIBVK_PACKET_FORMAT_PASSPHRASE;
+  res = packet_prepend_header (size, encrypted, encrypted_size,
+			       LIBVK_PACKET_FORMAT_PASSPHRASE);
+  g_free (encrypted);
 
-  *size = sizeof (hdr) + encrypted_size;
-  res = g_malloc (*size);
-  memcpy (res, &hdr, sizeof (hdr));
-  memcpy (res + sizeof (hdr), encrypted, encrypted_size);
+  return res;
+}
+
+/* Create an escrow packet with the secrets wrapped using KEY from VOL, store
+   its size into SIZE.
+   Return the packet (for g_free ()) if OK, NULL on error.
+   VOL must contain at least one "secret".
+   May use UI. */
+void *
+libvk_volume_create_packet_wrap_key_symmetric (const struct libvk_volume *vol,
+					       size_t *size,
+					       enum libvk_secret secret_type,
+					       PK11SymKey *key,
+					       const struct libvk_ui *ui,
+					       GError **error)
+{
+  struct kmip_libvk_packet *pack;
+  void *encrypted, *res;
+  size_t encrypted_size;
+
+  g_return_val_if_fail (vol != NULL, NULL);
+  g_return_val_if_fail (size != NULL, NULL);
+  g_return_val_if_fail ((unsigned)secret_type < LIBVK_SECRET_END__, NULL);
+  g_return_val_if_fail (key != NULL, NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+
+  pack = volume_create_escrow_packet (vol, secret_type, error);
+  if (pack == NULL)
+    goto err;
+
+  if (kmip_libvk_packet_wrap_secret_symmetric (pack, key, ui, error) != 0)
+    goto err_pack;
+  encrypted = kmip_libvk_packet_encode (pack, &encrypted_size, error);
+  if (encrypted == NULL)
+    goto err_pack;
+
+  kmip_libvk_packet_free (pack);
+
+  res = packet_prepend_header (size, encrypted, encrypted_size,
+			       LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY);
 
   g_free (encrypted);
 
   return res;
+
+ err_pack:
+  kmip_libvk_packet_free (pack);
+ err:
+  return NULL;
 }
 
 /* Return a format of PACKET of SIZE, or LIBVK_PACKET_FORMAT_UNKNOWN */
@@ -231,9 +351,9 @@ libvk_packet_open (const void *packet, size_t size, const struct libvk_ui *ui,
 		   GError **error)
 {
   enum libvk_packet_format format;
-  const void *inner;
-  void *to_free; 		/* inner or NULL */
-  size_t inner_size;
+  const void *outer;
+  size_t outer_size;
+  struct kmip_libvk_packet *pack;
   struct libvk_volume *v;
 
   g_return_val_if_fail (packet != NULL, NULL);
@@ -242,27 +362,40 @@ libvk_packet_open (const void *packet, size_t size, const struct libvk_ui *ui,
 
   format = libvk_packet_get_format (packet, size, error);
   if (format == LIBVK_PACKET_FORMAT_UNKNOWN)
-      return NULL;
+    goto err;
   g_return_val_if_fail (size >= sizeof (struct packet_header), NULL);
-  inner = (const unsigned char *)packet + sizeof (struct packet_header);
-  inner_size = size - sizeof (struct packet_header);
+  outer = (const unsigned char *)packet + sizeof (struct packet_header);
+  outer_size = size - sizeof (struct packet_header);
   switch (format)
     {
     case LIBVK_PACKET_FORMAT_CLEARTEXT:
-      to_free = NULL;
+      pack = kmip_libvk_packet_decode (outer, outer_size, error);
+      if (pack == NULL)
+	goto err;
       break;
 
-    case LIBVK_PACKET_FORMAT_ASSYMETRIC:
-      to_free = decrypt_assymetric (&inner_size, inner, inner_size,
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC:
+      {
+	void *inner;
+	size_t inner_size;
+
+	inner = decrypt_asymmetric (&inner_size, outer, outer_size,
 				    ui->nss_pwfn_arg, error);
-      if (to_free == NULL)
-	return NULL;
-      inner = to_free;
-      break;
+	if (inner == NULL)
+	  goto err;
+	pack = kmip_libvk_packet_decode (inner, inner_size, error);
+	memset (inner, 0, inner_size);
+	g_free (inner);
+	if (pack == NULL)
+	  goto err;
+	break;
+      }
 
     case LIBVK_PACKET_FORMAT_PASSPHRASE:
       {
 	unsigned failed;
+	void *inner;
+	size_t inner_size;
 
 	/* Our only real concern is overflow of the failed counter; limit the
 	   number of iterations just in case the application programmer is
@@ -270,31 +403,68 @@ libvk_packet_open (const void *packet, size_t size, const struct libvk_ui *ui,
 	   of the failed counter. */
 	for (failed = 0; failed < 64; failed++)
 	  {
-	    void *clear;
-	    size_t clear_size;
 	    char *passphrase;
 
 	    passphrase = ui_get_passphrase (ui, _("Escrow packet passphrase"),
 					    failed, error);
 	    if (passphrase == NULL)
-	      return NULL;
-	    clear = decrypt_with_passphrase (&clear_size, inner, inner_size,
+	      goto err;
+	    inner = decrypt_with_passphrase (&inner_size, outer, outer_size,
 					     passphrase, error);
 	    g_free (passphrase);
-	    if (clear != NULL)
-	      {
-		to_free = clear;
-		inner_size = clear_size;
-		goto got_passphrase;
-	      }
-	    g_clear_error(error);
+	    if (inner != NULL)
+	      goto got_passphrase;
+	    g_clear_error (error);
 	  }
 	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
 		     _("Too many attempts to get a valid passphrase"));
-	return NULL;
+	goto err;
 
       got_passphrase:
-	inner = to_free;
+	pack = kmip_libvk_packet_decode (inner, inner_size, error);
+	memset (inner, 0, inner_size);
+	g_free (inner);
+	if (pack == NULL)
+	  goto err;
+	break;
+      }
+
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY:
+      pack = kmip_libvk_packet_decode (outer, outer_size, error);
+      if (pack == NULL)
+	goto err;
+      if (kmip_libvk_packet_unwrap_secret_asymmetric (pack, ui, error) != 0)
+	goto err_pack;
+      break;
+
+    case LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY:
+      {
+	unsigned failed;
+
+	/* Our only real concern is overflow of the failed counter; limit the
+	   number of iterations just in case the application programmer is
+	   always returning the same key from the callback, regardless of the
+	   failed counter. */
+	for (failed = 0; failed < 64; failed++)
+	  {
+	    PK11SymKey *key;
+
+	    pack = kmip_libvk_packet_decode (outer, outer_size, error);
+	    if (pack == NULL)
+	      goto err;
+	    key = ui_get_sym_key (ui, failed, error);
+	    if (key == NULL)
+	      goto err;
+	    if (kmip_libvk_packet_unwrap_secret_symmetric (pack, key,
+							   error) == 0)
+	      goto unwrapped_symmetric;
+	    g_clear_error (error);
+	  }
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
+		     _("Too many attempts to get a valid symmetric key"));
+	goto err;
+
+      unwrapped_symmetric:
 	break;
       }
 
@@ -302,11 +472,12 @@ libvk_packet_open (const void *packet, size_t size, const struct libvk_ui *ui,
       g_return_val_if_reached (NULL);
     }
 
-  v = volume_load_escrow_packet (inner, inner_size, error);
-  if (to_free != NULL)
-    {
-      memset (to_free, 0, inner_size);
-      g_free (to_free);
-    }
+  v = volume_load_escrow_packet (pack, error);
+  kmip_libvk_packet_free (pack);
   return v;
+
+ err_pack:
+  kmip_libvk_packet_free (pack);
+ err:
+  return NULL;
 }

@@ -33,11 +33,11 @@ pkginclude_HEADERS = lib/libvolume_key.h
 pyexec_PYTHON = python/volume_key.py
 pyexec_LTLIBRARIES = python/_volume_key.la
 
-TESTS = tests/crypto_roundtrips.sh tests/kmip_roundtrip
+TESTS = tests/packet_roundtrips.sh
 
 EXTRA_DIST = python/volume_key.i \
-	tests/crypto_roundtrips.sh \
-	tests/kmip_roundtrip_luks_passphrase tests/kmip_roundtrip_luks_symmetric
+	tests/packet_roundtrips.sh tests/packet_roundtrips_luks_passphrase \
+	tests/packet_roundtrips_luks_symmetric
 
 ## Rules
 python/volume_key_wrap.c python/volume_key.py: python/volume_key.i
@@ -64,14 +64,7 @@ src_volume_key_SOURCES = src/volume_key.c
 src_volume_key_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
 src_volume_key_LDADD = lib/libvolume_key.la
 
-tests_kmip_roundtrip_SOURCES = tests/kmip_roundtrip.c
-tests_kmip_roundtrip_LDADD = lib/libvolume_key.la
-# To make G_GNUC_INTERNAL symbols visible
-tests_kmip_roundtrip_LDFLAGS = -static
+tests_packet_roundtrips_SOURCES = tests/packet_roundtrips.c
+tests_packet_roundtrips_LDADD = lib/libvolume_key.la
 
-tests_crypto_roundtrips_SOURCES = tests/crypto_roundtrips.c
-tests_crypto_roundtrips_LDADD = lib/libvolume_key.la
-# To make G_GNUC_INTERNAL symbols visible
-tests_crypto_roundtrips_LDFLAGS = -static
-
-check_PROGRAMS = tests/crypto_roundtrips tests/kmip_roundtrip
+check_PROGRAMS = tests/packet_roundtrips

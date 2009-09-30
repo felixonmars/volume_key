@@ -40,6 +40,8 @@ libvk_ui_free (struct libvk_ui *ui)
     ui->passphrase_free_data (ui->passphrase_data);
   if (ui->nss_pwfn_free_arg != NULL)
     ui->nss_pwfn_free_arg (ui->nss_pwfn_arg);
+  if (ui->sym_key_free_data != NULL)
+    ui->sym_key_free_data (ui->sym_key_data);
   g_free (ui);
 }
 
@@ -104,6 +106,29 @@ libvk_ui_set_nss_pwfn_arg (struct libvk_ui *ui, void *data,
   ui->nss_pwfn_free_arg = free_data;
 }
 
+/* Set a NSS symmetric key callback to CB with DATA.
+   The callback is used to get a symmetric key for unwrapping secrets.
+
+   The callback is called with the supplied data, and number of preceding
+   failed attempts.  It returns a symmetric key (for PK11_FreeSymKey ()), or
+   NULL on error.
+
+   Upon libvk_ui_free (UI) or subsequent libvk_ui_set_sym_key_cb (UI, ...),
+   FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
+void
+libvk_ui_set_sym_key_cb (struct libvk_ui *ui,
+			 PK11SymKey *(*cb) (void *data,
+					    unsigned failed_attempts),
+			 void *data, void (*free_data) (void *data))
+{
+  g_return_if_fail (ui != NULL);
+  if (ui->sym_key_free_data != NULL)
+    ui->sym_key_free_data (ui->sym_key_data);
+  ui->sym_key_cb = cb;
+  ui->sym_key_data = data;
+  ui->sym_key_free_data = free_data;
+}
+
 /* Get a passphrase using UI, using PROMPT; there were FAILED_ATTEMPTS before.
 
    Return a passphrase (for g_free()), or NULL. */
@@ -127,5 +152,27 @@ ui_get_passphrase (const struct libvk_ui *ui, const char *prompt,
     return res;
   g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_UI_NO_RESPONSE,
 	       _("Passphrase not provided"));
+  return NULL;
+}
+
+/* Get a symmetric key using UI; there were FAILED_ATTEMPTS before.
+   Return a symmetric key (for PK11_FreeSymKey ()), or NULL. */
+PK11SymKey *
+ui_get_sym_key (const struct libvk_ui *ui, unsigned failed_attempts,
+		GError **error)
+{
+  PK11SymKey *res;
+
+  if (ui->sym_key_cb == NULL)
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
+		   _("Symmetric key callback not provided"));
+      return NULL;
+    }
+  res = ui->sym_key_cb (ui->sym_key_data, failed_attempts);
+  if (res != NULL)
+    return res;
+  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_UI_NO_RESPONSE,
+	       _("Symmetric key not provided"));
   return NULL;
 }

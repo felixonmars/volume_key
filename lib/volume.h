@@ -94,20 +94,19 @@ extern struct kmip_libvk_packet *volume_create_passphrase_packet
 
  /* Internal operations */
 
-/* Create a key escrow packet for SECRET in VOL, set SIZE to its size.
-   Return packet data (for g_free ()) if OK, NULL on error. */
+/* Create a key escrow packet for SECRET_TYPE in VOL.
+   Return KMIP packet structure (for kmip_libvk_packet_free ()) if OK, NULL on
+   error. */
 G_GNUC_INTERNAL
-extern void *volume_create_escrow_packet (const struct libvk_volume *vol,
-					  size_t *size,
-					  enum libvk_secret secret_type,
-					  GError **error);
+extern struct kmip_libvk_packet *volume_create_escrow_packet
+	(const struct libvk_volume *vol, enum libvk_secret secret_type,
+	 GError **error);
 
 /* Load volume information from PACKET of SIZE.
    Return volume information if OK, NULL on error.
    Note that the data in the packet might be obsolete! */
 G_GNUC_INTERNAL
-extern struct libvk_volume *volume_load_escrow_packet (const void *packet,
-						       size_t size,
-						       GError **error);
+extern struct libvk_volume *volume_load_escrow_packet
+	(struct kmip_libvk_packet *packet, GError **error);
 
 #endif

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.0\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-06-30 14:18+0200\n"
-"PO-Revision-Date: 2009-06-15 17:45+0200\n"
+"POT-Creation-Date: 2009-09-30 14:14+0200\n"
+"PO-Revision-Date: 2009-09-30 14:17+0200\n"
 "Last-Translator: Miloslav Trmač <mitr@redhat.com>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -16,180 +16,214 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/crypto.c:57 lib/crypto.c:257
+#: lib/crypto.c:61 lib/crypto.c:588
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: lib/kmip.c:156 lib/kmip.c:272
+#: lib/kmip.c:255 lib/kmip.c:371
 msgid "Not enough space provided to store a KMIP packet"
 msgstr "Není k dispozici dost místa na uložení paketu KMIP"
 
-#: lib/kmip.c:223 lib/kmip.c:689
+#: lib/kmip.c:322 lib/kmip.c:866
 msgid "A string is too long"
 msgstr "Řetězec je příliš dlouhý"
 
-#: lib/kmip.c:241 lib/kmip.c:733
+#: lib/kmip.c:340 lib/kmip.c:910
 msgid "Binary data is too long"
 msgstr "Binární data jsou příliš dlouhá"
 
-#: lib/kmip.c:292
+#: lib/kmip.c:391
 msgid "A KMIP structure is too long"
 msgstr "Struktura KMIP je příliš dlouhá"
 
-#: lib/kmip.c:561 lib/kmip.c:676 lib/kmip.c:739
+#: lib/kmip.c:738 lib/kmip.c:853 lib/kmip.c:916
 msgid "Unexpected end of data"
 msgstr "Neočekávaný konec dat"
 
-#: lib/kmip.c:586 lib/kmip.c:662 lib/kmip.c:719 lib/kmip.c:766
+#: lib/kmip.c:763 lib/kmip.c:839 lib/kmip.c:896 lib/kmip.c:943
 #, c-format
 msgid "Unexpected item tag 0x%08lX"
 msgstr "Neočekávaná značka položky 0x%08lX"
 
-#: lib/kmip.c:593 lib/kmip.c:726 lib/kmip.c:773
+#: lib/kmip.c:770 lib/kmip.c:903 lib/kmip.c:950
 #, c-format
 msgid "Unexpected item type 0x%02X"
 msgstr "Neočekávaný typ položky 0x%02X"
 
-#: lib/kmip.c:599
+#: lib/kmip.c:776
 msgid "Unexpected item size"
 msgstr "Neočekávaná velikost položky"
 
-#: lib/kmip.c:637 lib/kmip.c:989
+#: lib/kmip.c:814 lib/kmip.c:1268
 msgid "Unsupported enum value %"
 msgstr "Nepodporovaná hodnota enum %"
 
-#: lib/kmip.c:669
+#: lib/kmip.c:846
 #, c-format
 msgid "String item expected, got %02X"
 msgstr "Očekávána řetězcová položka, mám %02X"
 
-#: lib/kmip.c:781
+#: lib/kmip.c:958
 msgid "Structure does not fit in its container"
 msgstr "Struktura se nevejde do svého obalu"
 
-#: lib/kmip.c:797
+#: lib/kmip.c:974
 msgid "Unexpected data in structure"
 msgstr "Neočekávaný konec dat ve struktuře"
 
-#: lib/kmip.c:836
+#: lib/kmip.c:1060 lib/kmip.c:1290
 msgid "Number of key bits is not positive"
 msgstr "Počet bitů klíče není kladný"
 
-#: lib/kmip.c:1022 lib/kmip.c:1056
+#: lib/kmip.c:1305
+msgid "Wrapped key is not opaque"
+msgstr "Zabalený klíč není neprůhledný"
+
+#: lib/kmip.c:1340 lib/kmip.c:1374
 msgid "Unsupported symmetric key format %"
 msgstr "Nepodporovaný formát symetrického klíče %"
 
-#: lib/kmip.c:1089 lib/volume.c:685
+#: lib/kmip.c:1407 lib/volume.c:683
 msgid "Unsupported KMIP version %"
 msgstr "Nepodporovaná verze KMIP %"
 
-#: lib/kmip.c:1136
+#: lib/kmip.c:1454
 msgid "Unsupported object type %"
 msgstr "Nepodporovaný typ objektu %"
 
-#: lib/libvolume_key.c:205
+#: lib/kmip.c:1516
+msgid "Unexpected data after packet"
+msgstr "Neočekávaná data za paketem"
+
+#: lib/kmip.c:1585 lib/kmip.c:1671 lib/kmip.c:1774 lib/kmip.c:1850
+#: lib/volume.c:700 lib/volume_luks.c:759
+msgid "Unsupported packet type %"
+msgstr "Nepodporovaný typ paketu %"
+
+#: lib/kmip.c:1603 lib/kmip.c:1793
+#, c-format
+msgid "Unsupported mechanism %lu"
+msgstr "Nepodporovaný mechanismus %lu"
+
+#: lib/kmip.c:1686 lib/kmip.c:1709 lib/kmip.c:1863
+msgid "Unexpected wrapped key format"
+msgstr "Neočekávaný formát zabaleného klíče"
+
+#: lib/kmip.c:1699 lib/kmip.c:1876
+msgid "Unsupported wrapping mechanism"
+msgstr "Nepodporovaný mechanismus balení"
+
+#: lib/libvolume_key.c:204
+msgid "Unsupported asymmetric encryption format"
+msgstr "Nepodporovaný formát asymetrického šifrování"
+
+#: lib/libvolume_key.c:325
 msgid "Input packet is too small"
 msgstr "Vstupní paket je příliš malý"
 
-#: lib/libvolume_key.c:215
+#: lib/libvolume_key.c:335
 msgid "Input is not a volume_key escrow packet"
 msgstr "Vstup není paket úschovy volume_key"
 
-#: lib/libvolume_key.c:221
+#: lib/libvolume_key.c:341
 msgid "Unsupported packet format"
 msgstr "Nepodporovaný formát paketu"
 
-#: lib/libvolume_key.c:277
+#: lib/libvolume_key.c:408
 msgid "Escrow packet passphrase"
 msgstr "Heslo paketu úschovy"
 
-#: lib/libvolume_key.c:293 lib/volume_luks.c:302
+#: lib/libvolume_key.c:420 lib/volume_luks.c:302
 msgid "Too many attempts to get a valid passphrase"
 msgstr "Příliš mnoho pokusu získat platné heslo"
 
-#: lib/ui.c:123
+#: lib/libvolume_key.c:464
+msgid "Too many attempts to get a valid symmetric key"
+msgstr "Příliš mnoho pokusu získat platné symetrický klíč"
+
+#: lib/ui.c:148
 msgid "User interface callbacks not provided"
 msgstr "Zpětná volání pro uživatelské rozhraní nebyla dodána"
 
-#: lib/ui.c:129
+#: lib/ui.c:154
 msgid "Passphrase not provided"
 msgstr "Heslo nezadáno"
+
+#: lib/ui.c:169
+msgid "Symmetric key callback not provided"
+msgstr "Zpětné volání pro symetrický klíč nebylo dodáno"
+
+#: lib/ui.c:176
+msgid "Symmetric key not provided"
+msgstr "Symetrický klíč nezadán"
 
 #: lib/volume.c:92
 msgid "The key is too long"
 msgstr "Klíč ke příliš dlouhý"
 
-#: lib/volume.c:165 lib/volume.c:186
+#: lib/volume.c:171 lib/volume.c:192
 #, c-format
 msgid "Required attribute `%s' not found"
 msgstr "Vyžadovaný atribut „%s“ nenalezen"
 
-#: lib/volume.c:308
+#: lib/volume.c:314
 #, c-format
 msgid "Cannot get attributes of `%s'"
 msgstr "Nemohu získat atributy „%s“"
 
-#: lib/volume.c:411
+#: lib/volume.c:421
 msgid "Host name"
 msgstr "Název počítače"
 
-#: lib/volume.c:413
+#: lib/volume.c:423
 msgid "Volume format"
 msgstr "Formát svazku"
 
-#: lib/volume.c:416
+#: lib/volume.c:426
 msgid "Volume UUID"
 msgstr "UUID svazku"
 
-#: lib/volume.c:419
+#: lib/volume.c:429
 msgid "Volume label"
 msgstr "Jmenovka svazku"
 
-#: lib/volume.c:421
+#: lib/volume.c:431
 msgid "Volume path"
 msgstr "Cesta ke svazku"
 
-#: lib/volume.c:447 lib/volume.c:556 lib/volume.c:590 lib/volume.c:619
-#: lib/volume.c:652 lib/volume.c:765
+#: lib/volume.c:457 lib/volume.c:566 lib/volume.c:600 lib/volume.c:629
+#: lib/volume.c:662 lib/volume.c:759
 #, c-format
 msgid "Volume `%s' has unsupported format"
 msgstr "Svazek „%s“ nemá podporovaný formát"
 
-#: lib/volume.c:477
+#: lib/volume.c:487
 #, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
 msgstr "Formát svazku neodpovídá (paket „%s“, svazek „%s“)"
 
-#: lib/volume.c:505
+#: lib/volume.c:515
 #, c-format
 msgid "UUID mismatch (packet `%s', volume `%s')"
 msgstr "UUID neodpovídá (paket „%s“, svazek „%s“)"
 
-#: lib/volume.c:511
+#: lib/volume.c:521
 #, c-format
 msgid "Host name mismatch (packet `%s', volume `%s')"
 msgstr "Název počítače neodpovídá (paket „%s“, svazek „%s“)"
 
-#: lib/volume.c:518
+#: lib/volume.c:528
 #, c-format
 msgid "Volume label mismatch (packet `%s', volume `%s')"
 msgstr "Jmenovka svazku neodpovídá (paket „%s“, svazek „%s“)"
 
-#: lib/volume.c:525
+#: lib/volume.c:535
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
 msgstr "Cesta ke svazku neodpovídá (paket „%s“, svazek „%s“)"
 
-#: lib/volume.c:678
-msgid "Unexpected data after packet"
-msgstr "Neočekávaná data za paketem"
-
-#: lib/volume.c:702 lib/volume_luks.c:757
-msgid "Unsupported packet type %"
-msgstr "Nepodporovaný typ paketu %"
-
-#: lib/volume.c:737
+#: lib/volume.c:736
 #, c-format
 msgid "Unsupported volume format `%s'"
 msgstr "Nepodporovaný formát svazku „%s“"
@@ -233,7 +267,7 @@ msgstr "Heslo"
 msgid "Passphrase slot"
 msgstr "Pozice hesla"
 
-#: lib/volume_luks.c:270 lib/volume_luks.c:433 lib/volume_luks.c:664
+#: lib/volume_luks.c:270 lib/volume_luks.c:433 lib/volume_luks.c:666
 msgid "Encryption information type unsupported in LUKS"
 msgstr "Typ informace o šifrování není v LUKS podporován"
 
@@ -242,7 +276,7 @@ msgstr "Typ informace o šifrování není v LUKS podporován"
 msgid "Passphrase for `%s'"
 msgstr "Heslo pro „%s“"
 
-#: lib/volume_luks.c:297 lib/volume_luks.c:797
+#: lib/volume_luks.c:297 lib/volume_luks.c:799
 msgid "Error getting LUKS data encryption key: "
 msgstr "Chyba při získávání klíče pro šifrování dat LUKS: "
 
@@ -300,7 +334,7 @@ msgstr "Chyba při přidávání hesla LUKS"
 msgid "Can not add a secret of this type"
 msgstr "Nemohu přidat tajemství tohoto typu"
 
-#: lib/volume_luks.c:527 lib/volume_luks.c:622 lib/volume_luks.c:805
+#: lib/volume_luks.c:527 lib/volume_luks.c:624 lib/volume_luks.c:807
 msgid "Data encryption key unknown"
 msgstr "Klíč pro šifrování dat není znám"
 
@@ -308,32 +342,32 @@ msgstr "Klíč pro šifrování dat není znám"
 msgid "The passphrase must be a string"
 msgstr "Heslo musí být řetězec"
 
-#: lib/volume_luks.c:645
+#: lib/volume_luks.c:647
 msgid "Passphrase unknown"
 msgstr "Heslo není známo"
 
-#: lib/volume_luks.c:704
+#: lib/volume_luks.c:706
 msgid "Unsupported key length %"
 msgstr "Nepodporovaná délka klíče %"
 
-#: lib/volume_luks.c:715
+#: lib/volume_luks.c:717
 msgid "Key length mismatch"
 msgstr "Délka klíče nesouhlasí"
 
-#: lib/volume_luks.c:738
+#: lib/volume_luks.c:740
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "Neplatné číslo pozice „%s“"
 
-#: lib/volume_luks.c:746
+#: lib/volume_luks.c:748
 msgid "NUL byte in passphrase"
 msgstr "Bajt NUL v heslu"
 
-#: lib/volume_luks.c:814
+#: lib/volume_luks.c:816
 msgid "Error opening LUKS volume: "
 msgstr "Chyba při otevírání svazku LUKS: "
 
-#: python/volume_key.i:446
+#: python/volume_key.i:362
 msgid "Error decoding certificate"
 msgstr "Chyba při dekódování certifikátu"
 
@@ -611,16 +645,24 @@ msgstr "Šifrován veřejným klíčem"
 msgid "Passphrase-encrypted"
 msgstr "Šifrován heslem"
 
-#: src/volume_key.c:911 src/volume_key.c:933
+#: src/volume_key.c:908
+msgid "Only secrets public key-encrypted"
+msgstr "Jen tajemství šifrována veřejným klíčem"
+
+#: src/volume_key.c:912
+msgid "Only secrets symmetric key-encrypted"
+msgstr "Jen tajemství šifrována symetrickým klíčem"
+
+#: src/volume_key.c:919 src/volume_key.c:941
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:911
+#: src/volume_key.c:919
 msgid "Packet format"
 msgstr "Formát paketu"
 
-#: src/volume_key.c:918
+#: src/volume_key.c:926
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "Chyba při dekódování „%s“: %s"

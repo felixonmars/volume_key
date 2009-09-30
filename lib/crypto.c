@@ -26,13 +26,17 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <glib.h>
 #include <glib/gi18n-lib.h>
 #include <gpgme.h>
+#include <keyhi.h>
 #include <nss.h>
+#include <pk11pub.h>
 #include <prerror.h>
 #include <prinit.h>
 #include <smime.h>
 
 #include "crypto.h"
 #include "libvolume_key.h"
+
+ /* NSS utils */
 
 static void
 error_from_pr (GError **error)
@@ -61,12 +65,14 @@ error_from_pr (GError **error)
   g_free (err);
 }
 
-/* Encrypt DATA of SIZE for CERT_DATA of CERT_SIZE.
+ /* LIBVK_PACKET_FORMAT_ASYMMETRIC */
+
+/* Encrypt DATA of SIZE for CERT.
    Return encrypted data (for g_free()), setting RES_SIZE to the size of the
    result, on success, NULL otherwise.
    Use PWFN_ARG for PK11 password callback. */
 void *
-encrypt_assymetric (size_t *res_size, const void *data, size_t size,
+encrypt_asymmetric (size_t *res_size, const void *data, size_t size,
 		    CERTCertificate *cert, void *pwfn_arg, GError **error)
 {
   NSSCMSMessage *cmsg;
@@ -197,7 +203,7 @@ encrypt_assymetric (size_t *res_size, const void *data, size_t size,
    result, on success, NULL otherwise.
    Use PWFN_ARG for PK11 password callback. */
 void *
-decrypt_assymetric (size_t *res_size, const void *data, size_t size,
+decrypt_asymmetric (size_t *res_size, const void *data, size_t size,
 		    void *pwfn_arg, GError **error)
 {
   SECItem src_item, *dest;
@@ -238,6 +244,331 @@ decrypt_assymetric (size_t *res_size, const void *data, size_t size,
  err:
   return NULL;
 }
+
+ /* LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY */
+
+/* Wrap CLEAR_SECRET_DATA of CLEAR_SECRET_SIZE for CERT.
+   Store result into WRAPPED_SECRET, WRAPPED_SECRET_SIZE, encoded issuer into
+   ISSUER, ISSUER_SIZE, encoded serial number into SN, SN_SIZE (all data for
+   g_free ()), used mechanism to MECHANISM, and return 0 on success, -1
+   otherwise.
+   Use PWFN_ARG for PK11 password callback. */
+int
+wrap_asymmetric (void **wrapped_secret, size_t *wrapped_secret_size,
+		 void **issuer, size_t *issuer_size, void **sn, size_t *sn_size,
+		 CK_MECHANISM_TYPE *mechanism, const void *clear_secret_data,
+		 size_t clear_secret_size, CERTCertificate *cert,
+		 void *pwfn_arg, GError **error)
+{
+  PK11SlotInfo *slot;
+  SECItem wrapped_secret_item, clear_secret_item;
+  PK11SymKey *secret_key;
+  PLArenaPool *isn_arena;
+  CERTIssuerAndSN *isn;
+  SECKEYPublicKey *public_key;
+  unsigned dest_size;
+
+  /* PK11_PubUnwrapSymKey() chooses a mechanism automatically based on key
+     type; PK11_PubWrapSymKey() chooses the mechanism automatically as well,
+     except that it uses the supplied mechanism to choose a slot for the
+     operation.  As it happens, the only mechanism NSS currently choses is
+     CKM_RSA_PKCS anyway, so don't bother trying to extract the information
+     from the certificate. */
+  *mechanism = CKM_RSA_PKCS;
+
+  slot = PK11_GetBestSlot (*mechanism, pwfn_arg);
+  if (slot == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+  /* The disk encryption mechanism might not have a PKCS11 name, and we don't
+     really need to tell NSS specifics anyway, so just use
+     CKM_GENERIC_SECRET_KEY_GEN. */
+  clear_secret_item.data = (void *)clear_secret_data;
+  clear_secret_item.len = clear_secret_size;
+  secret_key = PK11_ImportSymKey (slot, CKM_GENERIC_SECRET_KEY_GEN,
+				  PK11_OriginUnwrap, CKA_WRAP,
+				  &clear_secret_item, pwfn_arg);
+  PK11_FreeSlot (slot);
+  if (secret_key == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+
+  isn_arena = PORT_NewArena (0);
+  if (isn_arena == NULL)
+    {
+      error_from_pr (error);
+      goto err_secret_key;
+    }
+  isn = CERT_GetCertIssuerAndSN (isn_arena, cert);
+  if (isn == NULL)
+    {
+      error_from_pr (error);
+      goto err_secret_key;
+    }
+
+  public_key = CERT_ExtractPublicKey (cert);
+  if (public_key == NULL)
+    {
+      error_from_pr (error);
+      goto err_isn_arena;
+    }
+  dest_size = SECKEY_PublicKeyStrength(public_key);
+  if (dest_size == 0)
+    {
+      error_from_pr (error);
+      goto err_public_key;
+    }
+  if (SECITEM_AllocItem (NULL, &wrapped_secret_item, dest_size) == NULL)
+    {
+      error_from_pr (error);
+      goto err_public_key;
+    }
+  if (PK11_PubWrapSymKey (*mechanism, public_key, secret_key,
+			  &wrapped_secret_item) != SECSuccess)
+    {
+      error_from_pr (error);
+      goto err_wrapped_secret_item;
+    }
+  SECKEY_DestroyPublicKey (public_key);
+  PK11_FreeSymKey (secret_key);
+
+  *wrapped_secret = g_memdup (wrapped_secret_item.data,
+			      wrapped_secret_item.len);
+  *wrapped_secret_size = wrapped_secret_item.len;
+  SECITEM_FreeItem (&wrapped_secret_item, PR_FALSE);
+  *issuer = g_memdup (isn->derIssuer.data, isn->derIssuer.len);
+  *issuer_size = isn->derIssuer.len;
+  *sn = g_memdup (isn->serialNumber.data, isn->serialNumber.len);
+  *sn_size = isn->serialNumber.len;
+  PORT_FreeArena (isn_arena, PR_FALSE);
+  return 0;
+
+ err_wrapped_secret_item:
+  SECITEM_FreeItem (&wrapped_secret_item, PR_FALSE);
+ err_public_key:
+  SECKEY_DestroyPublicKey (public_key);
+ err_isn_arena:
+  PORT_FreeArena (isn_arena, PR_FALSE);
+ err_secret_key:
+  PK11_FreeSymKey (secret_key);
+ err:
+  return -1;
+}
+
+/* Unwrap WRAPPED_SECRET_DATA of WRAPPED_SECRET_SIZE, assuming the private key
+   for ISSUER with ISSUER_SIZE and SN with SN_SIZE is stored in a NSS database.
+   Return plaintext secret (for (g_free ()), setting CLEAR_SECRET_SIZE to the
+   size of the result, on success, NULL otherwise.
+   Use PWFN_ARG for PK11 password callback. */
+void *
+unwrap_asymmetric (size_t *clear_secret_size, const void *wrapped_secret_data,
+		   size_t wrapped_secret_size, const void *issuer,
+		   size_t issuer_size, const void *sn, size_t sn_size,
+		   void *pwfn_arg, GError **error)
+{
+  CERTIssuerAndSN isn;
+  CERTCertificate *cert;
+  PK11SlotInfo *slot;
+  SECKEYPrivateKey *private_key;
+  SECItem wrapped_secret_item, *clear_secret_item;
+  PK11SymKey *secret_key;
+  void *ret;
+
+  isn.derIssuer.data = (void *)issuer;
+  isn.derIssuer.len = issuer_size;
+  memset (&isn.issuer, 0, sizeof (isn.issuer));
+  isn.serialNumber.data = (void *)sn;
+  isn.serialNumber.len = sn_size;
+  cert = CERT_FindCertByIssuerAndSN (CERT_GetDefaultCertDB (), &isn);
+  if (cert == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+
+  slot = PK11_GetInternalKeySlot ();
+  if (slot == NULL)
+    {
+      error_from_pr (error);
+      CERT_DestroyCertificate (cert);
+      goto err;
+    }
+  private_key = PK11_FindPrivateKeyFromCert (slot, cert, pwfn_arg);
+  PK11_FreeSlot (slot);
+  CERT_DestroyCertificate (cert);
+  if (private_key == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+
+  wrapped_secret_item.data = (void *)wrapped_secret_data;
+  wrapped_secret_item.len = wrapped_secret_size;
+  /* See the comment in wrap_asymmetric() about CKM_GENERIC_SECRET_KEY_GEN. */
+  secret_key = PK11_PubUnwrapSymKey (private_key, &wrapped_secret_item,
+				    CKM_GENERIC_SECRET_KEY_GEN, CKA_UNWRAP, 0);
+  SECKEY_DestroyPrivateKey (private_key);
+  if (secret_key == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+  if (PK11_ExtractKeyValue (secret_key) != SECSuccess)
+    {
+      error_from_pr (error);
+      goto err_secret_key;
+    }
+  clear_secret_item = PK11_GetKeyData (secret_key);
+  ret = g_memdup (clear_secret_item->data, clear_secret_item->len);
+  *clear_secret_size = clear_secret_item->len;
+  PK11_FreeSymKey (secret_key);
+
+  return ret;
+
+ err_secret_key:
+  PK11_FreeSymKey (secret_key);
+ err:
+  return NULL;
+}
+
+ /* LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY */
+
+/* Wrap CLEAR_SECRET_DATA of CLEAR_SECRET_SIZE for WRAPPING_KEY using MECHANISM.
+   Store result into WRAPPED_SECRET, WRAPPED_SECRET_SIZE, IV, IV_SIZE (both data
+   for g_free ()), and return 0 on success, -1 otherwise.
+   Use PWFN_ARG for PK11 password callback. */
+int
+wrap_symmetric (void **wrapped_secret, size_t *wrapped_secret_size, void **iv,
+		size_t *iv_size, PK11SymKey *wrapping_key,
+		CK_MECHANISM_TYPE mechanism, const void *clear_secret,
+		size_t clear_secret_size, void *pwfn_arg, GError **error)
+{
+  PK11SlotInfo *slot;
+  PK11SymKey *secret_key;
+  SECItem clear_secret_item, *wrapping_param, wrapped_secret_item;
+  unsigned char *iv_data;
+  int iv_data_size;
+  size_t dest_size;
+
+  slot = PK11_GetBestSlot (mechanism, pwfn_arg);
+  if (slot == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+  clear_secret_item.data = (void *)clear_secret;
+  clear_secret_item.len = clear_secret_size;
+  /* The disk encryption mechanism might not have a PKCS11 name, and we don't
+     really need to tell NSS specifics anyway, so just use
+     CKM_GENERIC_SECRET_KEY_GEN. */
+  secret_key = PK11_ImportSymKey (slot, CKM_GENERIC_SECRET_KEY_GEN,
+				  PK11_OriginUnwrap, CKA_WRAP,
+				  &clear_secret_item, pwfn_arg);
+  PK11_FreeSlot (slot);
+  if (secret_key == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+
+  wrapping_param = PK11_GenerateNewParam (mechanism, wrapping_key);
+  if (wrapping_param == NULL)
+    {
+      error_from_pr (error);
+      goto err_secret_key;
+    }
+
+  dest_size = clear_secret_size + 4096; /* FIXME? Just a wild guess */
+  if (SECITEM_AllocItem (NULL, &wrapped_secret_item, dest_size) == NULL)
+    {
+      error_from_pr (error);
+      goto err_wrapping_param;
+    }
+  if (PK11_WrapSymKey (mechanism, wrapping_param, wrapping_key, secret_key,
+		       &wrapped_secret_item) != SECSuccess)
+    {
+      error_from_pr (error);
+      goto err_wrapping_param;
+    }
+  PK11_FreeSymKey (secret_key);
+
+  iv_data = PK11_IVFromParam (mechanism, wrapping_param, &iv_data_size);
+  *iv = g_memdup (iv_data, iv_data_size);
+  *iv_size = iv_data_size;
+  SECITEM_FreeItem (wrapping_param, PR_TRUE);
+
+  *wrapped_secret = g_memdup (wrapped_secret_item.data,
+			      wrapped_secret_item.len);
+  *wrapped_secret_size = wrapped_secret_item.len;
+  SECITEM_FreeItem (&wrapped_secret_item, PR_FALSE);
+  return 0;
+
+ err_wrapping_param:
+  SECITEM_FreeItem (wrapping_param, PR_TRUE);
+ err_secret_key:
+  PK11_FreeSymKey (secret_key);
+ err:
+  return -1;
+}
+
+/* Unwrap WRAPPED_SECRET_DATA of WRAPPED_SECRET_SIZE with IV of IV_SIZE with
+   WRAPPING_KEY using MECHANISM.
+   Return plaintext secret (for (g_free ()), setting CLEAR_SECRET_SIZE to the
+   size of the result, on success, NULL otherwise. */
+void *
+unwrap_symmetric (size_t *clear_secret_size, PK11SymKey *wrapping_key,
+		  CK_MECHANISM_TYPE mechanism, const void *wrapped_secret_data,
+		  size_t wrapped_secret_size, const void *iv, size_t iv_size,
+		  GError **error)
+{
+  PK11SymKey *secret_key;
+  SECItem iv_item, *wrapping_param, wrapped_secret_item, *clear_secret_item;
+  void *ret;
+
+  iv_item.data = (void *)iv;
+  iv_item.len = iv_size;
+  wrapping_param = PK11_ParamFromIV (mechanism, &iv_item);
+  if (wrapping_param == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+
+  wrapped_secret_item.data = (void *)wrapped_secret_data;
+  wrapped_secret_item.len = wrapped_secret_size;
+  /* See the comment in wrap_symmetric() about CKM_GENERIC_SECRET_KEY_GEN. */
+  secret_key = PK11_UnwrapSymKey (wrapping_key, mechanism,
+				  wrapping_param, &wrapped_secret_item,
+				  CKM_GENERIC_SECRET_KEY_GEN, CKA_UNWRAP, 0);
+  SECITEM_FreeItem (wrapping_param, PR_TRUE);
+  if (secret_key == NULL)
+    {
+      error_from_pr (error);
+      goto err;
+    }
+  if (PK11_ExtractKeyValue (secret_key) != SECSuccess)
+    {
+      error_from_pr (error);
+      goto err_secret_key;
+    }
+  clear_secret_item = PK11_GetKeyData (secret_key);
+  ret = g_memdup (clear_secret_item->data, clear_secret_item->len);
+  *clear_secret_size = clear_secret_item->len;
+  PK11_FreeSymKey (secret_key);
+
+  return ret;
+
+ err_secret_key:
+  PK11_FreeSymKey (secret_key);
+ err:
+  return NULL;
+}
+
+ /* libgpgme utils */
 
 static void
 error_from_gpgme (GError **error, gpgme_error_t e)
@@ -323,6 +654,8 @@ init_gpgme (gpgme_ctx_t *res, const char *passphrase, GError **error)
  err:
   return -1;
 }
+
+ /* LIBVK_PACKET_FORMAT_PASSPHRASE */
 
 /* Encrypt DATA of SIZE using PASSPHRASE.
    Return encrypted data (for g_free()), setting RES_SIZE to the size of the

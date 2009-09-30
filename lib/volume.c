@@ -108,6 +108,9 @@ volume_create_data_encryption_key_packet (struct kmip_key_value **kv,
   pack->v.symmetric->block = g_new (struct kmip_key_block, 1);
   pack->v.symmetric->block->type = KMIP_KEY_TRANSPARENT_SYMMETRIC;
   pack->v.symmetric->block->value = key_value;
+  pack->v.symmetric->block->crypto_algorithm = KMIP_LIBVK_ENUM_NONE;
+  pack->v.symmetric->block->crypto_length = -1;
+  pack->v.symmetric->block->wrapping = NULL;
   *kv = key_value;
   return pack;
 }
@@ -140,6 +143,9 @@ volume_create_passphrase_packet (struct kmip_key_value **kv,
   pack->v.secret_data->block = g_new (struct kmip_key_block, 1);
   pack->v.secret_data->block->type = KMIP_KEY_OPAQUE;
   pack->v.secret_data->block->value = key_value;
+  pack->v.secret_data->block->crypto_algorithm = KMIP_LIBVK_ENUM_NONE;
+  pack->v.secret_data->block->crypto_length = -1;
+  pack->v.secret_data->block->wrapping = NULL;
   *kv = key_value;
   return pack;
 }
@@ -664,46 +670,35 @@ libvk_volume_open_with_packet (struct libvk_volume *vol,
    Return volume information if OK, NULL on error.
    Note that the data in the packet might be obsolete! */
 struct libvk_volume *
-volume_load_escrow_packet (const void *packet, size_t size, GError **error)
+volume_load_escrow_packet (struct kmip_libvk_packet *packet, GError **error)
 {
-  struct kmip_decoding_state kmip;
-  struct kmip_libvk_packet *pack;
   const struct kmip_key_value *key_value;
   const char *s;
   struct libvk_volume *vol;
 
-  kmip.data = packet;
-  kmip.left = size;
-  if (kmip_decode_packet (&kmip, &pack, KMIP_TAG_LIBVK_PACKET, error) != 0)
-    return NULL;
-  if (kmip.left != 0)
-    {
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNEXPECTED_FORMAT,
-		   _("Unexpected data after packet"));
-      goto err;
-    }
-  if (pack->version->major != KMIP_VERSION_MAJOR
-      || pack->version->minor != KMIP_VERSION_MINOR)
+  if (packet->version->major != KMIP_VERSION_MAJOR
+      || packet->version->minor != KMIP_VERSION_MINOR)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
 		   _("Unsupported KMIP version %" G_GINT32_FORMAT ".%"
-		     G_GINT32_FORMAT), pack->version->major,
-		   pack->version->minor);
+		     G_GINT32_FORMAT), packet->version->major,
+		   packet->version->minor);
       goto err;
     }
-  switch (pack->type)
+  switch (packet->type)
     {
     case KMIP_OBJECT_SYMMETRIC_KEY:
-      key_value = pack->v.symmetric->block->value;
+      key_value = packet->v.symmetric->block->value;
       break;
 
     case KMIP_OBJECT_SECRET_DATA:
-      key_value = pack->v.secret_data->block->value;
+      key_value = packet->v.secret_data->block->value;
       break;
 
     default:
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported packet type %" G_GUINT32_FORMAT), pack->type);
+		   _("Unsupported packet type %" G_GUINT32_FORMAT),
+		   packet->type);
       goto err;
     }
   vol = g_new0 (struct libvk_volume, 1);
@@ -732,7 +727,7 @@ volume_load_escrow_packet (const void *packet, size_t size, GError **error)
 
   if (strcmp (vol->format, LIBVK_VOLUME_FORMAT_LUKS) == 0)
     {
-      if (luks_parse_escrow_packet (vol, pack, key_value, error) != 0)
+      if (luks_parse_escrow_packet (vol, packet, key_value, error) != 0)
 	goto err_vol;
     }
   else
@@ -741,51 +736,27 @@ volume_load_escrow_packet (const void *packet, size_t size, GError **error)
 		   _("Unsupported volume format `%s'"), s);
       goto err_vol;
     }
-
-  kmip_libvk_packet_free (pack);
   return vol;
 
  err_vol:
   libvk_volume_free (vol);
  err:
-  kmip_libvk_packet_free (pack);
   return NULL;
 }
 
-/* Create a key escrow packet for SECRET in VOL, set SIZE to its size.
-   Return packet data (for g_free ()) if OK, NULL on error. */
-void *
-volume_create_escrow_packet (const struct libvk_volume *vol, size_t *size,
+/* Create a key escrow packet for SECRET_TYPE in VOL.
+   Return KMIP packet structure (for kmip_libvk_packet_free ()) if OK, NULL on
+   error. */
+struct kmip_libvk_packet *
+volume_create_escrow_packet (const struct libvk_volume *vol,
 			     enum libvk_secret secret_type, GError **error)
 {
-  struct kmip_encoding_state kmip;
-  struct kmip_libvk_packet *pack;
-
   if (strcmp (vol->format, LIBVK_VOLUME_FORMAT_LUKS) == 0)
-    pack = luks_create_escrow_packet (vol, secret_type, error);
+    return luks_create_escrow_packet (vol, secret_type, error);
   else
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_VOLUME_UNKNOWN_FORMAT,
 		   _("Volume `%s' has unsupported format"), vol->path);
       return NULL;
     }
-  if (pack == NULL)
-    return NULL;
-
-  kmip.data = NULL;
-  kmip.offset = 0;
-  kmip.size = SIZE_MAX;
-  if (kmip_encode_packet (&kmip, KMIP_TAG_LIBVK_PACKET, pack, error) != 0)
-    {
-      kmip_libvk_packet_free (pack);
-      return NULL;
-    }
-  kmip.data = g_malloc (kmip.offset);
-  kmip.size = kmip.offset;
-  kmip.offset = 0;
-  if (kmip_encode_packet (&kmip, KMIP_TAG_LIBVK_PACKET, pack, error) != 0)
-    g_return_val_if_reached(NULL);
-  kmip_libvk_packet_free (pack);
-  *size = kmip.size;
-  return kmip.data;
 }

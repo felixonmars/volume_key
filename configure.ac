@@ -24,7 +24,7 @@ AM_INIT_AUTOMAKE([dist-bzip2 no-define subdir-objects -Wall])
 # Checks for programs.
 AC_PROG_CC
 AM_PROG_CC_C_O
-LT_INIT
+LT_INIT([disable-static])
 AM_PATH_PYTHON
 
 dnl Not gpg2, it cannot receive passphrases from gpgme

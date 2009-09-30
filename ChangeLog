@@ -1,3 +1,122 @@
+2009-09-30  Miloslav Trmač  <mitr@redhat.com>
+
+	* src/volume_key.c (write_packet, do_dump): s/assymetric/asymmetric/g
+	(do_dump): Add LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY and
+	LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY support.
+
+	* python/volume_key.i (PACKET_FORMAT_ASYMMETRIC)
+	(PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY)
+	(PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY): New definitions.
+	(libvk_ui_set_sym_key_cb, libvk_volume_create_packet_asymmetric)
+	(libvk_volume_create_packet_asymmetric_with_format)
+	(libvk_volume_create_packet_wrap_key_symmetric): New %ignore directives.
+	(%typemap(check) enum libvk_packet_format): New typemap.
+	(libvk_volume_create_packet_asymmetric_from_cert_data): Move to top
+	level, add "format" parameter.
+	(Volume::create_packet_asymmetric): New declaration.
+	(Volume::create_packet_assymetric_from_cert_data): New method.
+	(Volume::create_packet_asymmetric_from_cert_data): New declaration, add
+	default format value.
+
+	* tests/packet_roundtrips.sh: New test.
+	* tests/packet_roundtrips.c
+	* tests/packet_roundtrips_luks_passphrase
+	* tests/packet_roundtrips_luks_symmetric: New files.
+	* tests/crypto_roundtrips.sh
+	* tests/crypto_roundtrips.c
+	* tests/kmip_roundtrip.c
+	* tests/kmip_roundtrip_luks_passphrase
+	* tests/kmip_roundtrip_luks_symmetric: Remove.
+	* Makefile.am (TESTS): Replace previous tests with
+	tests/packet_roundtrips.sh.
+	(EXTRA_DIST, check_PROGRAMS): Update for test changes.
+	* configure.ac: Disable static libraries, they are not necessary for
+	tests any more.
+
+	* lib/libvolume_key.h (LIBVK_ERROR_KMIP_UNSUPPORTED_FORMAT)
+	(LIBVK_ERROR_UNSUPPORTED_WRAPPING_MECHANISM): New definitions.
+	(libvk_ui_set_sym_key_cb): New declaration.
+	(LIBVK_PACKET_FORMAT_ASYMMETRIC)
+	(LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY)
+	(LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY): New definitions.
+	(libvk_volume_create_packet_asymmetric)
+	(libvk_volume_create_packet_asymmetric_with_format)
+	(libvk_volume_create_packet_wrap_key_symmetric): New declarations.
+	* lib/libvolume_key.c (packet_prepend_header): New function, use in
+	all packet creation functions.
+	(libvk_volume_create_packet_asymmetric): New function.
+	(libvk_volume_create_packet_asymmetric_with_format): New function, based
+	in part on libvk_volume_create_packet_assymetric ().
+	(libvk_volume_create_packet_assymetric): Replace by a call to
+	libvk_volume_create_packet_asymmetric_with_format ().
+	(libvk_volume_create_packet_wrap_key_symmetric): New function.
+	(libvk_packet_open): Add support for
+	LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY and
+	LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY.
+	* lib/volume.h (volume_create_escrow_packet)
+	(volume_load_escrow_packet): Update prototypes.
+	* lib/volume.c (volume_create_data_encryption_key_packet)
+	(volume_create_passphrase_packet): Initialize wrapping-related fields.
+	(volume_load_escrow_packet): Expect a decoded KMIP packet instead of
+	raw bytes.  All callers changed.
+	(volume_create_escrow_packet): Return a KMIP packet structure instead of
+	raw bytes.  All callers changed.
+	* lib/ui.h (struct libvk_ui): New members sym_key_cb, sym_key_data,
+	sym_key_free_data.
+	(ui_get_sym_key): New declaration.
+	* lib/ui.c (libvk_ui_free): Handle sym_key_data.
+	(libvk_ui_set_sym_key_cb, ui_get_sym_key): New function.
+	* lib/kmip.h (KMIP_TAG_ENCRYPTION_KEY_INFO)
+	(KMIP_TAG_IV_COUNTER_NONCE, KMIP_TAG_KEY_WRAPPING_DATA)
+	(KMIP_TAG_UNIQUE_IDENTIFIER, KMIP_TAG_WRAPPING_METHOD)
+	(struct kmip_encryption_key_info)
+	(KMIP_LIBVK_IDENTIFIER_CERT_ISN_PREFIX)
+	(KMIP_LIBVK_IDENTIFIER_SECRET_KEY): New definitions.
+	(kmip_encryption_key_info_free): New declaration.
+	(struct kmip_key_wrapping_data)
+	(KMIP_WRAPPING_LIBVK_ENCRYPT_KEY_ONLY): New definitions.
+	(kmip_key_wrapping_data_free): New declaration.
+	(struct kmip_key_block): New members crypto_algorithm, crypto_length,
+	wrapping.
+	(kmip_libvk_packet_decode, kmip_libvk_packet_encode)
+	(kmip_libvk_packet_wrap_secret_asymmetric)
+	(kmip_libvk_packet_unwrap_secret_asymmetric)
+	(kmip_libvk_packet_wrap_secret_symmetric)
+	(kmip_libvk_packet_unwrap_secret_symmetric): New declarations.
+	(kmip_encode_packet, kmip_decode_packet): Remove declarations.
+	* lib/kmip.c (kmip_key_value_free_v): Split from kmip_key_value_free ().
+	(kmip_key_value_set_bytes, kmip_key_value_set_symmetric_key): New
+	functions.
+	(kmip_encryption_key_info_free, kmip_key_wrapping_data_free)
+	(kmip_key_block_set_clear_secret): New functions.
+	(kmip_key_block_free): Free kmip_key_wrapping_data if present.
+	(kmip_encode_encryption_key_info, kmip_encode_key_wrapping_data): New
+	functions.
+	(kmip_encode_key_block): Add support for wrapped secrets.
+	(kmip_encode_libvk_packet): Rename from kmip_encode_packet ().  Make
+	static.
+	(kmip_decode_encryption_key_info, kmip_decode_key_wrapping_data): New
+	functions.
+	(kmip_decode_key_block, kmip_decode_object_symmetric_key)
+	(kmip_decode_object_secret_data): Add support for wrapped secrets.
+	(kmip_decode_libvk_packet): Rename from kmip_decode_packet ().  Make
+	static.
+	(struct mech_data, asymmetric_mechanisms, symmetric_mechanisms): New
+	definitions.
+	(kmip_libvk_packet_decode, kmip_libvk_packet_encode)
+	(kmip_libvk_packet_wrap_secret_asymmetric)
+	(kmip_libvk_packet_unwrap_secret_asymmetric)
+	(kmip_libvk_packet_wrap_secret_symmetric)
+	(kmip_libvk_packet_unwrap_secret_symmetric): New functions.
+	* lib/crypto.c (encrypt_asymmetric): Rename from encrypt_assymetric ().
+	All callers changed.
+	(decrypt_asymmetric): Rename from decrypt_assymetric ().  All callers
+	changed.
+	(wrap_asymmetric, unwrap_asymmetric, wrap_symmetric)
+	(unwrap_symmetric): New functions.
+	* lib/crypto.h (wrap_asymmetric, unwrap_asymmetric, wrap_symmetric)
+	(unwrap_symmetric): New declarations.
+
 2009-09-28  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/kmip.h (KMIP_TAG_PADDING_METHOD): New definition.

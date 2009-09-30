@@ -22,7 +22,10 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 
 #include <stdio.h>
 
+#include <cert.h>
 #include <glib.h>
+
+#include "libvolume_key.h"
 
 /* This is not a generic KMIP reader/writer.  It only supports the specific
    packet formats used by libvolume_key, and rejects packets that contain
@@ -74,12 +77,15 @@ enum
 #define KMIP_TAG_CRYPTO_ALGORITHM 0x42000025
 #define KMIP_TAG_CRYPTO_LENGTH 0x42000026
 #define KMIP_TAG_CRYPTO_PARAMS 0x42000027
+#define KMIP_TAG_ENCRYPTION_KEY_INFO 0x42000032
 #define KMIP_TAG_HASH_ALGORITHM 0x42000034
+#define KMIP_TAG_IV_COUNTER_NONCE 0x42000039
 #define KMIP_TAG_KEY 0x4200003B
 #define KMIP_TAG_KEY_BLOCK 0x4200003C
 #define KMIP_TAG_KEY_MATERIAL 0x4200003D
 #define KMIP_TAG_KEY_VALUE 0x4200003F
 #define KMIP_TAG_KEY_VALUE_TYPE 0x42000040
+#define KMIP_TAG_KEY_WRAPPING_DATA 0x42000041
 #define KMIP_TAG_OBJECT_TYPE 0x42000052
 #define KMIP_TAG_PADDING_METHOD 0x4200005A
 #define KMIP_TAG_PROTOCOL_VERSION 0x42000065
@@ -90,6 +96,8 @@ enum
 /* Note that this means either struct kmip_symmetric_key or
    struct kmip_object_symmetric_key! */
 #define KMIP_TAG_SYMMETRIC_KEY 0x4200008A
+#define KMIP_TAG_UNIQUE_IDENTIFIER 0x4200008F
+#define KMIP_TAG_WRAPPING_METHOD 0x4200009A
 
 /* Check if KMIP, positioned at the start of an item, starts with TAG */
 G_GNUC_INTERNAL
@@ -246,10 +254,51 @@ struct kmip_key_value
 G_GNUC_INTERNAL
 extern void kmip_key_value_free (struct kmip_key_value *value);
 
+struct kmip_encryption_key_info
+{
+  char *identifier;	  /* See KMIP_LIBVK_IDENTIFIER_CERT_ISN_PREFIX below */
+  struct kmip_crypto_params *params;
+};
+
+/* "Unique Identifier" usually refers to a KMIP-managed key.  Use certificate
+   issuer/SN for externally managed certificates; both issuer and SN are base64
+   encoded and space-separated */
+#define KMIP_LIBVK_IDENTIFIER_CERT_ISN_PREFIX \
+  "x-redhat.com:volume_key issuer/SN:"
+
+#define KMIP_LIBVK_IDENTIFIER_SECRET_KEY "x-redhat.com:volume_key secret key"
+
+/* g_free() INFO and all data it points to. */
+G_GNUC_INTERNAL
+extern void kmip_encryption_key_info_free (struct kmip_encryption_key_info
+					   *info);
+
+struct kmip_key_wrapping_data
+{
+  guint32 method; 		/* See KMIP_WRAPPING_* below */
+  struct kmip_encryption_key_info *encryption_key;
+  void *iv;
+  size_t iv_len;		/* If iv != NULL */
+};
+
+enum
+  {
+    /* The value is from $RANDOM */
+    KMIP_WRAPPING_LIBVK_ENCRYPT_KEY_ONLY = 0x81E64B1B
+  };
+
+/* g_free() WRAPPING and all data it points to. */
+G_GNUC_INTERNAL
+extern void kmip_key_wrapping_data_free (struct kmip_key_wrapping_data
+					 *wrapping);
+
 struct kmip_key_block
 {
   guint32 type;			/* See KMIP_KEY_* below */
   struct kmip_key_value *value;
+  guint32 crypto_algorithm;	/* KMIP_LIBVK_ENUM_NONE if unknown */
+  gint32 crypto_length;		/* < 0 if unknown */
+  struct kmip_key_wrapping_data *wrapping;
 };
 
 enum
@@ -346,19 +395,48 @@ enum
 G_GNUC_INTERNAL
 extern void kmip_libvk_packet_free (struct kmip_libvk_packet *packet);
 
-/* Encode PACKET into KMIP as TAG.
-   Return 0 if OK, -1 on error. */
+/* Decode PACKET of SIZE.
+   Return KMIP packet (for kmip_libvk_packet_free ()) if OK, NULL on error. */
 G_GNUC_INTERNAL
-extern int kmip_encode_packet (struct kmip_encoding_state *kmip, guint32 tag,
-			       const struct kmip_libvk_packet *packet,
-			       GError **error);
+extern struct kmip_libvk_packet *kmip_libvk_packet_decode (const void *packet,
+							   size_t size,
+							   GError **error);
 
-/* Decode packet with TAG from KMIP, store it into PACKET.
+/* Encode PACKET, set SIZE to its size.
+   Return packet data (for g_free ()) if OK, NULL on error. */
+G_GNUC_INTERNAL
+extern void *kmip_libvk_packet_encode (struct kmip_libvk_packet *packet,
+				       size_t *size, GError **error);
+
+/* Modify PACKET to wrap its secret using CERT.
+   Return 0 if OK, -1 on error.
+   May use UI. */
+G_GNUC_INTERNAL
+extern int kmip_libvk_packet_wrap_secret_asymmetric
+	(struct kmip_libvk_packet *packet, CERTCertificate *cert,
+	 const struct libvk_ui *ui, GError **error);
+
+/* Modify PACKET to unwrap its secret.
+   Return 0 if OK, -1 on error.
+   May use UI. */
+G_GNUC_INTERNAL
+extern int kmip_libvk_packet_unwrap_secret_asymmetric
+	(struct kmip_libvk_packet *packet, const struct libvk_ui *ui,
+	 GError **error);
+
+/* Modify PACKET to wrap its secret using KEY.
+   Return 0 if OK, -1 on error.
+   May use UI. */
+G_GNUC_INTERNAL
+extern int kmip_libvk_packet_wrap_secret_symmetric
+	(struct kmip_libvk_packet *packet, PK11SymKey *key,
+	 const struct libvk_ui *ui, GError **error);
+
+/* Modify PACKET to unwrap its secret using KEY.
    Return 0 if OK, -1 on error. */
 G_GNUC_INTERNAL
-extern int kmip_decode_packet (struct kmip_decoding_state *kmip,
-			       struct kmip_libvk_packet **packet, guint32 tag,
-			       GError **error);
+extern int kmip_libvk_packet_unwrap_secret_symmetric
+	(struct kmip_libvk_packet *packet, PK11SymKey *key, GError **error);
 
 /* Dump KMIP DATA of SIZE to FILE */
 G_GNUC_INTERNAL

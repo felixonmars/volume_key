@@ -23,9 +23,12 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 
 #include <glib.h>
 #include <glib/gi18n-lib.h>
+#include <pk11pub.h>
 
+#include "crypto.h"
 #include "kmip.h"
 #include "libvolume_key.h"
+#include "ui.h"
 
  /* Utilities */
 
@@ -67,12 +70,10 @@ kmip_symmetric_key_free (struct kmip_symmetric_key *key)
   g_free (key);
 }
 
-/* g_free() VALUE and all data it points to. */
-void
-kmip_key_value_free (struct kmip_key_value *value)
+/* Free VALUE->v */
+static void
+kmip_key_value_free_v (struct kmip_key_value *value)
 {
-  size_t i;
-
   switch (value->type)
     {
     case KMIP_KEY_VALUE_BYTES:
@@ -87,6 +88,38 @@ kmip_key_value_free (struct kmip_key_value *value)
     default:
       g_return_if_reached ();
     }
+}
+
+/* Replace any key material in VALUE with BYTES with LEN */
+static void
+kmip_key_value_set_bytes (struct kmip_key_value *value, const void *bytes,
+			  size_t len)
+{
+  kmip_key_value_free_v (value);
+  value->type = KMIP_KEY_VALUE_BYTES;
+  value->v.bytes.data = g_memdup (bytes, len);
+  value->v.bytes.len = len;
+}
+
+/* Replace any key material in VALUE with a symmetric KEY with LEN */
+static void
+kmip_key_value_set_symmetric_key (struct kmip_key_value *value, const void *key,
+				  size_t len)
+{
+  kmip_key_value_free_v (value);
+  value->type = KMIP_KEY_VALUE_SYMMETRIC_KEY;
+  value->v.key = g_new (struct kmip_symmetric_key, 1);
+  value->v.key->data = g_memdup (key, len);
+  value->v.key->len = len;
+}
+
+/* g_free() VALUE and all data it points to. */
+void
+kmip_key_value_free (struct kmip_key_value *value)
+{
+  size_t i;
+
+  kmip_key_value_free_v (value);
   if (value->attributes != NULL)
     {
       for (i = 0; i < value->attributes->len; i++)
@@ -96,12 +129,65 @@ kmip_key_value_free (struct kmip_key_value *value)
   g_free (value);
 }
 
+/* g_free() INFO and all data it points to. */
+void
+kmip_encryption_key_info_free (struct kmip_encryption_key_info *info)
+{
+  g_free (info->identifier);
+  if (info->params != NULL)
+    kmip_crypto_params_free (info->params);
+  g_free (info);
+}
+
+/* g_free() WRAPPING and all data it points to. */
+void
+kmip_key_wrapping_data_free (struct kmip_key_wrapping_data *wrapping)
+{
+  if (wrapping->encryption_key != NULL)
+    kmip_encryption_key_info_free (wrapping->encryption_key);
+  g_free (wrapping->iv);
+  g_free (wrapping);
+}
+
+/* Replace wrapped secret value in BLOCK in PACKET_TYPE with SECRET with
+   SIZE. */
+static void
+kmip_key_block_set_clear_secret (struct kmip_key_block *block,
+				 guint32 packet_type, const void *secret,
+				 size_t size)
+{
+  switch (packet_type)
+    {
+    case KMIP_OBJECT_SYMMETRIC_KEY:
+      block->type = KMIP_KEY_TRANSPARENT_SYMMETRIC;
+      kmip_key_value_set_symmetric_key (block->value, secret, size);
+      break;
+
+    case KMIP_OBJECT_SECRET_DATA:
+      block->type = KMIP_KEY_OPAQUE;
+      kmip_key_value_set_bytes (block->value, secret, size);
+      break;
+
+    default:
+      g_return_if_reached ();
+    }
+  block->crypto_algorithm = KMIP_LIBVK_ENUM_NONE;
+  block->crypto_length = -1;
+  if (block->wrapping != NULL)
+    {
+      kmip_key_wrapping_data_free (block->wrapping);
+      block->wrapping = NULL;
+    }
+}
+
 /* g_free() BLOCK and all data it points to. */
 void
 kmip_key_block_free (struct kmip_key_block *block)
 {
   if (block->value != NULL)
     kmip_key_value_free (block->value);
+  if (block->wrapping != NULL)
+    kmip_key_wrapping_data_free (block->wrapping);
   g_free (block);
 }
 
@@ -451,6 +537,54 @@ kmip_encode_key_value (struct kmip_encoding_state *kmip, guint32 tag,
   return 0;
 }
 
+/* Encode INFO into KMIP as TAG.
+   Return 0 if OK, -1 on error. */
+static int
+kmip_encode_encryption_key_info (struct kmip_encoding_state *kmip, guint32 tag,
+				 const struct kmip_encryption_key_info *info,
+				 GError **error)
+{
+  struct struct_encoding se;
+
+  if (se_start (kmip, &se, tag, error) != 0
+      || add_string (kmip, KMIP_TAG_UNIQUE_IDENTIFIER, info->identifier,
+		     error) != 0)
+    return -1;
+  if (info->params != NULL
+      && kmip_encode_crypto_params (kmip, KMIP_TAG_CRYPTO_PARAMS, info->params,
+				    error) != 0)
+    return -1;
+  if (se_end (kmip, &se, error) != 0)
+    return -1;
+  return 0;
+}
+
+/* Encode WRAPPING into KMIP as TAG.
+   Return 0 if OK, -1 on error. */
+static int
+kmip_encode_key_wrapping_data (struct kmip_encoding_state *kmip, guint32 tag,
+			       const struct kmip_key_wrapping_data *wrapping,
+			       GError **error)
+{
+  struct struct_encoding se;
+
+  if (se_start (kmip, &se, tag, error) != 0
+      || add_enum (kmip, KMIP_TAG_WRAPPING_METHOD, wrapping->method,
+		   error) != 0)
+    return -1;
+  if (wrapping->encryption_key != NULL
+      && kmip_encode_encryption_key_info (kmip, KMIP_TAG_ENCRYPTION_KEY_INFO,
+					  wrapping->encryption_key, error) != 0)
+    return -1;
+  if (wrapping->iv != NULL
+      && add_bytes (kmip, KMIP_TAG_IV_COUNTER_NONCE, wrapping->iv,
+		    wrapping->iv_len, error) != 0)
+    return -1;
+  if (se_end (kmip, &se, error) != 0)
+    return -1;
+  return 0;
+}
+
 /* Encode BLOCK into KMIP as TAG.
    Return 0 if OK, -1 on error. */
 static int
@@ -459,16 +593,31 @@ kmip_encode_key_block (struct kmip_encoding_state *kmip, guint32 tag,
 {
   struct struct_encoding se;
 
-  g_return_val_if_fail ((block->type == KMIP_KEY_OPAQUE
+  g_return_val_if_fail (((block->type == KMIP_KEY_OPAQUE
+			  || block->wrapping != NULL)
 			 && block->value->type == KMIP_KEY_VALUE_BYTES)
 			|| (block->type == KMIP_KEY_TRANSPARENT_SYMMETRIC
-			    && block->value->type
-			    == KMIP_KEY_VALUE_SYMMETRIC_KEY), -1);
+			    && block->wrapping == NULL
+			    && (block->value->type
+				== KMIP_KEY_VALUE_SYMMETRIC_KEY)), -1);
   if (se_start (kmip, &se, tag, error) != 0
       || add_enum (kmip, KMIP_TAG_KEY_VALUE_TYPE, block->type, error) != 0
       || kmip_encode_key_value (kmip, KMIP_TAG_KEY_VALUE, block->value,
-				error) != 0
-      || se_end (kmip, &se, error) != 0)
+				error) != 0)
+    return -1;
+  if (block->crypto_algorithm != KMIP_LIBVK_ENUM_NONE
+      && add_enum (kmip, KMIP_TAG_CRYPTO_ALGORITHM, block->crypto_algorithm,
+		   error) != 0)
+    return -1;
+  if (block->crypto_length >= 0
+      && add_int32 (kmip, KMIP_TAG_CRYPTO_LENGTH, block->crypto_length,
+		    error) != 0)
+    return -1;
+  if (block->wrapping != NULL
+      && kmip_encode_key_wrapping_data (kmip, KMIP_TAG_KEY_WRAPPING_DATA,
+					block->wrapping, error) != 0)
+    return -1;
+  if (se_end (kmip, &se, error) != 0)
     return -1;
   return 0;
 }
@@ -529,10 +678,10 @@ kmip_encode_protocol_version (struct kmip_encoding_state *kmip, guint32 tag,
 
 /* Encode PACKET into KMIP as TAG.
    Return 0 if OK, -1 on error. */
-int
-kmip_encode_packet (struct kmip_encoding_state *kmip, guint32 tag,
-		    const struct kmip_libvk_packet *packet,
-		    GError **error)
+static int
+kmip_encode_libvk_packet (struct kmip_encoding_state *kmip, guint32 tag,
+			  const struct kmip_libvk_packet *packet,
+			  GError **error)
 {
   struct struct_encoding se;
 
@@ -1020,7 +1169,84 @@ kmip_decode_key_value (struct kmip_decoding_state *kmip,
   return -1;
 }
 
-/* Decode a block TAG from KMIP, store it into BLOCK.
+/* Decode an encryption key info TAG from KMIP, store it into INFO.
+   Return 0 if OK, -1 on error. */
+static int
+kmip_decode_encryption_key_info (struct kmip_decoding_state *kmip,
+				 struct kmip_encryption_key_info **info,
+				 guint32 tag, GError **error)
+{
+  struct kmip_decoding_state k;
+  struct kmip_encryption_key_info *res;
+
+  res = g_new0 (struct kmip_encryption_key_info, 1);
+  if (sd_start (&k, kmip, tag, error) != 0
+      || get_string (&k, &res->identifier, KMIP_TAG_UNIQUE_IDENTIFIER,
+		     error) != 0)
+    goto err;
+  if (kmip_next_tag_is (&k, KMIP_TAG_CRYPTO_PARAMS))
+    {
+      if (kmip_decode_crypto_params (&k, &res->params, KMIP_TAG_CRYPTO_PARAMS,
+				     error) != 0)
+	goto err;
+    }
+  else
+    res->params = NULL;
+  if (sd_end (&k, error) != 0)
+    goto err;
+  *info = res;
+  return 0;
+
+ err:
+  kmip_encryption_key_info_free (res);
+  return -1;
+}
+
+/* Decode a key wrapping data TAG from KMIP, store it into WRAPPING.
+   Return 0 if OK, -1 on error. */
+static int
+kmip_decode_key_wrapping_data (struct kmip_decoding_state *kmip,
+			       struct kmip_key_wrapping_data **wrapping,
+			       guint32 tag, GError **error)
+{
+  struct kmip_decoding_state k;
+  struct kmip_key_wrapping_data *res;
+
+  res = g_new0 (struct kmip_key_wrapping_data, 1);
+  if (sd_start (&k, kmip, tag, error) != 0
+      /* Only one supported value */
+      || get_enum (&k, &res->method, KMIP_TAG_WRAPPING_METHOD,
+		   KMIP_WRAPPING_LIBVK_ENCRYPT_KEY_ONLY,
+		   KMIP_WRAPPING_LIBVK_ENCRYPT_KEY_ONLY + 1, error) != 0)
+    goto err;
+  if (kmip_next_tag_is (&k, KMIP_TAG_ENCRYPTION_KEY_INFO))
+    {
+      if (kmip_decode_encryption_key_info (&k, &res->encryption_key,
+					   KMIP_TAG_ENCRYPTION_KEY_INFO,
+					   error) != 0)
+	goto err;
+    }
+  else
+    res->encryption_key = NULL;
+  if (kmip_next_tag_is (&k, KMIP_TAG_IV_COUNTER_NONCE))
+    {
+      if (get_bytes (&k, &res->iv, &res->iv_len, KMIP_TAG_IV_COUNTER_NONCE,
+		     error) != 0)
+	goto err;
+    }
+  else
+    res->iv = NULL;
+  if (sd_end (&k, error) != 0)
+    goto err;
+  *wrapping = res;
+  return 0;
+
+ err:
+  kmip_key_wrapping_data_free (res);
+  return -1;
+}
+
+/* Decode a key block TAG from KMIP, store it into BLOCK.
    Return 0 if OK, -1 on error. */
 static int
 kmip_decode_key_block (struct kmip_decoding_state *kmip,
@@ -1032,9 +1258,8 @@ kmip_decode_key_block (struct kmip_decoding_state *kmip,
 
   res = g_new0 (struct kmip_key_block, 1);
   if (sd_start (&k, kmip, tag, error) != 0
-      /* Only one supported value */
-      || get_enum (&k, &res->type, KMIP_TAG_KEY_VALUE_TYPE, KMIP_KEY_RAW,
-		   KMIP_END_KEYS, error) != 0)
+      || get_enum (&k, &res->type, KMIP_TAG_KEY_VALUE_TYPE, 1, KMIP_END_KEYS,
+		   error) != 0)
     goto err;
   if (res->type != KMIP_KEY_OPAQUE
       && res->type != KMIP_KEY_TRANSPARENT_SYMMETRIC)
@@ -1044,8 +1269,46 @@ kmip_decode_key_block (struct kmip_decoding_state *kmip,
       goto err;
     }
   if (kmip_decode_key_value (&k, &res->value, KMIP_TAG_KEY_VALUE, res->type,
-			     error) != 0
-      || sd_end (&k, error) != 0)
+			     error) != 0)
+    goto err;
+  if (kmip_next_tag_is (&k, KMIP_TAG_CRYPTO_ALGORITHM))
+    {
+      if (get_enum (&k, &res->crypto_algorithm, KMIP_TAG_CRYPTO_ALGORITHM, 1,
+		    KMIP_END_ALGORITHMS, error) != 0)
+	goto err;
+    }
+  else
+    res->crypto_algorithm = KMIP_LIBVK_ENUM_NONE;
+  if (kmip_next_tag_is (&k, KMIP_TAG_CRYPTO_LENGTH))
+    {
+      if (get_int32 (&k, &res->crypto_length, KMIP_TAG_CRYPTO_LENGTH,
+		     error) != 0)
+	goto err;
+      if (res->crypto_length <= 0)
+	{
+	  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_INVALID_INPUT,
+		       _("Number of key bits is not positive"));
+	  goto err;
+	}
+    }
+  else
+    res->crypto_length = -1;
+  if (kmip_next_tag_is (&k, KMIP_TAG_KEY_WRAPPING_DATA))
+    {
+      if (kmip_decode_key_wrapping_data (&k, &res->wrapping,
+					 KMIP_TAG_KEY_WRAPPING_DATA,
+					 error) != 0)
+	goto err;
+      if (res->type != KMIP_KEY_OPAQUE)
+	{
+	  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNEXPECTED_FORMAT,
+		       _("Wrapped key is not opaque"));
+	  goto err;
+	}
+    }
+  else
+    res->wrapping = NULL;
+  if (sd_end (&k, error) != 0)
     goto err;
   *block = res;
   return 0;
@@ -1070,7 +1333,8 @@ kmip_decode_object_symmetric_key (struct kmip_decoding_state *kmip,
       || kmip_decode_key_block (&k, &res->block, KMIP_TAG_KEY_BLOCK, error) != 0
       || sd_end (&k, error) != 0)
     goto err;
-  if (res->block->type != KMIP_KEY_TRANSPARENT_SYMMETRIC)
+  if (res->block->wrapping == NULL
+      && res->block->type != KMIP_KEY_TRANSPARENT_SYMMETRIC)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
 		   _("Unsupported symmetric key format %" G_GUINT32_FORMAT),
@@ -1104,7 +1368,7 @@ kmip_decode_object_secret_data (struct kmip_decoding_state *kmip,
       || kmip_decode_key_block (&k, &res->block, KMIP_TAG_KEY_BLOCK, error) != 0
       || sd_end (&k, error) != 0)
     goto err;
-  if (res->block->type != KMIP_KEY_OPAQUE)
+  if (res->block->wrapping == NULL && res->block->type != KMIP_KEY_OPAQUE)
     {
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
 		   _("Unsupported symmetric key format %" G_GUINT32_FORMAT),
@@ -1154,10 +1418,10 @@ kmip_decode_protocol_version (struct kmip_decoding_state *kmip,
 
 /* Decode packet with TAG from KMIP, store it into PACKET.
    Return 0 if OK, -1 on error. */
-int
-kmip_decode_packet (struct kmip_decoding_state *kmip,
-		    struct kmip_libvk_packet **packet, guint32 tag,
-		    GError **error)
+static int
+kmip_decode_libvk_packet (struct kmip_decoding_state *kmip,
+			  struct kmip_libvk_packet **packet, guint32 tag,
+			  GError **error)
 {
   struct kmip_decoding_state k;
   struct kmip_libvk_packet *res;
@@ -1200,6 +1464,439 @@ kmip_decode_packet (struct kmip_decoding_state *kmip,
   return -1;
 }
 
+ /* Packet-level operations */
+
+/* Update kmip_libvk_packet_unwrap_secret_asymmetric() if additional mechanisms
+   are introduced. */
+struct mech_data
+{
+  CK_MECHANISM_TYPE mechanism;
+  guint32 algorithm, mode, padding;
+};
+
+static const struct mech_data asymmetric_mechanisms[] =
+  {
+    {
+      CKM_RSA_PKCS, KMIP_ALGORITHM_RSA, KMIP_LIBVK_ENUM_NONE,
+      KMIP_PADDING_PKCS1_v1_5
+    }
+  };
+
+static const struct mech_data symmetric_mechanisms[] =
+  {
+    { CKM_DES_ECB, KMIP_ALGORITHM_DES, KMIP_MODE_ECB, KMIP_PADDING_NONE },
+    { CKM_DES_CBC, KMIP_ALGORITHM_DES, KMIP_MODE_CBC, KMIP_PADDING_NONE },
+    { CKM_DES_CBC_PAD, KMIP_ALGORITHM_DES, KMIP_MODE_CBC, KMIP_PADDING_PKCS5 },
+    { CKM_DES3_ECB, KMIP_ALGORITHM_3DES, KMIP_MODE_ECB, KMIP_PADDING_NONE },
+    { CKM_DES3_CBC, KMIP_ALGORITHM_3DES, KMIP_MODE_CBC, KMIP_PADDING_NONE },
+    {
+      CKM_DES3_CBC_PAD, KMIP_ALGORITHM_3DES, KMIP_MODE_CBC, KMIP_PADDING_PKCS5
+    },
+    { CKM_AES_ECB, KMIP_ALGORITHM_AES, KMIP_MODE_ECB, KMIP_PADDING_NONE },
+    { CKM_AES_CBC, KMIP_ALGORITHM_AES, KMIP_MODE_CBC, KMIP_PADDING_NONE },
+    { CKM_AES_CBC_PAD, KMIP_ALGORITHM_AES, KMIP_MODE_CBC, KMIP_PADDING_PKCS5 },
+  };
+
+/* Decode PACKET of SIZE.
+   Return KMIP packet (for kmip_libvk_packet_free ()) if OK, NULL on error. */
+struct kmip_libvk_packet *
+kmip_libvk_packet_decode (const void *packet, size_t size, GError **error)
+{
+  struct kmip_decoding_state kmip;
+  struct kmip_libvk_packet *pack;
+
+  kmip.data = packet;
+  kmip.left = size;
+  if (kmip_decode_libvk_packet (&kmip, &pack, KMIP_TAG_LIBVK_PACKET,
+				error) != 0)
+    goto err;
+  if (kmip.left != 0)
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNEXPECTED_FORMAT,
+		   _("Unexpected data after packet"));
+      goto err_pack;
+    }
+  return pack;
+
+ err_pack:
+  kmip_libvk_packet_free (pack);
+ err:
+  return NULL;
+}
+
+/* Encode PACKET, set SIZE to its size.
+   Return packet data (for g_free ()) if OK, NULL on error. */
+void *
+kmip_libvk_packet_encode (struct kmip_libvk_packet *packet, size_t *size,
+			  GError **error)
+{
+  struct kmip_encoding_state kmip;
+
+  kmip.data = NULL;
+  kmip.offset = 0;
+  kmip.size = SIZE_MAX;
+  if (kmip_encode_libvk_packet (&kmip, KMIP_TAG_LIBVK_PACKET, packet,
+				error) != 0)
+    return NULL;
+  kmip.data = g_malloc (kmip.offset);
+  kmip.size = kmip.offset;
+  kmip.offset = 0;
+  if (kmip_encode_libvk_packet (&kmip, KMIP_TAG_LIBVK_PACKET, packet,
+				error) != 0)
+    g_return_val_if_reached (NULL);
+  *size = kmip.size;
+  return kmip.data;
+}
+
+/* Modify PACKET to wrap its secret using CERT.
+   Return 0 if OK, -1 on error.
+   May use UI. */
+int
+kmip_libvk_packet_wrap_secret_asymmetric (struct kmip_libvk_packet *packet,
+					  CERTCertificate *cert,
+					  const struct libvk_ui *ui,
+					  GError **error)
+{
+  struct kmip_key_block *key_block;
+  struct kmip_encryption_key_info *encryption_key;
+  const void *clear_secret;
+  size_t clear_secret_len, wrapped_secret_len, issuer_len, sn_len;
+  void *wrapped_secret, *issuer, *sn;
+  CK_MECHANISM_TYPE mechanism;
+  const struct mech_data *mech;
+  gchar *base64_issuer, *base64_sn;
+
+  switch (packet->type)
+    {
+    case KMIP_OBJECT_SYMMETRIC_KEY:
+      key_block = packet->v.symmetric->block;
+      clear_secret = key_block->value->v.key->data;
+      clear_secret_len = key_block->value->v.key->len;
+      break;
+
+    case KMIP_OBJECT_SECRET_DATA:
+      key_block = packet->v.secret_data->block;
+      clear_secret = key_block->value->v.bytes.data;
+      clear_secret_len = key_block->value->v.bytes.len;
+      break;
+
+    default:
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		   _("Unsupported packet type %" G_GUINT32_FORMAT),
+		   packet->type);
+      goto err;
+    }
+  g_return_val_if_fail (key_block->wrapping == NULL, -1);
+
+  if (wrap_asymmetric (&wrapped_secret, &wrapped_secret_len, &issuer,
+		       &issuer_len, &sn, &sn_len, &mechanism, clear_secret,
+		       clear_secret_len, cert, ui->nss_pwfn_arg, error) != 0)
+    goto err;
+  for (mech = asymmetric_mechanisms;
+       mech < asymmetric_mechanisms + G_N_ELEMENTS (asymmetric_mechanisms);
+       mech++)
+    {
+      if (mech->mechanism == mechanism)
+	goto found_mech;
+    }
+  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_UNSUPPORTED_WRAPPING_MECHANISM,
+	       _("Unsupported mechanism %lu"), (unsigned long)mechanism);
+  goto err_wrapped_secret;
+
+ found_mech:
+  base64_issuer = g_base64_encode (issuer, issuer_len);
+  base64_sn = g_base64_encode (sn, sn_len);
+  encryption_key = g_new (struct kmip_encryption_key_info, 1);
+  encryption_key->identifier = g_strdup_printf
+    (KMIP_LIBVK_IDENTIFIER_CERT_ISN_PREFIX "%s %s", base64_issuer, base64_sn);
+  encryption_key->params = g_new (struct kmip_crypto_params, 1);
+  encryption_key->params->cipher_mode = mech->mode;
+  encryption_key->params->padding_method = mech->padding;
+  encryption_key->params->hash_algorithm = KMIP_LIBVK_ENUM_NONE;
+  g_free (base64_sn);
+  g_free (base64_issuer);
+
+  kmip_key_value_set_bytes (key_block->value, wrapped_secret,
+			    wrapped_secret_len);
+  key_block->type = KMIP_KEY_OPAQUE;
+  key_block->crypto_algorithm = mech->algorithm;
+  key_block->crypto_length = -1;
+  key_block->wrapping = g_new (struct kmip_key_wrapping_data, 1);
+  key_block->wrapping->method = KMIP_WRAPPING_LIBVK_ENCRYPT_KEY_ONLY;
+  key_block->wrapping->encryption_key = encryption_key;
+  key_block->wrapping->iv = NULL;
+  key_block->wrapping->iv_len = 0;
+
+  g_free (wrapped_secret);
+  g_free (issuer);
+  g_free (sn);
+  return 0;
+
+ err_wrapped_secret:
+  g_free (wrapped_secret);
+  g_free (issuer);
+  g_free (sn);
+ err:
+  return -1;
+}
+
+/* Modify PACKET to unwrap its secret.
+   Return 0 if OK, -1 on error.
+   May use UI. */
+int
+kmip_libvk_packet_unwrap_secret_asymmetric (struct kmip_libvk_packet *packet,
+					    const struct libvk_ui *ui,
+					    GError **error)
+{
+  struct kmip_key_block *key_block;
+  struct kmip_encryption_key_info *encryption_key;
+  const struct mech_data *mech;
+  gchar **base64;
+  void *issuer, *sn, *clear_secret;
+  gsize issuer_len, sn_len;
+  size_t clear_secret_len;
+
+  switch (packet->type)
+    {
+    case KMIP_OBJECT_SYMMETRIC_KEY:
+      key_block = packet->v.symmetric->block;
+      break;
+
+    case KMIP_OBJECT_SECRET_DATA:
+      key_block = packet->v.secret_data->block;
+      break;
+
+    default:
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		   _("Unsupported packet type %" G_GUINT32_FORMAT),
+		   packet->type);
+      goto err;
+    }
+  g_return_val_if_fail (key_block->wrapping != NULL, -1);
+
+  encryption_key = key_block->wrapping->encryption_key;
+  if (key_block->type != KMIP_KEY_OPAQUE
+      || key_block->value->type != KMIP_KEY_VALUE_BYTES
+      || key_block->wrapping->method != KMIP_WRAPPING_LIBVK_ENCRYPT_KEY_ONLY
+      || encryption_key == NULL || encryption_key->params == NULL
+      || !g_str_has_prefix (encryption_key->identifier,
+			    KMIP_LIBVK_IDENTIFIER_CERT_ISN_PREFIX))
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNEXPECTED_FORMAT,
+		   _("Unexpected wrapped key format"));
+      goto err;
+    }
+  for (mech = asymmetric_mechanisms;
+       mech < asymmetric_mechanisms + G_N_ELEMENTS (asymmetric_mechanisms);
+       mech++)
+    {
+      if (encryption_key->params->cipher_mode == mech->mode
+	  && encryption_key->params->padding_method == mech->padding
+	  && key_block->crypto_algorithm == mech->algorithm)
+	goto found_mech;
+    }
+  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_UNSUPPORTED_WRAPPING_MECHANISM,
+	       _("Unsupported wrapping mechanism"));
+  goto err;
+
+ found_mech:
+  base64 = g_strsplit (encryption_key->identifier
+		       + strlen (KMIP_LIBVK_IDENTIFIER_CERT_ISN_PREFIX), " ",
+		       0);
+  if (g_strv_length (base64) != 2)
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNEXPECTED_FORMAT,
+		   _("Unexpected wrapped key format"));
+      goto err_base64;
+    }
+  issuer = g_base64_decode (base64[0], &issuer_len);
+  sn = g_base64_decode (base64[1], &sn_len);
+  g_strfreev (base64);
+
+  /* If more than one mechanism is supported, it will have to be passed to
+     unwrap_asymmetric(). */
+  clear_secret = unwrap_asymmetric (&clear_secret_len,
+				    key_block->value->v.bytes.data,
+				    key_block->value->v.bytes.len, issuer,
+				    issuer_len, sn, sn_len, ui->nss_pwfn_arg,
+				    error);
+  g_free (sn);
+  g_free (issuer);
+  if (clear_secret == NULL)
+    goto err;
+
+  kmip_key_block_set_clear_secret (key_block, packet->type, clear_secret,
+				   clear_secret_len);
+
+  memset (clear_secret, 0, clear_secret_len);
+  g_free (clear_secret);
+  return 0;
+
+ err_base64:
+  g_strfreev (base64);
+ err:
+  return -1;
+}
+
+/* Modify PACKET to wrap its secret using KEY.
+   Return 0 if OK, -1 on error.
+   May use UI. */
+int
+kmip_libvk_packet_wrap_secret_symmetric (struct kmip_libvk_packet *packet,
+					 PK11SymKey *key,
+					 const struct libvk_ui *ui,
+					 GError **error)
+{
+  struct kmip_key_block *key_block;
+  CK_MECHANISM_TYPE mechanism;
+  struct kmip_encryption_key_info *encryption_key;
+  const void *clear_secret;
+  size_t clear_secret_len, wrapped_secret_len, iv_len;
+  void *wrapped_secret, *iv;
+  const struct mech_data *mech;
+
+  switch (packet->type)
+    {
+    case KMIP_OBJECT_SYMMETRIC_KEY:
+      key_block = packet->v.symmetric->block;
+      clear_secret = key_block->value->v.key->data;
+      clear_secret_len = key_block->value->v.key->len;
+      break;
+
+    case KMIP_OBJECT_SECRET_DATA:
+      key_block = packet->v.secret_data->block;
+      clear_secret = key_block->value->v.bytes.data;
+      clear_secret_len = key_block->value->v.bytes.len;
+      break;
+
+    default:
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		   _("Unsupported packet type %" G_GUINT32_FORMAT),
+		   packet->type);
+      goto err;
+    }
+  g_return_val_if_fail (key_block->wrapping == NULL, -1);
+
+  mechanism = PK11_GetMechanism (key);
+  if (wrap_symmetric (&wrapped_secret, &wrapped_secret_len, &iv, &iv_len,
+		      key, mechanism, clear_secret, clear_secret_len,
+		      ui->nss_pwfn_arg, error) != 0)
+    goto err;
+  for (mech = symmetric_mechanisms;
+       mech < symmetric_mechanisms + G_N_ELEMENTS (symmetric_mechanisms);
+       mech++)
+    {
+      if (mech->mechanism == mechanism)
+	goto found_mech;
+    }
+  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_UNSUPPORTED_WRAPPING_MECHANISM,
+	       _("Unsupported mechanism %lu"), (unsigned long)mechanism);
+  goto err_wrapped_secret;
+
+ found_mech:
+  encryption_key = g_new (struct kmip_encryption_key_info, 1);
+  encryption_key->identifier = g_strdup (KMIP_LIBVK_IDENTIFIER_SECRET_KEY);
+  encryption_key->params = g_new (struct kmip_crypto_params, 1);
+  encryption_key->params->cipher_mode = mech->mode;
+  encryption_key->params->padding_method = mech->padding;
+  encryption_key->params->hash_algorithm = KMIP_LIBVK_ENUM_NONE;
+
+  kmip_key_value_set_bytes (key_block->value, wrapped_secret,
+			    wrapped_secret_len);
+  key_block->type = KMIP_KEY_OPAQUE;
+  key_block->crypto_algorithm = mech->algorithm;
+  key_block->crypto_length = PK11_GetKeyLength (key) * 8;
+  if (key_block->crypto_length == 0)
+    key_block->crypto_length = -1;
+  key_block->wrapping = g_new (struct kmip_key_wrapping_data, 1);
+  key_block->wrapping->method = KMIP_WRAPPING_LIBVK_ENCRYPT_KEY_ONLY;
+  key_block->wrapping->encryption_key = encryption_key;
+  key_block->wrapping->iv = g_memdup (iv, iv_len);
+  key_block->wrapping->iv_len = iv_len;
+
+  g_free (wrapped_secret);
+  return 0;
+
+ err_wrapped_secret:
+  g_free (wrapped_secret);
+ err:
+  return -1;
+}
+
+/* Modify PACKET to unwrap its secret using KEY.
+   Return 0 if OK, -1 on error. */
+int
+kmip_libvk_packet_unwrap_secret_symmetric (struct kmip_libvk_packet *packet,
+					   PK11SymKey *key, GError **error)
+{
+  struct kmip_key_block *key_block;
+  struct kmip_encryption_key_info *encryption_key;
+  const struct mech_data *mech;
+  void *clear_secret;
+  size_t clear_secret_len;
+
+  switch (packet->type)
+    {
+    case KMIP_OBJECT_SYMMETRIC_KEY:
+      key_block = packet->v.symmetric->block;
+      break;
+
+    case KMIP_OBJECT_SECRET_DATA:
+      key_block = packet->v.secret_data->block;
+      break;
+
+    default:
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		   _("Unsupported packet type %" G_GUINT32_FORMAT),
+		   packet->type);
+      goto err;
+    }
+  g_return_val_if_fail (key_block->wrapping != NULL, -1);
+
+  encryption_key = key_block->wrapping->encryption_key;
+  if (key_block->type != KMIP_KEY_OPAQUE
+      || key_block->value->type != KMIP_KEY_VALUE_BYTES
+      || key_block->wrapping->method != KMIP_WRAPPING_LIBVK_ENCRYPT_KEY_ONLY
+      || encryption_key == NULL || encryption_key->params == NULL)
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNEXPECTED_FORMAT,
+		   _("Unexpected wrapped key format"));
+      goto err;
+    }
+  for (mech = symmetric_mechanisms;
+       mech < symmetric_mechanisms + G_N_ELEMENTS (symmetric_mechanisms);
+       mech++)
+    {
+      if (encryption_key->params->cipher_mode == mech->mode
+	  && encryption_key->params->padding_method == mech->padding
+	  && key_block->crypto_algorithm == mech->algorithm)
+	goto found_mech;
+    }
+  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_UNSUPPORTED_WRAPPING_MECHANISM,
+	       _("Unsupported wrapping mechanism"));
+  goto err;
+
+ found_mech:
+  clear_secret = unwrap_symmetric (&clear_secret_len, key, mech->mechanism,
+				   key_block->value->v.bytes.data,
+				   key_block->value->v.bytes.len,
+				   key_block->wrapping->iv,
+				   key_block->wrapping->iv != NULL
+				   ? key_block->wrapping->iv_len : 0,
+				   error);
+  if (clear_secret == NULL)
+    goto err;
+
+  kmip_key_block_set_clear_secret (key_block, packet->type, clear_secret,
+				   clear_secret_len);
+
+  memset (clear_secret, 0, clear_secret_len);
+  g_free (clear_secret);
+  return 0;
+
+ err:
+  return -1;
+}
 
  /* Debug output */
 

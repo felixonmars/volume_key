@@ -19,7 +19,7 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 
  /* Header, common helper functions. */
 
-%{
+%runtime %{
 #include <config.h>
 
 #include <stdbool.h>
@@ -79,8 +79,13 @@ python_free_data (void *data)
 
 %rename(PACKET_FORMAT_UNKNOWN) LIBVK_PACKET_FORMAT_UNKNOWN;
 %rename(PACKET_FORMAT_CLEARTEXT) LIBVK_PACKET_FORMAT_CLEARTEXT;
+%rename(PACKET_FORMAT_ASYMMETRIC) LIBVK_PACKET_FORMAT_ASYMMETRIC;
 %rename(PACKET_FORMAT_ASSYMETRIC) LIBVK_PACKET_FORMAT_ASSYMETRIC;
 %rename(PACKET_FORMAT_PASSPHRASE) LIBVK_PACKET_FORMAT_PASSPHRASE;
+%rename(PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY)
+	LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY;
+%rename(PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY)
+	LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY;
 %ignore LIBVK_PACKET_FORMAT_END__;
 
 %rename(PACKET_MATCH_OK) LIBVK_PACKET_MATCH_OK;
@@ -92,6 +97,8 @@ python_free_data (void *data)
 %ignore libvk_ui_set_generic_cb;
 %ignore libvk_ui_set_passphrase_cb;
 %ignore libvk_ui_set_nss_pwfn_arg;
+/* Not available in Python at all, for now. */
+%ignore libvk_ui_set_sym_key_cb;
 
 %ignore libvk_vp_free;
 %ignore libvk_vp_get_label;
@@ -114,7 +121,11 @@ python_free_data (void *data)
 %ignore libvk_volume_load_packet;
 %ignore libvk_volume_create_packet_cleartext;
 %ignore libvk_volume_create_packet_assymetric;
+%ignore libvk_volume_create_packet_asymmetric;
+%ignore libvk_volume_create_packet_asymmetric_with_format;
 %ignore libvk_volume_create_packet_with_passphrase;
+/* Not available in Python at all, for now. */
+%ignore libvk_volume_create_packet_wrap_key_symmetric;
 
 %ignore libvk_packet_get_format;
 %ignore libvk_packet_open;
@@ -125,6 +136,11 @@ python_free_data (void *data)
 %typemap(check) enum libvk_secret %{
    if ((unsigned)$1 >= LIBVK_SECRET_END__)
      SWIG_exception (SWIG_ValueError, "invalid secret type");
+%}
+
+%typemap(check) enum libvk_packet_format %{
+   if ((unsigned)$1 >= LIBVK_PACKET_FORMAT_END__)
+     SWIG_exception (SWIG_ValueError, "invalid packet format");
 %}
 
 %include "lib/libvolume_key.h"
@@ -330,6 +346,30 @@ libvk_volume_property_value_get (const struct libvk_volume_property *prop)
 %nodefaultctor libvk_volume;
 struct libvk_volume {};
 
+%runtime %{
+static void *
+libvk_volume_create_packet_asymmetric_from_cert_data
+	(struct libvk_volume *vol, size_t *size, enum libvk_secret secret_type,
+	 const void *cert_data, size_t cert_size, const struct libvk_ui *ui,
+	 GError **error, enum libvk_packet_format format) {
+  CERTCertificate *cert;
+  void *res;
+
+  cert = CERT_DecodeCertFromPackage ((char *)cert_data, cert_size);
+  if (cert == NULL)
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
+		   _("Error decoding certificate"));
+      return NULL;
+    }
+  res = libvk_volume_create_packet_asymmetric_with_format (vol, size,
+							   secret_type, cert,
+							   ui, format, error);
+  CERT_DestroyCertificate (cert);
+  return res;
+}
+%}
+
 %extend libvk_volume {
   ~libvk_volume() {
     libvk_volume_free ($self);
@@ -418,6 +458,10 @@ struct libvk_volume {};
   void *create_packet_assymetric (size_t *size, enum libvk_secret secret_type,
 				  CERTCertificate *cert,
 				  const struct libvk_ui *ui, GError **error);
+  // FIXME: this CERTCertificate can't be suppled using python-nss
+  void *create_packet_asymmetric (size_t *size, enum libvk_secret secret_type,
+				  CERTCertificate *cert,
+				  const struct libvk_ui *ui, GError **error);
 
   /* An ugly workaround for the above problem with interfacing to python-nss. */
   %typemap(in) (const void *cert_data, size_t cert_size) {
@@ -429,28 +473,22 @@ struct libvk_volume {};
     $1 = buf;
     $2 = len;
   }
-  void *create_packet_assymetric_from_cert_data (size_t *size,
-						 enum libvk_secret secret_type,
-						 const void *cert_data,
-						 size_t cert_size,
-						 const struct libvk_ui *ui,
-						 GError **error) {
-
-    CERTCertificate *cert;
-    void *res;
-
-    cert = CERT_DecodeCertFromPackage ((char *)cert_data, cert_size);
-    if (cert == NULL)
-      {
-	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_FAILED,
-		     _("Error decoding certificate"));
-	return NULL;
-      }
-    res = libvk_volume_create_packet_assymetric ($self, size, secret_type, cert,
-						 ui, error);
-    CERT_DestroyCertificate (cert);
-    return res;
+  void *create_packet_assymetric_from_cert_data
+    (size_t *size, enum libvk_secret secret_type, const void *cert_data,
+     size_t cert_size, const struct libvk_ui *ui, GError **error,
+     enum libvk_packet_format format
+     = LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY) {
+    return libvk_volume_create_packet_asymmetric_from_cert_data ($self, size,
+								 secret_type,
+								 cert_data,
+								 cert_size, ui,
+								 error, format);
   }
+  void *create_packet_asymmetric_from_cert_data
+    (size_t *size, enum libvk_secret secret_type, const void *cert_data,
+     size_t cert_size, const struct libvk_ui *ui, GError **error,
+     enum libvk_packet_format format
+     = LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY);
   %typemap(in) (const void *cert_data, size_t cert_size);
 
   %apply Pointer NONNULL { const char *passphrase };

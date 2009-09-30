@@ -27,22 +27,71 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 
 /* FIXME: to use this, the caller must initialize NSS. */
 
-/* Encrypt DATA of SIZE for CERT_DATA of CERT_SIZE.
+/* Encrypt DATA of SIZE for CERT.
    Return encrypted data (for g_free()), setting RES_SIZE to the size of the
    result, on success, NULL otherwise.
    Use PWFN_ARG for PK11 password callback. */
 G_GNUC_INTERNAL
-extern void *encrypt_assymetric (size_t *res_size, const void *data,
+extern void *encrypt_asymmetric (size_t *res_size, const void *data,
 				 size_t size, CERTCertificate *cert,
 				 void *pwfn_arg, GError **error);
 
 /* Decrypt DATA of SIZE, assuming the private key is stored in a NSS database.
-   Return plaintext data (for g_free()), setting RES_SIZE to the size of the
+   Return plaintext data (for g_free ()), setting RES_SIZE to the size of the
    result, on success, NULL otherwise.
    Use PWFN_ARG for PK11 password callback. */
 G_GNUC_INTERNAL
-extern void *decrypt_assymetric (size_t *res_size, const void *data,
+extern void *decrypt_asymmetric (size_t *res_size, const void *data,
 				 size_t size, void *pwfn_arg, GError **error);
+
+/* Wrap CLEAR_SECRET_DATA of CLEAR_SECRET_SIZE for CERT.
+   Store result into WRAPPED_SECRET, WRAPPED_SECRET_SIZE, encoded issuer into
+   ISSUER, ISSUER_SIZE, encoded serial number into SN, SN_SIZE (all data for
+   g_free ()), used mechanism to MECHANISM, and return 0 on success, -1
+   otherwise.
+   Use PWFN_ARG for PK11 password callback. */
+G_GNUC_INTERNAL
+extern int wrap_asymmetric (void **wrapped_secret, size_t *wrapped_secret_size,
+			    void **issuer, size_t *issuer_size, void **sn,
+			    size_t *sn_size, CK_MECHANISM_TYPE *mechanism,
+			    const void *clear_secret_data,
+			    size_t clear_secret_size, CERTCertificate *cert,
+			    void *pwfn_arg, GError **error);
+
+/* Unwrap WRAPPED_SECRET_DATA of WRAPPED_SECRET_SIZE, assuming the private key
+   for ISSUER with ISSUER_SIZE and SN with SN_SIZE is stored in a NSS database.
+   Return plaintext secret (for (g_free ()), setting CLEAR_SECRET_SIZE to the
+   size of the result, on success, NULL otherwise.
+   Use PWFN_ARG for PK11 password callback. */
+G_GNUC_INTERNAL
+extern void *unwrap_asymmetric (size_t *clear_secret_size,
+				const void *wrapped_secret_data,
+				size_t wrapped_secret_size, const void *issuer,
+				size_t issuer_size, const void *sn,
+				size_t sn_size, void *pwfn_arg, GError **error);
+
+/* Wrap CLEAR_SECRET_DATA of CLEAR_SECRET_SIZE for WRAPPING_KEY using MECHANISM.
+   Store result into WRAPPED_SECRET, WRAPPED_SECRET_SIZE, IV, IV_SIZE (both data
+   for g_free ()), and return 0 on success, -1 otherwise.
+   Use PWFN_ARG for PK11 password callback. */
+G_GNUC_INTERNAL
+extern int wrap_symmetric (void **wrapped_secret, size_t *wrapped_secret_size,
+			   void **iv, size_t *iv_size, PK11SymKey *wrapping_key,
+			   CK_MECHANISM_TYPE mechanism,
+			   const void *clear_secret, size_t clear_secret_size,
+			   void *pwfn_arg, GError **error);
+
+/* Unwrap WRAPPED_SECRET_DATA of WRAPPED_SECRET_SIZE with IV of IV_SIZE with
+   WRAPPING_KEY using MECHANISM.
+   Return plaintext secret (for (g_free ()), setting CLEAR_SECRET_SIZE to the
+   size of the result, on success, NULL otherwise. */
+G_GNUC_INTERNAL
+extern void *unwrap_symmetric (size_t *clear_secret_size,
+			       PK11SymKey *wrapping_key,
+			       CK_MECHANISM_TYPE mechanism,
+			       const void *wrapped_secret_data,
+			       size_t wrapped_secret_size, const void *iv,
+			       size_t iv_size, GError **error);
 
 /* Encrypt DATA of SIZE using PASSPHRASE.
    Return encrypted data (for g_free()), setting RES_SIZE to the size of the

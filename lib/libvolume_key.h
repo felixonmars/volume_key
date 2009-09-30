@@ -49,6 +49,9 @@ typedef enum
     LIBVK_ERROR_VOLUME_INVALID_SECRET,
 
     LIBVK_ERROR_FAILED,
+
+    LIBVK_ERROR_KMIP_UNSUPPORTED_FORMAT,
+    LIBVK_ERROR_UNSUPPORTED_WRAPPING_MECHANISM,
   } LIBVKError;
 
 enum libvk_secret
@@ -109,12 +112,29 @@ extern void libvk_ui_set_passphrase_cb (struct libvk_ui *ui,
 						     unsigned failed_attempts),
 					void *data,
 					void (*free_data) (void *data));
+
 /* Set a NSS password callback (set by PK11_SetPasswordFunc) parameter to DATA.
 
    Upon libvk_ui_free (UI) or subsequent libvk_ui_set_nss_pwfn_arg (UI, ...),
    FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
 extern void libvk_ui_set_nss_pwfn_arg (struct libvk_ui *ui, void *data,
 				       void (*free_data) (void *data));
+
+/* Set a NSS symmetric key callback to CB with DATA.
+   The callback is used to get a symmetric key for unwrapping secrets.
+
+   The callback is called with the supplied data, and number of preceding
+   failed attempts.  It returns a symmetric key (for PK11_FreeSymKey ()), or
+   NULL on error.
+
+   Upon libvk_ui_free (UI) or subsequent libvk_ui_set_sym_key_cb (UI, ...),
+   FREE_DATA (DATA) will be called if FREE_DATA is not NULL. */
+extern void libvk_ui_set_sym_key_cb (struct libvk_ui *ui,
+				     PK11SymKey *(*cb)
+					(void *data,
+					 unsigned failed_attempts),
+				     void *data,
+				     void (*free_data) (void *data));
 
  /* A volume property. */
 
@@ -260,8 +280,12 @@ enum libvk_packet_format
   {
     LIBVK_PACKET_FORMAT_UNKNOWN = -1,
     LIBVK_PACKET_FORMAT_CLEARTEXT = 0,
-    LIBVK_PACKET_FORMAT_ASSYMETRIC = 1,
+    LIBVK_PACKET_FORMAT_ASYMMETRIC = 1, /* Whole packet encrypted */
+    /* For compatibility */
+    LIBVK_PACKET_FORMAT_ASSYMETRIC = LIBVK_PACKET_FORMAT_ASYMMETRIC,
     LIBVK_PACKET_FORMAT_PASSPHRASE = 2,
+    LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY = 3, /* Metadata unencrypted */
+    LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY = 4, /* Metadata unencrypted */
     /* (Add more packet types here, not below.) */
     LIBVK_PACKET_FORMAT_END__
   };
@@ -279,21 +303,46 @@ extern void *libvk_volume_create_packet_cleartext
    VOL, store its size into SIZE.
    Return the packet (for g_free ()) if OK, NULL on error.
    VOL must contain at least one "secret".
-   May use UI.
-   Be extremely careful with the results! */
+   May use UI. */
+extern void *libvk_volume_create_packet_asymmetric
+	(const struct libvk_volume *vol, size_t *size,
+	 enum libvk_secret secret_type, CERTCertificate *cert,
+	 const struct libvk_ui *ui, GError **error);
+
+/* For compatibility */
 extern void *libvk_volume_create_packet_assymetric
 	(const struct libvk_volume *vol, size_t *size,
 	 enum libvk_secret secret_type, CERTCertificate *cert,
 	 const struct libvk_ui *ui, GError **error);
 
+/* Create an escrow packet encrypted for CERT with secret of SECRET_TYPE from
+   VOL using FORMAT, store its size into SIZE.
+   Return the packet (for g_free ()) if OK, NULL on error.
+   VOL must contain at least one "secret".
+   May use UI. */
+extern void *libvk_volume_create_packet_asymmetric_with_format
+	(const struct libvk_volume *vol, size_t *size,
+	 enum libvk_secret secret_type, CERTCertificate *cert,
+	 const struct libvk_ui *ui, enum libvk_packet_format format,
+	 GError **error);
+
 /* Create an escrow packet encrypted using PASSPHRASE with secret of SECRET_TYPE
    from VOL, store its size into SIZE.
    Return the packet (for g_free ()) if OK, NULL on error.
-   VOL must contain at least one "secret".
-   Be extremely careful with the results! */
+   VOL must contain at least one "secret". */
 extern void *libvk_volume_create_packet_with_passphrase
 	(const struct libvk_volume *vol, size_t *size,
 	 enum libvk_secret secret_type, const char *passphrase, GError **error);
+
+/* Create an escrow packet with the secrets wrapped using KEY from VOL, store
+   its size into SIZE.
+   Return the packet (for g_free ()) if OK, NULL on error.
+   VOL must contain at least one "secret".
+   May use UI. */
+extern void *libvk_volume_create_packet_wrap_key_symmetric
+	(const struct libvk_volume *vol, size_t *size,
+	 enum libvk_secret secret_type, PK11SymKey *key,
+	 const struct libvk_ui *ui, GError **error);
 
 /* Return a format of PACKET of SIZE, or LIBVK_PACKET_FORMAT_UNKNOWN.
    Make sure the caller can handle unknown values! */

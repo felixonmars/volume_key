@@ -587,7 +587,7 @@ write_packet (struct packet_output_state *pos, const char *filename,
     packet = libvk_volume_create_packet_cleartext (vol, &size, secret_type,
 						   error);
   else if (output_certificate != NULL)
-    packet = libvk_volume_create_packet_assymetric (vol, &size, secret_type,
+    packet = libvk_volume_create_packet_asymmetric (vol, &size, secret_type,
 						    pos->cert, ui, error);
   else
     packet = libvk_volume_create_packet_with_passphrase (vol, &size,
@@ -896,12 +896,20 @@ do_dump (int argc, char *argv[])
       format = _("Unencrypted");
       break;
 
-    case LIBVK_PACKET_FORMAT_ASSYMETRIC:
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC:
       format = _("Public key-encrypted");
       break;
 
     case LIBVK_PACKET_FORMAT_PASSPHRASE:
       format = _("Passphrase-encrypted");
+      break;
+
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY:
+      format = _("Only secrets public key-encrypted");
+      break;
+
+    case LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY:
+      format = _("Only secrets symmetric key-encrypted");
       break;
 
     default:

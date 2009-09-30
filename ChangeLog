@@ -1,5 +1,20 @@
 2009-09-30  Miloslav Trmač  <mitr@redhat.com>
 
+	* configure.ac: Use pkg-config to search for for libcryptsetup.
+	* Makefile.am (AM_CPPFLAGS): Add $(libcryptsetup_CFLAGS).
+	(lib_libvolume_key_la_LIBADD): Replace -lcryptsetup with
+	$(libcryptsetup_LIBS).
+	* lib/volume_luks.c (dummy_luks_log): Remove.
+	(open_crypt_device): New function.
+	(g_free_key): Replace free_key ().
+	(luks_volume_open, luks_get_secret, luks_load_packet)
+	(luks_apply_secret, luks_add_secret, luks_open_with_packet): Update for
+	final libcryptsetup API.
+	* README: Update.
+
+	* Makefile.am (python__volume_key_la_LIBADD)
+	(tests_packet_roundtrips_LDADD): Add $(glib_LIBS), $(nss_LIBS).
+
 	* src/volume_key.c (output_format, output_format_string): New variables.
 	(option_descriptions): Add --output-format.
 	(parse_options): Handle --output-format.

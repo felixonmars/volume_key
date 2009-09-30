@@ -37,6 +37,7 @@ PKG_CHECK_MODULES(blkid, [blkid])
 PKG_CHECK_MODULES(glib, [glib-2.0])
 AC_DEFINE(G_DISABLE_DEPRECATED, 1,
 	  [Stay away from deprecated glib functionality.])
+PKG_CHECK_MODULES(libcryptsetup, [libcryptsetup])
 PKG_CHECK_MODULES(nss, [nss])
 
 AM_PATH_GPGME

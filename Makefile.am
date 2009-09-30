@@ -17,7 +17,8 @@
 
 ## Settings
 ACLOCAL_AMFLAGS = -I m4
-AM_CPPFLAGS = $(blkid_CFLAGS) $(glib_CFLAGS) $(GPGME_CFLAGS) $(nss_CFLAGS)
+AM_CPPFLAGS = $(blkid_CFLAGS) $(glib_CFLAGS) $(GPGME_CFLAGS) \
+	$(libcryptsetup_CFLAGS) $(nss_CFLAGS)
 LOCALEDIR_CPPFLAGS = -DLOCALEDIR='"$(localedir)"'
 PYTHON_CPPFLAGS = -I/usr/include/python$(PYTHON_VERSION)
 
@@ -53,18 +54,19 @@ lib_libvolume_key_la_SOURCES = lib/crypto.c lib/crypto.h lib/kmip.c lib/kmip.h \
 lib_libvolume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
 lib_libvolume_key_la_LDFLAGS = -version-info 1:0:0
 lib_libvolume_key_la_LIBADD = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \
-	$(LTLIBINTL) $(nss_LIBS) -lcryptsetup
+	$(LTLIBINTL) $(libcryptsetup_LIBS) $(nss_LIBS)
 
 python__volume_key_la_SOURCES = python/volume_key_wrap.c
 python__volume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(PYTHON_CPPFLAGS)
 python__volume_key_la_LDFLAGS = -module -avoid-version $(glib_LIBS)
-python__volume_key_la_LIBADD = lib/libvolume_key.la -lpython$(PYTHON_VERSION)
+python__volume_key_la_LIBADD = lib/libvolume_key.la -lpython$(PYTHON_VERSION) \
+	$(glib_LIBS) $(nss_LIBS)
 
 src_volume_key_SOURCES = src/volume_key.c
 src_volume_key_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
-src_volume_key_LDADD = lib/libvolume_key.la
+src_volume_key_LDADD = lib/libvolume_key.la $(glib_LIBS) $(nss_LIBS)
 
 tests_packet_roundtrips_SOURCES = tests/packet_roundtrips.c
-tests_packet_roundtrips_LDADD = lib/libvolume_key.la
+tests_packet_roundtrips_LDADD = lib/libvolume_key.la $(glib_LIBS) $(nss_LIBS)
 
 check_PROGRAMS = tests/packet_roundtrips

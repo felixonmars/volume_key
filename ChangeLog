@@ -1,5 +1,20 @@
 2009-09-30  Miloslav Trmač  <mitr@redhat.com>
 
+	* lib/libvolume_key.h (LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY)
+	(LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY)
+	(libvk_volume_create_packet_wrap_secret_symmetric)
+	* lib/libvolume_key.c (libvk_volume_create_packet_asymmetric)
+	(libvk_volume_create_packet_asymmetric_with_format)
+	(libvk_volume_create_packet_wrap_secret_symmetric)
+	(libvk_packet_open)
+	* python/volume_key.i (PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY)
+	(PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY)
+	(libvk_volume_create_packet_wrap_secret_symmetric)
+	(Volume::create_packet_assymetric_from_cert_data)
+	(Volume::create_packet_asymmetric_from_cert_data)
+	* src/volume_key.c (do_dump)
+	* tests/packet_roundtrips.c (test): s/wrap_key/wrap_secret/g.
+
 	* src/volume_key.c (write_packet, do_dump): s/assymetric/asymmetric/g
 	(do_dump): Add LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY and
 	LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY support.

@@ -245,7 +245,7 @@ decrypt_asymmetric (size_t *res_size, const void *data, size_t size,
   return NULL;
 }
 
- /* LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY */
+ /* LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY */
 
 /* Wrap CLEAR_SECRET_DATA of CLEAR_SECRET_SIZE for CERT.
    Store result into WRAPPED_SECRET, WRAPPED_SECRET_SIZE, encoded issuer into
@@ -435,7 +435,7 @@ unwrap_asymmetric (size_t *clear_secret_size, const void *wrapped_secret_data,
   return NULL;
 }
 
- /* LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY */
+ /* LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY */
 
 /* Wrap CLEAR_SECRET_DATA of CLEAR_SECRET_SIZE for WRAPPING_KEY using MECHANISM.
    Store result into WRAPPED_SECRET, WRAPPED_SECRET_SIZE, IV, IV_SIZE (both data

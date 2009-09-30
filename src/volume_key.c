@@ -904,11 +904,11 @@ do_dump (int argc, char *argv[])
       format = _("Passphrase-encrypted");
       break;
 
-    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY:
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY:
       format = _("Only secrets public key-encrypted");
       break;
 
-    case LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY:
+    case LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY:
       format = _("Only secrets symmetric key-encrypted");
       break;
 

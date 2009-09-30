@@ -284,8 +284,10 @@ enum libvk_packet_format
     /* For compatibility */
     LIBVK_PACKET_FORMAT_ASSYMETRIC = LIBVK_PACKET_FORMAT_ASYMMETRIC,
     LIBVK_PACKET_FORMAT_PASSPHRASE = 2,
-    LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY = 3, /* Metadata unencrypted */
-    LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY = 4, /* Metadata unencrypted */
+    /* Metadata unencrypted */
+    LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY = 3,
+    /* Metadata unencrypted */
+    LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY = 4,
     /* (Add more packet types here, not below.) */
     LIBVK_PACKET_FORMAT_END__
   };
@@ -339,7 +341,7 @@ extern void *libvk_volume_create_packet_with_passphrase
    Return the packet (for g_free ()) if OK, NULL on error.
    VOL must contain at least one "secret".
    May use UI. */
-extern void *libvk_volume_create_packet_wrap_key_symmetric
+extern void *libvk_volume_create_packet_wrap_secret_symmetric
 	(const struct libvk_volume *vol, size_t *size,
 	 enum libvk_secret secret_type, PK11SymKey *key,
 	 const struct libvk_ui *ui, GError **error);

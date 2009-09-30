@@ -82,10 +82,10 @@ python_free_data (void *data)
 %rename(PACKET_FORMAT_ASYMMETRIC) LIBVK_PACKET_FORMAT_ASYMMETRIC;
 %rename(PACKET_FORMAT_ASSYMETRIC) LIBVK_PACKET_FORMAT_ASSYMETRIC;
 %rename(PACKET_FORMAT_PASSPHRASE) LIBVK_PACKET_FORMAT_PASSPHRASE;
-%rename(PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY)
-	LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY;
-%rename(PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY)
-	LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY;
+%rename(PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY)
+	LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY;
+%rename(PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY)
+	LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY;
 %ignore LIBVK_PACKET_FORMAT_END__;
 
 %rename(PACKET_MATCH_OK) LIBVK_PACKET_MATCH_OK;
@@ -125,7 +125,7 @@ python_free_data (void *data)
 %ignore libvk_volume_create_packet_asymmetric_with_format;
 %ignore libvk_volume_create_packet_with_passphrase;
 /* Not available in Python at all, for now. */
-%ignore libvk_volume_create_packet_wrap_key_symmetric;
+%ignore libvk_volume_create_packet_wrap_secret_symmetric;
 
 %ignore libvk_packet_get_format;
 %ignore libvk_packet_open;
@@ -477,7 +477,7 @@ libvk_volume_create_packet_asymmetric_from_cert_data
     (size_t *size, enum libvk_secret secret_type, const void *cert_data,
      size_t cert_size, const struct libvk_ui *ui, GError **error,
      enum libvk_packet_format format
-     = LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY) {
+     = LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY) {
     return libvk_volume_create_packet_asymmetric_from_cert_data ($self, size,
 								 secret_type,
 								 cert_data,
@@ -488,7 +488,7 @@ libvk_volume_create_packet_asymmetric_from_cert_data
     (size_t *size, enum libvk_secret secret_type, const void *cert_data,
      size_t cert_size, const struct libvk_ui *ui, GError **error,
      enum libvk_packet_format format
-     = LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY);
+     = LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY);
   %typemap(in) (const void *cert_data, size_t cert_size);
 
   %apply Pointer NONNULL { const char *passphrase };

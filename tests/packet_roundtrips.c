@@ -194,7 +194,7 @@ test (const char *test_packet, enum libvk_secret secret_type,
 
   packet2 = libvk_volume_create_packet_asymmetric_with_format
     (v, &size2, secret_type, cert, ui,
-     LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY, &error);
+     LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY, &error);
   libvk_volume_free (v);
   if (packet2 == NULL)
     {
@@ -204,7 +204,7 @@ test (const char *test_packet, enum libvk_secret secret_type,
       return EXIT_FAILURE;
     }
   if (libvk_packet_get_format (packet2, size2, &error)
-      != LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY)
+      != LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY)
     {
       fprintf (stderr, "Unexpected asymmetric key wrapping packet format\n");
       return EXIT_FAILURE;
@@ -219,9 +219,10 @@ test (const char *test_packet, enum libvk_secret secret_type,
       return EXIT_FAILURE;
     }
 
-  packet2 = libvk_volume_create_packet_wrap_key_symmetric (v, &size2,
-							   secret_type, sym_key,
-							   ui, &error);
+  packet2 = libvk_volume_create_packet_wrap_secret_symmetric (v, &size2,
+							      secret_type,
+							      sym_key, ui,
+							      &error);
   libvk_volume_free (v);
   if (packet2 == NULL)
     {
@@ -231,7 +232,7 @@ test (const char *test_packet, enum libvk_secret secret_type,
       return EXIT_FAILURE;
     }
   if (libvk_packet_get_format (packet2, size2, &error)
-      != LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY)
+      != LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY)
     {
       fprintf (stderr, "Unexpected symmetric key wrapping packet format\n");
       return EXIT_FAILURE;

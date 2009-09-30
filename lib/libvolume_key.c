@@ -126,7 +126,7 @@ libvk_volume_create_packet_asymmetric (const struct libvk_volume *vol,
 
   return libvk_volume_create_packet_asymmetric_with_format
     (vol, size, secret_type, cert, ui,
-     LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY, error);
+     LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY, error);
 }
 
 /* For compatibility */
@@ -188,7 +188,7 @@ libvk_volume_create_packet_asymmetric_with_format
 	break;
       }
 
-    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY:
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY:
       {
 	if (kmip_libvk_packet_wrap_secret_asymmetric (pack, cert, ui,
 						      error) != 0)
@@ -267,12 +267,10 @@ libvk_volume_create_packet_with_passphrase (const struct libvk_volume *vol,
    VOL must contain at least one "secret".
    May use UI. */
 void *
-libvk_volume_create_packet_wrap_key_symmetric (const struct libvk_volume *vol,
-					       size_t *size,
-					       enum libvk_secret secret_type,
-					       PK11SymKey *key,
-					       const struct libvk_ui *ui,
-					       GError **error)
+libvk_volume_create_packet_wrap_secret_symmetric
+	(const struct libvk_volume *vol, size_t *size,
+	 enum libvk_secret secret_type, PK11SymKey *key,
+	 const struct libvk_ui *ui, GError **error)
 {
   struct kmip_libvk_packet *pack;
   void *encrypted, *res;
@@ -297,7 +295,7 @@ libvk_volume_create_packet_wrap_key_symmetric (const struct libvk_volume *vol,
   kmip_libvk_packet_free (pack);
 
   res = packet_prepend_header (size, encrypted, encrypted_size,
-			       LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY);
+			       LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY);
 
   g_free (encrypted);
 
@@ -429,7 +427,7 @@ libvk_packet_open (const void *packet, size_t size, const struct libvk_ui *ui,
 	break;
       }
 
-    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_KEY_ONLY:
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY:
       pack = kmip_libvk_packet_decode (outer, outer_size, error);
       if (pack == NULL)
 	goto err;
@@ -437,7 +435,7 @@ libvk_packet_open (const void *packet, size_t size, const struct libvk_ui *ui,
 	goto err_pack;
       break;
 
-    case LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_KEY_ONLY:
+    case LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY:
       {
 	unsigned failed;
 

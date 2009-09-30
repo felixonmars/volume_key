@@ -1,5 +1,11 @@
 2009-09-30  Miloslav Trmač  <mitr@redhat.com>
 
+	* src/volume_key.c (output_format, output_format_string): New variables.
+	(option_descriptions): Add --output-format.
+	(parse_options): Handle --output-format.
+	(write_packet): Use output_format.
+	* doc/volume_key.8 (--output-format): Document new option.
+
 	* lib/libvolume_key.h (LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY)
 	(LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY)
 	(libvk_volume_create_packet_wrap_secret_symmetric)

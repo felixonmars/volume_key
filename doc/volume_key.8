@@ -187,6 +187,21 @@ Note that
 is a certificate file name, not a NSS certificate nickname.
 
 .TP
+\fB\-\-output\-format\fP \fIFORMAT\fP
+Use
+.I FORMAT
+for all output packets.
+.I FORMAT
+can currently be one of
+.B asymmetric
+(use CMS to encrypt the whole packet, requires a certificate),
+.B asymmetric_wrap_secret_only
+(wrap only the secret, requires a certificate),
+.B passphrase
+(use GPG to encrypt the whole packet, requires a passphrase).
+.\" cleartext is intentionally not documented.
+
+.TP
 \fB\-\-with\-secrets\fP
 Include secrets in the output of \fB\-\-dump\fP
 

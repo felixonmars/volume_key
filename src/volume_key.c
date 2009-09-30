@@ -150,6 +150,9 @@ static gboolean dump_with_secrets; /* = FALSE; */
 static gboolean output_format_cleartext; /* = FALSE */
 /* Certificate file path, or NULL to use some other output format. */
 static gchar *output_certificate; /* = NULL; */
+/* Explicit packet format - used when the above is not specific enough */
+static enum libvk_packet_format output_format = LIBVK_PACKET_FORMAT_UNKNOWN;
+static gchar *output_format_string; /* = NULL; */
 
 /* Packet output files, or NULL */
 static gchar *output_default; /* = NULL; */
@@ -232,6 +235,10 @@ static const GOptionEntry option_descriptions[] =
       N_("Encrypt for the certificate in CERT"), N_("CERT")
     },
     {
+      "output-format", 0, 0, G_OPTION_ARG_FILENAME, &output_format_string,
+      N_("Use FORMAT for all output packets"), N_("FORMAT")
+    },
+    {
       "with-secrets", 0, 0, G_OPTION_ARG_NONE, &dump_with_secrets,
       N_("Include secrets in --dump output"), NULL
     },
@@ -297,7 +304,7 @@ parse_options (int *argc, char ***argv)
     {
       if (output_default != NULL || output_data_encryption_key != NULL
 	  || output_passphrase != NULL || output_format_cleartext != 0
-	  || output_certificate != NULL)
+	  || output_certificate != NULL || output_format_string != NULL)
 	error_exit (_("Output can be specified only with `--save' or "
 		      "`--reencrypt'"));
     }
@@ -308,6 +315,41 @@ parse_options (int *argc, char ***argv)
       error_exit (_("No output specified"));
     if (output_format_cleartext != 0 && output_certificate != NULL)
       error_exit (_("Ambiguous output format"));
+    if (output_format_string != NULL)
+      {
+	gboolean format_ok;
+
+	if (strcmp (output_format_string, "cleartext") == 0)
+	  output_format = LIBVK_PACKET_FORMAT_CLEARTEXT;
+	else if (strcmp (output_format_string, "asymmetric") == 0)
+	  output_format = LIBVK_PACKET_FORMAT_ASYMMETRIC;
+	else if (strcmp (output_format_string,
+			 "asymmetric_wrap_secret_only") == 0)
+	  output_format = LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY;
+	else if (strcmp (output_format_string, "passphrase") == 0)
+	  output_format = LIBVK_PACKET_FORMAT_PASSPHRASE;
+	else
+	  error_exit (_("Unknown packet format `%s'"), output_format_string);
+	if (output_format_cleartext != 0)
+	  format_ok = output_format == LIBVK_PACKET_FORMAT_CLEARTEXT;
+	else if (output_certificate != NULL)
+	  format_ok = (output_format == LIBVK_PACKET_FORMAT_ASYMMETRIC
+		       || (output_format
+			   == LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY));
+	else
+	  format_ok = output_format == LIBVK_PACKET_FORMAT_PASSPHRASE;
+	if (!format_ok)
+	  error_exit (_("Output format does not match other options"));
+      }
+    else
+      {
+	if (output_format_cleartext != 0)
+	  output_format = LIBVK_PACKET_FORMAT_CLEARTEXT;
+	else if (output_certificate != NULL)
+	  output_format = LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY;
+	else
+	  output_format = LIBVK_PACKET_FORMAT_PASSPHRASE;
+      }
   }
   if (output_created_random_passphrase != NULL && mode_save == 0)
     error_exit (_("`--%s' is only valid with `--%s'"),
@@ -587,8 +629,8 @@ write_packet (struct packet_output_state *pos, const char *filename,
     packet = libvk_volume_create_packet_cleartext (vol, &size, secret_type,
 						   error);
   else if (output_certificate != NULL)
-    packet = libvk_volume_create_packet_asymmetric (vol, &size, secret_type,
-						    pos->cert, ui, error);
+    packet = libvk_volume_create_packet_asymmetric_with_format
+      (vol, &size, secret_type, pos->cert, ui, output_format, error);
   else
     packet = libvk_volume_create_packet_with_passphrase (vol, &size,
 							 secret_type,

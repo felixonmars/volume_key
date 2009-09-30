@@ -54,6 +54,10 @@ python_free_data (void *data)
     }
 %}
 
+%init %{
+  libvk_init ();
+%}
+
  /* Basic interface from the header file, heavily edited. */
 
 %include "cstring.i"
@@ -63,6 +67,7 @@ python_free_data (void *data)
 #define G_BEGIN_DECLS
 #define G_END_DECLS
 
+%ignore libvk_init;
 %ignore libvk_error_quark;
 %ignore LIBVKError;
 

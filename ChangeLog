@@ -1,5 +1,8 @@
 2009-09-30  Miloslav Trmač  <mitr@redhat.com>
 
+	* python/volume_key.i (%init): Call libvk_init ().
+	(libvk_init): New %ignore directive.
+
 	* configure.ac: Use pkg-config to search for for libcryptsetup.
 	* Makefile.am (AM_CPPFLAGS): Add $(libcryptsetup_CFLAGS).
 	(lib_libvolume_key_la_LIBADD): Replace -lcryptsetup with

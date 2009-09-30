@@ -1,5 +1,10 @@
 2009-09-30  Miloslav Trmač  <mitr@redhat.com>
 
+	* configure.ac: Release 0.3.
+	* NEWS: Update.
+	* po/LINGUAS: Update.
+	* Makefile.am (lib_libvolume_key_la_LDFLAGS): Update version info.
+
 	* python/volume_key.i (%init): Call libvk_init ().
 	(libvk_init): New %ignore directive.
 

@@ -1,3 +1,12 @@
+Changes in version 0.3:
+- New packet formats that only encrypt the secrets, not all metadata,
+  potentially allowing to unwrap the secret directly into a hardware crypto
+  token.
+  The new default format (both for volume_key(8) and the Python bindings) is
+  LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY.
+- Update to compile against cryptsetup-1.1.0-test0.
+- Support newer libblkid versions.
+
 Changes in version 0.2:
 - New Python bindings.
 - Terminating NUL is not considered a part of the secret in

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.0\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-09-30 16:22+0200\n"
+"POT-Creation-Date: 2009-09-30 17:29+0200\n"
 "PO-Revision-Date: 2009-09-30 16:28+0200\n"
 "Last-Translator: Miloslav Trmač <mitr@redhat.com>\n"
 "Language-Team: Czech\n"
@@ -367,7 +367,7 @@ msgstr "Bajt NUL v heslu"
 msgid "Error opening LUKS volume: "
 msgstr "Chyba při otevírání svazku LUKS: "
 
-#: python/volume_key.i:362
+#: python/volume_key.i:367
 msgid "Error decoding certificate"
 msgstr "Chyba při dekódování certifikátu"
 

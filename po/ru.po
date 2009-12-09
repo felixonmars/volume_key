@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2009-12-09 19:33+0000\n"
-"PO-Revision-Date: 2009-12-10 10:18+1100\n"
+"PO-Revision-Date: 2009-12-10 10:23+1100\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -111,12 +111,12 @@ msgstr ""
 #: ../lib/kmip.c:1585 ../lib/kmip.c:1671 ../lib/kmip.c:1774 ../lib/kmip.c:1850
 #: ../lib/volume.c:700 ../lib/volume_luks.c:789
 msgid "Unsupported packet type %"
-msgstr ""
+msgstr "Тип пакета % не поддерживается"
 
 #: ../lib/kmip.c:1603 ../lib/kmip.c:1793
 #, c-format
 msgid "Unsupported mechanism %lu"
-msgstr ""
+msgstr "Механизм %lu не поддерживается"
 
 #: ../lib/kmip.c:1686 ../lib/kmip.c:1709 ../lib/kmip.c:1863
 #, c-format
@@ -146,7 +146,7 @@ msgstr ""
 #: ../lib/libvolume_key.c:339
 #, c-format
 msgid "Unsupported packet format"
-msgstr ""
+msgstr "Формат пакета не поддерживается"
 
 #: ../lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
@@ -155,12 +155,12 @@ msgstr ""
 #: ../lib/libvolume_key.c:418 ../lib/volume_luks.c:311
 #, c-format
 msgid "Too many attempts to get a valid passphrase"
-msgstr ""
+msgstr "Превышено число попыток получения проверочной фразы"
 
 #: ../lib/libvolume_key.c:462
 #, c-format
 msgid "Too many attempts to get a valid symmetric key"
-msgstr ""
+msgstr "Превышено число попыток получения симметричного ключа"
 
 #: ../lib/ui.c:148
 #, c-format
@@ -170,7 +170,7 @@ msgstr ""
 #: ../lib/ui.c:154
 #, c-format
 msgid "Passphrase not provided"
-msgstr ""
+msgstr "Не указана проверочная фраза"
 
 #: ../lib/ui.c:169
 #, c-format
@@ -180,17 +180,17 @@ msgstr ""
 #: ../lib/ui.c:176
 #, c-format
 msgid "Symmetric key not provided"
-msgstr ""
+msgstr "Не указан симметричный ключ"
 
 #: ../lib/volume.c:92
 #, c-format
 msgid "The key is too long"
-msgstr ""
+msgstr "Длина ключа слишком велика"
 
 #: ../lib/volume.c:171 ../lib/volume.c:192
 #, c-format
 msgid "Required attribute `%s' not found"
-msgstr ""
+msgstr "Не найден обязательный атрибут «%s»"
 
 #: ../lib/volume.c:314
 #, c-format

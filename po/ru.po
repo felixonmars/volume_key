@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2009-12-09 19:33+0000\n"
-"PO-Revision-Date: 2009-12-10 13:25+1100\n"
+"PO-Revision-Date: 2009-12-10 17:05+1100\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -79,7 +79,7 @@ msgstr ""
 #: ../lib/kmip.c:974
 #, c-format
 msgid "Unexpected data in structure"
-msgstr ""
+msgstr "Неожидаемые данные в структуре"
 
 #: ../lib/kmip.c:1060 ../lib/kmip.c:1290
 #, c-format
@@ -106,7 +106,7 @@ msgstr "Тип объекта % не поддерживается"
 #: ../lib/kmip.c:1516
 #, c-format
 msgid "Unexpected data after packet"
-msgstr ""
+msgstr "Непредвиденные данные после пакета"
 
 #: ../lib/kmip.c:1585 ../lib/kmip.c:1671 ../lib/kmip.c:1774 ../lib/kmip.c:1850
 #: ../lib/volume.c:700 ../lib/volume_luks.c:789
@@ -126,22 +126,22 @@ msgstr ""
 #: ../lib/kmip.c:1699 ../lib/kmip.c:1876
 #, c-format
 msgid "Unsupported wrapping mechanism"
-msgstr ""
+msgstr "Механизм шифрования ключа не поддерживается"
 
 #: ../lib/libvolume_key.c:204
 #, c-format
 msgid "Unsupported asymmetric encryption format"
-msgstr ""
+msgstr "Формат асимметричного шифрования не поддерживается"
 
 #: ../lib/libvolume_key.c:323
 #, c-format
 msgid "Input packet is too small"
-msgstr ""
+msgstr "Входящий пакет слишком мал"
 
 #: ../lib/libvolume_key.c:333
 #, c-format
 msgid "Input is not a volume_key escrow packet"
-msgstr ""
+msgstr "Входящий пакет не является пакетом volume_key escrow"
 
 #: ../lib/libvolume_key.c:339
 #, c-format
@@ -150,7 +150,7 @@ msgstr "Формат пакета не поддерживается"
 
 #: ../lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
-msgstr ""
+msgstr "Парольная фраза пакета escrow"
 
 #: ../lib/libvolume_key.c:418 ../lib/volume_luks.c:311
 #, c-format
@@ -404,7 +404,7 @@ msgstr "Ошибка открытия тома LUKS:"
 #: ../python/volume_key.i:367
 #, c-format
 msgid "Error decoding certificate"
-msgstr "Ошибка расшифровки сертификата"
+msgstr "Ошибка декодирования сертификата"
 
 #: ../src/volume_key.c:51 ../src/volume_key.c:426 ../src/volume_key.c:478
 #, c-format
@@ -583,19 +583,19 @@ msgstr "Ошибка чтения «%s»:"
 #: ../src/volume_key.c:518 ../src/volume_key.c:558
 #, c-format
 msgid "Error decoding `%s': "
-msgstr ""
+msgstr "Ошибка декодирования «%s»:"
 
 #: ../src/volume_key.c:577
 msgid "New packet passphrase"
-msgstr ""
+msgstr "Новая парольная фраза пакета"
 
 #: ../src/volume_key.c:578
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr ""
+msgstr "Пароли не совпадают. Новая парольная фраза"
 
 #: ../src/volume_key.c:583
 msgid "Repeat new packet passphrase"
-msgstr ""
+msgstr "Повторите новую парольную фразу"
 
 #: ../src/volume_key.c:642
 #, c-format
@@ -621,31 +621,31 @@ msgstr "Ошибка загрузки «%s»: %s"
 #: ../src/volume_key.c:717
 #, c-format
 msgid "Error generating passphrase: %s"
-msgstr ""
+msgstr "Ошибка генерации парольной фразы: %s"
 
 #: ../src/volume_key.c:729
 #, c-format
 msgid "Error creating a passphrase: %s"
-msgstr ""
+msgstr "Ошибка создания парольной фразы: %s"
 
 #: ../src/volume_key.c:760
 #, c-format
 msgid "`%s' does not match `%s': "
-msgstr ""
+msgstr "«%s» не соответствует «%s»: "
 
 #: ../src/volume_key.c:769
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
-msgstr ""
+msgstr "Возможно, «%s» не соответствует «%s»\n"
 
 #: ../src/volume_key.c:784
 msgid "Are you sure you want to use this packet?"
-msgstr ""
+msgstr "Вы действительно хотите использовать этот пакет?"
 
 #: ../src/volume_key.c:796
 #, c-format
 msgid "Error getting a yes/no answer"
-msgstr ""
+msgstr "Ошибка при получении ответа yes/no"
 
 #: ../src/volume_key.c:822
 #, c-format
@@ -655,22 +655,22 @@ msgstr "Формат: %s --%s ТОМ ПАКЕТ"
 #: ../src/volume_key.c:843
 #, c-format
 msgid "Error restoring access to `%s': %s"
-msgstr ""
+msgstr "Ошибка при восстановлении доступа к «%s»: %s"
 
 #: ../src/volume_key.c:859
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
-msgstr ""
+msgstr "Формат: %s --%s ТОМ ПАКЕТ ИМЯ"
 
 #: ../src/volume_key.c:881
 #, c-format
 msgid "Error setting up `%s': %s"
-msgstr ""
+msgstr "Ошибка настройки «%s»: %s"
 
 #: ../src/volume_key.c:896 ../src/volume_key.c:925
 #, c-format
 msgid "Usage: %s --%s PACKET"
-msgstr ""
+msgstr "Формат: %s --%s ПАКЕТ"
 
 #: ../src/volume_key.c:930
 #, c-format
@@ -684,15 +684,15 @@ msgstr "Неверный пакет: %s"
 
 #: ../src/volume_key.c:938
 msgid "Unencrypted"
-msgstr ""
+msgstr "Без кодирования"
 
 #: ../src/volume_key.c:942
 msgid "Public key-encrypted"
-msgstr ""
+msgstr "Защищён общим ключом"
 
 #: ../src/volume_key.c:946
 msgid "Passphrase-encrypted"
-msgstr ""
+msgstr "Защищён парольной фразой"
 
 #: ../src/volume_key.c:950
 msgid "Only secrets public key-encrypted"
@@ -714,5 +714,5 @@ msgstr "Формат пакета"
 #: ../src/volume_key.c:968
 #, c-format
 msgid "Error decoding `%s': %s"
-msgstr ""
+msgstr "Ошибка декодирования «%s»: %s"
 

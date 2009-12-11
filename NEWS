@@ -1,4 +1,4 @@
-Changes in version 0.4:
+Changes in version 0.3.1:
 - Don't output garbage on NSS errors.
 
 Changes in version 0.3:

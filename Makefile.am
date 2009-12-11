@@ -11,7 +11,7 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-# Author: Miloslav Trmač <mitr@redhat.com>])
+# Author: Miloslav Trmač <mitr@redhat.com>
 
 ## Process this file with automake to produce Makefile.in
 
@@ -48,9 +48,13 @@ python/volume_key_wrap.c python/volume_key.py: python/volume_key.i
 python/volume_key.py: python/volume_key_wrap.c
 
 ## Dependency data
-lib_libvolume_key_la_SOURCES = lib/crypto.c lib/crypto.h lib/kmip.c lib/kmip.h \
-	lib/libvolume_key.c lib/libvolume_key.h lib/ui.c lib/ui.h lib/volume.c \
-	lib/volume.h lib/volume_luks.c lib/volume_luks.h
+lib_libvolume_key_la_SOURCES = lib/SECerrs.h \
+	lib/crypto.c lib/crypto.h \
+	lib/kmip.c lib/kmip.h \
+	lib/libvolume_key.c lib/libvolume_key.h \
+	lib/nss_error.c lib/nss_error.h \
+	lib/ui.c lib/ui.h \
+	lib/volume.c lib/volume.h lib/volume_luks.c lib/volume_luks.h
 lib_libvolume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
 lib_libvolume_key_la_LDFLAGS = -version-info 2:0:1
 lib_libvolume_key_la_LIBADD = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \

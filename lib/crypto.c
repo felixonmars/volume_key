@@ -34,6 +34,7 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <smime.h>
 
 #include "crypto.h"
+#include "nss_error.h"
 #include "libvolume_key.h"
 
  /* NSS utils */
@@ -45,7 +46,9 @@ error_from_pr (GError **error)
   const char *err_utf8;
   char *err;
 
-  err_utf8 = PR_ErrorToString (PR_GetError (), PR_LANGUAGE_I_DEFAULT);
+  err_utf8 = libvk_nss_error_text__ (PR_GetError ());
+  if (err_utf8 == NULL)
+    err_utf8 = PR_ErrorToString (PR_GetError (), PR_LANGUAGE_I_DEFAULT);
   err = g_locale_from_utf8 (err_utf8, -1, NULL, NULL, NULL);
   /* Fall back to err_utf8 on error below. */
   len = PR_GetErrorTextLength();

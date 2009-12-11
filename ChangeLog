@@ -1,5 +1,10 @@
 2009-12-11  Miloslav Trmač  <mitr@redhat.com>
 
+	* configure.ac: Release 0.3.1.
+	* NEWS: Update.
+	* po/LINGUAS: Update.
+	* Makefile.am (lib_libvolume_key_la_LDFLAGS): Update version info.
+
 	* lib/SECerrs.h
 	* lib/nss_error.h
 	* lib/nss_error.c: New file.

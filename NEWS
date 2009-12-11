@@ -1,3 +1,6 @@
+Changes in version 0.4:
+- Don't output garbage on NSS errors.
+
 Changes in version 0.3:
 - New packet formats that only encrypt the secrets, not all metadata,
   potentially allowing to unwrap the secret directly into a hardware crypto

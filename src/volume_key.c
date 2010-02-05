@@ -581,7 +581,7 @@ pos_init (struct packet_output_state *pos, GError **error)
 					 : _("Passphrases do not match.  "
 					     "New packet passphrase"), failed);
 	  if (passphrase == NULL)
-	    return -1;
+	    goto no_passphrase;
 	  passphrase2 = passphrase_ui_cb (NULL,
 					  _("Repeat new packet passphrase"),
 					  failed);
@@ -589,7 +589,7 @@ pos_init (struct packet_output_state *pos, GError **error)
 	    {
 	      memset (passphrase, 0, strlen (passphrase));
 	      g_free (passphrase);
-	      return -1;
+	      goto no_passphrase;
 	    }
 	  passphrase_ok = strcmp (passphrase, passphrase2) == 0;
 	  memset (passphrase2, 0, strlen (passphrase2));
@@ -607,6 +607,11 @@ pos_init (struct packet_output_state *pos, GError **error)
       pos->passphrase = passphrase;
     }
   return 0;
+
+ no_passphrase:
+  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_UI_NO_RESPONSE,
+	       _("Passphrase not provided"));
+  return -1;
 }
 
 /* Free data in POS */

@@ -1,3 +1,7 @@
+2010-02-05  Miloslav Trmač  <mitr@redhat.com>
+
+	* src/volume_key.c (pos_init): Set *error if passphrase_ui_cb () fails.
+
 2009-12-11  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Release 0.3.1.

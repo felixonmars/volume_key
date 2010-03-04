@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key.master\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-12-11 14:20+0100\n"
+"POT-Creation-Date: 2010-03-04 22:10+0100\n"
 "PO-Revision-Date: 2009-12-08 23:22+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
@@ -146,7 +146,7 @@ msgstr "尝试获得有效对称密钥次数过多"
 msgid "User interface callbacks not provided"
 msgstr "未提供用户界面回叫"
 
-#: lib/ui.c:154
+#: lib/ui.c:154 src/volume_key.c:613
 msgid "Passphrase not provided"
 msgstr "未提供密码短语"
 
@@ -564,120 +564,120 @@ msgstr "密码短语不匹配。新数据包密码短语"
 msgid "Repeat new packet passphrase"
 msgstr "重复输入新数据包密码短语"
 
-#: src/volume_key.c:645
+#: src/volume_key.c:650
 #, c-format
 msgid "Error creating `%s': "
 msgstr "生成 `%s' 出错："
 
-#: src/volume_key.c:685
+#: src/volume_key.c:690
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
 msgstr "用法：%s --save VOLUME [PACKET]"
 
-#: src/volume_key.c:690 src/volume_key.c:705 src/volume_key.c:830
-#: src/volume_key.c:868
+#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
+#: src/volume_key.c:873
 #, c-format
 msgid "Error opening `%s': %s"
 msgstr "打开 `%s' 出错：%s"
 
-#: src/volume_key.c:701
+#: src/volume_key.c:706
 #, c-format
 msgid "Error loading `%s': %s"
 msgstr "载入 `%s' 出错：%s"
 
-#: src/volume_key.c:720
+#: src/volume_key.c:725
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "生成密码短语出错：%s"
 
-#: src/volume_key.c:732
+#: src/volume_key.c:737
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "创建密码短语出错：%s"
 
-#: src/volume_key.c:763
+#: src/volume_key.c:768
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "`%s' 与 `%s' 不匹配："
 
-#: src/volume_key.c:772
+#: src/volume_key.c:777
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "`%s' 可能与 `%s' 不匹配\n"
 
-#: src/volume_key.c:787
+#: src/volume_key.c:792
 msgid "Are you sure you want to use this packet?"
 msgstr "您确定要使用这个数据包吗？"
 
-#: src/volume_key.c:799
+#: src/volume_key.c:804
 msgid "Error getting a yes/no answer"
 msgstr "获得 yes/no 回答"
 
-#: src/volume_key.c:825
+#: src/volume_key.c:830
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "用法：%s --%s VOLUME PACKET"
 
-#: src/volume_key.c:846
+#: src/volume_key.c:851
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "恢复对 `%s' 的访问出错：%s"
 
-#: src/volume_key.c:862
+#: src/volume_key.c:867
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "用法：%s --%s VOLUME PACKET NAME"
 
-#: src/volume_key.c:884
+#: src/volume_key.c:889
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "设置 `%s' 出错：%s"
 
-#: src/volume_key.c:899 src/volume_key.c:928
+#: src/volume_key.c:904 src/volume_key.c:933
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "用法：%s --%s PACKET"
 
-#: src/volume_key.c:933
+#: src/volume_key.c:938
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "读取 `%s 出错：%s"
 
-#: src/volume_key.c:938
+#: src/volume_key.c:943
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "无效数据包：%s"
 
-#: src/volume_key.c:941
+#: src/volume_key.c:946
 msgid "Unencrypted"
 msgstr "未加密"
 
-#: src/volume_key.c:945
+#: src/volume_key.c:950
 msgid "Public key-encrypted"
 msgstr "公共加密密钥"
 
-#: src/volume_key.c:949
+#: src/volume_key.c:954
 msgid "Passphrase-encrypted"
 msgstr "加密密码短语"
 
-#: src/volume_key.c:953
+#: src/volume_key.c:958
 msgid "Only secrets public key-encrypted"
 msgstr "只是 secrets 公共加密密钥"
 
-#: src/volume_key.c:957
+#: src/volume_key.c:962
 msgid "Only secrets symmetric key-encrypted"
 msgstr "只是 secrets 对称加密密钥"
 
-#: src/volume_key.c:964 src/volume_key.c:986
+#: src/volume_key.c:969 src/volume_key.c:991
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:964
+#: src/volume_key.c:969
 msgid "Packet format"
 msgstr "数据包格式"
 
-#: src/volume_key.c:971
+#: src/volume_key.c:976
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "解码 `%s' 出错：%s"

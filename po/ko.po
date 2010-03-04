@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key.master\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-12-11 14:20+0100\n"
+"POT-Creation-Date: 2010-03-04 22:10+0100\n"
 "PO-Revision-Date: 2009-09-10 15:54+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -148,7 +148,7 @@ msgstr ""
 msgid "User interface callbacks not provided"
 msgstr ""
 
-#: lib/ui.c:154
+#: lib/ui.c:154 src/volume_key.c:613
 msgid "Passphrase not provided"
 msgstr ""
 
@@ -560,122 +560,122 @@ msgstr "암호가 일치하지 않음. 새 패킷 암호  "
 msgid "Repeat new packet passphrase"
 msgstr "새 패킷 암호 다시 입력   "
 
-#: src/volume_key.c:645
+#: src/volume_key.c:650
 #, c-format
 msgid "Error creating `%s': "
 msgstr "`%s'을(를) 생성하는 도중 오류 발생:  "
 
-#: src/volume_key.c:685
+#: src/volume_key.c:690
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
 msgstr "사용법: %s --save VOLUME [PACKET]  "
 
-#: src/volume_key.c:690 src/volume_key.c:705 src/volume_key.c:830
-#: src/volume_key.c:868
+#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
+#: src/volume_key.c:873
 #, c-format
 msgid "Error opening `%s': %s"
 msgstr "`%s'을(를) 여는 도중 오류 발생: %s "
 
-#: src/volume_key.c:701
+#: src/volume_key.c:706
 #, c-format
 msgid "Error loading `%s': %s"
 msgstr "`%s'을(를) 로딩하는 도중 오류 발생: %s  "
 
-#: src/volume_key.c:720
+#: src/volume_key.c:725
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "암호를 생성하는 도중 오류 발생: %s  "
 
-#: src/volume_key.c:732
+#: src/volume_key.c:737
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "암호를 생성하는 도중 오류 발생: %s   "
 
-#: src/volume_key.c:763
+#: src/volume_key.c:768
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "`%s'이(가) `%s'와 일치하지 않습니다:  "
 
-#: src/volume_key.c:772
+#: src/volume_key.c:777
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "`%s'이(가) `%s'와 일치하지 않습니다\n"
 
-#: src/volume_key.c:787
+#: src/volume_key.c:792
 msgid "Are you sure you want to use this packet?"
 msgstr "정말로 이 패킷을 사용하시겠습니까?   "
 
-#: src/volume_key.c:799
+#: src/volume_key.c:804
 msgid "Error getting a yes/no answer"
 msgstr "예/아니오 답을 하는 도중 오류 발생   "
 
-#: src/volume_key.c:825
+#: src/volume_key.c:830
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "사용법: %s --%s VOLUME PACKET  "
 
-#: src/volume_key.c:846
+#: src/volume_key.c:851
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "`%s'로의 액세스를 복구하는 도중 오류 발생: %s "
 
-#: src/volume_key.c:862
+#: src/volume_key.c:867
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "사용법: %s --%s VOLUME PACKET NAME  "
 
-#: src/volume_key.c:884
+#: src/volume_key.c:889
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "`%s'을(를) 설정하는 도중 오류 발생: %s "
 
-#: src/volume_key.c:899 src/volume_key.c:928
+#: src/volume_key.c:904 src/volume_key.c:933
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "사용법: %s --%s PACKET "
 
-#: src/volume_key.c:933
+#: src/volume_key.c:938
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "`%s'을(를) 읽는 도주 오류 발생: %s "
 
-#: src/volume_key.c:938
+#: src/volume_key.c:943
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "잘못된 패킷: %s  "
 
-#: src/volume_key.c:941
+#: src/volume_key.c:946
 msgid "Unencrypted"
 msgstr "암호화되지 않음  "
 
-#: src/volume_key.c:945
+#: src/volume_key.c:950
 msgid "Public key-encrypted"
 msgstr "공개키-암호화  "
 
-#: src/volume_key.c:949
+#: src/volume_key.c:954
 msgid "Passphrase-encrypted"
 msgstr "암호문-암호화   "
 
-#: src/volume_key.c:953
+#: src/volume_key.c:958
 #, fuzzy
 msgid "Only secrets public key-encrypted"
 msgstr "공개키-암호화  "
 
-#: src/volume_key.c:957
+#: src/volume_key.c:962
 #, fuzzy
 msgid "Only secrets symmetric key-encrypted"
 msgstr "공개키-암호화  "
 
-#: src/volume_key.c:964 src/volume_key.c:986
+#: src/volume_key.c:969 src/volume_key.c:991
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:964
+#: src/volume_key.c:969
 msgid "Packet format"
 msgstr "패킷 형식  "
 
-#: src/volume_key.c:971
+#: src/volume_key.c:976
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "`%s'을(를) 디코딩하는 도중 오류 발생: %s "

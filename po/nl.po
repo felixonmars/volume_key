@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-12-11 14:20+0100\n"
+"POT-Creation-Date: 2010-03-04 22:10+0100\n"
 "PO-Revision-Date: 2009-10-01 09:57+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: nl <nl@li.org>\n"
@@ -147,7 +147,7 @@ msgstr "Te veel pogingen om een geldige symmetrische sleutel te krijgen"
 msgid "User interface callbacks not provided"
 msgstr "Gebruikersinterface callbacks niet geboden"
 
-#: lib/ui.c:154
+#: lib/ui.c:154 src/volume_key.c:613
 msgid "Passphrase not provided"
 msgstr "Wachtzin niet opgegeven"
 
@@ -571,120 +571,120 @@ msgstr "Wachtzinnen komen niet overeen.  Nieuw pakket wachtzin"
 msgid "Repeat new packet passphrase"
 msgstr "Herhaal nieuw pakket wachtzin"
 
-#: src/volume_key.c:645
+#: src/volume_key.c:650
 #, c-format
 msgid "Error creating `%s': "
 msgstr "Fout bij aanmaken `%s': "
 
-#: src/volume_key.c:685
+#: src/volume_key.c:690
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
 msgstr "Gebruik: %s --save VOLUME [PAKKET]"
 
-#: src/volume_key.c:690 src/volume_key.c:705 src/volume_key.c:830
-#: src/volume_key.c:868
+#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
+#: src/volume_key.c:873
 #, c-format
 msgid "Error opening `%s': %s"
 msgstr "Fout bij openen `%s': %s"
 
-#: src/volume_key.c:701
+#: src/volume_key.c:706
 #, c-format
 msgid "Error loading `%s': %s"
 msgstr "Fout bij laden `%s': %s"
 
-#: src/volume_key.c:720
+#: src/volume_key.c:725
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "Fout bij genereren wachtzin: %s"
 
-#: src/volume_key.c:732
+#: src/volume_key.c:737
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "Fout bij aanmaken van een wachtzin: %s"
 
-#: src/volume_key.c:763
+#: src/volume_key.c:768
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "`%s' komt niet overeen met `%s': "
 
-#: src/volume_key.c:772
+#: src/volume_key.c:777
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "`%s' komt misschien niet overeen met `%s'\n"
 
-#: src/volume_key.c:787
+#: src/volume_key.c:792
 msgid "Are you sure you want to use this packet?"
 msgstr "Weet je zeker dat je dit pakket wilt gebruiken?"
 
-#: src/volume_key.c:799
+#: src/volume_key.c:804
 msgid "Error getting a yes/no answer"
 msgstr "Fout bij het krijgen van een ja/nee antwoord"
 
-#: src/volume_key.c:825
+#: src/volume_key.c:830
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "Gebruik: %s --%s VOLUME PAKKET"
 
-#: src/volume_key.c:846
+#: src/volume_key.c:851
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "Fout bij herstellen toegang tot `%s': %s"
 
-#: src/volume_key.c:862
+#: src/volume_key.c:867
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "Gebruik: %s --%s VOLUME PAKKET NAAM"
 
-#: src/volume_key.c:884
+#: src/volume_key.c:889
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "Fout bij instellen van `%s': %s"
 
-#: src/volume_key.c:899 src/volume_key.c:928
+#: src/volume_key.c:904 src/volume_key.c:933
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "Gebruik: %s --%s PAKKET"
 
-#: src/volume_key.c:933
+#: src/volume_key.c:938
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "Fout bij lezen `%s': %s"
 
-#: src/volume_key.c:938
+#: src/volume_key.c:943
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "Ongeldig pakket: %s"
 
-#: src/volume_key.c:941
+#: src/volume_key.c:946
 msgid "Unencrypted"
 msgstr "Niet-versleuteld"
 
-#: src/volume_key.c:945
+#: src/volume_key.c:950
 msgid "Public key-encrypted"
 msgstr "Publieke sleutel versleuteld"
 
-#: src/volume_key.c:949
+#: src/volume_key.c:954
 msgid "Passphrase-encrypted"
 msgstr "Wachtzin versleuteld"
 
-#: src/volume_key.c:953
+#: src/volume_key.c:958
 msgid "Only secrets public key-encrypted"
 msgstr "Alleen geheime publieke sleutel versleuteld"
 
-#: src/volume_key.c:957
+#: src/volume_key.c:962
 msgid "Only secrets symmetric key-encrypted"
 msgstr "Alleen geheime symmetrische sleutel versleuteld"
 
-#: src/volume_key.c:964 src/volume_key.c:986
+#: src/volume_key.c:969 src/volume_key.c:991
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:964
+#: src/volume_key.c:969
 msgid "Packet format"
 msgstr "Pakket formaat"
 
-#: src/volume_key.c:971
+#: src/volume_key.c:976
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "Fout bij decoderen `%s': %s"

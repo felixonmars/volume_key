@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([volume_key], [0.3.1], [mitr@redhat.com])
+AC_INIT([volume_key], [0.3.2], [mitr@redhat.com])
 AC_COPYRIGHT(
-[Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+[Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -19,7 +19,7 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([lib/libvolume_key.h])
 AC_CONFIG_AUX_DIR([admin])
-AM_INIT_AUTOMAKE([dist-bzip2 no-define subdir-objects -Wall])
+AM_INIT_AUTOMAKE([no-dist-gzip dist-xz no-define subdir-objects -Wall])
 
 # Checks for programs.
 AC_PROG_CC

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key.master.volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-12-11 14:20+0100\n"
+"POT-Creation-Date: 2010-03-04 22:10+0100\n"
 "PO-Revision-Date: 2009-12-08 12:34+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <kde-l10n-kn@kde.org>\n"
@@ -147,7 +147,7 @@ msgstr "ಮಾನ್ಯವಾದ ಅನುರೂಪ ಕೀಲಿಯನ್ನು 
 msgid "User interface callbacks not provided"
 msgstr "ಬಳಕೆದಾರ ಸಂಪರ್ಕಸಾಧನದ ಕಾಲ್‌ಬ್ಯಾಕ್ ಅನ್ನು ಒದಗಿಸಲಾಗಿಲ್ಲ"
 
-#: lib/ui.c:154
+#: lib/ui.c:154 src/volume_key.c:613
 msgid "Passphrase not provided"
 msgstr "ಗುಪ್ತವಾಕ್ಯವನ್ನು ಒದಗಿಸಲಾಗಿಲ್ಲ"
 
@@ -574,120 +574,120 @@ msgstr "ಗುಪ್ತವಾಕ್ಯಗಳು ತಾಳೆಯಾಗುತ್�
 msgid "Repeat new packet passphrase"
 msgstr "ಹೊಸ ಗುಪ್ತವಾಕ್ಯವನ್ನು ಪುನರಾವರ್ತಿಸು"
 
-#: src/volume_key.c:645
+#: src/volume_key.c:650
 #, c-format
 msgid "Error creating `%s': "
 msgstr "`%s' ಅನ್ನು ರಚಿಸುವಲ್ಲಿ ದೋಷ: "
 
-#: src/volume_key.c:685
+#: src/volume_key.c:690
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
 msgstr "ಬಳಕೆ: %s --save VOLUME [PACKET]"
 
-#: src/volume_key.c:690 src/volume_key.c:705 src/volume_key.c:830
-#: src/volume_key.c:868
+#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
+#: src/volume_key.c:873
 #, c-format
 msgid "Error opening `%s': %s"
 msgstr "`%s' ಅನ್ನು ತೆರೆಯುವಲ್ಲಿ ದೋಷ: %s"
 
-#: src/volume_key.c:701
+#: src/volume_key.c:706
 #, c-format
 msgid "Error loading `%s': %s"
 msgstr "`%s' ಅನ್ನು ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ: %s"
 
-#: src/volume_key.c:720
+#: src/volume_key.c:725
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "ಗುಪ್ತವಾಕ್ಯವನ್ನು  ಉತ್ಪಾದಿಸುವಲ್ಲಿ ದೋಷ: %s"
 
-#: src/volume_key.c:732
+#: src/volume_key.c:737
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "ಗುಪ್ತವಾಕ್ಯವನ್ನು ರಚಿಸುವಲ್ಲಿ ದೋಷ: %s"
 
-#: src/volume_key.c:763
+#: src/volume_key.c:768
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "`%s' ವು `%s' ಗೆ ತಾಳೆಯಾಗುವುದಿಲ್ಲ: "
 
-#: src/volume_key.c:772
+#: src/volume_key.c:777
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "`%s' ವು ಬಹುಷಃ `%s' ಗೆ ತಾಳೆಯಾಗುವುದಿಲ್ಲ\n"
 
-#: src/volume_key.c:787
+#: src/volume_key.c:792
 msgid "Are you sure you want to use this packet?"
 msgstr "ನೀವು ಈ ಪ್ಯಾಕೆಟ್ ಅನ್ನು ಖಚಿತವಾಗಿಯೂ ಬಳಸಲು ಬಯಸುತ್ತೀರೆ?"
 
-#: src/volume_key.c:799
+#: src/volume_key.c:804
 msgid "Error getting a yes/no answer"
 msgstr "ಹೌದು/ಇಲ್ಲ ಉತ್ತರವನ್ನು ಪಡೆಯುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ"
 
-#: src/volume_key.c:825
+#: src/volume_key.c:830
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "ಬಳಕೆ: %s --%s VOLUME PACKET"
 
-#: src/volume_key.c:846
+#: src/volume_key.c:851
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "`%s' ಗೆ ನಿಲುಕಣೆಯನ್ನು ಮರಳಿ ಸ್ಥಾಪಿಸುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ: %s"
 
-#: src/volume_key.c:862
+#: src/volume_key.c:867
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "ಬಳಕೆ: %s --%s VOLUME PACKET NAME"
 
-#: src/volume_key.c:884
+#: src/volume_key.c:889
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "`%s' ಅನ್ನು ಸಿದ್ಧಪಡಿಸುವಲ್ಲಿ ದೋಷ: %s"
 
-#: src/volume_key.c:899 src/volume_key.c:928
+#: src/volume_key.c:904 src/volume_key.c:933
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "ಬಳಕೆ: %s --%s PACKET"
 
-#: src/volume_key.c:933
+#: src/volume_key.c:938
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "`%s' ಅನ್ನು ಓದುವಲ್ಲಿ ದೋಷ: %s"
 
-#: src/volume_key.c:938
+#: src/volume_key.c:943
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "ಅಮಾನ್ಯವಾದ ಪ್ಯಾಕೆಟ್: %s"
 
-#: src/volume_key.c:941
+#: src/volume_key.c:946
 msgid "Unencrypted"
 msgstr "ಗೂಢಲಿಪೀಕರಣಗೊಳ್ಳದ"
 
-#: src/volume_key.c:945
+#: src/volume_key.c:950
 msgid "Public key-encrypted"
 msgstr "ಸಾರ್ವಜನಿಕ ಕೀಲಿಯನ್ನು-ಗೂಢಲಿಪೀಕರಿಸಲಾಗಿದೆ"
 
-#: src/volume_key.c:949
+#: src/volume_key.c:954
 msgid "Passphrase-encrypted"
 msgstr "ಗುಪ್ತವಾಕ್ಯವನ್ನು-ಗೂಢಲಿಪೀಕರಿಸಲಾಗಿದೆ"
 
-#: src/volume_key.c:953
+#: src/volume_key.c:958
 msgid "Only secrets public key-encrypted"
 msgstr "ಕೇವಲ ಸೀಕ್ರೆಟ್ಸ್ ಸಾರ್ವಜನಿಕ ಕೀಲಿಯನ್ನು-ಗೂಢಲಿಪೀಕರಿಸಲಾಗಿದೆ"
 
-#: src/volume_key.c:957
+#: src/volume_key.c:962
 msgid "Only secrets symmetric key-encrypted"
 msgstr "ಕೇವಲ ಸೀಕ್ರೆಟ್ಸ್ ಅನುರೂಪ ಕೀಲಿಯನ್ನು-ಗೂಢಲಿಪೀಕರಿಸಲಾಗಿದೆ"
 
-#: src/volume_key.c:964 src/volume_key.c:986
+#: src/volume_key.c:969 src/volume_key.c:991
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:964
+#: src/volume_key.c:969
 msgid "Packet format"
 msgstr "ಪ್ಯಾಕೆಟ್‌ನ ವಿನ್ಯಾಸ"
 
-#: src/volume_key.c:971
+#: src/volume_key.c:976
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "`%s' ಅನ್ನು ಡೀಕೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ: %s"

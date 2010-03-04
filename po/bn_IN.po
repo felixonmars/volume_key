@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key.master.bn_IN\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-12-11 14:20+0100\n"
+"POT-Creation-Date: 2010-03-04 22:10+0100\n"
 "PO-Revision-Date: 2009-12-08 13:00+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali INDIA <anubad@lists.ankur.org.in>\n"
@@ -147,7 +147,7 @@ msgstr "বৈধ সিমেট্রিক প্রাপ্ত করার
 msgid "User interface callbacks not provided"
 msgstr "ইউজার ইন্টারফেসের কল-ব্যাক উপলব্ধ করা হয়নি"
 
-#: lib/ui.c:154
+#: lib/ui.c:154 src/volume_key.c:613
 msgid "Passphrase not provided"
 msgstr "পরিচয়-পংক্তি উপলব্ধ করা হয়নি"
 
@@ -573,120 +573,120 @@ msgstr "পরিচয়-পংক্তিতে গরমিল।  নতু�
 msgid "Repeat new packet passphrase"
 msgstr "নতুন প্যাকেটের পরিচয়-পংক্তি পুনরাবৃত্তি করা হবে"
 
-#: src/volume_key.c:645
+#: src/volume_key.c:650
 #, c-format
 msgid "Error creating `%s': "
 msgstr "`%s' নির্মাণ করতে ত্রুটি: "
 
-#: src/volume_key.c:685
+#: src/volume_key.c:690
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
 msgstr "ব্যবহারপ্রণালী: %s --save VOLUME [PACKET]"
 
-#: src/volume_key.c:690 src/volume_key.c:705 src/volume_key.c:830
-#: src/volume_key.c:868
+#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
+#: src/volume_key.c:873
 #, c-format
 msgid "Error opening `%s': %s"
 msgstr "`%s' খুলতে ব্যর্থ: %s"
 
-#: src/volume_key.c:701
+#: src/volume_key.c:706
 #, c-format
 msgid "Error loading `%s': %s"
 msgstr "`%s' লোড করতে ত্রুটি: %s"
 
-#: src/volume_key.c:720
+#: src/volume_key.c:725
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "পরিচয়-পংক্তি নির্মাণ করতে ত্রুটি: %s"
 
-#: src/volume_key.c:732
+#: src/volume_key.c:737
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "একটি পরিচয়-পংক্তি নির্মাণ করতে ব্যর্থ: %s"
 
-#: src/volume_key.c:763
+#: src/volume_key.c:768
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "`%s' ও `%s'-র মধ্যে গরমিল: "
 
-#: src/volume_key.c:772
+#: src/volume_key.c:777
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "`%s' ও `%s'-র মধ্যে সম্ভবত গরমিল রয়েছে\n"
 
-#: src/volume_key.c:787
+#: src/volume_key.c:792
 msgid "Are you sure you want to use this packet?"
 msgstr "আপনি কি নিশ্চিতরূপে এই প্যাকেটটি ব্যবহার করতে ইচ্ছুক?"
 
-#: src/volume_key.c:799
+#: src/volume_key.c:804
 msgid "Error getting a yes/no answer"
 msgstr "হ্যাঁ/না সূচক উত্তর প্রাপ্ত করতে ত্রুটি"
 
-#: src/volume_key.c:825
+#: src/volume_key.c:830
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "ব্যবহারপ্রণালী: %s --%s VOLUME PACKET"
 
-#: src/volume_key.c:846
+#: src/volume_key.c:851
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "`%s' ব্যবহারের অধিকার পুনরায় ধার্য করতে ত্রুটি: %s"
 
-#: src/volume_key.c:862
+#: src/volume_key.c:867
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "ব্যবহার প্রণালী: %s --%s VOLUME PACKET NAME"
 
-#: src/volume_key.c:884
+#: src/volume_key.c:889
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "`%s' প্রস্তুত করতে ত্রুটি: %s"
 
-#: src/volume_key.c:899 src/volume_key.c:928
+#: src/volume_key.c:904 src/volume_key.c:933
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "ব্যবহার প্রণালী: %s --%s PACKET"
 
-#: src/volume_key.c:933
+#: src/volume_key.c:938
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "`%s' পড়তে ত্রুটি: %s"
 
-#: src/volume_key.c:938
+#: src/volume_key.c:943
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "অবৈধ প্যাকেট: %s"
 
-#: src/volume_key.c:941
+#: src/volume_key.c:946
 msgid "Unencrypted"
 msgstr "এনক্রিপশন বিহীন"
 
-#: src/volume_key.c:945
+#: src/volume_key.c:950
 msgid "Public key-encrypted"
 msgstr "সার্বজনীন-কি দ্বারা এনক্রিপ্ট করা হয়েছে"
 
-#: src/volume_key.c:949
+#: src/volume_key.c:954
 msgid "Passphrase-encrypted"
 msgstr "পরিচয়-পংক্তি দ্বারা এনক্রিপ্ট করা"
 
-#: src/volume_key.c:953
+#: src/volume_key.c:958
 msgid "Only secrets public key-encrypted"
 msgstr "সার্বজনীন-কি দ্বারা শুধুমাত্র গোপনীয় তথ্য এনক্রিপ্ট করা হয়েছে"
 
-#: src/volume_key.c:957
+#: src/volume_key.c:962
 msgid "Only secrets symmetric key-encrypted"
 msgstr "সিমেট্রিক-কি দ্বারা শুধুমাত্র গোপনীয় তথ্য এনক্রিপ্ট করা হয়েছে"
 
-#: src/volume_key.c:964 src/volume_key.c:986
+#: src/volume_key.c:969 src/volume_key.c:991
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:964
+#: src/volume_key.c:969
 msgid "Packet format"
 msgstr "প্যাকেটের বিন্যাস"
 
-#: src/volume_key.c:971
+#: src/volume_key.c:976
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "`%s' ডি-কোড করতে ত্রুটি: %s"

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-12-11 14:20+0100\n"
+"POT-Creation-Date: 2010-03-04 22:10+0100\n"
 "PO-Revision-Date: 2009-09-12 23:15+0100\n"
 "Last-Translator: Josep Torné Llavall <josep.torne@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -163,7 +163,7 @@ msgstr "Massa intents per obtenir una contrasenya vàlida"
 msgid "User interface callbacks not provided"
 msgstr "No s'ha proporcionat la crida de retorn d'interfície d'usuari"
 
-#: lib/ui.c:154
+#: lib/ui.c:154 src/volume_key.c:613
 msgid "Passphrase not provided"
 msgstr "No s'ha proporcionat la contrasenya"
 
@@ -589,122 +589,122 @@ msgstr "Les contrasenyes no coincideixen. Nova contrasenya del paquet"
 msgid "Repeat new packet passphrase"
 msgstr "Repetiu la nova contrasenya del paquet"
 
-#: src/volume_key.c:645
+#: src/volume_key.c:650
 #, c-format
 msgid "Error creating `%s': "
 msgstr "S'ha produït un error en crear «%s»: "
 
-#: src/volume_key.c:685
+#: src/volume_key.c:690
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
 msgstr "Ús: %s --save VOLUM [PAQUET]"
 
-#: src/volume_key.c:690 src/volume_key.c:705 src/volume_key.c:830
-#: src/volume_key.c:868
+#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
+#: src/volume_key.c:873
 #, c-format
 msgid "Error opening `%s': %s"
 msgstr "S'ha produït un error en obrir «%s»: %s"
 
-#: src/volume_key.c:701
+#: src/volume_key.c:706
 #, c-format
 msgid "Error loading `%s': %s"
 msgstr "S'ha produït un error en carregar «%s»: %s"
 
-#: src/volume_key.c:720
+#: src/volume_key.c:725
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "S'ha produït un error en generar la contrasenya: %s"
 
-#: src/volume_key.c:732
+#: src/volume_key.c:737
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "S'ha produït un error en crear la contrasenya: %s"
 
-#: src/volume_key.c:763
+#: src/volume_key.c:768
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "«%s» no coincideix amb «%s»: "
 
-#: src/volume_key.c:772
+#: src/volume_key.c:777
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "«%s» potser no coincideix amb «%s»\n"
 
-#: src/volume_key.c:787
+#: src/volume_key.c:792
 msgid "Are you sure you want to use this packet?"
 msgstr "Esteu segur que voleu utilitzar aquest paquet?"
 
-#: src/volume_key.c:799
+#: src/volume_key.c:804
 msgid "Error getting a yes/no answer"
 msgstr "S'ha produït un error en obtenir una resposta sí/no"
 
-#: src/volume_key.c:825
+#: src/volume_key.c:830
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "Ús: %s --%s VOLUM PAQUET"
 
-#: src/volume_key.c:846
+#: src/volume_key.c:851
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "S'ha produït un error en restaurar l'accés a «%s»: %s"
 
-#: src/volume_key.c:862
+#: src/volume_key.c:867
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "Ús: %s --%s VOLUM PAQUET NOM"
 
-#: src/volume_key.c:884
+#: src/volume_key.c:889
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "S'ha produït un error en configurar «%s»: %s"
 
-#: src/volume_key.c:899 src/volume_key.c:928
+#: src/volume_key.c:904 src/volume_key.c:933
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "Ús: %s --%s PAQUET"
 
-#: src/volume_key.c:933
+#: src/volume_key.c:938
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "S'ha produït un error en llegir «%s»: %s"
 
-#: src/volume_key.c:938
+#: src/volume_key.c:943
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "Paquet no vàlid: %s"
 
-#: src/volume_key.c:941
+#: src/volume_key.c:946
 msgid "Unencrypted"
 msgstr "Sense xifrar"
 
-#: src/volume_key.c:945
+#: src/volume_key.c:950
 msgid "Public key-encrypted"
 msgstr "Clau pública - xifrada"
 
-#: src/volume_key.c:949
+#: src/volume_key.c:954
 msgid "Passphrase-encrypted"
 msgstr "Contrasenya-xifrada"
 
-#: src/volume_key.c:953
+#: src/volume_key.c:958
 #, fuzzy
 msgid "Only secrets public key-encrypted"
 msgstr "Clau pública - xifrada"
 
-#: src/volume_key.c:957
+#: src/volume_key.c:962
 #, fuzzy
 msgid "Only secrets symmetric key-encrypted"
 msgstr "Clau pública - xifrada"
 
-#: src/volume_key.c:964 src/volume_key.c:986
+#: src/volume_key.c:969 src/volume_key.c:991
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:964
+#: src/volume_key.c:969
 msgid "Packet format"
 msgstr "Format del paquet"
 
-#: src/volume_key.c:971
+#: src/volume_key.c:976
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "S'ha produït un error en descodificar «%s»: %s"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key.master\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2009-12-11 14:20+0100\n"
+"POT-Creation-Date: 2010-03-04 22:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
 "Language-Team: pt <fedora-trans-pt@redhat.com>\n"
@@ -155,7 +155,7 @@ msgstr ""
 msgid "User interface callbacks not provided"
 msgstr "não mostrar a interface em modo texto"
 
-#: lib/ui.c:154
+#: lib/ui.c:154 src/volume_key.c:613
 msgid "Passphrase not provided"
 msgstr "Senha não fornecida"
 
@@ -592,126 +592,126 @@ msgstr ""
 msgid "Repeat new packet passphrase"
 msgstr "Introduza uma nova frase-senha para '%s'"
 
-#: src/volume_key.c:645
+#: src/volume_key.c:650
 #, fuzzy, c-format
 msgid "Error creating `%s': "
 msgstr "erro ao criar `%s': %s\n"
 
-#: src/volume_key.c:685
+#: src/volume_key.c:690
 #, fuzzy, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
 msgstr "Gravar volume ao sair"
 
-#: src/volume_key.c:690 src/volume_key.c:705 src/volume_key.c:830
-#: src/volume_key.c:868
+#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
+#: src/volume_key.c:873
 #, fuzzy, c-format
 msgid "Error opening `%s': %s"
 msgstr "Erro ao abrir `%s': %s.\n"
 
-#: src/volume_key.c:701
+#: src/volume_key.c:706
 #, fuzzy, c-format
 msgid "Error loading `%s': %s"
 msgstr "Erro ao carregar o '%1'.\n"
 
-#: src/volume_key.c:720
+#: src/volume_key.c:725
 #, fuzzy, c-format
 msgid "Error generating passphrase: %s"
 msgstr "erro na criação da frase secreta: %s\n"
 
-#: src/volume_key.c:732
+#: src/volume_key.c:737
 #, fuzzy, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "erro na criação da frase secreta: %s\n"
 
-#: src/volume_key.c:763
+#: src/volume_key.c:768
 #, fuzzy, c-format
 msgid "`%s' does not match `%s': "
 msgstr "Resposta de servidor não corresponde"
 
-#: src/volume_key.c:772
+#: src/volume_key.c:777
 #, fuzzy, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "Resposta de servidor não corresponde"
 
-#: src/volume_key.c:787
+#: src/volume_key.c:792
 #, fuzzy
 msgid "Are you sure you want to use this packet?"
 msgstr "Tem a certeza que quer apagar esta conta?"
 
-#: src/volume_key.c:799
+#: src/volume_key.c:804
 msgid "Error getting a yes/no answer"
 msgstr ""
 
-#: src/volume_key.c:825
+#: src/volume_key.c:830
 #, fuzzy, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "formato de pacote desconhecido"
 
-#: src/volume_key.c:846
+#: src/volume_key.c:851
 #, fuzzy, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "%s: Erro - impossÃ­vel aceder a \"%s\" - %s\n"
 
-#: src/volume_key.c:862
+#: src/volume_key.c:867
 #, fuzzy, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "Nome de Volume Lógico Inválido"
 
-#: src/volume_key.c:884
+#: src/volume_key.c:889
 #, fuzzy, c-format
 msgid "Error setting up `%s': %s"
 msgstr "Erro ao Configurar o Repositório"
 
-#: src/volume_key.c:899 src/volume_key.c:928
+#: src/volume_key.c:904 src/volume_key.c:933
 #, fuzzy, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "%lu pacote"
 
-#: src/volume_key.c:933
+#: src/volume_key.c:938
 #, fuzzy, c-format
 msgid "Error reading `%s': %s"
 msgstr "Erro ao ler `%s': %s"
 
-#: src/volume_key.c:938
+#: src/volume_key.c:943
 #, fuzzy, c-format
 msgid "Invalid packet: %s"
 msgstr "pacote inválido"
 
-#: src/volume_key.c:941
+#: src/volume_key.c:946
 msgid "Unencrypted"
 msgstr "Não cifrado"
 
-#: src/volume_key.c:945
+#: src/volume_key.c:950
 #, fuzzy
 msgid "Public key-encrypted"
 msgstr "Chave PGP Pública"
 
-#: src/volume_key.c:949
+#: src/volume_key.c:954
 #, fuzzy
 msgid "Passphrase-encrypted"
 msgstr "Frase-senha do dispositivo encriptado"
 
-#: src/volume_key.c:953
+#: src/volume_key.c:958
 #, fuzzy
 msgid "Only secrets public key-encrypted"
 msgstr "Chave PGP Pública"
 
-#: src/volume_key.c:957
+#: src/volume_key.c:962
 #, fuzzy
 msgid "Only secrets symmetric key-encrypted"
 msgstr "Chave PGP Pública"
 
-#: src/volume_key.c:964 src/volume_key.c:986
+#: src/volume_key.c:969 src/volume_key.c:991
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:964
+#: src/volume_key.c:969
 #, fuzzy
 msgid "Packet format"
 msgstr "Formato de Log de Pacotes Apple"
 
-#: src/volume_key.c:971
+#: src/volume_key.c:976
 #, fuzzy, c-format
 msgid "Error decoding `%s': %s"
 msgstr "Erro ao descodificar a faixa %1."

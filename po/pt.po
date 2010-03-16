@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: volume_key.master\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2010-03-16 14:06+0000\n"
-"PO-Revision-Date: 2010-03-16 19:04+0100\n"
+"PO-Revision-Date: 2010-03-16 23:56+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@gmail.com>\n"
 "Language-Team: trans-pt@fedoraproject.org\n"
 "Language: pt\n"
@@ -110,79 +110,77 @@ msgstr "Dados inesperados depois do pacote"
 
 #: ../lib/kmip.c:1585 ../lib/kmip.c:1671 ../lib/kmip.c:1774 ../lib/kmip.c:1850
 #: ../lib/volume.c:700 ../lib/volume_luks.c:789
-#, fuzzy
 msgid "Unsupported packet type %"
-msgstr "formato de pacote desconhecido"
+msgstr "Tipo de pacote % não suportado"
 
 #: ../lib/kmip.c:1603 ../lib/kmip.c:1793
-#, fuzzy, c-format
+#, c-format
 msgid "Unsupported mechanism %lu"
-msgstr "(nenhum valor definido)"
+msgstr "mecanismo %lu não suportado"
 
 #: ../lib/kmip.c:1686 ../lib/kmip.c:1709 ../lib/kmip.c:1863
-#, fuzzy, c-format
+#, c-format
 msgid "Unexpected wrapped key format"
-msgstr "Final de dados inesperado"
+msgstr "Formato da chave \"wrapped\" inesperado"
 
 #: ../lib/kmip.c:1699 ../lib/kmip.c:1876
 #, c-format
 msgid "Unsupported wrapping mechanism"
-msgstr ""
+msgstr "Mecanismo de \"wrapping\" não suportado"
 
 #: ../lib/libvolume_key.c:204
-#, fuzzy, c-format
+#, c-format
 msgid "Unsupported asymmetric encryption format"
-msgstr "Revisão do formato de ficheiro não suportada."
+msgstr "Formato de cifra assimétrica não suportada"
 
 #: ../lib/libvolume_key.c:323
-#, fuzzy, c-format
+#, c-format
 msgid "Input packet is too small"
-msgstr "linha de entrada demasiado grande"
+msgstr "Pacote de entrada é muito pequeno"
 
 #: ../lib/libvolume_key.c:333
 #, c-format
 msgid "Input is not a volume_key escrow packet"
-msgstr ""
+msgstr "Entrada não é um pacote \"volume_key\""
 
 #: ../lib/libvolume_key.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "Unsupported packet format"
-msgstr "Formato do ficheiro não suportado"
+msgstr "Formato de pacote não suportado"
 
 #: ../lib/libvolume_key.c:406
-#, fuzzy
 msgid "Escrow packet passphrase"
-msgstr "erro na criação da frase secreta: %s\n"
+msgstr "frase-senha do pacote"
 
 #: ../lib/libvolume_key.c:418 ../lib/volume_luks.c:311
 #, c-format
 msgid "Too many attempts to get a valid passphrase"
-msgstr ""
+msgstr "Demasiadas tentativas para obter uma senha-frase válida"
 
 #: ../lib/libvolume_key.c:462
 #, c-format
 msgid "Too many attempts to get a valid symmetric key"
-msgstr ""
+msgstr "Demasiadas tentativas para obter uma chave simétrica válida"
 
 #: ../lib/ui.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "User interface callbacks not provided"
-msgstr "não mostrar a interface em modo texto"
+msgstr "\"Callbacks\" do interface de utilizador não fornecidas"
 
 #: ../lib/ui.c:154 ../src/volume_key.c:613
 #, c-format
 msgid "Passphrase not provided"
-msgstr "Senha não fornecida"
+msgstr "Senha-frase não fornecida"
 
 #: ../lib/ui.c:169
-#, fuzzy, c-format
+#, c-format
 msgid "Symmetric key callback not provided"
-msgstr "não mostrar a interface em modo texto"
+msgstr "\"Callback\" da chave simétrica não fornecida"
 
 #: ../lib/ui.c:176
-#, fuzzy, c-format
+#, c-format
 msgid "Symmetric key not provided"
-msgstr "Senha não fornecida"
+msgstr "Chave simétrica não fornecida"
 
 #: ../lib/volume.c:92
 #, c-format
@@ -216,45 +214,44 @@ msgid "Volume label"
 msgstr "Etiqueta do volume"
 
 #: ../lib/volume.c:431
-#, fuzzy
 msgid "Volume path"
-msgstr "Caminho de Exemplo"
+msgstr "Caminho do volume"
 
 #: ../lib/volume.c:457 ../lib/volume.c:566 ../lib/volume.c:600
 #: ../lib/volume.c:629 ../lib/volume.c:662 ../lib/volume.c:759
-#, fuzzy, c-format
+#, c-format
 msgid "Volume `%s' has unsupported format"
-msgstr "Revisão do formato de ficheiro não suportada."
+msgstr "Volume `%s' tem formato não suportado"
 
 #: ../lib/volume.c:487
-#, fuzzy, c-format
+#, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
-msgstr "Formato de Log de Pacotes Apple"
+msgstr "Formato do volume não corresponde (pacote `%s', volume `%s')"
 
 #: ../lib/volume.c:515
 #, c-format
 msgid "UUID mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "UUID não corresponde (pacote `%s', volume `%s')"
 
 #: ../lib/volume.c:521
 #, c-format
 msgid "Host name mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "Nome da máquina não corresponde (pacote `%s', volume `%s')"
 
 #: ../lib/volume.c:528
-#, fuzzy, c-format
+#, c-format
 msgid "Volume label mismatch (packet `%s', volume `%s')"
-msgstr "Espaço livre no Grupo de Volumes"
+msgstr "Etiqueta do volume não corresponde (pacote `%s', volume `%s')"
 
 #: ../lib/volume.c:535
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "Caminho do volume não corresponde (pacote `%s', volume `%s')"
 
 #: ../lib/volume.c:736
-#, fuzzy, c-format
+#, c-format
 msgid "Unsupported volume format `%s'"
-msgstr "Formatar a unidade seleccionada"
+msgstr "Formato de volume `%s' não suportado"
 
 #: ../lib/volume_luks.c:54
 #, c-format
@@ -262,14 +259,14 @@ msgid "Unknown error %d"
 msgstr "Erro desconhecido %d"
 
 #: ../lib/volume_luks.c:104
-#, fuzzy, c-format
+#, c-format
 msgid "Error getting information about volume `%s': "
-msgstr "Ocorreu um erro ao obter informação sobre \"%B\"."
+msgstr "Erro ao obter informação sobre o volume `%s': "
 
 #: ../lib/volume_luks.c:186
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
-msgstr ""
+msgstr "UUID não corresponde entre libblkid e libcryptsetup: `%s' vs. `%s'"
 
 #: ../lib/volume_luks.c:211
 msgid "LUKS cipher name"
@@ -284,47 +281,45 @@ msgid "Key size (bits)"
 msgstr "Tamanho da chave (bits)"
 
 #: ../lib/volume_luks.c:237
-#, fuzzy
 msgid "Data encryption key"
-msgstr "Gestor de Chaves de Encriptação"
+msgstr "Chave de cifra de dados"
 
 #: ../lib/volume_luks.c:241
 msgid "Passphrase"
 msgstr "Frase-senha"
 
 #: ../lib/volume_luks.c:244
-#, fuzzy
 msgid "Passphrase slot"
-msgstr "Arrastamento da slot"
+msgstr "Slot de frase-senha"
 
 #: ../lib/volume_luks.c:275 ../lib/volume_luks.c:457 ../lib/volume_luks.c:696
 #, c-format
 msgid "Encryption information type unsupported in LUKS"
-msgstr ""
+msgstr "Tipo de informação da cifra não suportada no LUKS"
 
 #: ../lib/volume_luks.c:283
-#, fuzzy, c-format
+#, c-format
 msgid "Passphrase for `%s'"
-msgstr "Introduza a frase-senha para '%s'"
+msgstr "Frase-senha para `%s'"
 
 #: ../lib/volume_luks.c:306 ../lib/volume_luks.c:833
 msgid "Error getting LUKS data encryption key: "
-msgstr ""
+msgstr "Erro ao obter a chave de cifra dos dados LUKS: "
 
 #: ../lib/volume_luks.c:353
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "Nome da cifra não corresponde (pacote `%s', volume `%s')"
 
 #: ../lib/volume_luks.c:360
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "Modo da cifra não corresponde (pacote `%s', volume `%s')"
 
 #: ../lib/volume_luks.c:367
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
-msgstr ""
+msgstr "Tamanho da chave não corresponde (pacote %zu, volume %zu)"
 
 #: ../lib/volume_luks.c:398
 msgid "LUKS data encryption key in packet is invalid: "
@@ -340,79 +335,76 @@ msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr ""
 
 #: ../lib/volume_luks.c:468
-#, fuzzy, c-format
+#, c-format
 msgid "New passphrase for `%s'"
-msgstr "Introduza uma nova frase-senha para '%s'"
+msgstr "Nova frase-senha para `%s'"
 
 #: ../lib/volume_luks.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Repeat new passphrase for `%s'"
-msgstr "Introduza uma nova frase-senha para '%s'"
+msgstr "Repita a nova frase-senha para `%s'"
 
 #: ../lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
-msgstr ""
+msgstr "As frases-senha não correspondem. Nova frase-senha para `%s'"
 
 #: ../lib/volume_luks.c:495 ../src/volume_key.c:603
 #, c-format
 msgid "Too many attempts to get a passphrase"
-msgstr ""
+msgstr "Demasiadas tentativas para obter uma senha-frase"
 
 #: ../lib/volume_luks.c:510 ../lib/volume_luks.c:572
-#, fuzzy
 msgid "Error adding a LUKS passphrase"
-msgstr "Erro ao Adicionar os Ficheiros"
+msgstr "Erro ao adicionar uma frase-senha LUKS"
 
 #: ../lib/volume_luks.c:548
 #, c-format
 msgid "Can not add a secret of this type"
-msgstr ""
+msgstr "Incapaz de adicionar um segredo deste tipo"
 
 #: ../lib/volume_luks.c:554 ../lib/volume_luks.c:654 ../lib/volume_luks.c:841
-#, fuzzy, c-format
+#, c-format
 msgid "Data encryption key unknown"
-msgstr "Algoritmo da chave desconhecido"
+msgstr "Chave de cifra desconhecida"
 
 #: ../lib/volume_luks.c:560
-#, fuzzy, c-format
+#, c-format
 msgid "The passphrase must be a string"
-msgstr "É necessário ser no Contexto SELinux %s"
+msgstr "A frase-senha deve ser uma string"
 
 #: ../lib/volume_luks.c:677
-#, fuzzy, c-format
+#, c-format
 msgid "Passphrase unknown"
-msgstr "Utilizador desconhecido.\n"
+msgstr "Frase-senha desconhecida"
 
 #: ../lib/volume_luks.c:736
-#, fuzzy
 msgid "Unsupported key length %"
-msgstr "Comprimento Mínimo da Chave"
+msgstr "Tamanho da chave % não suportado"
 
 #: ../lib/volume_luks.c:747
-#, fuzzy, c-format
+#, c-format
 msgid "Key length mismatch"
-msgstr "A chave do anfitrião não coincide"
+msgstr "Tamanho da chave não corresponde"
 
 #: ../lib/volume_luks.c:770
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid slot number `%s'"
-msgstr "Número de fax inválido."
+msgstr "Número de slot inválido `%s'"
 
 #: ../lib/volume_luks.c:778
-#, fuzzy, c-format
+#, c-format
 msgid "NUL byte in passphrase"
-msgstr "Gravar esta frase-senha no meu chaveiro"
+msgstr "Byte NUL na frase-senha"
 
 #: ../lib/volume_luks.c:849
-#, fuzzy
 msgid "Error opening LUKS volume: "
-msgstr "%s: erro ao tentar abrir o ficheiro dos grupos\n"
+msgstr "Erro ao abrir o volume LUKS: "
 
 #: ../python/volume_key.i:367
-#, fuzzy, c-format
+#, c-format
 msgid "Error decoding certificate"
-msgstr "Erro ao obter o certificado da AC"
+msgstr "Erro ao descodificar o certificado"
 
 #: ../src/volume_key.c:52 ../src/volume_key.c:429 ../src/volume_key.c:481
 #, c-format
@@ -458,7 +450,7 @@ msgstr ""
 
 #: ../src/volume_key.c:207
 msgid "Use the NSS database in DIR"
-msgstr ""
+msgstr "Utilizar a base de dados NSS em DIR"
 
 #: ../src/volume_key.c:207
 msgid "DIR"
@@ -470,29 +462,28 @@ msgstr "Executar em modo batch"
 
 #: ../src/volume_key.c:216
 msgid "Write the default secret to PACKET"
-msgstr ""
+msgstr "Escreve o segredo por omissão para PACKET"
 
 #: ../src/volume_key.c:216 ../src/volume_key.c:221 ../src/volume_key.c:225
 #: ../src/volume_key.c:230
 msgid "PACKET"
-msgstr "PACOTE"
+msgstr "PACKET"
 
 #: ../src/volume_key.c:220
 msgid "Write data encryption key to PACKET"
-msgstr ""
+msgstr "Escreve chave de cifra de dados para PACKET"
 
 #: ../src/volume_key.c:225
-#, fuzzy
 msgid "Write passphrase to PACKET"
-msgstr "Escrita em fundo para a tty"
+msgstr "Escreve frase-senha para PACKET"
 
 #: ../src/volume_key.c:230
 msgid "Create a random passphrase and write it to PACKET"
-msgstr ""
+msgstr "Criar uma frase-senha aleatória e escreve-la para PACKET"
 
 #: ../src/volume_key.c:238
 msgid "Encrypt for the certificate in CERT"
-msgstr ""
+msgstr "Cifrar para o certificado em CERT"
 
 #: ../src/volume_key.c:238
 msgid "CERT"
@@ -500,23 +491,23 @@ msgstr "CERT"
 
 #: ../src/volume_key.c:242
 msgid "Use FORMAT for all output packets"
-msgstr ""
+msgstr "Utilizar o FORMAT para todos os pacotes de saída"
 
 #: ../src/volume_key.c:242
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../src/volume_key.c:246
 msgid "Include secrets in --dump output"
-msgstr ""
+msgstr "Incluir segredos nos resultados --dump"
 
 #: ../src/volume_key.c:261
 msgid "OPERANDS"
-msgstr "OPERANDOS"
+msgstr "OPERANDS"
 
 #: ../src/volume_key.c:263
 msgid "Manages encrypted volume keys and passphrases."
-msgstr ""
+msgstr "Faz a gestão de chaves de cifra de volumes e frases-senha."
 
 #: ../src/volume_key.c:264
 #, c-format
@@ -524,11 +515,13 @@ msgid "Report bugs to %s"
 msgstr "Reportar erros para %s"
 
 #: ../src/volume_key.c:272
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr "Para mais informação, tente \"%s --help\".\n"
+msgstr ""
+"%s: %s\n"
+"Execute `%s --help' para mais informação.\n"
 
 #: ../src/volume_key.c:283
 msgid ""
@@ -543,62 +536,58 @@ msgstr ""
 "This program is provided with NO WARRANTY, to the extent permitted by law."
 
 #: ../src/volume_key.c:295
-#, fuzzy
 msgid "Operation mode not specified"
-msgstr "O modo de operação não pôde ser alterado."
+msgstr "Modo de operação não especificado"
 
 #: ../src/volume_key.c:301
-#, fuzzy
 msgid "Ambiguous operation mode"
-msgstr "O modo de funcionamento do selector de fontes"
+msgstr "Modo de operação ambíguo"
 
 #: ../src/volume_key.c:305 ../src/volume_key.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "`--%s' is only valid with `--%s'"
-msgstr "%s: a flag %s SÓ é permitida com a flag %s\n"
+msgstr "`--%s' só é válida com `--%s'"
 
 #: ../src/volume_key.c:311
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr ""
+msgstr "Os resultados só podem ser especificados com `--save' ou `--reencrypt'"
 
 #: ../src/volume_key.c:318
-#, fuzzy
 msgid "No output specified"
-msgstr "Nenhum motivo especificado"
+msgstr "Nenhum resultado especificado"
 
 #: ../src/volume_key.c:320
-#, fuzzy
 msgid "Ambiguous output format"
-msgstr "Personalizar o Formato de Saída"
+msgstr "Formato de saída ambíguo"
 
 #: ../src/volume_key.c:335
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown packet format `%s'"
-msgstr "Formato do ficheiro não suportado"
+msgstr "Formato do pacote desconhecido `%s'"
 
 #: ../src/volume_key.c:345
 msgid "Output format does not match other options"
-msgstr ""
+msgstr "Formato do resultado não coincide com outras opções"
 
 #: ../src/volume_key.c:396
-#, fuzzy, c-format
+#, c-format
 msgid "Error, try again.\n"
-msgstr "%s: Tente de novo mais tarde\n"
+msgstr "Erro, tente novamente\n"
 
 #: ../src/volume_key.c:397
-#, fuzzy, c-format
+#, c-format
 msgid "Enter password for `%s': "
-msgstr "Introduza a senha para %s"
+msgstr "Insira a senha para `%s': "
 
 #: ../src/volume_key.c:514 ../src/volume_key.c:553
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading `%s': "
-msgstr "erro na leitura de `%s': %s\n"
+msgstr "erro ao ler `%s': "
 
 #: ../src/volume_key.c:521 ../src/volume_key.c:561
-#, fuzzy, c-format
+#, c-format
 msgid "Error decoding `%s': "
-msgstr "Erro ao descodificar a faixa %1."
+msgstr "Erro ao descodificar `%s': "
 
 #: ../src/volume_key.c:580
 #, fuzzy
@@ -607,17 +596,16 @@ msgstr "Confirmar a nova frase-senha"
 
 #: ../src/volume_key.c:581
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr ""
+msgstr "Frases-senha não correspondem. Novo pacote frases-senha"
 
 #: ../src/volume_key.c:586
-#, fuzzy
 msgid "Repeat new packet passphrase"
-msgstr "Introduza uma nova frase-senha para '%s'"
+msgstr "Repita a nova frase-senha de pacotes"
 
 #: ../src/volume_key.c:650
-#, fuzzy, c-format
+#, c-format
 msgid "Error creating `%s': "
-msgstr "erro ao criar `%s': %s\n"
+msgstr "Erro ao criar `%s': "
 
 #: ../src/volume_key.c:690
 #, fuzzy, c-format
@@ -730,11 +718,10 @@ msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
 #: ../src/volume_key.c:969
-#, fuzzy
 msgid "Packet format"
-msgstr "Formato de Log de Pacotes Apple"
+msgstr "Formato do pacote"
 
 #: ../src/volume_key.c:976
-#, fuzzy, c-format
+#, c-format
 msgid "Error decoding `%s': %s"
-msgstr "Erro ao descodificar a faixa %1."
+msgstr "Erro ao descodificar `%s': %s"

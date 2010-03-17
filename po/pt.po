@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: volume_key.master\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2010-03-16 14:06+0000\n"
-"PO-Revision-Date: 2010-03-16 23:56+0100\n"
+"PO-Revision-Date: 2010-03-17 00:20+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@gmail.com>\n"
 "Language-Team: trans-pt@fedoraproject.org\n"
 "Language: pt\n"
@@ -141,7 +141,7 @@ msgstr "Pacote de entrada é muito pequeno"
 #: ../lib/libvolume_key.c:333
 #, c-format
 msgid "Input is not a volume_key escrow packet"
-msgstr "Entrada não é um pacote \"volume_key\""
+msgstr "Entrada não é um pacote de custódia \"volume_key\""
 
 #: ../lib/libvolume_key.c:339
 #, c-format
@@ -150,7 +150,7 @@ msgstr "Formato de pacote não suportado"
 
 #: ../lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
-msgstr "frase-senha do pacote"
+msgstr "frase-senha do pacote de custódia"
 
 #: ../lib/libvolume_key.c:418 ../lib/volume_luks.c:311
 #, c-format
@@ -323,16 +323,16 @@ msgstr "Tamanho da chave não corresponde (pacote %zu, volume %zu)"
 
 #: ../lib/volume_luks.c:398
 msgid "LUKS data encryption key in packet is invalid: "
-msgstr ""
+msgstr "A chave de cifra de dados LUKS no pacote é inválida: "
 
 #: ../lib/volume_luks.c:423
 msgid "LUKS passphrase in packet is invalid: "
-msgstr ""
+msgstr "A frase-senha LUKS no pacote é inválida: "
 
 #: ../lib/volume_luks.c:463
 #, c-format
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr ""
+msgstr "Pacote de custódia não contém a chave de cifra de dados LUKS"
 
 #: ../lib/volume_luks.c:468
 #, c-format
@@ -425,28 +425,32 @@ msgstr "Apresentar versão"
 #: ../src/volume_key.c:178
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr ""
+"Gravar segredos do volume para um pacote. Espera operandos VOLUME [PACKET]."
 
 #: ../src/volume_key.c:183
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
+"Restaura segredos do volume de um pacote. Espera operandos VOLUME PACKET."
 
 #: ../src/volume_key.c:188
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
+"Define um volume cifrado utilizando os segredos de um pacote. Espera "
+"operandos VOLUME PACKET NAME."
 
 #: ../src/volume_key.c:193
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr ""
+msgstr "Cifrar novamente um pacote de custódia. Espera operando PACKET."
 
 #: ../src/volume_key.c:197
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr ""
+msgstr "Mostrar informação contida num pacote. Espera operando PACKET."
 
 #: ../src/volume_key.c:202
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr ""
+msgstr "Mostrar segredos contidos num pacote. Espera operando PACKET."
 
 #: ../src/volume_key.c:207
 msgid "Use the NSS database in DIR"
@@ -590,9 +594,8 @@ msgid "Error decoding `%s': "
 msgstr "Erro ao descodificar `%s': "
 
 #: ../src/volume_key.c:580
-#, fuzzy
 msgid "New packet passphrase"
-msgstr "Confirmar a nova frase-senha"
+msgstr "Nova frase-senha do pacote"
 
 #: ../src/volume_key.c:581
 msgid "Passphrases do not match.  New packet passphrase"
@@ -608,109 +611,104 @@ msgid "Error creating `%s': "
 msgstr "Erro ao criar `%s': "
 
 #: ../src/volume_key.c:690
-#, fuzzy, c-format
+#, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
-msgstr "Gravar volume ao sair"
+msgstr "Utilização: %s --save VOLUME [PACKET]"
 
 #: ../src/volume_key.c:695 ../src/volume_key.c:710 ../src/volume_key.c:835
 #: ../src/volume_key.c:873
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening `%s': %s"
-msgstr "Erro ao abrir `%s': %s.\n"
+msgstr "Erro ao abrir `%s': %s"
 
 #: ../src/volume_key.c:706
-#, fuzzy, c-format
+#, c-format
 msgid "Error loading `%s': %s"
-msgstr "Erro ao carregar o '%1'.\n"
+msgstr "Erro ao carregar `%s': %s"
 
 #: ../src/volume_key.c:725
-#, fuzzy, c-format
+#, c-format
 msgid "Error generating passphrase: %s"
-msgstr "erro na criação da frase secreta: %s\n"
+msgstr "Erro ao gerar frase-senha: %s"
 
 #: ../src/volume_key.c:737
-#, fuzzy, c-format
+#, c-format
 msgid "Error creating a passphrase: %s"
-msgstr "erro na criação da frase secreta: %s\n"
+msgstr "Erro ao criar frase-senha: %s"
 
 #: ../src/volume_key.c:768
-#, fuzzy, c-format
+#, c-format
 msgid "`%s' does not match `%s': "
-msgstr "Resposta de servidor não corresponde"
+msgstr "`%s' não corresponde `%s': "
 
 #: ../src/volume_key.c:777
-#, fuzzy, c-format
+#, c-format
 msgid "`%s' perhaps does not match `%s'\n"
-msgstr "Resposta de servidor não corresponde"
+msgstr "`%s' talvez não corresponda `%s'\n"
 
 #: ../src/volume_key.c:792
-#, fuzzy
 msgid "Are you sure you want to use this packet?"
-msgstr "Tem a certeza que quer apagar esta conta?"
+msgstr "Tem a certeza que deseja utilizar este pacote?"
 
 #: ../src/volume_key.c:804
 #, c-format
 msgid "Error getting a yes/no answer"
-msgstr ""
+msgstr "Erro ao obter uma resposta y/n (y para sim/n para não)"
 
 #: ../src/volume_key.c:830
-#, fuzzy, c-format
+#, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
-msgstr "formato de pacote desconhecido"
+msgstr "Utilização: %s --%s VOLUME PACKET"
 
 #: ../src/volume_key.c:851
-#, fuzzy, c-format
+#, c-format
 msgid "Error restoring access to `%s': %s"
-msgstr "%s: Erro - impossÃ­vel aceder a \"%s\" - %s\n"
+msgstr "Erro ao restaurar acesso para `%s': %s"
 
 #: ../src/volume_key.c:867
-#, fuzzy, c-format
+#, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
-msgstr "Nome de Volume Lógico Inválido"
+msgstr "Utilização: %s --%s VOLUME PACKET NAME"
 
 #: ../src/volume_key.c:889
-#, fuzzy, c-format
+#, c-format
 msgid "Error setting up `%s': %s"
-msgstr "Erro ao Configurar o Repositório"
+msgstr "Erro ao definir `%s': %s"
 
 #: ../src/volume_key.c:904 ../src/volume_key.c:933
-#, fuzzy, c-format
+#, c-format
 msgid "Usage: %s --%s PACKET"
-msgstr "%lu pacote"
+msgstr "Utilização: %s --%s PACKET"
 
 #: ../src/volume_key.c:938
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading `%s': %s"
 msgstr "Erro ao ler `%s': %s"
 
 #: ../src/volume_key.c:943
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid packet: %s"
-msgstr "pacote inválido"
+msgstr "Pacote inválido: %s"
 
 #: ../src/volume_key.c:946
 msgid "Unencrypted"
 msgstr "Não cifrado"
 
 #: ../src/volume_key.c:950
-#, fuzzy
 msgid "Public key-encrypted"
-msgstr "Chave PGP Pública"
+msgstr "Cifrado com chave pública"
 
 #: ../src/volume_key.c:954
-#, fuzzy
 msgid "Passphrase-encrypted"
-msgstr "Frase-senha do dispositivo encriptado"
+msgstr "Cifrado com frase-senha"
 
 #: ../src/volume_key.c:958
-#, fuzzy
 msgid "Only secrets public key-encrypted"
-msgstr "Chave PGP Pública"
+msgstr "Apenas segredos cifrados com chave pública"
 
 #: ../src/volume_key.c:962
-#, fuzzy
 msgid "Only secrets symmetric key-encrypted"
-msgstr "Chave PGP Pública"
+msgstr "Apenas segredos cifrados com chave simétrica"
 
 #: ../src/volume_key.c:969 ../src/volume_key.c:991
 #, c-format

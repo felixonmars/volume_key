@@ -1,3 +1,6 @@
+Changes in version 0.3.3:
+- Update translations.
+
 Changes in version 0.3.2:
 - Fix a crash if a passphrase is not provided.
 - Update translations.

@@ -1,18 +1,18 @@
-# translation of fr.po to French
+# translation of zh_TW.po to Traditional Chinese
 # Gujarati translations for el package.
 # Copyright (C) 2010 THE el'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the el package.
 #
 # Automatically generated, 2010.
-# Sam Friedmann <sam.friedmann@redhat.com>, 2010.
+# Terry Chuang <tchuang at redhat>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2010-03-29 15:09+0530\n"
-"PO-Revision-Date: 2010-04-21 12:21+1000\n"
-"Last-Translator: Sam Friedmann <sam.friedmann@redhat.com>\n"
-"Language-Team: French <French fedora-trans-fr@fedoraproject.org>\n"
+"PO-Revision-Date: 2010-04-07 12:23+1000\n"
+"Last-Translator: Terry Chuang <tchuang at redhat>\n"
+"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,396 +21,396 @@ msgstr ""
 #: ../lib/crypto.c:64 ../lib/crypto.c:591
 #, c-format
 msgid "%s: %s"
-msgstr "%s: %s"
+msgstr "%s：%s"
 
 #: ../lib/kmip.c:255 ../lib/kmip.c:371
 #, c-format
 msgid "Not enough space provided to store a KMIP packet"
-msgstr "Pas assez d'espace pour stocker un paquet KMIP"
+msgstr "沒有足夠空間儲存 KMIP 封包"
 
 #: ../lib/kmip.c:322 ../lib/kmip.c:866
 #, c-format
 msgid "A string is too long"
-msgstr "Une chaîne est trop longue"
+msgstr "字串長度過長"
 
 #: ../lib/kmip.c:340 ../lib/kmip.c:910
 #, c-format
 msgid "Binary data is too long"
-msgstr "Donnée binaire trop longue"
+msgstr "二進位資料長度過長"
 
 #: ../lib/kmip.c:391
 #, c-format
 msgid "A KMIP structure is too long"
-msgstr "Une structure KMIP est trop longue"
+msgstr "KMIP 架構長度過長"
 
 #: ../lib/kmip.c:738 ../lib/kmip.c:853 ../lib/kmip.c:916
 #, c-format
 msgid "Unexpected end of data"
-msgstr "Fin de données inattendue"
+msgstr "非預期的資料尾端"
 
 #: ../lib/kmip.c:763 ../lib/kmip.c:839 ../lib/kmip.c:896 ../lib/kmip.c:943
 #, c-format
 msgid "Unexpected item tag 0x%08lX"
-msgstr "Balise d'élément inattendue 0x%08lX"
+msgstr "非預期的項目標籤 0x%08lX"
 
 #: ../lib/kmip.c:770 ../lib/kmip.c:903 ../lib/kmip.c:950
 #, c-format
 msgid "Unexpected item type 0x%02X"
-msgstr "Type d'élément inattendu 0x%02X"
+msgstr "非預期的項目類型 0x%02X"
 
 #: ../lib/kmip.c:776
 #, c-format
 msgid "Unexpected item size"
-msgstr "Taille d'élément inattendue"
+msgstr "非預期的項目大小"
 
 #: ../lib/kmip.c:814 ../lib/kmip.c:1268
 msgid "Unsupported enum value %"
-msgstr "% valeur enum inattendu"
+msgstr "不受支援的 enum 值 %"
 
 #: ../lib/kmip.c:846
 #, c-format
 msgid "String item expected, got %02X"
-msgstr "Élément chaîne attendu, %02X reçu"
+msgstr "預期的為字串項目卻得到了 %02X"
 
 #: ../lib/kmip.c:958
 #, c-format
 msgid "Structure does not fit in its container"
-msgstr "L'espace du conteneur est insuffisant pour la structure"
+msgstr "架構無法配合它的 container"
 
 #: ../lib/kmip.c:974
 #, c-format
 msgid "Unexpected data in structure"
-msgstr "Données inattendues dans la structure"
+msgstr "架構中含有非預期的資料"
 
 #: ../lib/kmip.c:1060 ../lib/kmip.c:1290
 #, c-format
 msgid "Number of key bits is not positive"
-msgstr "Le nombre d'octets-clé n'est pas positif"
+msgstr "鑰匙位元（key bit）的數字非正數"
 
 #: ../lib/kmip.c:1305
 #, c-format
 msgid "Wrapped key is not opaque"
-msgstr "La clé de renvoi à la ligne n'est pas opaque"
+msgstr "Wrapped key 非不透明化"
 
 #: ../lib/kmip.c:1340 ../lib/kmip.c:1374
 msgid "Unsupported symmetric key format %"
-msgstr "Format de clé symétrique % non pris en charge"
+msgstr "不受支援的對稱金鑰（symmetric key）格式 %"
 
 #: ../lib/kmip.c:1407 ../lib/volume.c:683
 msgid "Unsupported KMIP version %"
-msgstr "Version KMIP % non prise en charge"
+msgstr "不受支援的 KMIP 版本 %"
 
 #: ../lib/kmip.c:1454
 msgid "Unsupported object type %"
-msgstr "Type d'objet % non pris en charge"
+msgstr "不受支援的物件類型 %"
 
 #: ../lib/kmip.c:1516
 #, c-format
 msgid "Unexpected data after packet"
-msgstr "Données inattendue après le paquet"
+msgstr "非預期的資料"
 
 #: ../lib/kmip.c:1585 ../lib/kmip.c:1671 ../lib/kmip.c:1774 ../lib/kmip.c:1850
 #: ../lib/volume.c:700 ../lib/volume_luks.c:789
 msgid "Unsupported packet type %"
-msgstr "Type de paquet % non pris en charge"
+msgstr "不受支援的封包類型 %"
 
 #: ../lib/kmip.c:1603 ../lib/kmip.c:1793
 #, c-format
 msgid "Unsupported mechanism %lu"
-msgstr "Mécanisme %lu non pris en charge"
+msgstr "不受支援的機制 %lu"
 
 #: ../lib/kmip.c:1686 ../lib/kmip.c:1709 ../lib/kmip.c:1863
 #, c-format
 msgid "Unexpected wrapped key format"
-msgstr "Format de clé de renvoi à la ligne inattendu"
+msgstr "非預期的 wrapped key 格式"
 
 #: ../lib/kmip.c:1699 ../lib/kmip.c:1876
 #, c-format
 msgid "Unsupported wrapping mechanism"
-msgstr "Mécanisme de renvoi à la ligne non pris en charge"
+msgstr "不受支援的 wrapping 機制"
 
 #: ../lib/libvolume_key.c:204
 #, c-format
 msgid "Unsupported asymmetric encryption format"
-msgstr "Format de chiffrement asymétrique non pris en charge"
+msgstr "不受支援的非對稱式加密格式"
 
 #: ../lib/libvolume_key.c:323
 #, c-format
 msgid "Input packet is too small"
-msgstr "Le paquet d'entrée est trop petit"
+msgstr "輸入封包太小了"
 
 #: ../lib/libvolume_key.c:333
 #, c-format
 msgid "Input is not a volume_key escrow packet"
-msgstr "L'entrée n'est pas un paquet volume_key escrow"
+msgstr "所輸入的不是個 volume_key escrow 封包"
 
 #: ../lib/libvolume_key.c:339
 #, c-format
 msgid "Unsupported packet format"
-msgstr "Format de paquet non pris en charge"
+msgstr "不受支援的封包格式"
 
 #: ../lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
-msgstr "Mot de passe du paquet escrow"
+msgstr "Escrow 封包密碼"
 
 #: ../lib/libvolume_key.c:418 ../lib/volume_luks.c:311
 #, c-format
 msgid "Too many attempts to get a valid passphrase"
-msgstr "Nombre de tentatives d'obtention du mot de passe trop élevé"
+msgstr "嘗試取得有效密碼的次數過於頻繁"
 
 #: ../lib/libvolume_key.c:462
 #, c-format
 msgid "Too many attempts to get a valid symmetric key"
-msgstr "Nombre de tentatives d'obtention de la clé symétrique trop élevé"
+msgstr "嘗試取得有效對稱金鑰的次數過於頻繁"
 
 #: ../lib/ui.c:148
 #, c-format
 msgid "User interface callbacks not provided"
-msgstr "Rappels de l'interface utilisateur non fournis"
+msgstr "未提供使用者介面的回呼函式"
 
 #: ../lib/ui.c:154 ../src/volume_key.c:613
 #, c-format
 msgid "Passphrase not provided"
-msgstr "Mot de passe non fourni"
+msgstr "未提供密碼"
 
 #: ../lib/ui.c:169
 #, c-format
 msgid "Symmetric key callback not provided"
-msgstr "Rappel de la clé symétrique non fourni"
+msgstr "未提供對稱金鑰的回呼函式"
 
 #: ../lib/ui.c:176
 #, c-format
 msgid "Symmetric key not provided"
-msgstr "Clé symétrique non fournie"
+msgstr "未提供對稱金鑰"
 
 #: ../lib/volume.c:92
 #, c-format
 msgid "The key is too long"
-msgstr "La clé est trop longue"
+msgstr "金鑰長度過長"
 
 #: ../lib/volume.c:171 ../lib/volume.c:192
 #, c-format
 msgid "Required attribute `%s' not found"
-msgstr "Attribut requis `%s' introuvable"
+msgstr "找不到必要的 `%s' 屬性"
 
 #: ../lib/volume.c:314
 #, c-format
 msgid "Cannot get attributes of `%s'"
-msgstr "Impossible d'obtenir les attributs de `%s' "
+msgstr "無法取得 `%s' 的屬性"
 
 #: ../lib/volume.c:421
 msgid "Host name"
-msgstr "Nom d'hôte"
+msgstr "主機名稱"
 
 #: ../lib/volume.c:423
 msgid "Volume format"
-msgstr "Format du volume"
+msgstr "卷冊格式"
 
 #: ../lib/volume.c:426
 msgid "Volume UUID"
-msgstr "UUID Volume"
+msgstr "卷冊 UUID"
 
 #: ../lib/volume.c:429
 msgid "Volume label"
-msgstr "Nom de volume"
+msgstr "卷冊標籤"
 
 #: ../lib/volume.c:431
 msgid "Volume path"
-msgstr "Chemin du volume"
+msgstr "卷冊路徑"
 
 #: ../lib/volume.c:457 ../lib/volume.c:566 ../lib/volume.c:600
 #: ../lib/volume.c:629 ../lib/volume.c:662 ../lib/volume.c:759
 #, c-format
 msgid "Volume `%s' has unsupported format"
-msgstr "Volume `%s' possède un format non pris en charge"
+msgstr "卷冊 `%s' 含有不受支援的格式"
 
 #: ../lib/volume.c:487
 #, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
-msgstr "Incompatibilité de format de volume (paquet `%s', volume `%s')"
+msgstr "卷冊格式不相符（封包 `%s'，卷冊 `%s'）"
 
 #: ../lib/volume.c:515
 #, c-format
 msgid "UUID mismatch (packet `%s', volume `%s')"
-msgstr "Incompatibilité d'UUID (paquet `%s', volume `%s')"
+msgstr "UUID 不相符（封包 `%s'，卷冊 `%s'）"
 
 #: ../lib/volume.c:521
 #, c-format
 msgid "Host name mismatch (packet `%s', volume `%s')"
-msgstr "Incompatibilité de nom d'hôte (paquet `%s', volume `%s')"
+msgstr "主機名稱不相符（封包 `%s'，卷冊 `%s'）"
 
 #: ../lib/volume.c:528
 #, c-format
 msgid "Volume label mismatch (packet `%s', volume `%s')"
-msgstr "Incompatibilité de nom de volume (paquet `%s', volume `%s')Incompatibnilié"
+msgstr "卷冊標籤不相符（封包 `%s'，卷冊 `%s'）"
 
 #: ../lib/volume.c:535
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
-msgstr "Incompatibilité de chemin de volume (paquet `%s', volume `%s')"
+msgstr "卷冊路徑不相符（封包 `%s'，卷冊 `%s'）"
 
 #: ../lib/volume.c:736
 #, c-format
 msgid "Unsupported volume format `%s'"
-msgstr "Format de volume `%s' non pris en charge"
+msgstr "不受支援的卷冊格式 `%s'"
 
 #: ../lib/volume_luks.c:54
 #, c-format
 msgid "Unknown error %d"
-msgstr "Erreur inconnue %d"
+msgstr "不明的錯誤 %d"
 
 #: ../lib/volume_luks.c:104
 #, c-format
 msgid "Error getting information about volume `%s': "
-msgstr "Erreur lors de l'obtention des informations sur le volume `%s'&nbsp;: "
+msgstr "嘗試取得卷冊 `%s' 的相關資訊時發生了錯誤："
 
 #: ../lib/volume_luks.c:186
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
-msgstr "Incompatibilité d'UUID entre libblkid et libcryptsetup: `%s' vs. `%s'"
+msgstr "libblkid 和 libcryptsetup 之間的 UUID 不相符：`%s' vs. `%s'"
 
 #: ../lib/volume_luks.c:211
 msgid "LUKS cipher name"
-msgstr "Nom de chiffrement LUKS"
+msgstr "LUKS cipher 名稱"
 
 #: ../lib/volume_luks.c:214
 msgid "LUKS cipher mode"
-msgstr "Mode de chiffrement LUKS"
+msgstr "LUKS cipher 模式"
 
 #: ../lib/volume_luks.c:217
 msgid "Key size (bits)"
-msgstr "Taille de la clé (octets)"
+msgstr "金鑰長度（bit）"
 
 #: ../lib/volume_luks.c:237
 msgid "Data encryption key"
-msgstr "Clé de chiffrement des données"
+msgstr "資料加密金鑰"
 
 #: ../lib/volume_luks.c:241
 msgid "Passphrase"
-msgstr "Mot de passe"
+msgstr "密碼"
 
 #: ../lib/volume_luks.c:244
 msgid "Passphrase slot"
-msgstr "Fente du mot de passe"
+msgstr "密碼欄位"
 
 #: ../lib/volume_luks.c:275 ../lib/volume_luks.c:457 ../lib/volume_luks.c:696
 #, c-format
 msgid "Encryption information type unsupported in LUKS"
-msgstr "Type d'informations de chiffrement non pris en charge sur LUKS"
+msgstr "加密資訊類型在 LUKS 中不受到支援"
 
 #: ../lib/volume_luks.c:283
 #, c-format
 msgid "Passphrase for `%s'"
-msgstr "Mot de passe pour `%s'"
+msgstr "`%s' 的密碼"
 
 #: ../lib/volume_luks.c:306 ../lib/volume_luks.c:833
 msgid "Error getting LUKS data encryption key: "
-msgstr "Erreur lors de l'obtention de la clé de chiffrement de données LUKS&nbsp;:"
+msgstr "嘗試取得 LUKS 資料加密金鑰時發生了錯誤："
 
 #: ../lib/volume_luks.c:353
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
-msgstr "Incompatiibilité de nom de chiffrement (paquet `%s', volume `%s')"
+msgstr "Cipher 名稱不相符（封包 `%s'，卷冊 `%s'）"
 
 #: ../lib/volume_luks.c:360
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
-msgstr "Incompatibilité du mode de chiffrement (paquet `%s', volume `%s')"
+msgstr "Cipher 模式不相符（封包 `%s'，卷冊 `%s'）"
 
 #: ../lib/volume_luks.c:367
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
-msgstr "Incompatibilité de la taille de la clé (paquet %zu, volume %zu)"
+msgstr "金鑰長度不相符（封包 %zu，卷冊 %zu）"
 
 #: ../lib/volume_luks.c:398
 msgid "LUKS data encryption key in packet is invalid: "
-msgstr "La clé de chiffrement de données LUKS du paquet est invalide&nbsp;:"
+msgstr "在封包中的 LUKS 資料加密金鑰無效："
 
 #: ../lib/volume_luks.c:423
 msgid "LUKS passphrase in packet is invalid: "
-msgstr "Le mot de passe LUKS du paquet est invalide&nbsp;:"
+msgstr "在封包中的 LUKS 密碼無效："
 
 #: ../lib/volume_luks.c:463
 #, c-format
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr "Le paquet escrow ne contient pas la clé de chiffrement de données LUKS"
+msgstr "Escrow 封包不包含 LUKS 資料加密金鑰"
 
 #: ../lib/volume_luks.c:468
 #, c-format
 msgid "New passphrase for `%s'"
-msgstr "Nouveau mot de passe pour `%s'"
+msgstr "`%s' 的新密碼"
 
 #: ../lib/volume_luks.c:469
 #, c-format
 msgid "Repeat new passphrase for `%s'"
-msgstr "Répéterle nouveau mot de passe pour `%s'"
+msgstr "重複 `%s' 的新密碼"
 
 #: ../lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
-msgstr "Les mots de passe ne correspondent pas. Nouveau mot de passe pour `%s'"
+msgstr "密碼不相符。請為 `%s' 輸入一組新密碼"
 
 #: ../lib/volume_luks.c:495 ../src/volume_key.c:603
 #, c-format
 msgid "Too many attempts to get a passphrase"
-msgstr "Nombre de tentatives d'obtention du mot de passe trop élevé"
+msgstr "嘗試取得密碼的次數過於頻繁"
 
 #: ../lib/volume_luks.c:510 ../lib/volume_luks.c:572
 msgid "Error adding a LUKS passphrase"
-msgstr "Erreur lors de l'ajout du mot de passe LUKS"
+msgstr "新增 LUKS 密碼時發生了錯誤"
 
 #: ../lib/volume_luks.c:548
 #, c-format
 msgid "Can not add a secret of this type"
-msgstr "Impossible d'ajouter un secret de ce type"
+msgstr "無法新增一項此類型的 secret"
 
 #: ../lib/volume_luks.c:554 ../lib/volume_luks.c:654 ../lib/volume_luks.c:841
 #, c-format
 msgid "Data encryption key unknown"
-msgstr "Clé de chiffrement de données inconnue"
+msgstr "不明的資料加密金鑰"
 
 #: ../lib/volume_luks.c:560
 #, c-format
 msgid "The passphrase must be a string"
-msgstr "Le mot de passe doit être une chaîne"
+msgstr "密碼必須是個字串"
 
 #: ../lib/volume_luks.c:677
 #, c-format
 msgid "Passphrase unknown"
-msgstr "Mot de passe inconnu"
+msgstr "密碼不明"
 
 #: ../lib/volume_luks.c:736
 msgid "Unsupported key length %"
-msgstr "Longueur de clé % non prise en charge"
+msgstr "不受支援的金鑰長度 %"
 
 #: ../lib/volume_luks.c:747
 #, c-format
 msgid "Key length mismatch"
-msgstr "Incompatibilité de longueur de clé"
+msgstr "金鑰長度不相符"
 
 #: ../lib/volume_luks.c:770
 #, c-format
 msgid "Invalid slot number `%s'"
-msgstr "Numéro de fente invalide `%s'"
+msgstr "無效的欄位號碼 `%s'"
 
 #: ../lib/volume_luks.c:778
 #, c-format
 msgid "NUL byte in passphrase"
-msgstr "Octet NUL dans le mot de passe"
+msgstr "密碼中含有 NUL byte"
 
 #: ../lib/volume_luks.c:849
 msgid "Error opening LUKS volume: "
-msgstr "Erreur lors de l'ouverture du volume LUKS&nbsp;:"
+msgstr "開啟 LUKS 卷冊時發生了錯誤：時"
 
 #: ../python/volume_key.i:367
 #, c-format
 msgid "Error decoding certificate"
-msgstr "Erreur lors du décodage du certificat"
+msgstr "為憑證解碼時發生了錯誤"
 
 #: ../src/volume_key.c:52 ../src/volume_key.c:429 ../src/volume_key.c:481
 #, c-format
 msgid "%s: "
-msgstr "%s: "
+msgstr "%s："
 
 #. TRASLATORS: The "(y/n)" part should indicate to the user that input
 #. matching (locale yesexpr) and (locale noexpr) is expected.
@@ -421,37 +421,37 @@ msgstr "%s (y/n) "
 
 #: ../src/volume_key.c:173
 msgid "Show version"
-msgstr "Afficher version"
+msgstr "顯示版本"
 
 #: ../src/volume_key.c:178
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
-msgstr "Enregistrer les secrets du volume sur un paquet. Prévoir des opérandes VOLUME [PACKET]."
+msgstr "將卷冊 secret 儲存至一個封包中。預期運算元 VOLUME [PACKET]。"
 
 #: ../src/volume_key.c:183
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
-msgstr "Restaurer des secrets de volume d'un paquet. Prévoir des opérandes VOLUME PACKET."
+msgstr "由一個封包將卷冊 secret 復原。預期運算元 VOLUME PACKET。"
 
 #: ../src/volume_key.c:188
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
-msgstr "Définir un volume chiffré à l'aide des secrets d'un paquet. Prévoir des opérandes VOLUME PACKET NAME."
+msgstr "透過來自於一個封包的 secret 來設定一個加密的卷冊。預期運算元 VOLUME PACKET NAME。"
 
 #: ../src/volume_key.c:193
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "Rechiffrer un paquet escrow. Prévoir l'opérande PACKET."
+msgstr "重新加密一個 escrow 封包。預期運算元 PACKET。"
 
 #: ../src/volume_key.c:197
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr "Afficher les information contenues dans un paquet. Prévoir l'opérande PACKET."
+msgstr "顯示封包中所包含的資訊。預期運算元 PACKET。"
 
 #: ../src/volume_key.c:202
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr "Afficher les secrets contenus dans un paquet. Prévoir l'opérande PACKET."
+msgstr "顯示封包中所包含的 secret。預期運算元 PACKET。"
 
 #: ../src/volume_key.c:207
 msgid "Use the NSS database in DIR"
-msgstr "Utiliser la base de données NSS dans DIR"
+msgstr "使用 DIR 中的 NSS 資料庫"
 
 #: ../src/volume_key.c:207
 msgid "DIR"
@@ -459,11 +459,11 @@ msgstr "DIR"
 
 #: ../src/volume_key.c:210
 msgid "Run in batch mode"
-msgstr "Exécuter en mode lot"
+msgstr "在 batch 模式下執行"
 
 #: ../src/volume_key.c:216
 msgid "Write the default secret to PACKET"
-msgstr "Écrire le secret par défaut sur PACKET"
+msgstr "將預設的 secret 寫入 PACKET"
 
 #: ../src/volume_key.c:216 ../src/volume_key.c:221 ../src/volume_key.c:225
 #: ../src/volume_key.c:230
@@ -472,19 +472,19 @@ msgstr "PACKET"
 
 #: ../src/volume_key.c:220
 msgid "Write data encryption key to PACKET"
-msgstr "Écrire la clé de chiffrement des données sur PACKET"
+msgstr "將資料加密金鑰寫入 PACKET"
 
 #: ../src/volume_key.c:225
 msgid "Write passphrase to PACKET"
-msgstr "Écrire le mot de passe sur PACKET"
+msgstr "將密碼寫入 PACKET"
 
 #: ../src/volume_key.c:230
 msgid "Create a random passphrase and write it to PACKET"
-msgstr "Créer un mot de passe généré au hasard et l'écrire sur PACKET"
+msgstr "建立一組隨機產生的密碼，並將它寫入 PACKET"
 
 #: ../src/volume_key.c:238
 msgid "Encrypt for the certificate in CERT"
-msgstr "Chiffrer pour le certificat dans CERT"
+msgstr "為 CERT 中的憑證加密"
 
 #: ../src/volume_key.c:238
 msgid "CERT"
@@ -492,7 +492,7 @@ msgstr "CERT"
 
 #: ../src/volume_key.c:242
 msgid "Use FORMAT for all output packets"
-msgstr "Utiliser FORMAT pour tous les paquets sortants"
+msgstr "所有的輸出封包皆使用 FORMAT"
 
 #: ../src/volume_key.c:242
 msgid "FORMAT"
@@ -500,7 +500,7 @@ msgstr "FORMAT"
 
 #: ../src/volume_key.c:246
 msgid "Include secrets in --dump output"
-msgstr "Inclure paquets dans la sortie (output) --dump"
+msgstr "將 secret 包含在 --dump 輸出中"
 
 #: ../src/volume_key.c:261
 msgid "OPERANDS"
@@ -508,12 +508,12 @@ msgstr "OPERANDS"
 
 #: ../src/volume_key.c:263
 msgid "Manages encrypted volume keys and passphrases."
-msgstr "Gère les clés et mots de passe de volumes chiffrés."
+msgstr "管理加密卷冊金鑰和密碼。"
 
 #: ../src/volume_key.c:264
 #, c-format
 msgid "Report bugs to %s"
-msgstr "Rapporter les bogues à %s"
+msgstr "將錯誤回報至 %s"
 
 #: ../src/volume_key.c:272
 #, c-format
@@ -522,7 +522,7 @@ msgid ""
 "Run `%s --help' for more information.\n"
 msgstr ""
 "%s: %s\n"
-"Exécuter `%s --help' pour plus d'informations.\n"
+"執行 `%s --help' 以取得更多資訊。\n"
 
 #: ../src/volume_key.c:283
 msgid ""
@@ -531,181 +531,181 @@ msgid ""
 "\n"
 "This program is provided with NO WARRANTY, to the extent permitted by law."
 msgstr ""
-"Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
-"Ce programme est distribué sous la licence GPL v.2.\n"
+"Copyright (C) 2009 Red Hat, Inc. 版權所有。\n"
+"此軟體的發行採用了 GPL v.2 自由軟體授權條款。\n"
 "\n"
-"Ce programme est fourni SANS garantie, dans le cadre des limites autorisées par la loi."
+"本程式不提供任何法律允許範圍內的保固。"
 
 #: ../src/volume_key.c:295
 msgid "Operation mode not specified"
-msgstr "Mode d'opération non spécifié"
+msgstr "未指定作業模式"
 
 #: ../src/volume_key.c:301
 msgid "Ambiguous operation mode"
-msgstr "Mode d'opération ambigu"
+msgstr "不明確的作業模式"
 
 #: ../src/volume_key.c:305 ../src/volume_key.c:358
 #, c-format
 msgid "`--%s' is only valid with `--%s'"
-msgstr "`--%s' n'est valide qu'avec `--%s'"
+msgstr "`--%s' 只可與 `--%s' 搭配使用"
 
 #: ../src/volume_key.c:311
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr "La sortie peut seulement être spécifiée avec `--save' ou `--reencrypt'"
+msgstr "輸出只能以 `--save' 或 `--reencrypt' 來指定"
 
 #: ../src/volume_key.c:318
 msgid "No output specified"
-msgstr "Aucune sortie spécifiée"
+msgstr "未指定輸出"
 
 #: ../src/volume_key.c:320
 msgid "Ambiguous output format"
-msgstr "Format de sortie ambigu"
+msgstr "不明確的輸出格式"
 
 #: ../src/volume_key.c:335
 #, c-format
 msgid "Unknown packet format `%s'"
-msgstr "Format de paquet `%s' inconnu"
+msgstr "不明封包格式 `%s'"
 
 #: ../src/volume_key.c:345
 msgid "Output format does not match other options"
-msgstr "Le format de sortie ne correspond pas aux autres options"
+msgstr "輸出格式與其它選項不相符"
 
 #: ../src/volume_key.c:396
 #, c-format
 msgid "Error, try again.\n"
-msgstr "Erreur, réessayez.\n"
+msgstr "錯誤，請再試一次。\n"
 
 #: ../src/volume_key.c:397
 #, c-format
 msgid "Enter password for `%s': "
-msgstr "Entrez le mot de passe pour `%s'&nbsp;: "
+msgstr "輸入 `%s' 的密碼："
 
 #: ../src/volume_key.c:514 ../src/volume_key.c:553
 #, c-format
 msgid "Error reading `%s': "
-msgstr "Erreur lors de la lecture de `%s'&nbsp;: "
+msgstr "讀取 `%s' 時發生了錯誤："
 
 #: ../src/volume_key.c:521 ../src/volume_key.c:561
 #, c-format
 msgid "Error decoding `%s': "
-msgstr "Erreur lors du décodage de `%s'&nbsp;: "
+msgstr "為 `%s' 解碼時發生了錯誤："
 
 #: ../src/volume_key.c:580
 msgid "New packet passphrase"
-msgstr "Nouveau mot de passe du paquet"
+msgstr "新的封包密碼"
 
 #: ../src/volume_key.c:581
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr "Les mots de passe ne correspondent pas. Nouveau mot de passe du paquet"
+msgstr "密碼不相符。請輸入新的封包密碼"
 
 #: ../src/volume_key.c:586
 msgid "Repeat new packet passphrase"
-msgstr "Répétez le nouveau mot de passe du paquet"
+msgstr "請重新的複封包密碼"
 
 #: ../src/volume_key.c:650
 #, c-format
 msgid "Error creating `%s': "
-msgstr "Erreur lors de la création de `%s'&nbsp;: "
+msgstr "建立 `%s' 時發生了錯誤："
 
 #: ../src/volume_key.c:690
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
-msgstr "Utilisation&nbsp;: %s --save VOLUME [PACKET]"
+msgstr "使用方法：%s --save VOLUME [PACKET]"
 
 #: ../src/volume_key.c:695 ../src/volume_key.c:710 ../src/volume_key.c:835
 #: ../src/volume_key.c:873
 #, c-format
 msgid "Error opening `%s': %s"
-msgstr "Erreur lors de l'ouverture de `%s'&nbsp;: %s"
+msgstr "開啟 `%s' 時發生了錯誤：%s"
 
 #: ../src/volume_key.c:706
 #, c-format
 msgid "Error loading `%s': %s"
-msgstr "Erreur lors du chargement de `%s'&nbsp;: %s"
+msgstr "載入 `%s' 時發生了錯誤：%s"
 
 #: ../src/volume_key.c:725
 #, c-format
 msgid "Error generating passphrase: %s"
-msgstr "Erreur lors de la génération du mot de passe&nbsp;: %s"
+msgstr "產生密碼時發生了錯誤：%s"
 
 #: ../src/volume_key.c:737
 #, c-format
 msgid "Error creating a passphrase: %s"
-msgstr "Erreur lors de la création du mot de passe&nbsp;: %s"
+msgstr "建立密碼時發生了錯誤：%s"
 
 #: ../src/volume_key.c:768
 #, c-format
 msgid "`%s' does not match `%s': "
-msgstr "`%s' ne correspond pas à `%s'&nbsp;: "
+msgstr "`%s' 和 `%s' 不相符："
 
 #: ../src/volume_key.c:777
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
-msgstr "`%s' ne correspond peut-être pas à `%s'\n"
+msgstr "`%s' 也許與 `%s' 不相符\n"
 
 #: ../src/volume_key.c:792
 msgid "Are you sure you want to use this packet?"
-msgstr "Êtes-vous certain de vouloir utiliser ce paquet&nbsp;?"
+msgstr "您是否確定要使用此封包？"
 
 #: ../src/volume_key.c:804
 #, c-format
 msgid "Error getting a yes/no answer"
-msgstr "Erreur lors de l'obtention d'une réponse oui/non"
+msgstr "嘗試取得一個 yes/no 的回應時發生了錯誤"
 
 #: ../src/volume_key.c:830
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
-msgstr "Utilisation&nbsp;: %s --%s VOLUME PACKET"
+msgstr "使用方法：%s --%s VOLUME PACKET"
 
 #: ../src/volume_key.c:851
 #, c-format
 msgid "Error restoring access to `%s': %s"
-msgstr "Erreur lors de la restitution de l'accès à `%s': %s"
+msgstr "嘗試恢復存取 `%s' 時發生了錯誤：%s"
 
 #: ../src/volume_key.c:867
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
-msgstr "Utilisation&nbsp;: %s --%s VOLUME PACKET NAME"
+msgstr "使用方法：%s --%s VOLUME PACKET NAME"
 
 #: ../src/volume_key.c:889
 #, c-format
 msgid "Error setting up `%s': %s"
-msgstr "Erreur lors du paramétrage de `%s': %s"
+msgstr "設定 `%s' 時發生了錯誤：%s"
 
 #: ../src/volume_key.c:904 ../src/volume_key.c:933
 #, c-format
 msgid "Usage: %s --%s PACKET"
-msgstr "Utillisation&nbsp;: %s --%s PACKET"
+msgstr "使用方法：%s --%s PACKET"
 
 #: ../src/volume_key.c:938
 #, c-format
 msgid "Error reading `%s': %s"
-msgstr "Erreur lors de la lecture de `%s': %s"
+msgstr "讀取 `%s' 時發生了錯誤：%s"
 
 #: ../src/volume_key.c:943
 #, c-format
 msgid "Invalid packet: %s"
-msgstr "Paquet invalide&nbsp;: %s"
+msgstr "無效的封包：%s"
 
 #: ../src/volume_key.c:946
 msgid "Unencrypted"
-msgstr "Non-chiffré"
+msgstr "未加密"
 
 #: ../src/volume_key.c:950
 msgid "Public key-encrypted"
-msgstr "Clé chiffrée publique"
+msgstr "已為公用金鑰加密"
 
 #: ../src/volume_key.c:954
 msgid "Passphrase-encrypted"
-msgstr "Mot de passe chiffré"
+msgstr "已為密碼加密"
 
 #: ../src/volume_key.c:958
 msgid "Only secrets public key-encrypted"
-msgstr "Seuls les secrets sont chiffrés avec des clés publiques"
+msgstr "只為 secret 公用金鑰加密"
 
 #: ../src/volume_key.c:962
 msgid "Only secrets symmetric key-encrypted"
-msgstr "Seuls les secrets sont chiffrés avec des clés symétriques"
+msgstr "只為 secret 對稱金鑰加密"
 
 #: ../src/volume_key.c:969 ../src/volume_key.c:991
 #, c-format
@@ -714,10 +714,10 @@ msgstr "%s:\t%s\n"
 
 #: ../src/volume_key.c:969
 msgid "Packet format"
-msgstr "Format de paquetage"
+msgstr "封包格式"
 
 #: ../src/volume_key.c:976
 #, c-format
 msgid "Error decoding `%s': %s"
-msgstr "Erreur lors du décodage de `%s': %s"
+msgstr "為 `%s' 解密時發生了錯誤：%s"
 

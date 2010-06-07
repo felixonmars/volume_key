@@ -726,7 +726,7 @@ do_save (int argc, char *argv[])
 	}
       for (i = 0; i < sizeof (passphrase) - 1; i++)
 	{
-	  static const char set[36] = "0123456789zbcdefghijklmnopqrstuvwxyz";
+	  static const char set[36] = "0123456789abcdefghijklmnopqrstuvwxyz";
 
 	  passphrase[i] = set[rnd[i] % sizeof (set)];
 	}

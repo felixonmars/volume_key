@@ -43,8 +43,8 @@ extern void luks_volume_free (struct luks_volume *luks);
 /* Open a LUKS VOL at PATH.
    Return LUKS volume information, or NULL on error. */
 G_GNUC_INTERNAL
-struct luks_volume *luks_volume_open (struct libvk_volume *vol,
-				      const char *path, GError **error);
+extern struct luks_volume *luks_volume_open (struct libvk_volume *vol,
+					     const char *path, GError **error);
 
 /* Add properties of LUKS, including "secrets" if WITH_SECRETS != 0, to LIST.
    Return an updated list. */

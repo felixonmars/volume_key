@@ -1,5 +1,10 @@
 2010-06-11  Miloslav Trmač  <mitr@redhat.com>
 
+	* lib/volume_luks.c (luks_load_packet): When loading a passphrase
+	from a packet, set passphrase_slot to the slot the passphrase is
+	physically located, regardless of the slot indicated in the
+	packet.
+
 	* lib/volume_luks.h: Beautify.
 
 2010-06-07  Miloslav Trmač  <mitr@redhat.com>

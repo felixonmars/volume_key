@@ -424,8 +424,7 @@ luks_load_packet (struct libvk_volume *vol, const struct libvk_volume *packet,
 	  return -1;
 	}
       luks_replace_passphrase (vol, packet->v.luks->passphrase);
-      if (packet->v.luks->passphrase_slot != -1)
-	vol->v.luks->passphrase_slot = packet->v.luks->passphrase_slot;
+      vol->v.luks->passphrase_slot = r;
       if (packet->v.luks->key == NULL)
 	{
 	  g_return_val_if_fail (vol->v.luks->key_bytes == key_size, -1);

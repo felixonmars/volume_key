@@ -1,6 +1,6 @@
 /* LUKS volume handling.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -240,7 +240,7 @@ luks_volume_dump_properties (GSList *res, const struct luks_volume *luks,
   if (with_secrets != 0 && luks->passphrase != NULL)
     res = add_vp (res, _("Passphrase"), "luks/passphrase", LIBVK_VP_SECRET,
 		  g_strdup (luks->passphrase));
-  if (luks->passphrase != NULL && luks->passphrase_slot != -1)
+  if (luks->passphrase_slot != -1)
     res = add_vp (res, _("Passphrase slot"), "luks/passphrase_slot",
 		  LIBVK_VP_IDENTIFICATION,
 		  g_strdup_printf ("%d", luks->passphrase_slot));
@@ -710,6 +710,7 @@ luks_parse_escrow_packet (struct libvk_volume *vol,
   const char *s;
 
   vol->v.luks = g_new0 (struct luks_volume, 1);
+  vol->v.luks->passphrase_slot = -1;
   switch (pack->type)
     {
     case KMIP_OBJECT_SYMMETRIC_KEY:
@@ -740,14 +741,17 @@ luks_parse_escrow_packet (struct libvk_volume *vol,
 	G_STATIC_ASSERT (sizeof (gint32) <= sizeof (size_t));
       }
       vol->v.luks->key_bytes = a->v.int32_value / 8;
-      if (key_value->v.key->len != vol->v.luks->key_bytes)
+      if (key_value->v.key != NULL)
 	{
-	  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_INVALID_INPUT,
-		       _("Key length mismatch"));
-	  goto err;
+	  if (key_value->v.key->len != vol->v.luks->key_bytes)
+	    {
+	      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_INVALID_INPUT,
+			   _("Key length mismatch"));
+	      goto err;
+	    }
+	  vol->v.luks->key = g_memdup (key_value->v.key->data,
+				       key_value->v.key->len);
 	}
-      vol->v.luks->key = g_memdup (key_value->v.key->data,
-				   key_value->v.key->len);
       break;
 
     case KMIP_OBJECT_SECRET_DATA:
@@ -771,16 +775,20 @@ luks_parse_escrow_packet (struct libvk_volume *vol,
 	    }
 	  vol->v.luks->passphrase_slot = slot;
 	}
-      if (memchr (key_value->v.bytes.data, '\0', key_value->v.bytes.len) != 0)
+      if (key_value->v.bytes.data != NULL)
 	{
-	  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_INVALID_INPUT,
-		       _("NUL byte in passphrase"));
-	  goto err;
+	  if (memchr (key_value->v.bytes.data, '\0',
+		      key_value->v.bytes.len) != 0)
+	    {
+	      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_INVALID_INPUT,
+			   _("NUL byte in passphrase"));
+	      goto err;
+	    }
+	  vol->v.luks->passphrase = g_malloc (key_value->v.bytes.len + 1);
+	  memcpy (vol->v.luks->passphrase, key_value->v.bytes.data,
+		  key_value->v.bytes.len);
+	  vol->v.luks->passphrase[key_value->v.bytes.len] = '\0';
 	}
-      vol->v.luks->passphrase = g_malloc (key_value->v.bytes.len + 1);
-      memcpy (vol->v.luks->passphrase, key_value->v.bytes.data,
-	      key_value->v.bytes.len);
-      vol->v.luks->passphrase[key_value->v.bytes.len] = '\0';
       break;
 
     default:

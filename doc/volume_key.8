@@ -1,6 +1,6 @@
 .\" A man page for volume_key(8).
 .\"
-.\" Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+.\" Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 .\"
 .\" This copyrighted material is made available to anyone wishing to use,
 .\" modify, copy, or redistribute it subject to the terms and conditions of the
@@ -200,6 +200,11 @@ can currently be one of
 .B passphrase
 (use GPG to encrypt the whole packet, requires a passphrase).
 .\" cleartext is intentionally not documented.
+
+.TP
+\fB\-\-unencrypted\fP
+Only dump the unencrypted parts of the packet, if any, with \fB\-\-dump\fP.
+Do not require any passphrase or private key access.
 
 .TP
 \fB\-\-with\-secrets\fP

@@ -1,6 +1,6 @@
 /* KMIP handling.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -1522,6 +1522,44 @@ kmip_libvk_packet_decode (const void *packet, size_t size, GError **error)
   kmip_libvk_packet_free (pack);
  err:
   return NULL;
+}
+
+/* Drop secrets in PACKET. */
+void
+kmip_libvk_packet_drop_secret (struct kmip_libvk_packet *packet)
+{
+  struct kmip_key_block *block;
+
+  switch (packet->type)
+    {
+    case KMIP_OBJECT_SYMMETRIC_KEY:
+      block = packet->v.symmetric->block;
+      block->type = KMIP_KEY_TRANSPARENT_SYMMETRIC;
+      kmip_key_value_free_v (block->value);
+      block->value->type = KMIP_KEY_VALUE_BYTES;
+      block->value->v.bytes.data = NULL;
+      block->value->v.bytes.len = 0;
+      break;
+
+    case KMIP_OBJECT_SECRET_DATA:
+      block = packet->v.secret_data->block;
+      block->type = KMIP_KEY_OPAQUE;
+      kmip_key_value_free_v (block->value);
+      block->value->type = KMIP_KEY_VALUE_SYMMETRIC_KEY;
+      block->value->v.key = NULL;
+      break;
+
+    default:
+      g_return_if_reached ();
+    }
+
+  block->crypto_algorithm = KMIP_LIBVK_ENUM_NONE;
+  block->crypto_length = -1;
+  if (block->wrapping != NULL)
+    {
+      kmip_key_wrapping_data_free (block->wrapping);
+      block->wrapping = NULL;
+    }
 }
 
 /* Encode PACKET, set SIZE to its size.

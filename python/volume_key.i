@@ -1,6 +1,6 @@
 /* volume_key Python bindings. -*- C -*-
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -134,6 +134,7 @@ python_free_data (void *data)
 
 %ignore libvk_packet_get_format;
 %ignore libvk_packet_open;
+%ignore libvk_packet_open_unencrypted;
 %ignore libvk_packet_match_volume;
 
 %apply Pointer NONNULL { struct libvk_ui *, struct libvk_volume * };
@@ -588,5 +589,8 @@ struct libvk_packet {};
   static struct libvk_volume *open (const void *packet, size_t size,
 				    const struct libvk_ui *ui,
 				    GError **error);
+
+  static struct libvk_volume *open_unencrypted (const void *packet, size_t size,
+						GError **error);
   %typemap(in) (const void *packet, size_t size);
 }

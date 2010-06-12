@@ -1,6 +1,6 @@
 /* A command-line utility.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -147,6 +147,8 @@ static gboolean batch_mode; /* = FALSE; */
 
 /* if (mode_dump), include secrets in output */
 static gboolean dump_with_secrets; /* = FALSE; */
+/* if (mode_dump), do not attempt to decrypt anything */
+static gboolean dump_unencrypted; /* = FALSE; */
 
 /* Output format: */
 /* Use clear-text instead of certificate or passphrase encryption */
@@ -242,6 +244,10 @@ static const GOptionEntry option_descriptions[] =
       N_("Use FORMAT for all output packets"), N_("FORMAT")
     },
     {
+      "unencrypted", 0, 0, G_OPTION_ARG_NONE, &dump_unencrypted,
+      N_("Only include unencrypted information, if any, in --dump"), NULL
+    },
+    {
       "with-secrets", 0, 0, G_OPTION_ARG_NONE, &dump_with_secrets,
       N_("Include secrets in --dump output"), NULL
     },
@@ -303,6 +309,8 @@ parse_options (int *argc, char ***argv)
 
   if (dump_with_secrets != 0 && mode_dump == 0)
     error_exit (_("`--%s' is only valid with `--%s'"), "with-secrets", "dump");
+  if (dump_unencrypted != 0 && mode_dump == 0)
+    error_exit (_("`--%s' is only valid with `--%s'"), "unencrypted", "dump");
   if (mode_save == 0 && mode_reencrypt == 0)
     {
       if (output_default != NULL || output_data_encryption_key != NULL
@@ -926,7 +934,6 @@ do_dump (int argc, char *argv[])
   gsize size;
   const char *format;
   struct libvk_volume *pack;
-  struct libvk_ui *ui;
   GSList *list;
 
   if (argc != 2)
@@ -968,9 +975,16 @@ do_dump (int argc, char *argv[])
   if (mode_dump != 0)
     printf (_("%s:\t%s\n"), _("Packet format"), format);
 
-  ui = create_ui ();
-  pack = libvk_packet_open (packet, size, ui, &error);
-  libvk_ui_free (ui);
+  if (dump_unencrypted != 0)
+    pack = libvk_packet_open_unencrypted (packet, size, &error);
+  else
+    {
+      struct libvk_ui *ui;
+
+      ui = create_ui ();
+      pack = libvk_packet_open (packet, size, ui, &error);
+      libvk_ui_free (ui);
+    }
   g_free (packet);
   if (pack == NULL)
     error_exit (_("Error decoding `%s': %s"), argv[1], error->message);

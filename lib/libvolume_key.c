@@ -1,6 +1,6 @@
 /* Generic infrastructure for the volume_key library.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -478,4 +478,55 @@ libvk_packet_open (const void *packet, size_t size, const struct libvk_ui *ui,
   kmip_libvk_packet_free (pack);
  err:
   return NULL;
+}
+
+/* Open PACKET of SIZE, without decrypting it or asking for any decryption keys.
+   Return the volume information it contains, or NULL on error.
+   On success, at least some of the metadata must be available. */
+struct libvk_volume *
+libvk_packet_open_unencrypted (const void *packet, size_t size, GError **error)
+{
+  enum libvk_packet_format format;
+  const void *outer;
+  size_t outer_size;
+  struct kmip_libvk_packet *pack;
+  struct libvk_volume *v;
+
+  g_return_val_if_fail (packet != NULL, NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+
+  format = libvk_packet_get_format (packet, size, error);
+  if (format == LIBVK_PACKET_FORMAT_UNKNOWN)
+    return NULL;
+  g_return_val_if_fail (size >= sizeof (struct packet_header), NULL);
+  outer = (const unsigned char *)packet + sizeof (struct packet_header);
+  outer_size = size - sizeof (struct packet_header);
+  switch (format)
+    {
+    case LIBVK_PACKET_FORMAT_CLEARTEXT:
+      pack = kmip_libvk_packet_decode (outer, outer_size, error);
+      if (pack == NULL)
+	return NULL;
+      break;
+
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC: case LIBVK_PACKET_FORMAT_PASSPHRASE:
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_METADATA_ENCRYPTED,
+		   _("The packet metadata is encrypted"));
+      return NULL;
+
+    case LIBVK_PACKET_FORMAT_ASYMMETRIC_WRAP_SECRET_ONLY:
+    case LIBVK_PACKET_FORMAT_SYMMETRIC_WRAP_SECRET_ONLY:
+      pack = kmip_libvk_packet_decode (outer, outer_size, error);
+      if (pack == NULL)
+	return NULL;
+      kmip_libvk_packet_drop_secret (pack);
+      break;
+
+    default:
+      g_return_val_if_reached (NULL);
+    }
+
+  v = volume_load_escrow_packet (pack, error);
+  kmip_libvk_packet_free (pack);
+  return v;
 }

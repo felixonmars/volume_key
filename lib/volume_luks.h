@@ -1,6 +1,6 @@
 /* Internal LUKS volume interface.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -33,7 +33,7 @@ struct luks_volume
   size_t key_bytes;		   /* From LUKS header, may be 0 in packets */
   void *key;			   /* If known, or NULL */
   char *passphrase;		   /* If known, or NULL */
-  int passphrase_slot;		   /* If passphrase != NULL and known, or -1 */
+  int passphrase_slot;		   /* If relevant and known, or -1 */
 };
 
 /* g_free() LUKS and everything it points to. */

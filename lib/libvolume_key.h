@@ -1,6 +1,6 @@
 /* volume_key library.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -52,6 +52,8 @@ typedef enum
 
     LIBVK_ERROR_KMIP_UNSUPPORTED_FORMAT,
     LIBVK_ERROR_UNSUPPORTED_WRAPPING_MECHANISM,
+
+    LIBVK_ERROR_METADATA_ENCRYPTED,
   } LIBVKError;
 
 enum libvk_secret
@@ -357,6 +359,13 @@ extern enum libvk_packet_format libvk_packet_get_format (const void *packet,
 extern struct libvk_volume *libvk_packet_open (const void *packet, size_t size,
 					       const struct libvk_ui *ui,
 					       GError **error);
+
+/* Open PACKET of SIZE, without decrypting it or asking for any decryption keys.
+   Return the volume information it contains, or NULL on error.
+   On success, at least some of the metadata must be available. */
+extern struct libvk_volume *libvk_packet_open_unencrypted (const void *packet,
+							   size_t size,
+							   GError **error);
 
 enum libvk_packet_match_result
   {

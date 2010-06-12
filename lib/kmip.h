@@ -1,6 +1,6 @@
 /* Internal KMIP interface.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -401,6 +401,10 @@ G_GNUC_INTERNAL
 extern struct kmip_libvk_packet *kmip_libvk_packet_decode (const void *packet,
 							   size_t size,
 							   GError **error);
+
+/* Drop secrets in PACKET. */
+G_GNUC_INTERNAL
+extern void kmip_libvk_packet_drop_secret (struct kmip_libvk_packet *packet);
 
 /* Encode PACKET, set SIZE to its size.
    Return packet data (for g_free ()) if OK, NULL on error. */

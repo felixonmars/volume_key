@@ -1,3 +1,26 @@
+2010-06-12  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/kmip.h (kmip_libvk_packet_drop_secret): New declaration.
+	* lib/kmip.c (kmip_libvk_packet_drop_secret): New function.
+	* lib/volume_luks.h (struct luks_volume): Document that passphrase_slot
+	can be valid without passphrase.
+	* lib/volume_luks.c (luks_volume_dump_properties): Dump passphrase slot
+	even if passphrase is unknown.
+	(luks_parse_escrow_packet): Initialize passphrase slot if passphrase is
+	unknown.  Support packets that do not contain the encryption key or the
+	passphrase.
+	* lib/libvolume_key.h (LIBVK_ERROR_METADATA_ENCRYPTED): New error value.
+	(libvk_packet_open_unencrypted): New declaration.
+	* lib/libvolume_key.c (libvk_packet_open_unencrypted): New function.
+	* python/volume_key.i (libvk_packet_open_unencrypted): Hide.
+	(libvk_packet.open_unencrypted): New method.
+
+	* src/volume_key.c (dump_unencrypted): New variable.
+	(option_descriptions): New option `--unencrypted'.
+	(parse_options): Validate dump_unencrypted.
+	(do_dump): Use dump_unencrypted.
+	* doc/volume_key.8 (--unencrypted): Document new option.
+
 2010-06-11  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/volume_luks.c (luks_load_packet): When loading a passphrase

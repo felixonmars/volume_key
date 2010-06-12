@@ -1,5 +1,6 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([volume_key], [0.3.3], [mitr@redhat.com])
+AC_INIT([volume_key], [0.3.3], [mitr@redhat.com], ,
+        [https://fedorahosted.org/volume_key/])
 AC_COPYRIGHT(
 [Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
@@ -15,6 +16,7 @@ this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 Author: Miloslav Trmač <mitr@redhat.com>])
+AC_PREREQ([2.63b])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([lib/libvolume_key.h])

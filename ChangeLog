@@ -1,5 +1,7 @@
 2010-06-12  Miloslav Trmač  <mitr@redhat.com>
 
+	* configure.ac: Define AC_PACKAGE_URL.
+
 	* lib/kmip.h (kmip_libvk_packet_drop_secret): New declaration.
 	* lib/kmip.c (kmip_libvk_packet_drop_secret): New function.
 	* lib/volume_luks.h (struct luks_volume): Document that passphrase_slot

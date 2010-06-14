@@ -752,11 +752,14 @@ do_save (int argc, char *argv[])
   if (output_created_random_passphrase != NULL)
     {
       char *passphrase;
+      size_t passphrase_len;
 
       passphrase = generate_random_passphrase ();
+      passphrase_len = strlen (passphrase);
       if (libvk_volume_add_secret (v, LIBVK_SECRET_PASSPHRASE, passphrase,
-				   strlen (passphrase), &error) != 0)
+				   passphrase_len, &error) != 0)
 	error_exit (_("Error creating a passphrase: %s"), error->message);
+      memset (passphrase, 0, passphrase_len);
       g_free (passphrase);
       if (write_packet (&pos, output_created_random_passphrase, v,
 			LIBVK_SECRET_PASSPHRASE, ui, &error) != 0)

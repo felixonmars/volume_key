@@ -1,5 +1,10 @@
 2010-06-14  Miloslav Trmač  <mitr@redhat.com>
 
+	* src/volume_key.c (generate_random_passphrase): Use a character set
+	with 2^N characters to make sure all choices are equally likely.  Use
+	20 characters (in groups of 5), overall increasing the passphrase
+	strength of 120 bits instead of 31.359 bits.
+
 	* src/volume_key.c (do_save): Zero the generated passphrase before
 	freeing it.
 

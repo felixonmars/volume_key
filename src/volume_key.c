@@ -689,10 +689,15 @@ output_packet (struct packet_output_state *pos, const struct libvk_volume *vol,
 static char *
 generate_random_passphrase (void)
 {
-#define PASSPHRASE_LENGTH 8
-  unsigned char rnd[PASSPHRASE_LENGTH];
+  /* Keep the character set size a power of two to make sure all characters are
+     equally likely. */
+  static const char charset[64] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz./";
+
+  /* 20 chars * 6 bits per char = 120 "bits of security */
+  unsigned char rnd[20];
   char *passphrase;
-  size_t i;
+  size_t src, dest;
 
   if (PK11_GenerateRandom (rnd, sizeof (rnd)) != SECSuccess)
     {
@@ -702,15 +707,25 @@ generate_random_passphrase (void)
       error_from_pr (&error);
       error_exit (_("Error generating passphrase: %s"), error->message);
     }
-  passphrase = g_malloc (PASSPHRASE_LENGTH + 1);
-  for (i = 0; i < sizeof (passphrase) - 1; i++)
+  /* '-' characters: We only add '-' before another character, so there are
+     (sizeof (rnd) - 1) possible places, and we add a '-' after each group of 5
+     regular characters. */
+  { /* To make sure (sizeof (rnd) - 1) does not overflow. */
+    G_STATIC_ASSERT (sizeof (rnd) >= 1);
+  }
+  passphrase = g_malloc (sizeof (rnd) + (sizeof (rnd) - 1) / 5 + 1);
+  dest = 0;
+  for (src = 0; src < sizeof (rnd); src++)
     {
-      static const char set[36] = "0123456789abcdefghijklmnopqrstuvwxyz";
-
-      passphrase[i] = set[rnd[i] % sizeof (set)];
+      if (src != 0 && src % 5 == 0)
+	{
+	  passphrase[dest] = '-';
+	  dest++;
+	}
+      passphrase[dest] = charset[rnd[src] % sizeof (charset)];
+      dest++;
     }
-  passphrase[i] = '\0';
-#undef PASSPHRASE_LENGTH
+  passphrase[dest] = '\0';
   return passphrase;
 }
 

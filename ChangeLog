@@ -1,3 +1,7 @@
+2010-06-14  Miloslav Trmač  <mitr@redhat.com>
+
+	* src/volume_key.c (generate_random_passphrase): Split from do_save ().
+
 2010-06-12  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Define AC_PACKAGE_URL.

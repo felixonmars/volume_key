@@ -685,6 +685,35 @@ output_packet (struct packet_output_state *pos, const struct libvk_volume *vol,
   return 0;
 }
 
+/* Genereate a random passphrase and return it (for g_free ()) */
+static char *
+generate_random_passphrase (void)
+{
+#define PASSPHRASE_LENGTH 8
+  unsigned char rnd[PASSPHRASE_LENGTH];
+  char *passphrase;
+  size_t i;
+
+  if (PK11_GenerateRandom (rnd, sizeof (rnd)) != SECSuccess)
+    {
+      GError *error;
+
+      error = NULL;
+      error_from_pr (&error);
+      error_exit (_("Error generating passphrase: %s"), error->message);
+    }
+  passphrase = g_malloc (PASSPHRASE_LENGTH + 1);
+  for (i = 0; i < sizeof (passphrase) - 1; i++)
+    {
+      static const char set[36] = "0123456789abcdefghijklmnopqrstuvwxyz";
+
+      passphrase[i] = set[rnd[i] % sizeof (set)];
+    }
+  passphrase[i] = '\0';
+#undef PASSPHRASE_LENGTH
+  return passphrase;
+}
+
 /* Implement --save */
 static void
 do_save (int argc, char *argv[])
@@ -722,31 +751,16 @@ do_save (int argc, char *argv[])
     error_exit ("%s", error->message);
   if (output_created_random_passphrase != NULL)
     {
-#define PASSPHRASE_LENGTH 8
-      unsigned char rnd[PASSPHRASE_LENGTH];
-      char passphrase[PASSPHRASE_LENGTH + 1];
-      size_t i;
+      char *passphrase;
 
-      if (PK11_GenerateRandom (rnd, sizeof (rnd)) != SECSuccess)
-	{
-	  error_from_pr (&error);
-	  error_exit (_("Error generating passphrase: %s"), error->message);
-	}
-      for (i = 0; i < sizeof (passphrase) - 1; i++)
-	{
-	  static const char set[36] = "0123456789abcdefghijklmnopqrstuvwxyz";
-
-	  passphrase[i] = set[rnd[i] % sizeof (set)];
-	}
-      passphrase[i] = '\0';
-
+      passphrase = generate_random_passphrase ();
       if (libvk_volume_add_secret (v, LIBVK_SECRET_PASSPHRASE, passphrase,
 				   strlen (passphrase), &error) != 0)
 	error_exit (_("Error creating a passphrase: %s"), error->message);
+      g_free (passphrase);
       if (write_packet (&pos, output_created_random_passphrase, v,
 			LIBVK_SECRET_PASSPHRASE, ui, &error) != 0)
 	error_exit ("%s", error->message);
-#undef PASSPHRASE_LENGTH
     }
   pos_free (&pos);
   libvk_ui_free (ui);

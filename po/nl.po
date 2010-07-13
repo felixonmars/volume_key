@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-07-12 07:50+0000\n"
-"PO-Revision-Date: 2010-07-12 12:32+0200\n"
+"POT-Creation-Date: 2010-07-13 11:48+0000\n"
+"PO-Revision-Date: 2010-07-13 14:35+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
 "Language: nl\n"
@@ -93,15 +93,15 @@ msgstr "Verpakte sleutel is niet doorlatend"
 
 #: ../lib/kmip.c:1340 ../lib/kmip.c:1374
 msgid "Unsupported symmetric key format %"
-msgstr "Niet ondersteund symmetrisch sleutel formaat %"
+msgstr "Niet-ondersteund symmetrisch sleutel formaat %"
 
 #: ../lib/kmip.c:1407 ../lib/volume.c:683
 msgid "Unsupported KMIP version %"
-msgstr "Niet ondersteunde KMIP versie %"
+msgstr "Niet-ondersteunde KMIP versie %"
 
 #: ../lib/kmip.c:1454
 msgid "Unsupported object type %"
-msgstr "Niet ondersteund object type %"
+msgstr "Niet-ondersteund object type %"
 
 #: ../lib/kmip.c:1516
 #, c-format
@@ -111,12 +111,12 @@ msgstr "Onverwachte data na het pakket"
 #: ../lib/kmip.c:1623 ../lib/kmip.c:1709 ../lib/kmip.c:1812 ../lib/kmip.c:1888
 #: ../lib/volume.c:700 ../lib/volume_luks.c:796
 msgid "Unsupported packet type %"
-msgstr "Niet ondersteund pakket type %"
+msgstr "Niet-ondersteund pakket type %"
 
 #: ../lib/kmip.c:1641 ../lib/kmip.c:1831
 #, c-format
 msgid "Unsupported mechanism %lu"
-msgstr "Niet ondersteund mechanisme %lu"
+msgstr "Niet-ondersteund mechanisme %lu"
 
 #: ../lib/kmip.c:1724 ../lib/kmip.c:1747 ../lib/kmip.c:1901
 #, c-format
@@ -131,7 +131,7 @@ msgstr "Niet-ondersteund verpakking mechanisme"
 #: ../lib/libvolume_key.c:204
 #, c-format
 msgid "Unsupported asymmetric encryption format"
-msgstr "Niet ondersteund asymmetrisch encryptie formaat"
+msgstr "Niet-ondersteund asymmetrisch encryptie formaat"
 
 #: ../lib/libvolume_key.c:323
 #, c-format
@@ -146,7 +146,7 @@ msgstr "Input is geen volume_key escrow pakket"
 #: ../lib/libvolume_key.c:339
 #, c-format
 msgid "Unsupported packet format"
-msgstr "Niet ondersteund pakket formaat"
+msgstr "Niet-ondersteund pakket formaat"
 
 #: ../lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
@@ -180,7 +180,7 @@ msgstr "Wachtzin niet opgegeven"
 #: ../lib/ui.c:169
 #, c-format
 msgid "Symmetric key callback not provided"
-msgstr "Symmetrische sleutel  callbacks niet aangeboden"
+msgstr "Symmetrische sleutel callbacks niet aangeboden"
 
 #: ../lib/ui.c:176
 #, c-format
@@ -226,7 +226,7 @@ msgstr "Volume pad"
 #: ../lib/volume.c:629 ../lib/volume.c:662 ../lib/volume.c:759
 #, c-format
 msgid "Volume `%s' has unsupported format"
-msgstr "Volume `%s' heeft een niet ondersteund formaat"
+msgstr "Volume `%s' heeft niet-ondersteund formaat"
 
 #: ../lib/volume.c:487
 #, c-format
@@ -256,7 +256,7 @@ msgstr "Verkeerde pad combinatie (pakket `%s', volume `%s')"
 #: ../lib/volume.c:736
 #, c-format
 msgid "Unsupported volume format `%s'"
-msgstr "Niet ondersteund volume formaat `%s'"
+msgstr "Niet-ondersteund volume formaat `%s'"
 
 #: ../lib/volume_luks.c:54
 #, c-format
@@ -386,7 +386,7 @@ msgstr "Wachtzin onbekend"
 
 #: ../lib/volume_luks.c:736
 msgid "Unsupported key length %"
-msgstr "Niet ondersteunde sleutel lengte %"
+msgstr "Niet-ondersteunde sleutel lengte %"
 
 #: ../lib/volume_luks.c:749
 #, c-format
@@ -436,7 +436,8 @@ msgstr ""
 #: ../src/volume_key.c:185
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"Herlaad volume geheimen van een pakket.  Verwacht operators VOLUME PAKKET."
+"Laad volume geheimen van een pakket opnieuw.  Verwacht operators VOLUME "
+"PAKKET."
 
 #: ../src/volume_key.c:190
 msgid ""

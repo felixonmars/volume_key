@@ -59,6 +59,8 @@ AC_DEFINE([GETTEXT_PACKAGE], ["volume_key"], [Package name for <gi18n-lib.h>])
 # Checks for library functions.
 
 # Checks for system services.
+dnl We don't use off_t, but gpgme requires this.
+AC_SYS_LARGEFILE
 
 # Miscellaneous hackery.
 

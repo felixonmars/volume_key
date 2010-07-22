@@ -1,3 +1,7 @@
+2010-07-22  Miloslav Trmač  <mitr@redhat.com>
+
+	* configure.ac: Use AC_SYS_LARGEFILE, required by gpgme.
+
 2010-06-14  Miloslav Trmač  <mitr@redhat.com>
 
 	* src/volume_key.c (generate_random_passphrase): Use a character set

@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key.master.ta\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-03-26 16:21+0100\n"
+"POT-Creation-Date: 2010-08-27 00:24+0200\n"
 "PO-Revision-Date: 2009-11-13 16:32+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
+"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -104,21 +105,21 @@ msgstr "துணைபுரியாத பொருள் வகை %"
 msgid "Unexpected data after packet"
 msgstr "பாக்கெட்டுக்கு பின் எதிர்பார்க்காத தரவு"
 
-#: lib/kmip.c:1585 lib/kmip.c:1671 lib/kmip.c:1774 lib/kmip.c:1850
-#: lib/volume.c:700 lib/volume_luks.c:789
+#: lib/kmip.c:1623 lib/kmip.c:1709 lib/kmip.c:1812 lib/kmip.c:1888
+#: lib/volume.c:700 lib/volume_luks.c:796
 msgid "Unsupported packet type %"
 msgstr "துணைபுரியாத பாக்கெட் வகை %"
 
-#: lib/kmip.c:1603 lib/kmip.c:1793
+#: lib/kmip.c:1641 lib/kmip.c:1831
 #, c-format
 msgid "Unsupported mechanism %lu"
 msgstr "துணைபுரியாத நுட்பம் %lu"
 
-#: lib/kmip.c:1686 lib/kmip.c:1709 lib/kmip.c:1863
+#: lib/kmip.c:1724 lib/kmip.c:1747 lib/kmip.c:1901
 msgid "Unexpected wrapped key format"
 msgstr "எதிர்பாராத மடிக்கப்பட்ட விசை வடிவம்"
 
-#: lib/kmip.c:1699 lib/kmip.c:1876
+#: lib/kmip.c:1737 lib/kmip.c:1914
 msgid "Unsupported wrapping mechanism"
 msgstr "துணைபுரியாத மடிப்பு நுட்பம்"
 
@@ -150,11 +151,15 @@ msgstr "ஒரு சரியான கடவுச்சொல்லை பெ
 msgid "Too many attempts to get a valid symmetric key"
 msgstr "ஒரு சரியான விசையை பெற பல முயற்சிகள்"
 
+#: lib/libvolume_key.c:514
+msgid "The packet metadata is encrypted"
+msgstr ""
+
 #: lib/ui.c:148
 msgid "User interface callbacks not provided"
 msgstr "பயனர் முகப்பு அழைப்பு கொடுக்கப்படவில்லை"
 
-#: lib/ui.c:154 src/volume_key.c:613
+#: lib/ui.c:154 src/volume_key.c:621
 msgid "Passphrase not provided"
 msgstr "கடவுச்சொல் கொடுக்கப்படவில்லை"
 
@@ -275,7 +280,7 @@ msgstr "கடவுச்சொல்"
 msgid "Passphrase slot"
 msgstr "கடவுச்சொல் ஸ்லாட்"
 
-#: lib/volume_luks.c:275 lib/volume_luks.c:457 lib/volume_luks.c:696
+#: lib/volume_luks.c:275 lib/volume_luks.c:456 lib/volume_luks.c:695
 msgid "Encryption information type unsupported in LUKS"
 msgstr "மறைகுறியாக்க தகவல் வகை LUKSல் துணைபுரியவில்லை"
 
@@ -284,7 +289,7 @@ msgstr "மறைகுறியாக்க தகவல் வகை LUKSல�
 msgid "Passphrase for `%s'"
 msgstr "`%s'க்கான கடவுச்சொல்"
 
-#: lib/volume_luks.c:306 lib/volume_luks.c:833
+#: lib/volume_luks.c:306 lib/volume_luks.c:840
 msgid "Error getting LUKS data encryption key: "
 msgstr "LUKS தரவு மறைகுறியாக்க விசை பிழையை பெறுகிறது: "
 
@@ -311,46 +316,46 @@ msgstr "LUKS தரவு குறிமுறையாக்குதல் �
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "LUKS கடவுச்சொல் பாக்கெட்டில் தவறானது: "
 
-#: lib/volume_luks.c:463
+#: lib/volume_luks.c:462
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "Escrow பாக்கெட் LUKS தரவு மறைக்குறியாக்க விசையை கொண்டிருக்கவில்லை"
 
-#: lib/volume_luks.c:468
+#: lib/volume_luks.c:467
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "`%s'க்கான புதிய கடவுச்சொல்"
 
-#: lib/volume_luks.c:469
+#: lib/volume_luks.c:468
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "`%s'க்கான புதிய கடவுச்சொல்லை மீண்டும் தட்டச்சு செய்யவும்"
 
-#: lib/volume_luks.c:470
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "கடவுச்சொல் பொருந்தவில்லை. `%s'க்கான புதிய கடவுச்சொல்"
 
-#: lib/volume_luks.c:495 src/volume_key.c:603
+#: lib/volume_luks.c:494 src/volume_key.c:611
 msgid "Too many attempts to get a passphrase"
 msgstr "ஒரு கடவுச்சொல்லை பெற பல முயற்சிகள்"
 
-#: lib/volume_luks.c:510 lib/volume_luks.c:572
+#: lib/volume_luks.c:509 lib/volume_luks.c:571
 msgid "Error adding a LUKS passphrase"
 msgstr "ஒரு LUKS கடவுச்சொல்லை சேர்க்க பிழை"
 
-#: lib/volume_luks.c:548
+#: lib/volume_luks.c:547
 msgid "Can not add a secret of this type"
 msgstr "இந்த வகைக்கு இரகசியத்தை சேர்க்க முடியவில்லை"
 
-#: lib/volume_luks.c:554 lib/volume_luks.c:654 lib/volume_luks.c:841
+#: lib/volume_luks.c:553 lib/volume_luks.c:653 lib/volume_luks.c:848
 msgid "Data encryption key unknown"
 msgstr "தரவு குறிமுறையாக்குதல் விசை தெரியாதது"
 
-#: lib/volume_luks.c:560
+#: lib/volume_luks.c:559
 msgid "The passphrase must be a string"
 msgstr "கடவுச்சொல் ஒரு சரமாக இருக்க வேண்டும்"
 
-#: lib/volume_luks.c:677
+#: lib/volume_luks.c:676
 msgid "Passphrase unknown"
 msgstr "தெரியாத கடவுச்சொல்"
 
@@ -358,28 +363,28 @@ msgstr "தெரியாத கடவுச்சொல்"
 msgid "Unsupported key length %"
 msgstr "துணைபுரியாத விசை நீளம் %"
 
-#: lib/volume_luks.c:747
+#: lib/volume_luks.c:749
 msgid "Key length mismatch"
 msgstr "விசை நீளம் பொருந்தவில்லை"
 
-#: lib/volume_luks.c:770
+#: lib/volume_luks.c:773
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "தவறான இட எண் `%s'"
 
-#: lib/volume_luks.c:778
+#: lib/volume_luks.c:784
 msgid "NUL byte in passphrase"
 msgstr "NUL பைட் கடவுச்சொல்லில்"
 
-#: lib/volume_luks.c:849
+#: lib/volume_luks.c:856
 msgid "Error opening LUKS volume: "
 msgstr "LUKS தொகுதியை திறப்பதில் பிழை: "
 
-#: python/volume_key.i:367
+#: python/volume_key.i:368
 msgid "Error decoding certificate"
 msgstr "சான்றிதழை குறிமுறை நீக்குவதில் பிழை"
 
-#: src/volume_key.c:52 src/volume_key.c:429 src/volume_key.c:481
+#: src/volume_key.c:52 src/volume_key.c:437 src/volume_key.c:489
 #, c-format
 msgid "%s: "
 msgstr "%s: "
@@ -389,23 +394,23 @@ msgstr "%s: "
 msgid "%s (y/n) "
 msgstr "%s (y/n) "
 
-#: src/volume_key.c:173
+#: src/volume_key.c:175
 msgid "Show version"
 msgstr "பதிப்பை காட்டுதல்"
 
-#: src/volume_key.c:178
+#: src/volume_key.c:180
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr ""
 "தொகுதி ரகசியங்களை ஒரு பாக்கெட்டில் சேமிக்கவும்.  operands VOLUME [PACKET]ஐ "
 "எதிர்பார்க்கிறது."
 
-#: src/volume_key.c:183
+#: src/volume_key.c:185
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
 "ஒரு பாக்கெட்டிற்கு தொகுதி இரகசியங்களை மறுசேமி.  operands VOLUME PACKET "
 "எதிர்பார்க்கிறது."
 
-#: src/volume_key.c:188
+#: src/volume_key.c:190
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
@@ -413,87 +418,91 @@ msgstr ""
 "ஒரு பாக்கெட்டிற்கு ஒரு மறைக்குறியாக்கப்பட்ட தொகுதியை அமைக்கிறது.  operands VOLUME "
 "PACKET NAMEஐ எதிர்பார்க்கிறது."
 
-#: src/volume_key.c:193
+#: src/volume_key.c:195
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
 msgstr ""
 "ஒரு escrow பாக்கெட்டை மறு மறைக்குறியாக்கவும்.  operand PACKET எதிர்பார்க்கிறது."
 
-#: src/volume_key.c:197
+#: src/volume_key.c:199
 msgid "Show information contained in a packet.  Expects operand PACKET."
 msgstr "ஒரு பாக்கெட் பெற்றுள்ள தகவலைக் காட்டு.  operand PACKETஐ எதிர்பார்க்கிறது."
 
-#: src/volume_key.c:202
+#: src/volume_key.c:204
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
 msgstr ""
 "ஒரு பாக்கெட் பெற்றிருக்கும் ரகசியங்களை காட்டு.  operand PACKETஐ எதிர்பார்க்கிறது."
 
-#: src/volume_key.c:207
+#: src/volume_key.c:209
 msgid "Use the NSS database in DIR"
 msgstr "இந்த NSS தரவுத்தளத்தை DIRல் பயன்படுத்து"
 
-#: src/volume_key.c:207
+#: src/volume_key.c:209
 msgid "DIR"
 msgstr "DIR"
 
-#: src/volume_key.c:210
+#: src/volume_key.c:212
 msgid "Run in batch mode"
 msgstr "பிரிவு முறைமையில் இயக்கு"
 
-#: src/volume_key.c:216
+#: src/volume_key.c:218
 msgid "Write the default secret to PACKET"
 msgstr "PACKETக்கு முன்னிருப்பு ரகசியத்தை எழுது"
 
-#: src/volume_key.c:216 src/volume_key.c:221 src/volume_key.c:225
-#: src/volume_key.c:230
+#: src/volume_key.c:218 src/volume_key.c:223 src/volume_key.c:227
+#: src/volume_key.c:232
 msgid "PACKET"
 msgstr "PACKET"
 
-#: src/volume_key.c:220
+#: src/volume_key.c:222
 msgid "Write data encryption key to PACKET"
 msgstr "PACKETக்கு தரவு மறைகுறியாக்க விசையை எழுது"
 
-#: src/volume_key.c:225
+#: src/volume_key.c:227
 msgid "Write passphrase to PACKET"
 msgstr "PACKETக்கு கடவுச்சொல்லை எழுது"
 
-#: src/volume_key.c:230
+#: src/volume_key.c:232
 msgid "Create a random passphrase and write it to PACKET"
 msgstr "ஒரு குறிப்பில்லாத கடவுச்சொல்லை உருவாக்கி PACKETக்கு எழுதவும்"
 
-#: src/volume_key.c:238
+#: src/volume_key.c:240
 msgid "Encrypt for the certificate in CERT"
 msgstr "CERTஇல் சான்றிதழ்கள் மறைகுறியாக்கப்பட்டன"
 
-#: src/volume_key.c:238
+#: src/volume_key.c:240
 msgid "CERT"
 msgstr "CERT"
 
-#: src/volume_key.c:242
+#: src/volume_key.c:244
 msgid "Use FORMAT for all output packets"
 msgstr "அனைத்து வெளிப்பாடு பாக்கெட்டுகளையும் வடிவமை"
 
-#: src/volume_key.c:242
+#: src/volume_key.c:244
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: src/volume_key.c:246
+#: src/volume_key.c:248
+msgid "Only include unencrypted information, if any, in --dump"
+msgstr ""
+
+#: src/volume_key.c:252
 msgid "Include secrets in --dump output"
 msgstr "--dump வெளிப்பாட்டில் இரகசியங்கள் உள்ளன"
 
-#: src/volume_key.c:261
+#: src/volume_key.c:267
 msgid "OPERANDS"
 msgstr "OPERANDS"
 
-#: src/volume_key.c:263
+#: src/volume_key.c:269
 msgid "Manages encrypted volume keys and passphrases."
 msgstr "மறைகுறியாக்கப்பட்ட தொகுதி விசைகள் மற்றும் கடவுச்சொல்களை மேலாண்மை செய்யவும்."
 
-#: src/volume_key.c:264
+#: src/volume_key.c:270
 #, c-format
 msgid "Report bugs to %s"
 msgstr "%sக்கு பிழைகளை அறிக்கையிடவும்"
 
-#: src/volume_key.c:272
+#: src/volume_key.c:278
 #, c-format
 msgid ""
 "%s: %s\n"
@@ -502,7 +511,7 @@ msgstr ""
 "%s: %s\n"
 "மேலும் தகவலுக்கு `%s --help' ஐ இயக்கு.\n"
 
-#: src/volume_key.c:283
+#: src/volume_key.c:289
 msgid ""
 "Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
 "This software is distributed under the GPL v.2.\n"
@@ -514,186 +523,186 @@ msgstr ""
 "\n"
 "This program is provided with NO WARRANTY, to the extent permitted by law."
 
-#: src/volume_key.c:295
+#: src/volume_key.c:301
 msgid "Operation mode not specified"
 msgstr "செயல்பாடு முறைமை குறிப்பிடப்படவில்லை"
 
-#: src/volume_key.c:301
+#: src/volume_key.c:307
 msgid "Ambiguous operation mode"
 msgstr "தெளிவற்ற செயல்பாடு முறைமைஓ"
 
-#: src/volume_key.c:305 src/volume_key.c:358
+#: src/volume_key.c:311 src/volume_key.c:313 src/volume_key.c:366
 #, c-format
 msgid "`--%s' is only valid with `--%s'"
 msgstr "`--%s' மட்டுமே `--%s'உடன் சரியானது"
 
-#: src/volume_key.c:311
+#: src/volume_key.c:319
 msgid "Output can be specified only with `--save' or `--reencrypt'"
 msgstr "வெளிப்பாடு `--save' அல்லது `--reencrypt' உடன் மட்டுமே குறிப்பிடப்படும்"
 
-#: src/volume_key.c:318
+#: src/volume_key.c:326
 msgid "No output specified"
 msgstr "வெளிப்பாடு குறிப்பிடபடவில்லை"
 
-#: src/volume_key.c:320
+#: src/volume_key.c:328
 msgid "Ambiguous output format"
 msgstr "தெளிவற்ற வெளிப்பாடு வடிவம்"
 
-#: src/volume_key.c:335
+#: src/volume_key.c:343
 #, c-format
 msgid "Unknown packet format `%s'"
 msgstr "தெரியாத பாக்கெட் வடிவம் `%s'"
 
-#: src/volume_key.c:345
+#: src/volume_key.c:353
 msgid "Output format does not match other options"
 msgstr "வெளிப்பாடு வடிவம் வேறு விருப்பங்களுக்கு பொருந்தாது"
 
-#: src/volume_key.c:396
+#: src/volume_key.c:404
 #, c-format
 msgid "Error, try again.\n"
 msgstr "பிழை, மீண்டும் முயற்சி.\n"
 
-#: src/volume_key.c:397
+#: src/volume_key.c:405
 #, c-format
 msgid "Enter password for `%s': "
 msgstr "`%s'கான கடவுச்சொல்லை உள்ளிடு: "
 
-#: src/volume_key.c:514 src/volume_key.c:553
+#: src/volume_key.c:522 src/volume_key.c:561
 #, c-format
 msgid "Error reading `%s': "
 msgstr "`%s'ஐ வாசிப்பத்தில் பிழை: "
 
-#: src/volume_key.c:521 src/volume_key.c:561
+#: src/volume_key.c:529 src/volume_key.c:569
 #, c-format
 msgid "Error decoding `%s': "
 msgstr "`%s' குறிமுறை யீக்குதலில் பிழை: "
 
-#: src/volume_key.c:580
+#: src/volume_key.c:588
 msgid "New packet passphrase"
 msgstr "புதிய பாக்கெட் கடவுச்சொல்"
 
-#: src/volume_key.c:581
+#: src/volume_key.c:589
 msgid "Passphrases do not match.  New packet passphrase"
 msgstr "கடவுச்சொல் பொருந்தவில்லை.  புதிய பாக்கெட் கடவுச்சொல்"
 
-#: src/volume_key.c:586
+#: src/volume_key.c:594
 msgid "Repeat new packet passphrase"
 msgstr "புதிய பாக்கெட் கடவுச்சொல்லை திரும்ப செய்யவும்"
 
-#: src/volume_key.c:650
+#: src/volume_key.c:658
 #, c-format
 msgid "Error creating `%s': "
 msgstr "பிழை உருவாக்கும் `%s': "
 
-#: src/volume_key.c:690
-#, c-format
-msgid "Usage: %s --save VOLUME [PACKET]"
-msgstr "பயன்பாடு: %s --save VOLUME [PACKET]"
-
-#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
-#: src/volume_key.c:873
-#, c-format
-msgid "Error opening `%s': %s"
-msgstr "`%s'ஐ திறக்கையில் பிழை: %s"
-
-#: src/volume_key.c:706
-#, c-format
-msgid "Error loading `%s': %s"
-msgstr "பிழை ஏற்றுகிற `%s': %s"
-
-#: src/volume_key.c:725
+#: src/volume_key.c:708
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "பிழையை உருவாக்கும் கடவுச்சொல்: %s"
 
-#: src/volume_key.c:737
+#: src/volume_key.c:742
+#, c-format
+msgid "Usage: %s --save VOLUME [PACKET]"
+msgstr "பயன்பாடு: %s --save VOLUME [PACKET]"
+
+#: src/volume_key.c:747 src/volume_key.c:762 src/volume_key.c:875
+#: src/volume_key.c:913
+#, c-format
+msgid "Error opening `%s': %s"
+msgstr "`%s'ஐ திறக்கையில் பிழை: %s"
+
+#: src/volume_key.c:758
+#, c-format
+msgid "Error loading `%s': %s"
+msgstr "பிழை ஏற்றுகிற `%s': %s"
+
+#: src/volume_key.c:776
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "பிழையை உருவாக்கும் ஒரு கடவுச்சொல்: %s"
 
-#: src/volume_key.c:768
+#: src/volume_key.c:808
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "`%s' பொருந்தவில்லை `%s': "
 
-#: src/volume_key.c:777
+#: src/volume_key.c:817
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "`%s' இருந்தாலும் பொருந்தவில்லை `%s'\n"
 
-#: src/volume_key.c:792
+#: src/volume_key.c:832
 msgid "Are you sure you want to use this packet?"
 msgstr "நீங்கள் இந்த பாக்கெட்டை பயன்படுத்த விரும்புகிறீர்களா?"
 
-#: src/volume_key.c:804
+#: src/volume_key.c:844
 msgid "Error getting a yes/no answer"
 msgstr "ஒரு ஆம்/இல்லை பதில் பெறுவதில் பிழை"
 
-#: src/volume_key.c:830
+#: src/volume_key.c:870
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "பயன்பாடு: %s --%s VOLUME PACKET"
 
-#: src/volume_key.c:851
+#: src/volume_key.c:891
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "`%s'க்கு அணுகலை மறுசேமிப்பதில் பிழை: %s"
 
-#: src/volume_key.c:867
+#: src/volume_key.c:907
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "பயன்பாடு: %s --%s VOLUME PACKET NAME"
 
-#: src/volume_key.c:889
+#: src/volume_key.c:929
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "பிழை அமைக்கிறது `%s': %s"
 
-#: src/volume_key.c:904 src/volume_key.c:933
+#: src/volume_key.c:944 src/volume_key.c:972
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "பயன்பாடு: %s --%s PACKET"
 
-#: src/volume_key.c:938
+#: src/volume_key.c:977
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "வாசிப்பதில் பிழை `%s': %s"
 
-#: src/volume_key.c:943
+#: src/volume_key.c:982
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "தவறான பாக்கெட்: %s"
 
-#: src/volume_key.c:946
+#: src/volume_key.c:985
 msgid "Unencrypted"
 msgstr "குறிமுறையாக்கப்படாத"
 
-#: src/volume_key.c:950
+#: src/volume_key.c:989
 msgid "Public key-encrypted"
 msgstr "பொது விசை-மறைகுறியாக்கப்பட்டது"
 
-#: src/volume_key.c:954
+#: src/volume_key.c:993
 msgid "Passphrase-encrypted"
 msgstr "கடவுச்சொல்-மறைகுறியாக்கப்பட்டது"
 
-#: src/volume_key.c:958
+#: src/volume_key.c:997
 msgid "Only secrets public key-encrypted"
 msgstr "பொது விசை-மறைகுறியாக்க இரகசியங்கள் மட்டும்"
 
-#: src/volume_key.c:962
+#: src/volume_key.c:1001
 msgid "Only secrets symmetric key-encrypted"
 msgstr "பொது விசை-மறைகுறியாக்கப்பட்ட இரகசியம் மட்டும்"
 
-#: src/volume_key.c:969 src/volume_key.c:991
+#: src/volume_key.c:1008 src/volume_key.c:1037
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:969
+#: src/volume_key.c:1008
 msgid "Packet format"
 msgstr "பாக்கெட் வடிவம்"
 
-#: src/volume_key.c:976
+#: src/volume_key.c:1022
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "பிழை குறிமுறையை நீக்குகிறது `%s': %s"

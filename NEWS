@@ -1,3 +1,12 @@
+Changes in version 0.3.4:
+- New option --unencrypted, which allows dumping unencrypted metadata of a
+  packet without necessarily being able to decrypt the encrypted metadata and
+  secrets.
+- New function libvk_packet_open_unencrypted().
+- Generate stronger default passphrases in volume_key.
+- Fix build with recent gpgme versions.
+- Update translations.
+
 Changes in version 0.3.3:
 - Update translations.
 

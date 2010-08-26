@@ -1,3 +1,10 @@
+2010-08-27  Miloslav Trmač  <mitr@redhat.com>
+
+	* configure.ac: Release 0.3.4.
+	* NEWS: Update.
+	* po/LINGUAS: Update.
+	* Makefile.am (lib_libvolume_key_la_LDFLAGS): Update version info.
+
 2010-07-22  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Use AC_SYS_LARGEFILE, required by gpgme.

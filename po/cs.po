@@ -1,16 +1,17 @@
 # Czech translations for volume_key package.
-# Copyright (C) 2009 Red Hat, Inc.
+# Copyright (C) 2009, 2010 Red Hat, Inc.
 # This file is distributed under the same license as the volume_key package.
-# Miloslav Trmač <mitr@redhat.com>, 2009.
+# Miloslav Trmač <mitr@redhat.com>, 2009, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.0\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-03-26 16:21+0100\n"
-"PO-Revision-Date: 2009-09-30 16:28+0200\n"
+"POT-Creation-Date: 2010-08-27 00:24+0200\n"
+"PO-Revision-Date: 2010-08-27 00:25+0200\n"
 "Last-Translator: Miloslav Trmač <mitr@redhat.com>\n"
 "Language-Team: Czech\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -96,21 +97,21 @@ msgstr "Nepodporovaný typ objektu %"
 msgid "Unexpected data after packet"
 msgstr "Neočekávaná data za paketem"
 
-#: lib/kmip.c:1585 lib/kmip.c:1671 lib/kmip.c:1774 lib/kmip.c:1850
-#: lib/volume.c:700 lib/volume_luks.c:789
+#: lib/kmip.c:1623 lib/kmip.c:1709 lib/kmip.c:1812 lib/kmip.c:1888
+#: lib/volume.c:700 lib/volume_luks.c:796
 msgid "Unsupported packet type %"
 msgstr "Nepodporovaný typ paketu %"
 
-#: lib/kmip.c:1603 lib/kmip.c:1793
+#: lib/kmip.c:1641 lib/kmip.c:1831
 #, c-format
 msgid "Unsupported mechanism %lu"
 msgstr "Nepodporovaný mechanismus %lu"
 
-#: lib/kmip.c:1686 lib/kmip.c:1709 lib/kmip.c:1863
+#: lib/kmip.c:1724 lib/kmip.c:1747 lib/kmip.c:1901
 msgid "Unexpected wrapped key format"
 msgstr "Neočekávaný formát zabaleného klíče"
 
-#: lib/kmip.c:1699 lib/kmip.c:1876
+#: lib/kmip.c:1737 lib/kmip.c:1914
 msgid "Unsupported wrapping mechanism"
 msgstr "Nepodporovaný mechanismus balení"
 
@@ -142,11 +143,15 @@ msgstr "Příliš mnoho pokusu získat platné heslo"
 msgid "Too many attempts to get a valid symmetric key"
 msgstr "Příliš mnoho pokusu získat platné symetrický klíč"
 
+#: lib/libvolume_key.c:514
+msgid "The packet metadata is encrypted"
+msgstr "Metadata paketu jsou zašifrována"
+
 #: lib/ui.c:148
 msgid "User interface callbacks not provided"
 msgstr "Zpětná volání pro uživatelské rozhraní nebyla dodána"
 
-#: lib/ui.c:154 src/volume_key.c:613
+#: lib/ui.c:154 src/volume_key.c:621
 msgid "Passphrase not provided"
 msgstr "Heslo nezadáno"
 
@@ -267,7 +272,7 @@ msgstr "Heslo"
 msgid "Passphrase slot"
 msgstr "Pozice hesla"
 
-#: lib/volume_luks.c:275 lib/volume_luks.c:457 lib/volume_luks.c:696
+#: lib/volume_luks.c:275 lib/volume_luks.c:456 lib/volume_luks.c:695
 msgid "Encryption information type unsupported in LUKS"
 msgstr "Typ informace o šifrování není v LUKS podporován"
 
@@ -276,7 +281,7 @@ msgstr "Typ informace o šifrování není v LUKS podporován"
 msgid "Passphrase for `%s'"
 msgstr "Heslo pro „%s“"
 
-#: lib/volume_luks.c:306 lib/volume_luks.c:833
+#: lib/volume_luks.c:306 lib/volume_luks.c:840
 msgid "Error getting LUKS data encryption key: "
 msgstr "Chyba při získávání klíče pro šifrování dat LUKS: "
 
@@ -303,46 +308,46 @@ msgstr "Klíč pro šifrování dat LUKS v paketu není platný: "
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "Heslo LUKS v paketu není platné: "
 
-#: lib/volume_luks.c:463
+#: lib/volume_luks.c:462
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "Paket úschovy neobsahuje klíč pro šifrování dat LUKS"
 
-#: lib/volume_luks.c:468
+#: lib/volume_luks.c:467
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "Nové heslo pro „%s“"
 
-#: lib/volume_luks.c:469
+#: lib/volume_luks.c:468
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "Opakujte nové heslo pro „%s“"
 
-#: lib/volume_luks.c:470
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "Hesla neslouhlasí. Nové heslo pro „%s“"
 
-#: lib/volume_luks.c:495 src/volume_key.c:603
+#: lib/volume_luks.c:494 src/volume_key.c:611
 msgid "Too many attempts to get a passphrase"
 msgstr "Příliš mnoho pokusů získat heslo"
 
-#: lib/volume_luks.c:510 lib/volume_luks.c:572
+#: lib/volume_luks.c:509 lib/volume_luks.c:571
 msgid "Error adding a LUKS passphrase"
 msgstr "Chyba při přidávání hesla LUKS"
 
-#: lib/volume_luks.c:548
+#: lib/volume_luks.c:547
 msgid "Can not add a secret of this type"
 msgstr "Nemohu přidat tajemství tohoto typu"
 
-#: lib/volume_luks.c:554 lib/volume_luks.c:654 lib/volume_luks.c:841
+#: lib/volume_luks.c:553 lib/volume_luks.c:653 lib/volume_luks.c:848
 msgid "Data encryption key unknown"
 msgstr "Klíč pro šifrování dat není znám"
 
-#: lib/volume_luks.c:560
+#: lib/volume_luks.c:559
 msgid "The passphrase must be a string"
 msgstr "Heslo musí být řetězec"
 
-#: lib/volume_luks.c:677
+#: lib/volume_luks.c:676
 msgid "Passphrase unknown"
 msgstr "Heslo není známo"
 
@@ -350,28 +355,28 @@ msgstr "Heslo není známo"
 msgid "Unsupported key length %"
 msgstr "Nepodporovaná délka klíče %"
 
-#: lib/volume_luks.c:747
+#: lib/volume_luks.c:749
 msgid "Key length mismatch"
 msgstr "Délka klíče nesouhlasí"
 
-#: lib/volume_luks.c:770
+#: lib/volume_luks.c:773
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "Neplatné číslo pozice „%s“"
 
-#: lib/volume_luks.c:778
+#: lib/volume_luks.c:784
 msgid "NUL byte in passphrase"
 msgstr "Bajt NUL v heslu"
 
-#: lib/volume_luks.c:849
+#: lib/volume_luks.c:856
 msgid "Error opening LUKS volume: "
 msgstr "Chyba při otevírání svazku LUKS: "
 
-#: python/volume_key.i:367
+#: python/volume_key.i:368
 msgid "Error decoding certificate"
 msgstr "Chyba při dekódování certifikátu"
 
-#: src/volume_key.c:52 src/volume_key.c:429 src/volume_key.c:481
+#: src/volume_key.c:52 src/volume_key.c:437 src/volume_key.c:489
 #, c-format
 msgid "%s: "
 msgstr "%s: "
@@ -381,19 +386,19 @@ msgstr "%s: "
 msgid "%s (y/n) "
 msgstr "%s (a/n) "
 
-#: src/volume_key.c:173
+#: src/volume_key.c:175
 msgid "Show version"
 msgstr "Zobrazit verzi"
 
-#: src/volume_key.c:178
+#: src/volume_key.c:180
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr "Uložit tajemství o svazku do paketu. Očekává operandy SVAZEK [PAKET]."
 
-#: src/volume_key.c:183
+#: src/volume_key.c:185
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr "Obnovit tajemství o svazku z paketu. Očekává operandy SVAZEK PAKET."
 
-#: src/volume_key.c:188
+#: src/volume_key.c:190
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
@@ -401,85 +406,89 @@ msgstr ""
 "Nastavit šifrovaný svazek pomocí tajemství z paketu. Očekává operandy SVAZEK "
 "PAKET NÁZEV."
 
-#: src/volume_key.c:193
+#: src/volume_key.c:195
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
 msgstr "Znovu zašifrovat paket úschovy. Očekává operand PAKET."
 
-#: src/volume_key.c:197
+#: src/volume_key.c:199
 msgid "Show information contained in a packet.  Expects operand PACKET."
 msgstr "Zobrazit informace uložené v paketu. Očekává operand PAKET."
 
-#: src/volume_key.c:202
+#: src/volume_key.c:204
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
 msgstr "Zobrazit tajemství uložená v paketu. Očekává operand PAKET."
 
-#: src/volume_key.c:207
+#: src/volume_key.c:209
 msgid "Use the NSS database in DIR"
 msgstr "Používat NSS databázi v ADRESÁŘI"
 
-#: src/volume_key.c:207
+#: src/volume_key.c:209
 msgid "DIR"
 msgstr "ADRESÁŘ"
 
-#: src/volume_key.c:210
+#: src/volume_key.c:212
 msgid "Run in batch mode"
 msgstr "Běžet v dávkovém režimu"
 
-#: src/volume_key.c:216
+#: src/volume_key.c:218
 msgid "Write the default secret to PACKET"
 msgstr "Zapsat implicitní tajemství do PAKETU"
 
-#: src/volume_key.c:216 src/volume_key.c:221 src/volume_key.c:225
-#: src/volume_key.c:230
+#: src/volume_key.c:218 src/volume_key.c:223 src/volume_key.c:227
+#: src/volume_key.c:232
 msgid "PACKET"
 msgstr "PAKET"
 
-#: src/volume_key.c:220
+#: src/volume_key.c:222
 msgid "Write data encryption key to PACKET"
 msgstr "Zapsat klíč pro šifrování dat do PAKETU"
 
-#: src/volume_key.c:225
+#: src/volume_key.c:227
 msgid "Write passphrase to PACKET"
 msgstr "Zapsat heslo do PAKETU"
 
-#: src/volume_key.c:230
+#: src/volume_key.c:232
 msgid "Create a random passphrase and write it to PACKET"
 msgstr "Vytvořit náhodné heslo a zapsat je do PAKETU"
 
-#: src/volume_key.c:238
+#: src/volume_key.c:240
 msgid "Encrypt for the certificate in CERT"
 msgstr "Zašifrovat pro certifikát v CERT"
 
-#: src/volume_key.c:238
+#: src/volume_key.c:240
 msgid "CERT"
 msgstr "CERT"
 
-#: src/volume_key.c:242
+#: src/volume_key.c:244
 msgid "Use FORMAT for all output packets"
 msgstr "Použít pro všechny výstupní pakety FORMÁT"
 
-#: src/volume_key.c:242
+#: src/volume_key.c:244
 msgid "FORMAT"
 msgstr "FORMÁT"
 
-#: src/volume_key.c:246
+#: src/volume_key.c:248
+msgid "Only include unencrypted information, if any, in --dump"
+msgstr "Do --dump zahrnout jen nešifrované informace, pokud existují"
+
+#: src/volume_key.c:252
 msgid "Include secrets in --dump output"
 msgstr "Zahrnout tajemství do výstupu --dump"
 
-#: src/volume_key.c:261
+#: src/volume_key.c:267
 msgid "OPERANDS"
 msgstr "OPERANDY"
 
-#: src/volume_key.c:263
+#: src/volume_key.c:269
 msgid "Manages encrypted volume keys and passphrases."
 msgstr "Spravuje klíče a hesla šifrovaných svazků."
 
-#: src/volume_key.c:264
+#: src/volume_key.c:270
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Chyby hlaste na %s"
 
-#: src/volume_key.c:272
+#: src/volume_key.c:278
 #, c-format
 msgid ""
 "%s: %s\n"
@@ -488,7 +497,7 @@ msgstr ""
 "%s: %s\n"
 "Pro více informací spusťte „%s --help“'.\n"
 
-#: src/volume_key.c:283
+#: src/volume_key.c:289
 msgid ""
 "Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
 "This software is distributed under the GPL v.2.\n"
@@ -500,186 +509,186 @@ msgstr ""
 "\n"
 "Tento program je poskytován BEZ ZÁRUKY, je-li to povoleno zákonem."
 
-#: src/volume_key.c:295
+#: src/volume_key.c:301
 msgid "Operation mode not specified"
 msgstr "Nezadán režim práce"
 
-#: src/volume_key.c:301
+#: src/volume_key.c:307
 msgid "Ambiguous operation mode"
 msgstr "Nejednoznačný režim práce"
 
-#: src/volume_key.c:305 src/volume_key.c:358
+#: src/volume_key.c:311 src/volume_key.c:313 src/volume_key.c:366
 #, c-format
 msgid "`--%s' is only valid with `--%s'"
 msgstr "„--%s“ je platné jen s „--%s“"
 
-#: src/volume_key.c:311
+#: src/volume_key.c:319
 msgid "Output can be specified only with `--save' or `--reencrypt'"
 msgstr "Výstup může být zadán jen s „--save“ nebo „--reencrypt“"
 
-#: src/volume_key.c:318
+#: src/volume_key.c:326
 msgid "No output specified"
 msgstr "Nezadán výstup"
 
-#: src/volume_key.c:320
+#: src/volume_key.c:328
 msgid "Ambiguous output format"
 msgstr "Nejednoznačný formát výstupu"
 
-#: src/volume_key.c:335
+#: src/volume_key.c:343
 #, c-format
 msgid "Unknown packet format `%s'"
 msgstr "Neznámý formát paketu „%s“"
 
-#: src/volume_key.c:345
+#: src/volume_key.c:353
 msgid "Output format does not match other options"
 msgstr "Formát výstupu neodpovídá ostatním přepínačům"
 
-#: src/volume_key.c:396
+#: src/volume_key.c:404
 #, c-format
 msgid "Error, try again.\n"
 msgstr "Chyba, zkuste to znovu.\n"
 
-#: src/volume_key.c:397
+#: src/volume_key.c:405
 #, c-format
 msgid "Enter password for `%s': "
 msgstr "Zadejte heslo pro „%s“: "
 
-#: src/volume_key.c:514 src/volume_key.c:553
+#: src/volume_key.c:522 src/volume_key.c:561
 #, c-format
 msgid "Error reading `%s': "
 msgstr "Chyba při čtení „%s“: "
 
-#: src/volume_key.c:521 src/volume_key.c:561
+#: src/volume_key.c:529 src/volume_key.c:569
 #, c-format
 msgid "Error decoding `%s': "
 msgstr "Chyba při dekódování „%s“: "
 
-#: src/volume_key.c:580
+#: src/volume_key.c:588
 msgid "New packet passphrase"
 msgstr "Heslo nového paketu"
 
-#: src/volume_key.c:581
+#: src/volume_key.c:589
 msgid "Passphrases do not match.  New packet passphrase"
 msgstr "Hesla si neodpovídají. Heslo nového paketu"
 
-#: src/volume_key.c:586
+#: src/volume_key.c:594
 msgid "Repeat new packet passphrase"
 msgstr "Opakujte heslo nového paketu"
 
-#: src/volume_key.c:650
+#: src/volume_key.c:658
 #, c-format
 msgid "Error creating `%s': "
 msgstr "Chyba při vytváření „%s“: "
 
-#: src/volume_key.c:690
-#, c-format
-msgid "Usage: %s --save VOLUME [PACKET]"
-msgstr "Použití: %s --save SVAZEK [PAKET]"
-
-#: src/volume_key.c:695 src/volume_key.c:710 src/volume_key.c:835
-#: src/volume_key.c:873
-#, c-format
-msgid "Error opening `%s': %s"
-msgstr "Chyba při otevírání „%s“: %s"
-
-#: src/volume_key.c:706
-#, c-format
-msgid "Error loading `%s': %s"
-msgstr "Chyba při načítání „%s“: %s"
-
-#: src/volume_key.c:725
+#: src/volume_key.c:708
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "Chyba při generování hesla: %s"
 
-#: src/volume_key.c:737
+#: src/volume_key.c:742
+#, c-format
+msgid "Usage: %s --save VOLUME [PACKET]"
+msgstr "Použití: %s --save SVAZEK [PAKET]"
+
+#: src/volume_key.c:747 src/volume_key.c:762 src/volume_key.c:875
+#: src/volume_key.c:913
+#, c-format
+msgid "Error opening `%s': %s"
+msgstr "Chyba při otevírání „%s“: %s"
+
+#: src/volume_key.c:758
+#, c-format
+msgid "Error loading `%s': %s"
+msgstr "Chyba při načítání „%s“: %s"
+
+#: src/volume_key.c:776
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "Chyba při vytváření hesla: %s"
 
-#: src/volume_key.c:768
+#: src/volume_key.c:808
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "„%s“ neodpovídá „%s“: "
 
-#: src/volume_key.c:777
+#: src/volume_key.c:817
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "„%s“ možná neodpovídá „%s“\n"
 
-#: src/volume_key.c:792
+#: src/volume_key.c:832
 msgid "Are you sure you want to use this packet?"
 msgstr "Opravdu chcete použít tento paket?"
 
-#: src/volume_key.c:804
+#: src/volume_key.c:844
 msgid "Error getting a yes/no answer"
 msgstr "Chyba při získávání odpovědi ano/ne"
 
-#: src/volume_key.c:830
+#: src/volume_key.c:870
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "Použití: %s --%s SVAZEK PAKET"
 
-#: src/volume_key.c:851
+#: src/volume_key.c:891
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "Chyba při obnovování přístupu k „%s“: %s"
 
-#: src/volume_key.c:867
+#: src/volume_key.c:907
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "Použití: %s --%s SVAZEK PAKET NÁZEV"
 
-#: src/volume_key.c:889
+#: src/volume_key.c:929
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "Chyba při nastavování „%s“: %s"
 
-#: src/volume_key.c:904 src/volume_key.c:933
+#: src/volume_key.c:944 src/volume_key.c:972
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "Použití: %s --%s PAKET"
 
-#: src/volume_key.c:938
+#: src/volume_key.c:977
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "Chyba při čtení „%s“: %s"
 
-#: src/volume_key.c:943
+#: src/volume_key.c:982
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "Neplatný paket: %s"
 
-#: src/volume_key.c:946
+#: src/volume_key.c:985
 msgid "Unencrypted"
 msgstr "Nešifrován"
 
-#: src/volume_key.c:950
+#: src/volume_key.c:989
 msgid "Public key-encrypted"
 msgstr "Šifrován veřejným klíčem"
 
-#: src/volume_key.c:954
+#: src/volume_key.c:993
 msgid "Passphrase-encrypted"
 msgstr "Šifrován heslem"
 
-#: src/volume_key.c:958
+#: src/volume_key.c:997
 msgid "Only secrets public key-encrypted"
 msgstr "Jen tajemství šifrována veřejným klíčem"
 
-#: src/volume_key.c:962
+#: src/volume_key.c:1001
 msgid "Only secrets symmetric key-encrypted"
 msgstr "Jen tajemství šifrována symetrickým klíčem"
 
-#: src/volume_key.c:969 src/volume_key.c:991
+#: src/volume_key.c:1008 src/volume_key.c:1037
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:969
+#: src/volume_key.c:1008
 msgid "Packet format"
 msgstr "Formát paketu"
 
-#: src/volume_key.c:976
+#: src/volume_key.c:1022
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "Chyba při dekódování „%s“: %s"

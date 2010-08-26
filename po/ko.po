@@ -8,514 +8,488 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key.master.ko\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-03-31 04:18+0000\n"
+"POT-Creation-Date: 2010-08-27 00:24+0200\n"
 "PO-Revision-Date: 2010-04-01 08:53+1000\n"
 "Last-Translator: Hyunsok Oh <hoh@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
-#: ../lib/crypto.c:64 ../lib/crypto.c:591
+#: lib/crypto.c:64 lib/crypto.c:591
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../lib/kmip.c:255 ../lib/kmip.c:371
-#, c-format
+#: lib/kmip.c:255 lib/kmip.c:371
 msgid "Not enough space provided to store a KMIP packet"
 msgstr "KMIP 패킷을 저장 공간이 충분하지 않음"
 
-#: ../lib/kmip.c:322 ../lib/kmip.c:866
-#, c-format
+#: lib/kmip.c:322 lib/kmip.c:866
 msgid "A string is too long"
 msgstr "문자열이 너무 긺"
 
-#: ../lib/kmip.c:340 ../lib/kmip.c:910
-#, c-format
+#: lib/kmip.c:340 lib/kmip.c:910
 msgid "Binary data is too long"
 msgstr "바이너리 데이터가 너무 긺"
 
-#: ../lib/kmip.c:391
-#, c-format
+#: lib/kmip.c:391
 msgid "A KMIP structure is too long"
 msgstr "KMIP 구조가 너무 긺"
 
-#: ../lib/kmip.c:738 ../lib/kmip.c:853 ../lib/kmip.c:916
-#, c-format
+#: lib/kmip.c:738 lib/kmip.c:853 lib/kmip.c:916
 msgid "Unexpected end of data"
 msgstr "예기치 못한 데이터 끝"
 
-#: ../lib/kmip.c:763 ../lib/kmip.c:839 ../lib/kmip.c:896 ../lib/kmip.c:943
+#: lib/kmip.c:763 lib/kmip.c:839 lib/kmip.c:896 lib/kmip.c:943
 #, c-format
 msgid "Unexpected item tag 0x%08lX"
 msgstr "예기치 않은 항목 태그 0x%08lX "
 
-#: ../lib/kmip.c:770 ../lib/kmip.c:903 ../lib/kmip.c:950
+#: lib/kmip.c:770 lib/kmip.c:903 lib/kmip.c:950
 #, c-format
 msgid "Unexpected item type 0x%02X"
 msgstr "예기치 않은 항목 유형 0x%02X   "
 
-#: ../lib/kmip.c:776
-#, c-format
+#: lib/kmip.c:776
 msgid "Unexpected item size"
 msgstr "예기치 않은 항목 크기  "
 
-#: ../lib/kmip.c:814 ../lib/kmip.c:1268
+#: lib/kmip.c:814 lib/kmip.c:1268
 msgid "Unsupported enum value %"
 msgstr "지원하지 않는 열거형 값 % "
 
-#: ../lib/kmip.c:846
+#: lib/kmip.c:846
 #, c-format
 msgid "String item expected, got %02X"
 msgstr "문자열 항목 필요함, %02X 얻음"
 
-#: ../lib/kmip.c:958
-#, c-format
+#: lib/kmip.c:958
 msgid "Structure does not fit in its container"
 msgstr "구조체가 컨테이너에 들어맞지 않음"
 
-#: ../lib/kmip.c:974
-#, c-format
+#: lib/kmip.c:974
 msgid "Unexpected data in structure"
 msgstr "구조체 내부에 예기치 못한 데이터"
 
-#: ../lib/kmip.c:1060 ../lib/kmip.c:1290
-#, c-format
+#: lib/kmip.c:1060 lib/kmip.c:1290
 msgid "Number of key bits is not positive"
 msgstr "키 갯수 비트가 양수가 아님"
 
-#: ../lib/kmip.c:1305
-#, c-format
+#: lib/kmip.c:1305
 msgid "Wrapped key is not opaque"
 msgstr "래핑된 키가 불투명하지 않음"
 
-#: ../lib/kmip.c:1340 ../lib/kmip.c:1374
+#: lib/kmip.c:1340 lib/kmip.c:1374
 msgid "Unsupported symmetric key format %"
 msgstr "지원하지 않는 대칭 키 포맷 %"
 
-#: ../lib/kmip.c:1407 ../lib/volume.c:683
+#: lib/kmip.c:1407 lib/volume.c:683
 msgid "Unsupported KMIP version %"
 msgstr "지원하지 않는 KMIP 버전 %"
 
-#: ../lib/kmip.c:1454
+#: lib/kmip.c:1454
 msgid "Unsupported object type %"
 msgstr "지원하지 않는 오브젝트 타입 %"
 
-#: ../lib/kmip.c:1516
-#, c-format
+#: lib/kmip.c:1516
 msgid "Unexpected data after packet"
 msgstr "패킷 뒤에 예상치 못한 데이터"
 
-#: ../lib/kmip.c:1585 ../lib/kmip.c:1671 ../lib/kmip.c:1774 ../lib/kmip.c:1850
-#: ../lib/volume.c:700 ../lib/volume_luks.c:789
+#: lib/kmip.c:1623 lib/kmip.c:1709 lib/kmip.c:1812 lib/kmip.c:1888
+#: lib/volume.c:700 lib/volume_luks.c:796
 msgid "Unsupported packet type %"
 msgstr "지원하지 않는 패킷 형식 %"
 
-#: ../lib/kmip.c:1603 ../lib/kmip.c:1793
+#: lib/kmip.c:1641 lib/kmip.c:1831
 #, c-format
 msgid "Unsupported mechanism %lu"
 msgstr "지원하지 않는 메카니즘 %lu"
 
-#: ../lib/kmip.c:1686 ../lib/kmip.c:1709 ../lib/kmip.c:1863
-#, c-format
+#: lib/kmip.c:1724 lib/kmip.c:1747 lib/kmip.c:1901
 msgid "Unexpected wrapped key format"
 msgstr "예상치 못한 래핑된 키 포맷"
 
-#: ../lib/kmip.c:1699 ../lib/kmip.c:1876
-#, c-format
+#: lib/kmip.c:1737 lib/kmip.c:1914
 msgid "Unsupported wrapping mechanism"
 msgstr "지원하지 않는 래핑 방식"
 
-#: ../lib/libvolume_key.c:204
-#, c-format
+#: lib/libvolume_key.c:204
 msgid "Unsupported asymmetric encryption format"
 msgstr "지원하지 않는 비대칭 암호화 포맷"
 
-#: ../lib/libvolume_key.c:323
-#, c-format
+#: lib/libvolume_key.c:323
 msgid "Input packet is too small"
 msgstr "입력 패킷이 너무 작음"
 
-#: ../lib/libvolume_key.c:333
-#, c-format
+#: lib/libvolume_key.c:333
 msgid "Input is not a volume_key escrow packet"
 msgstr "입력이 volume_key 에스크로 패킷이 아님"
 
-#: ../lib/libvolume_key.c:339
-#, c-format
+#: lib/libvolume_key.c:339
 msgid "Unsupported packet format"
 msgstr "지원하지 않는 패킷 포맷"
 
-#: ../lib/libvolume_key.c:406
+#: lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
 msgstr "에스크로 패킷 암호구"
 
-#: ../lib/libvolume_key.c:418 ../lib/volume_luks.c:311
-#, c-format
+#: lib/libvolume_key.c:418 lib/volume_luks.c:311
 msgid "Too many attempts to get a valid passphrase"
 msgstr "바른 암호구를 얻기 위해 너무 많은 횟수 시도"
 
-#: ../lib/libvolume_key.c:462
-#, c-format
+#: lib/libvolume_key.c:462
 msgid "Too many attempts to get a valid symmetric key"
 msgstr "바른 대칭키를 얻기 위해 너무 많은 횟수 시도"
 
-#: ../lib/ui.c:148
-#, c-format
+#: lib/libvolume_key.c:514
+msgid "The packet metadata is encrypted"
+msgstr ""
+
+#: lib/ui.c:148
 msgid "User interface callbacks not provided"
 msgstr "사용자 인터페이스 콜백이 제공되지 않음"
 
-#: ../lib/ui.c:154 ../src/volume_key.c:613
-#, c-format
+#: lib/ui.c:154 src/volume_key.c:621
 msgid "Passphrase not provided"
 msgstr "암호구가 제공되지 않음"
 
-#: ../lib/ui.c:169
-#, c-format
+#: lib/ui.c:169
 msgid "Symmetric key callback not provided"
 msgstr "대칭 키 콜백이 제공되지 않음"
 
-#: ../lib/ui.c:176
-#, c-format
+#: lib/ui.c:176
 msgid "Symmetric key not provided"
 msgstr "대칭키가 제공되지 않음"
 
-#: ../lib/volume.c:92
-#, c-format
+#: lib/volume.c:92
 msgid "The key is too long"
 msgstr "키가 너무 긺"
 
-#: ../lib/volume.c:171 ../lib/volume.c:192
+#: lib/volume.c:171 lib/volume.c:192
 #, c-format
 msgid "Required attribute `%s' not found"
 msgstr "필수 특성 '%s'가 없음"
 
-#: ../lib/volume.c:314
+#: lib/volume.c:314
 #, c-format
 msgid "Cannot get attributes of `%s'"
 msgstr "'%s' 특성을 구해 올 수 없음"
 
-#: ../lib/volume.c:421
+#: lib/volume.c:421
 msgid "Host name"
 msgstr "호스트 명"
 
-#: ../lib/volume.c:423
+#: lib/volume.c:423
 msgid "Volume format"
 msgstr "볼륨 포맷"
 
-#: ../lib/volume.c:426
+#: lib/volume.c:426
 msgid "Volume UUID"
 msgstr "볼륨 UUID"
 
-#: ../lib/volume.c:429
+#: lib/volume.c:429
 msgid "Volume label"
 msgstr "볼륨 레이블"
 
-#: ../lib/volume.c:431
+#: lib/volume.c:431
 msgid "Volume path"
 msgstr "볼륨 경로"
 
-#: ../lib/volume.c:457 ../lib/volume.c:566 ../lib/volume.c:600
-#: ../lib/volume.c:629 ../lib/volume.c:662 ../lib/volume.c:759
+#: lib/volume.c:457 lib/volume.c:566 lib/volume.c:600 lib/volume.c:629
+#: lib/volume.c:662 lib/volume.c:759
 #, c-format
 msgid "Volume `%s' has unsupported format"
 msgstr "볼륨 '%s'가 지원되지 않는 포맷"
 
-#: ../lib/volume.c:487
+#: lib/volume.c:487
 #, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
 msgstr "볼륨 포맷 불일치(패킷 '%s', 볼륨 '%s')"
 
-#: ../lib/volume.c:515
+#: lib/volume.c:515
 #, c-format
 msgid "UUID mismatch (packet `%s', volume `%s')"
 msgstr "UUID 불일치(패킷 '%s', 볼륨 '%s')ㅕ"
 
-#: ../lib/volume.c:521
+#: lib/volume.c:521
 #, c-format
 msgid "Host name mismatch (packet `%s', volume `%s')"
 msgstr "호스트명 불일치(패킷 '%s', 볼륨 '%s')"
 
-#: ../lib/volume.c:528
+#: lib/volume.c:528
 #, c-format
 msgid "Volume label mismatch (packet `%s', volume `%s')"
 msgstr "볼륨 레이블 불일치(패킷 '%s', 볼륨 '%s')"
 
-#: ../lib/volume.c:535
+#: lib/volume.c:535
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
 msgstr "볼륨 경로 불일치(패킷 '%s', 볼륨 '%s')"
 
-#: ../lib/volume.c:736
+#: lib/volume.c:736
 #, c-format
 msgid "Unsupported volume format `%s'"
 msgstr "지원하지 않는 볼륨 포맷 '%s'"
 
-#: ../lib/volume_luks.c:54
+#: lib/volume_luks.c:54
 #, c-format
 msgid "Unknown error %d"
 msgstr "알 수 없는 오류 %d"
 
-#: ../lib/volume_luks.c:104
+#: lib/volume_luks.c:104
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "'%s' 볼륨 정보 얻는 중 오류 발생:"
 
-#: ../lib/volume_luks.c:186
+#: lib/volume_luks.c:186
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr "libblkid와 libcryptsetup간 UUID 불일치 : '%s'와 '%s'"
 
-#: ../lib/volume_luks.c:211
+#: lib/volume_luks.c:211
 msgid "LUKS cipher name"
 msgstr "LUKS 암호명"
 
-#: ../lib/volume_luks.c:214
+#: lib/volume_luks.c:214
 msgid "LUKS cipher mode"
 msgstr "LUKS 암호 모드"
 
-#: ../lib/volume_luks.c:217
+#: lib/volume_luks.c:217
 msgid "Key size (bits)"
 msgstr "키 크기(비트)"
 
-#: ../lib/volume_luks.c:237
+#: lib/volume_luks.c:237
 msgid "Data encryption key"
 msgstr "데이터 암호화 키"
 
-#: ../lib/volume_luks.c:241
+#: lib/volume_luks.c:241
 msgid "Passphrase"
 msgstr "암호구"
 
-#: ../lib/volume_luks.c:244
+#: lib/volume_luks.c:244
 msgid "Passphrase slot"
 msgstr "암호구 슬롯"
 
-#: ../lib/volume_luks.c:275 ../lib/volume_luks.c:457 ../lib/volume_luks.c:696
-#, c-format
+#: lib/volume_luks.c:275 lib/volume_luks.c:456 lib/volume_luks.c:695
 msgid "Encryption information type unsupported in LUKS"
 msgstr "LUKS에서 암호화된 정보 타입이 지원되지 않음"
 
-#: ../lib/volume_luks.c:283
+#: lib/volume_luks.c:283
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "'%s'를 위한 암호구"
 
-#: ../lib/volume_luks.c:306 ../lib/volume_luks.c:833
+#: lib/volume_luks.c:306 lib/volume_luks.c:840
 msgid "Error getting LUKS data encryption key: "
 msgstr "LUKS 데이터 암호화 키 얻는 중 오류 발생:"
 
-#: ../lib/volume_luks.c:353
+#: lib/volume_luks.c:353
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "암호화 이름 불일치 (패킷 '%s', 볼륨 '%s')"
 
-#: ../lib/volume_luks.c:360
+#: lib/volume_luks.c:360
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "암호화 모드 불일치 (패킷 '%s', 볼륨 '%s')"
 
-#: ../lib/volume_luks.c:367
+#: lib/volume_luks.c:367
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "키 크기 불일치 (패킷 %zu, 볼륨 %zu)"
 
-#: ../lib/volume_luks.c:398
+#: lib/volume_luks.c:398
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "패킷에 있는 LUKS 데이터 암호화 키가 잘못됨:"
 
-#: ../lib/volume_luks.c:423
+#: lib/volume_luks.c:423
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "패킷에 있는 LUKS 암호구가 잘못됨:"
 
-#: ../lib/volume_luks.c:463
-#, c-format
+#: lib/volume_luks.c:462
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "에스크로 패킷이 LUKS 데이터 암호화 키를 포함하지 않음"
 
-#: ../lib/volume_luks.c:468
+#: lib/volume_luks.c:467
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "'%s'를 위한 새 암호구"
 
-#: ../lib/volume_luks.c:469
+#: lib/volume_luks.c:468
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "'%s'를 위한 새 암호구 재입력"
 
-#: ../lib/volume_luks.c:470
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "암호구가 불일치합니다. '%s'를 위한 새로운 암호구"
 
-#: ../lib/volume_luks.c:495 ../src/volume_key.c:603
-#, c-format
+#: lib/volume_luks.c:494 src/volume_key.c:611
 msgid "Too many attempts to get a passphrase"
 msgstr "암호구를 얻기 위해 너무 많은 시도를 했음"
 
-#: ../lib/volume_luks.c:510 ../lib/volume_luks.c:572
+#: lib/volume_luks.c:509 lib/volume_luks.c:571
 msgid "Error adding a LUKS passphrase"
 msgstr "LUKS 암호구 추가 중 오류 발생"
 
-#: ../lib/volume_luks.c:548
-#, c-format
+#: lib/volume_luks.c:547
 msgid "Can not add a secret of this type"
 msgstr "이런 형식의 보안정보를 추가할 수 없음"
 
-#: ../lib/volume_luks.c:554 ../lib/volume_luks.c:654 ../lib/volume_luks.c:841
-#, c-format
+#: lib/volume_luks.c:553 lib/volume_luks.c:653 lib/volume_luks.c:848
 msgid "Data encryption key unknown"
 msgstr "데이터 암호화 키가 알려져있지 않음"
 
-#: ../lib/volume_luks.c:560
-#, c-format
+#: lib/volume_luks.c:559
 msgid "The passphrase must be a string"
 msgstr "암호구는 문자열이어야 함"
 
-#: ../lib/volume_luks.c:677
-#, c-format
+#: lib/volume_luks.c:676
 msgid "Passphrase unknown"
 msgstr "암호구가 알려져 있지 않음"
 
-#: ../lib/volume_luks.c:736
+#: lib/volume_luks.c:736
 msgid "Unsupported key length %"
 msgstr "지원되지 않는 키 길이 %d"
 
-#: ../lib/volume_luks.c:747
-#, c-format
+#: lib/volume_luks.c:749
 msgid "Key length mismatch"
 msgstr "키 길이 불일치"
 
-#: ../lib/volume_luks.c:770
+#: lib/volume_luks.c:773
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "잘못된 슬롯 번호 '%s'"
 
-#: ../lib/volume_luks.c:778
-#, c-format
+#: lib/volume_luks.c:784
 msgid "NUL byte in passphrase"
 msgstr "암호구에 NUL 바이트가 있음"
 
-#: ../lib/volume_luks.c:849
+#: lib/volume_luks.c:856
 msgid "Error opening LUKS volume: "
 msgstr "LUKS 볼륨을 여는 중 발생:"
 
-#: ../python/volume_key.i:367
-#, c-format
+#: python/volume_key.i:368
 msgid "Error decoding certificate"
 msgstr "인증서 디코딩 오류 발생"
 
-#: ../src/volume_key.c:52 ../src/volume_key.c:429 ../src/volume_key.c:481
+#: src/volume_key.c:52 src/volume_key.c:437 src/volume_key.c:489
 #, c-format
 msgid "%s: "
 msgstr "%s: "
 
-#. TRASLATORS: The "(y/n)" part should indicate to the user that input
-#. matching (locale yesexpr) and (locale noexpr) is expected.
-#: ../src/volume_key.c:82
+#: src/volume_key.c:82
 #, c-format
 msgid "%s (y/n) "
 msgstr "%s (y/n) "
 
-#: ../src/volume_key.c:173
+#: src/volume_key.c:175
 msgid "Show version"
 msgstr "버전 보기"
 
-#: ../src/volume_key.c:178
+#: src/volume_key.c:180
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr "볼륨 보안정보를 패킷에 저장. VOLUME [PACKET] 인자 필요."
 
-#: ../src/volume_key.c:183
+#: src/volume_key.c:185
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr "볼륨 보안 정보를 패킷에서 복원. VOLUME PACKET 인자 필요."
 
-#: ../src/volume_key.c:188
+#: src/volume_key.c:190
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
-msgstr "패킷의 보안 정보를 사용해 암호화된 볼륨 설정. VOLUME PACKET NAME 인자 필요."
+msgstr ""
+"패킷의 보안 정보를 사용해 암호화된 볼륨 설정. VOLUME PACKET NAME 인자 필요."
 
-#: ../src/volume_key.c:193
+#: src/volume_key.c:195
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
 msgstr "에스크로 패킷의 재 암호화. PACKET 인자 필요."
 
-#: ../src/volume_key.c:197
+#: src/volume_key.c:199
 msgid "Show information contained in a packet.  Expects operand PACKET."
 msgstr "패킷에 있는 정보 표시. PACKET 인자 필요."
 
-#: ../src/volume_key.c:202
+#: src/volume_key.c:204
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
 msgstr "패킷에 있는 보안 정보 표시. PACKET 인자 필요."
 
-#: ../src/volume_key.c:207
+#: src/volume_key.c:209
 msgid "Use the NSS database in DIR"
 msgstr "DIR에 있는 NSS 데이터베이스 사용."
 
-#: ../src/volume_key.c:207
+#: src/volume_key.c:209
 msgid "DIR"
 msgstr "DIR"
 
-#: ../src/volume_key.c:210
+#: src/volume_key.c:212
 msgid "Run in batch mode"
 msgstr "일괄처리(batch) 모드로 실행"
 
-#: ../src/volume_key.c:216
+#: src/volume_key.c:218
 msgid "Write the default secret to PACKET"
 msgstr "디폴트 보안 정보를 PACKET에 기록"
 
-#: ../src/volume_key.c:216 ../src/volume_key.c:221 ../src/volume_key.c:225
-#: ../src/volume_key.c:230
+#: src/volume_key.c:218 src/volume_key.c:223 src/volume_key.c:227
+#: src/volume_key.c:232
 msgid "PACKET"
 msgstr "PACKET"
 
-#: ../src/volume_key.c:220
+#: src/volume_key.c:222
 msgid "Write data encryption key to PACKET"
 msgstr "데이터 암호화 키를 PACKET에 기록"
 
-#: ../src/volume_key.c:225
+#: src/volume_key.c:227
 msgid "Write passphrase to PACKET"
 msgstr "암호구를 PACKET에 기록"
 
-#: ../src/volume_key.c:230
+#: src/volume_key.c:232
 msgid "Create a random passphrase and write it to PACKET"
 msgstr "랜덤으로 암호구를 생성 후 PACKET에 기록"
 
-#: ../src/volume_key.c:238
+#: src/volume_key.c:240
 msgid "Encrypt for the certificate in CERT"
 msgstr "CERT에 있는 인증서를 암호화"
 
-#: ../src/volume_key.c:238
+#: src/volume_key.c:240
 msgid "CERT"
 msgstr "CERT"
 
-#: ../src/volume_key.c:242
+#: src/volume_key.c:244
 msgid "Use FORMAT for all output packets"
 msgstr "모든 출력 패킷에 FORMAT을 사용"
 
-#: ../src/volume_key.c:242
+#: src/volume_key.c:244
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: ../src/volume_key.c:246
+#: src/volume_key.c:248
+msgid "Only include unencrypted information, if any, in --dump"
+msgstr ""
+
+#: src/volume_key.c:252
 msgid "Include secrets in --dump output"
 msgstr "--dump 출력에 보안 정보 포함 시킴"
 
-#: ../src/volume_key.c:261
+#: src/volume_key.c:267
 msgid "OPERANDS"
 msgstr "OPERANDS"
 
-#: ../src/volume_key.c:263
+#: src/volume_key.c:269
 msgid "Manages encrypted volume keys and passphrases."
 msgstr "암호화된 볼륨 키와 암호구를 관리"
 
-#: ../src/volume_key.c:264
+#: src/volume_key.c:270
 #, c-format
 msgid "Report bugs to %s"
 msgstr "버그를 %s에 보고"
 
-#: ../src/volume_key.c:272
+#: src/volume_key.c:278
 #, c-format
 msgid ""
 "%s: %s\n"
@@ -524,7 +498,7 @@ msgstr ""
 "%s: %s\n"
 "더 많은 정보를 얻으려면 `%s --help'를 실행하십시오.\n"
 
-#: ../src/volume_key.c:283
+#: src/volume_key.c:289
 msgid ""
 "Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
 "This software is distributed under the GPL v.2.\n"
@@ -536,188 +510,186 @@ msgstr ""
 "\n"
 "This program is provided with NO WARRANTY, to the extent permitted by law."
 
-#: ../src/volume_key.c:295
+#: src/volume_key.c:301
 msgid "Operation mode not specified"
 msgstr "동작 모드가 지정되지 않았음"
 
-#: ../src/volume_key.c:301
+#: src/volume_key.c:307
 msgid "Ambiguous operation mode"
 msgstr "모호한 동작 모드"
 
-#: ../src/volume_key.c:305 ../src/volume_key.c:358
+#: src/volume_key.c:311 src/volume_key.c:313 src/volume_key.c:366
 #, c-format
 msgid "`--%s' is only valid with `--%s'"
 msgstr "`--%s'은 `--%s'와 함께 사용해야만 함"
 
-#: ../src/volume_key.c:311
+#: src/volume_key.c:319
 msgid "Output can be specified only with `--save' or `--reencrypt'"
 msgstr "출력은 '--save'나 '--reencrypt'로 지정 가능"
 
-#: ../src/volume_key.c:318
+#: src/volume_key.c:326
 msgid "No output specified"
 msgstr "출력이 지정되지 않음"
 
-#: ../src/volume_key.c:320
+#: src/volume_key.c:328
 msgid "Ambiguous output format"
 msgstr "모호한 출력 포맷"
 
-#: ../src/volume_key.c:335
+#: src/volume_key.c:343
 #, c-format
 msgid "Unknown packet format `%s'"
 msgstr "알려져 있지 않은 패킷 형식 '%s'"
 
-#: ../src/volume_key.c:345
+#: src/volume_key.c:353
 msgid "Output format does not match other options"
 msgstr "출력 형식이 다른 옵션과 불일치"
 
-#: ../src/volume_key.c:396
+#: src/volume_key.c:404
 #, c-format
 msgid "Error, try again.\n"
 msgstr "오류 발생, 다시 시도하십시오.\n"
 
-#: ../src/volume_key.c:397
+#: src/volume_key.c:405
 #, c-format
 msgid "Enter password for `%s': "
 msgstr "'%s' 위한 암호 입력: "
 
-#: ../src/volume_key.c:514 ../src/volume_key.c:553
+#: src/volume_key.c:522 src/volume_key.c:561
 #, c-format
 msgid "Error reading `%s': "
 msgstr "'%s' 읽는 중 오류 발생:"
 
-#: ../src/volume_key.c:521 ../src/volume_key.c:561
+#: src/volume_key.c:529 src/volume_key.c:569
 #, c-format
 msgid "Error decoding `%s': "
 msgstr "'%s' 디코딩중 오류 발생:"
 
-#: ../src/volume_key.c:580
+#: src/volume_key.c:588
 msgid "New packet passphrase"
 msgstr "새 패킷 암호구"
 
-#: ../src/volume_key.c:581
+#: src/volume_key.c:589
 msgid "Passphrases do not match.  New packet passphrase"
 msgstr "암호구가 일치하지 않음. 새 패킷 암호구"
 
-#: ../src/volume_key.c:586
+#: src/volume_key.c:594
 msgid "Repeat new packet passphrase"
 msgstr "새 패킷 암호구 재입력"
 
-#: ../src/volume_key.c:650
+#: src/volume_key.c:658
 #, c-format
 msgid "Error creating `%s': "
 msgstr "`%s' 생성 중 오류 발생: "
 
-#: ../src/volume_key.c:690
-#, c-format
-msgid "Usage: %s --save VOLUME [PACKET]"
-msgstr "사용법: %s --save VOLUME [PACKET]  "
-
-#: ../src/volume_key.c:695 ../src/volume_key.c:710 ../src/volume_key.c:835
-#: ../src/volume_key.c:873
-#, c-format
-msgid "Error opening `%s': %s"
-msgstr "`%s' 여는 중 오류 발생: %s "
-
-#: ../src/volume_key.c:706
-#, c-format
-msgid "Error loading `%s': %s"
-msgstr "`%s' 로딩 중 오류 발생: %s  "
-
-#: ../src/volume_key.c:725
+#: src/volume_key.c:708
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "암호구 생성 중 오류 발생: %s  "
 
-#: ../src/volume_key.c:737
+#: src/volume_key.c:742
+#, c-format
+msgid "Usage: %s --save VOLUME [PACKET]"
+msgstr "사용법: %s --save VOLUME [PACKET]  "
+
+#: src/volume_key.c:747 src/volume_key.c:762 src/volume_key.c:875
+#: src/volume_key.c:913
+#, c-format
+msgid "Error opening `%s': %s"
+msgstr "`%s' 여는 중 오류 발생: %s "
+
+#: src/volume_key.c:758
+#, c-format
+msgid "Error loading `%s': %s"
+msgstr "`%s' 로딩 중 오류 발생: %s  "
+
+#: src/volume_key.c:776
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "암호구 만드는 중 오류 발생: %s   "
 
-#: ../src/volume_key.c:768
+#: src/volume_key.c:808
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "`%s'이(가) `%s'와 일치하지 않음:  "
 
-#: ../src/volume_key.c:777
+#: src/volume_key.c:817
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "`%s'이(가) `%s'와 일치하지 않는 것 같음\n"
 
-#: ../src/volume_key.c:792
+#: src/volume_key.c:832
 msgid "Are you sure you want to use this packet?"
 msgstr "정말로 이 패킷을 사용하시겠습니까?"
 
-#: ../src/volume_key.c:804
-#, c-format
+#: src/volume_key.c:844
 msgid "Error getting a yes/no answer"
 msgstr "예/아니오 답변 중 오류 발생"
 
-#: ../src/volume_key.c:830
+#: src/volume_key.c:870
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "사용법: %s --%s VOLUME PACKET  "
 
-#: ../src/volume_key.c:851
+#: src/volume_key.c:891
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "`%s' 액세스 복구 중 오류 발생: %s "
 
-#: ../src/volume_key.c:867
+#: src/volume_key.c:907
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "사용법: %s --%s VOLUME PACKET NAME  "
 
-#: ../src/volume_key.c:889
+#: src/volume_key.c:929
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "`%s' 설정 중 오류 발생: %s "
 
-#: ../src/volume_key.c:904 ../src/volume_key.c:933
+#: src/volume_key.c:944 src/volume_key.c:972
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "사용법: %s --%s PACKET "
 
-#: ../src/volume_key.c:938
+#: src/volume_key.c:977
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "`%s' 읽는 중 오류 발생: %s "
 
-#: ../src/volume_key.c:943
+#: src/volume_key.c:982
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "잘못된 패킷: %s  "
 
-#: ../src/volume_key.c:946
+#: src/volume_key.c:985
 msgid "Unencrypted"
 msgstr "암호화되지 않음"
 
-#: ../src/volume_key.c:950
+#: src/volume_key.c:989
 msgid "Public key-encrypted"
 msgstr "공개키-암호화"
 
-#: ../src/volume_key.c:954
+#: src/volume_key.c:993
 msgid "Passphrase-encrypted"
 msgstr "암호구-암호화"
 
-#: ../src/volume_key.c:958
+#: src/volume_key.c:997
 msgid "Only secrets public key-encrypted"
 msgstr "오직 공개키-암호화된 보안 정보"
 
-#: ../src/volume_key.c:962
+#: src/volume_key.c:1001
 msgid "Only secrets symmetric key-encrypted"
 msgstr "오직 대칭키-암호화된 보안 정보"
 
-#: ../src/volume_key.c:969 ../src/volume_key.c:991
+#: src/volume_key.c:1008 src/volume_key.c:1037
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: ../src/volume_key.c:969
+#: src/volume_key.c:1008
 msgid "Packet format"
 msgstr "패킷 형식"
 
-#: ../src/volume_key.c:976
+#: src/volume_key.c:1022
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "`%s' 디코딩 중 오류 발생: %s "
-

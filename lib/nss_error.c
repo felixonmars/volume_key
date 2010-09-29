@@ -1,6 +1,6 @@
 /* Internal (library + application) error reporting utilities.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -20,6 +20,7 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <glib.h>
 #include <prerror.h>
 #include <secerr.h>
+#include <sslerr.h>
 
 #include "nss_error.h"
 
@@ -32,6 +33,7 @@ struct mapping
 static const struct mapping mapping[] = {
 #define ER3(A, B, C) { (A), (C) },
   #include "SECerrs.h"
+  #include "SSLerrs.h"
 #undef ER3
 };
 

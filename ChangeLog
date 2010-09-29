@@ -1,5 +1,9 @@
 2010-09-29  Miloslav Trmač  <mitr@redhat.com>
 
+	* lib/SSLerrs.h: New file.
+	* Makefile.am (lib_libvolume_key_la_SOURCES): Add lib/SSLerrs.h.
+	* lib/nss_error.c (mapping): Use SSLerrs.h.
+
 	* README
 	* doc/volume_key.8: Clarify which block device should be passed to
 	volume_key(8).

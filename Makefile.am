@@ -48,7 +48,7 @@ python/volume_key_wrap.c python/volume_key.py: python/volume_key.i
 python/volume_key.py: python/volume_key_wrap.c
 
 ## Dependency data
-lib_libvolume_key_la_SOURCES = lib/SECerrs.h \
+lib_libvolume_key_la_SOURCES = lib/SECerrs.h lib/SSLerrs.h \
 	lib/crypto.c lib/crypto.h \
 	lib/kmip.c lib/kmip.h \
 	lib/libvolume_key.c lib/libvolume_key.h \

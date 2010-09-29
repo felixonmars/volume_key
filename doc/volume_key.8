@@ -16,7 +16,7 @@
 .\" Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 .\"
 .\" Author: Miloslav Trmač <mitr@redhat.com>])
-.TH volume_key 8 "May 2009" volume_key
+.TH volume_key 8 "Sep 2010" volume_key
 
 .SH NAME
 volume_key \- work with volume encryption secrets and escrow packets
@@ -45,6 +45,17 @@ options.
 See the OPTIONS sections for details.
 
 .SH OPTIONS
+
+In all options described below,
+.I VOLUME
+is a LUKS device,
+not the plaintext device containted within:
+.RS
+.B blkid \-s TYPE
+.I VOLUME
+.RE
+should report \fBTYPE="crypto_LUKS"\fP.
+
 The following options determine the mode of operation and expected operands of
 \fBvolume_key\fP:
 

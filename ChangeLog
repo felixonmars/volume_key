@@ -1,3 +1,9 @@
+2010-09-29  Miloslav Trmač  <mitr@redhat.com>
+
+	* README
+	* doc/volume_key.8: Clarify which block device should be passed to
+	volume_key(8).
+
 2010-08-27  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Release 0.3.4.

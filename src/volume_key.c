@@ -24,6 +24,7 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <termios.h>
 #include <unistd.h>
 
 #include <glib.h>
@@ -391,36 +392,93 @@ read_batch_string (void)
   return res;
 }
 
+/* Read a password (from /dev/tty if possible).
+   Return a password for g_free (), or NULL on error.
+   Unlike getpass(), does not block SIGINT and other signals.  (We rely on the
+   shell to re-enable ECHO on SIGINT.) */
+static char *
+get_password (const char *prompt)
+{
+  FILE *tty, *in_file, *out_file;
+  char buf[LINE_MAX], *p;
+  struct termios otermios;
+  gboolean echo_disabled;
+
+  tty = fopen ("/dev/tty", "r+");
+  if (tty != NULL)
+    {
+      in_file = tty;
+      out_file = tty;
+    }
+  else
+    {
+      in_file = stdin;
+      out_file = stderr;
+    }
+
+  fputs (prompt, out_file);
+  fflush (out_file);
+
+  if (tcgetattr (fileno (in_file), &otermios) != 0)
+    echo_disabled = FALSE;
+  else
+    {
+      struct termios ntermios;
+
+      ntermios = otermios;
+      ntermios.c_lflag &= ~ECHO;
+      echo_disabled = tcsetattr (fileno (in_file), TCSAFLUSH, &ntermios) == 0;
+    }
+
+  p = fgets(buf, sizeof(buf), in_file);
+
+  if (echo_disabled)
+    {
+      (void)tcsetattr (fileno (in_file), TCSAFLUSH, &otermios);
+      putc ('\n', out_file);
+    }
+
+  if (tty != NULL)
+    fclose (tty);
+
+  if (p == NULL)
+    return NULL;
+
+  p = strchr(buf, '\r');
+  if (p != NULL)
+    *p = '\0';
+  p = strchr(buf, '\n');
+  if (p != NULL)
+    *p = '\0';
+
+  return g_strdup (buf);
+}
+
 /* A PK11_SetPaswordFunc handler */
 static char *
 nss_password_fn (PK11SlotInfo *slot, PRBool retry, void *arg)
 {
+  char *s, *res;
+
+  (void)arg;
   if (batch_mode == 0)
     {
-      char *prompt, *s;
+      char *prompt;
 
-      (void)arg;
       if (retry)
 	fprintf (stderr, _("Error, try again.\n"));
       prompt = g_strdup_printf (_("Enter password for `%s': "),
 				PK11_GetTokenName (slot));
-      s = getpass (prompt);
+      s = get_password (prompt);
       g_free (prompt);
-      if (s == NULL)
-	return NULL;
-      return PL_strdup (s);
     }
   else
-    {
-      char *s, *res;
-
-      s = read_batch_string ();
-      if (s == NULL)
-	return NULL;
-      res = PL_strdup (s);
-      g_free (s);
-      return res;
-    }
+    s = read_batch_string ();
+  if (s == NULL)
+    return NULL;
+  res = PL_strdup (s);
+  g_free (s);
+  return res;
 }
 
 /* A "generic" struct libvk_ui callback. */
@@ -435,10 +493,11 @@ generic_ui_cb (void *id, const char *prompt, int echo)
       char *s, *res;
 
       s = g_strdup_printf (_("%s: "), prompt);
-      res = getpass (s);
+      res = get_password (s);
       g_free (s);
       if (res != NULL && res[0] != '\0')
-	return g_strdup (res);
+	return res;
+      g_free (res);
       return NULL;
     }
   else
@@ -487,10 +546,11 @@ passphrase_ui_cb (void *data, const char *prompt, unsigned failed_attempts)
       return read_batch_string ();
     }
   s = g_strdup_printf (_("%s: "), prompt);
-  res = getpass (s);
+  res = get_password (s);
   g_free (s);
   if (res != NULL && res[0] != '\0')
-    return g_strdup (res);
+    return res;
+  g_free (res);
   return NULL;
 }
 

@@ -1,3 +1,9 @@
+2010-10-08  Miloslav Trmač  <mitr@redhat.com>
+
+	* src/volume_key.c (get_password): New function.
+	(nss_password_fn, generic_ui_cb, passphrase_ui_cb): Use get_password ()
+	instead of getpass ().
+
 2010-09-29  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/SSLerrs.h: New file.

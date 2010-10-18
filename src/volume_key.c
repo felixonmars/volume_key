@@ -545,6 +545,8 @@ passphrase_ui_cb (void *data, const char *prompt, unsigned failed_attempts)
 	return NULL;
       return read_batch_string ();
     }
+  if (failed_attempts != 0)
+    fprintf (stderr, _("Error, try again.\n"));
   s = g_strdup_printf (_("%s: "), prompt);
   res = get_password (s);
   g_free (s);

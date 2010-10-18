@@ -601,7 +601,7 @@ struct packet_output_state
   char *passphrase;
 };
 
-/* Init POS.
+/* Init POS, without user interaction.
    Return 0 if OK, -1 on error. */
 static int
 pos_init (struct packet_output_state *pos, GError **error)
@@ -632,6 +632,22 @@ pos_init (struct packet_output_state *pos, GError **error)
 			  output_certificate);
 	  return -1;
 	}
+    }
+  else
+    {
+      /* Will ask for passphrase in pos_interact */
+    }
+  return 0;
+}
+
+/* Interact with the user about POS.
+   Return 0 if OK, -1 on error. */
+static int
+pos_interact (struct packet_output_state *pos, GError **error)
+{
+  if (output_format_cleartext != 0 || output_certificate != NULL)
+    {
+      /* Nothing - pos_init () is enough. */
     }
   else
     {
@@ -805,6 +821,9 @@ do_save (int argc, char *argv[])
     error_exit (_("Usage: %s --save VOLUME [PACKET]"), g_get_prgname ());
 
   error = NULL;
+  if (pos_init (&pos, &error) != 0)
+    error_exit ("%s", error->message);
+
   v = libvk_volume_open (argv[1], &error);
   if (v == NULL)
     error_exit (_("Error opening `%s': %s"), argv[1], error->message);
@@ -824,7 +843,7 @@ do_save (int argc, char *argv[])
   else if (libvk_volume_get_secret (v, LIBVK_SECRET_DEFAULT, ui, &error) != 0)
     error_exit (_("Error opening `%s': %s"), argv[1], error->message);
 
-  if (pos_init (&pos, &error) != 0
+  if (pos_interact (&pos, &error) != 0
       || output_packet (&pos, v, ui, &error) != 0)
     error_exit ("%s", error->message);
   if (output_created_random_passphrase != NULL)
@@ -1007,12 +1026,15 @@ do_reencrypt (int argc, char *argv[])
     error_exit (_("Usage: %s --%s PACKET"), g_get_prgname (), "reencrypt");
 
   error = NULL;
+  if (pos_init (&pos, &error) != 0)
+    error_exit ("%s", error->message);
+
   ui = create_ui ();
   pack = open_packet_file (argv[1], ui, &error);
   if (pack == NULL)
     error_exit ("%s", error->message);
 
-  if (pos_init (&pos, &error) != 0
+  if (pos_interact (&pos, &error) != 0
       || output_packet (&pos, pack, ui, &error) != 0)
     error_exit ("%s", error->message);
   pos_free (&pos);

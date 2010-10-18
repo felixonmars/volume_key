@@ -481,7 +481,9 @@ luks_apply_secret (struct libvk_volume *vol, const struct libvk_volume *packet,
 				      failed, error);
       if (passphrase == NULL)
 	goto err_prompts;
-      passphrase2 = ui_get_passphrase (ui, prompt2, failed, error);
+      /* The repeated passphrase is always considered a first attempt -
+	 otherwise src/volume_key.c would prepend "Error, try again". */
+      passphrase2 = ui_get_passphrase (ui, prompt2, 0, error);
       if (passphrase2 == NULL)
 	goto err_passphrase;
       passphrase_ok = strcmp (passphrase, passphrase2) == 0;

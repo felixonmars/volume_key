@@ -1,5 +1,9 @@
 2010-10-18  Miloslav Trmač  <mitr@redhat.com>
 
+	* lib/volume_luks.c (luks_apply_secret)
+	* src/volume_key.c (pos_interact): Only tell the user about an incorrect
+	passphrase once.
+
 	* src/volume_key.c (passphrase_ui_cb): Tell the user when a non-NSS
 	passphrase is incorrect.
 

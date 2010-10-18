@@ -652,9 +652,10 @@ pos_init (struct packet_output_state *pos, GError **error)
 					     "New packet passphrase"), failed);
 	  if (passphrase == NULL)
 	    goto no_passphrase;
+	  /* The repeated passphrase is always considered a first attempt -
+	     otherwise passphrase_ui_cb would prepend "Error, try again". */
 	  passphrase2 = passphrase_ui_cb (NULL,
-					  _("Repeat new packet passphrase"),
-					  failed);
+					  _("Repeat new packet passphrase"), 0);
 	  if (passphrase2 == NULL)
 	    {
 	      memset (passphrase, 0, strlen (passphrase));

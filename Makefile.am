@@ -36,7 +36,9 @@ pyexec_LTLIBRARIES = python/_volume_key.la
 
 TESTS = tests/packet_roundtrips.sh
 
-EXTRA_DIST = python/volume_key.i \
+EXTRA_DIST = contrib/email/README contrib/email/escrow-receive \
+	contrib/email/escrow-transit \
+	python/volume_key.i \
 	tests/packet_roundtrips.sh tests/packet_roundtrips_luks_passphrase \
 	tests/packet_roundtrips_luks_symmetric
 

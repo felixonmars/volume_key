@@ -1,0 +1,256 @@
+#!/usr/bin/env python
+#
+# A simple utility to tranfer volume_key escrow packets to a server
+#
+# Copyright (C) 2010 Marko Myllynen <myllynen@redhat.com>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+
+import subprocess
+import optparse
+import smtplib
+import hashlib
+import string
+import random
+import base64
+import shlex
+import sys
+import os
+
+from email import Encoders
+from email.MIMEBase import MIMEBase
+from email.MIMEText import MIMEText
+from email.MIMEMultipart import MIMEMultipart
+
+# Script version
+VERSION = "0.1"
+
+# Configuration
+MAIL_RECIP = "escrow@localhost.localdomain"
+SMTP_SERVER = "localhost"
+ESCROW_DIR = "/root"
+
+# Rudimentary intranet connectivity check against a host, None to disable
+TEST_HOST_CONN = "intra.example.com"
+#TEST_HOST_CONN = None
+
+# Command line parser
+def parse_cmd_line():
+    """Parse command line arguments"""
+    usage = "%prog <-c CERT|-f PACKET> [options]"
+    parser = optparse.OptionParser(usage)
+    parser.disable_interspersed_args()
+    parser.description = "A simple utility to tranfer volume_key escrow packets to a server"
+    parser.add_option("-V", "--version", dest="version",
+                      action="store_const", const=1, default=0,
+                      help="show program's version number and exit")
+    parser.add_option("-v", "--verbose", dest="verbose",
+                      action="store_const", const=1, default=0,
+                      help="verbose execution")
+    parser.add_option("-c", "--public-cert", dest="cert",
+                      help="public certificate file to create a new packet")
+    parser.add_option("-f", "--use-file", dest="file",
+                      help="use an existing escrow packet file")
+    parser.add_option("-r", "--mail-recipient", dest="recip",
+                      action="store", type="string", default=MAIL_RECIP,
+                      help="mail recipient, default: " + MAIL_RECIP)
+    parser.add_option("-s", "--mail-sender", dest="sender",
+                      help="e-mail sender")
+    parser.add_option("-x", "--remove-files", dest="remove",
+                      action="store_const", const=1, default=0,
+                      help="remove all used files after successful execution")
+    parser.add_option("-y", "--assume-yes", dest="all_yes",
+                      action="store_const", const=1, default=0,
+                      help="non-interactive mode, no confirmations asked")
+    return parser.parse_args()
+
+# Check connectivity to a host
+def host_conn_check(host):
+    import socket
+    try:
+        socket.getaddrinfo(host, 80, 0, 0, socket.SOL_TCP)
+        return True
+    except:
+        return False
+
+# Get and verify an email address
+def get_verify_email(default, suggestion=None, id=None, all_yes=False, verbose=False):
+    if id: id = " " + id + " "
+    else:  id = " "
+
+    email = None
+    if default and not suggestion:
+        email = default
+
+    while not email:
+        if suggestion:
+            email = suggestion
+            suggestion = None
+        else:
+            email = raw_input("Please enter" + id + "e-mail address:\n")
+        if not all_yes:
+            accept = raw_input("Using" + id + "address '" + email + "' - is this ok? (y/n) ")
+            if accept != "y":
+                email = None
+
+    s = smtplib.SMTP(SMTP_SERVER)
+    s.putcmd("vrfy", email)
+    reply = s.getreply()[0]
+    s.quit()
+    if not (reply == 250 or reply == 251 or reply == 252):
+        print >> sys.stderr, email + ": verification failed - address unknown."
+        return None
+
+    if verbose: print "Tentatively verified" + id + "address " + email + "."
+
+    return email
+
+# Get the LUKS partition
+def get_luks_partition():
+    luks_parts = []
+    for part in open('/proc/partitions', 'r').readlines():
+        if not part.strip() or "#blocks" in part:
+            continue
+        dev = "/dev/" + part.strip().split()[-1]
+        if not os.access(dev, os.R_OK|os.W_OK):
+            print >> sys.stderr, "Only root can add new backup passphrases."
+            sys.exit(2)
+        cmd = "cryptsetup isLuks " + dev
+        r = subprocess.call(shlex.split(cmd), stdout=open('/dev/null', 'w'), stderr=subprocess.STDOUT)
+        if r == 0:
+            luks_parts.append(dev)
+    if len(luks_parts) == 0:
+        print >> sys.stderr, "No LUKS partitions detected."
+        sys.exit(2)
+    if len(luks_parts) > 1:
+        print >> sys.stderr, "Multiple LUKS partitions detected."
+        if opts.verbose: print "Create the escrow packet(s) manually " \
+                               "with volume_key(1) and use the -f option."
+        sys.exit(2)
+    return luks_parts[0]
+
+# Main
+def main():
+    """A simple utility to tranfer volume_key escrow packets to a server"""
+    (opts, args) = parse_cmd_line()
+
+    if opts.version:
+        print os.path.basename(sys.argv[0]) + " " + VERSION
+        sys.exit(0)
+
+    if len(args) > 0 or \
+       (opts.file and opts.cert) or \
+       (not opts.file and not opts.cert):
+        print >> sys.stderr, os.path.basename(sys.argv[0]) + ": use -h for help"
+        sys.exit(1)
+
+    # Test intranet connectivity against the defined host
+    if TEST_HOST_CONN is not None:
+        if opts.verbose: print "Testing intranet connectivity against " + TEST_HOST_CONN + "... ",
+        sys.stdout.flush()
+        if not host_conn_check(TEST_HOST_CONN):
+            if opts.verbose: print "failed."
+            print "You must be connected to intranet in order to use this tool."
+            sys.exit(1)
+        if opts.verbose: print "ok."
+
+    # Set sender email address
+    sender = None
+    while not sender:
+        sender = get_verify_email(sender, opts.sender, "sender", opts.all_yes, opts.verbose)
+
+    # Set recipient address
+    recipient = None
+    while not recipient:
+        recipient = get_verify_email(MAIL_RECIP, opts.recip, "recipient", opts.all_yes, opts.verbose)
+
+    escrow = None
+    # Use the specified escrow file
+    if opts.file:
+        open(opts.file, 'rb').close()
+        escrow = opts.file
+    else:
+    # Create a new backup passphrase escrow file
+        part = get_luks_partition()
+        escrow = ESCROW_DIR + "/escrow" + part.replace("/", "-") + "-backup-passphrase"
+        escrow = escrow + "-" + "".join(random.sample(string.letters+string.digits, 6))
+
+        print "About to add a random backup passphrase to LUKS partition " + part + "."
+        open(opts.cert, 'rb').close()
+        accept = "y"
+        if not opts.all_yes:
+            accept = raw_input("Is this ok? (y/n) ")
+        if accept != "y":
+            if opts.verbose: print "Operation aborted."
+            sys.exit(3)
+
+        # Add a random backup passphrase to the LUKS device
+        print "Current passphrase for " + part + " needed to unlock the device."
+        cmd = "volume_key --save " + part + " -c " + opts.cert + " --create-random-passphrase " + escrow + " --output-format asymmetric"
+        r = subprocess.call(shlex.split(cmd))
+        if r != 0:
+            print >> sys.stderr, "Operation failed."
+            sys.exit(4)
+        if opts.verbose: print "Random passphrase has been successfully added to " + part + "."
+        print "Encrypted packet stored at " + escrow + "."
+
+    # Read in the escrow packet as a base64 encoded binary attachment
+    if opts.verbose: print "Using escrow packet " + escrow + "."
+    fp = open(escrow, 'rb')
+    packet = MIMEBase('application', 'octet-stream')
+    packet.set_payload(fp.read())
+    fp.close()
+    Encoders.encode_base64(packet)
+    packet.add_header('Content-Disposition', 'attachment; filename="%s"' % escrow)
+    md5_sum = hashlib.md5(file(escrow).read()).hexdigest()
+
+    # Prepare the transfer
+    msg = MIMEMultipart()
+    msg['Subject'] = "Backup Passphrase Escrow Packet from " + sender
+    msg['From'] = sender
+    msg['To'] = recipient
+    text = "Backup passphrase escrow packet from: %s" % sender
+    text = text + "\n\nPacket MD5 checksum: " + md5_sum + "\n"
+    msg.attach(MIMEText(text, 'plain'))
+    msg.attach(packet)
+
+    # Transfer the packet
+    rc = 0
+    s = smtplib.SMTP(SMTP_SERVER)
+    for e in s.sendmail(sender, recipient, msg.as_string()):
+        rc = 5
+    if rc == 0:
+        print "Escrow packet successfully sent to %s." % recipient
+    s.quit()
+
+    # Remove the packet if requested
+    removed = False
+    if opts.remove and rc == 0:
+        accept = "y"
+        if not opts.all_yes:
+            accept = raw_input("Removing escrow packet " + escrow + " - is this ok? (y/n) ")
+            if accept != "y":
+                if opts.verbose: print "Escrow packet not removed."
+        if accept == "y":
+            os.unlink(escrow)
+            removed = True
+            print "Escrow packet " + escrow + " removed."
+    if rc == 0 and not removed and opts.verbose:
+        print "Remove the escrow packet after receiving confirmation e-mail."
+
+    # All done.
+    sys.exit(rc)
+
+if __name__ == "__main__":
+    main()

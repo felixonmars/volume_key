@@ -1,0 +1,23 @@
+Author: Marko Myllynen <myllynen@redhat.com>
+
+To use the attached scripts, on the server:
+
+# cp escrow-receive /usr/local/sbin/escrow-receive
+# vi /usr/local/sbin/escrow-receive
+# ln -s /usr/local/sbin/escrow-receive /etc/smrsh/escrow-receive
+# echo 'escrow: "|/usr/local/sbin/escrow-receive"' >> /etc/aliases
+# newaliases
+
+And then creating the log file and directory for escrow packets and
+making sure their owner/permissions are sane.
+
+On the client one needs to acquire the certificate to encrypt the escrow
+packet and then just use the organization specific escrow-transit:
+
+# ./escrow-transit -c ./cert.pem -v
+
+or if using a previously generated escrow (e.g., by Anaconda):
+
+# ./escrow-transit -f ./existing-escrow -v
+
+After a successful delivery the user receives a confirmation e-mail.

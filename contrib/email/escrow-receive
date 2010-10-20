@@ -1,0 +1,101 @@
+#!/usr/bin/env python
+#
+# A simple utility to receive volume_key escrow packets via e-mail
+#
+# Copyright (C) 2010 Marko Myllynen <myllynen@redhat.com>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+
+import datetime
+import smtplib
+import hashlib
+import base64
+import email
+import sys
+import os
+
+from email.MIMEText import MIMEText
+
+MAX_EMAIL_SIZE = 4096
+SMTP_SERVER = "localhost"
+ADMIN_EMAIL = "root@localhost.localdomain"
+ESCROW_DIR = "/var/local/escrows"
+LOG = "/var/log/escrow.log"
+
+checksum = escrow = sender = None
+log = open(LOG, 'a')
+now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+# Read in and process the received email escrow packet
+log.write("INFO: Starting to process an email escrow packet on " + now + "\n")
+msg = email.message_from_string(sys.stdin.read(MAX_EMAIL_SIZE))
+if msg.is_multipart():
+    for part in msg.walk():
+        # Parse packet source information from the message body
+        if not part.get('Content-Disposition'):
+            for line in str(part.get_payload()).split('\n'):
+                if "MD5 checksum: " in line:
+                    checksum = line.split("MD5 checksum: ")[-1]
+                if "packet from: " in line:
+                    sender = line.split("packet from: ")[-1]
+        # Save the escrow packet
+        else:
+            if not sender:
+                continue
+            escrow = ESCROW_DIR + "/" + sender.replace("/", "_") + "-" + now.replace(" ", "-")
+            os.umask(0266)
+            f = open(escrow, 'wb')
+            f.write(base64.b64decode(part.get_payload()))
+            f.close()
+
+if checksum is None or escrow is None or sender is None:
+    log.write("ERROR: Malformed email escrow packet received.\n")
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log.write("INFO: Processing completed on " + now + "\n")
+    log.close()
+    sys.exit(1)
+
+# Verify packet checksum
+checksum_ok = checksum == hashlib.md5(file(escrow).read()).hexdigest()
+if checksum_ok:
+    reply = "Your backup passphrase has been successfully received.\n"
+    reply = reply + "\nYou should now remove the escrow packet file from your computer.\n"
+    status = "-VALID-PACKET"
+    log.write("INFO: Received valid escrow packet from " + sender + "\n")
+else:
+    reply = "Error receiving your backup passphrase packet!\n"
+    status = "-CHECKSUM-ERROR"
+    log.write("WARNING: Received invalid email escrow packet from " + sender + "\n")
+    log.write("WARNING: Marking escrow packet invalid: " + escrow + "\n")
+
+# Inform the sender
+msg = MIMEText(reply)
+msg['Subject'] = reply.split('\n')[0]
+msg['From'] = ADMIN_EMAIL
+msg['To'] = sender
+s = smtplib.SMTP(SMTP_SERVER)
+try:
+    s.sendmail(ADMIN_EMAIL, sender, msg.as_string())
+    if checksum_ok:
+        log.write("INFO: Marking escrow packet valid: " + escrow + "\n")
+except smtplib.SMTPRecipientsRefused:
+    log.write("WARNING: Invalid escrow packet sender: " + sender + "\n")
+    log.write("WARNING: Marking escrow packet invalid: " + escrow + "\n")
+    status = status + "-UNKNOWN-SENDER"
+s.quit()
+
+os.rename(escrow, escrow + status)
+now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+log.write("INFO: Processing completed on " + now + "\n")
+log.close()

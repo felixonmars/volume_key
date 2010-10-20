@@ -1,3 +1,11 @@
+2010-10-20  Miloslav Trmač  <mitr@redhat.com>
+
+	* contrib/email/README
+	* contrib/email/escrow-receive
+	* contrib/email/escrow-transit: New files, contributed by Marko Myllynen
+	<myllynen@redhat.com>.
+	* Makefile.am (EXTRA_DIST): Distribute the email scripts.
+
 2010-10-18  Miloslav Trmač  <mitr@redhat.com>
 
 	* src/volume_key.c (pos_interact): Split from pos_init ().

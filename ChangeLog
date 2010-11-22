@@ -1,3 +1,7 @@
+2010-11-22  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/crypto.c (init_gpgme): Placate gpgme 1.2.
+
 2010-10-20  Miloslav Trmač  <mitr@redhat.com>
 
 	* contrib/email/README

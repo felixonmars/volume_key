@@ -1,6 +1,6 @@
 /* Internal encryption utilities.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -630,6 +630,7 @@ init_gpgme (gpgme_ctx_t *res, const char *passphrase, GError **error)
   gpgme_ctx_t ctx;
   gpgme_error_t e;
 
+  (void)gpgme_check_version (NULL);
   e = gpgme_new (&ctx);
   if (e != GPG_ERR_NO_ERROR)
     {

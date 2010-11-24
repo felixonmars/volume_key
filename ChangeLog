@@ -1,3 +1,8 @@
+2010-11-24  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/crypto.c (init_gpgme): Set context locale, as recommended by
+	documentation.
+
 2010-11-22  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/crypto.c (init_gpgme): Placate gpgme 1.2.

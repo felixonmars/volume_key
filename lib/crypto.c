@@ -17,6 +17,7 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <config.h>
 
 #include <errno.h>
+#include <locale.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -636,6 +637,18 @@ init_gpgme (gpgme_ctx_t *res, const char *passphrase, GError **error)
     {
       error_from_gpgme (error, e);
       goto err;
+    }
+  e = gpgme_set_locale (ctx, LC_CTYPE, setlocale (LC_CTYPE, NULL));
+  if (e != GPG_ERR_NO_ERROR)
+    {
+      error_from_gpgme (error, e);
+      goto err_ctx;
+    }
+  e = gpgme_set_locale (ctx, LC_MESSAGES, setlocale (LC_MESSAGES, NULL));
+  if (e != GPG_ERR_NO_ERROR)
+    {
+      error_from_gpgme (error, e);
+      goto err_ctx;
     }
   e = gpgme_set_protocol (ctx, GPGME_PROTOCOL_OpenPGP);
   if (e != GPG_ERR_NO_ERROR)

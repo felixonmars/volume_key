@@ -58,7 +58,7 @@ lib_libvolume_key_la_SOURCES = lib/SECerrs.h lib/SSLerrs.h \
 	lib/ui.c lib/ui.h \
 	lib/volume.c lib/volume.h lib/volume_luks.c lib/volume_luks.h
 lib_libvolume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
-lib_libvolume_key_la_LDFLAGS = -version-info 3:0:2
+lib_libvolume_key_la_LDFLAGS = -version-info 3:1:2
 lib_libvolume_key_la_LIBADD = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \
 	$(LTLIBINTL) $(libcryptsetup_LIBS) $(nss_LIBS)
 

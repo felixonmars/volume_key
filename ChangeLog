@@ -1,5 +1,9 @@
 2010-11-24  Miloslav Trmač  <mitr@redhat.com>
 
+	* configure.ac: Release 0.3.5.
+	* NEWS: Update.
+	* Makefile.am (lib_libvolume_key_la_LDFLAGS): Update version info.
+
 	* lib/crypto.c (init_gpgme): Set context locale, as recommended by
 	documentation.
 

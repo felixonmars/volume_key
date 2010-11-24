@@ -1,3 +1,11 @@
+Changes in version 0.3.5:
+- Fix password-encrypted packet handling with gpgme 1.2.
+- Allow aborting password prompts in volume_key(1).
+- Various minor usability enhancements.
+- E-mail scripts contributed by Marko Myllynen <myllynen@redhat.com>.
+- Documentation clarifications.
+- Update translations.
+
 Changes in version 0.3.4:
 - New option --unencrypted, which allows dumping unencrypted metadata of a
   packet without necessarily being able to decrypt the encrypted metadata and

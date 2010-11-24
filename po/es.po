@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-08-27 00:24+0200\n"
+"POT-Creation-Date: 2010-11-24 16:08+0100\n"
 "PO-Revision-Date: 2010-06-23 10:11-0300\n"
 "Last-Translator: Claudio Rodrigo Pereyra Diaz <claudio@pereyradiaz.com.ar>\n"
 "Language-Team: Spanish <fedora-trans-es@redhat.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Spanish\n"
 
-#: lib/crypto.c:64 lib/crypto.c:591
+#: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
@@ -99,7 +99,7 @@ msgid "Unexpected data after packet"
 msgstr "Datos inesperados luego del paquete"
 
 #: lib/kmip.c:1623 lib/kmip.c:1709 lib/kmip.c:1812 lib/kmip.c:1888
-#: lib/volume.c:700 lib/volume_luks.c:796
+#: lib/volume.c:700 lib/volume_luks.c:798
 msgid "Unsupported packet type %"
 msgstr "Tipo de paquete no soportado"
 
@@ -152,7 +152,7 @@ msgstr "El paquete de meta datos está cifrado"
 msgid "User interface callbacks not provided"
 msgstr "No se han indicado retrollamadas de interfaz de usuario"
 
-#: lib/ui.c:154 src/volume_key.c:621
+#: lib/ui.c:154 src/volume_key.c:700
 msgid "Passphrase not provided"
 msgstr "No se ha indicado una frase de acceso"
 
@@ -279,7 +279,7 @@ msgstr "Frase de acceso"
 msgid "Passphrase slot"
 msgstr "Ranura de frase de acceso"
 
-#: lib/volume_luks.c:275 lib/volume_luks.c:456 lib/volume_luks.c:695
+#: lib/volume_luks.c:275 lib/volume_luks.c:456 lib/volume_luks.c:697
 msgid "Encryption information type unsupported in LUKS"
 msgstr "El tipo de información de la encriptación no tiene soporte en LUKS"
 
@@ -288,7 +288,7 @@ msgstr "El tipo de información de la encriptación no tiene soporte en LUKS"
 msgid "Passphrase for `%s'"
 msgstr "Frase de acceso para `%s' "
 
-#: lib/volume_luks.c:306 lib/volume_luks.c:840
+#: lib/volume_luks.c:306 lib/volume_luks.c:842
 msgid "Error getting LUKS data encryption key: "
 msgstr "Error al intentar obtener la clave LUKS de encriptación de datos:"
 
@@ -339,48 +339,48 @@ msgstr ""
 "No hay correspondencia entre las frases de acceso. Nueva frase de acceso "
 "para `%s'"
 
-#: lib/volume_luks.c:494 src/volume_key.c:611
+#: lib/volume_luks.c:496 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "Demasiados intentos de obtener una frase de acceso"
 
-#: lib/volume_luks.c:509 lib/volume_luks.c:571
+#: lib/volume_luks.c:511 lib/volume_luks.c:573
 msgid "Error adding a LUKS passphrase"
 msgstr "Error al intentar añadir frase de acceso de LUKS"
 
-#: lib/volume_luks.c:547
+#: lib/volume_luks.c:549
 msgid "Can not add a secret of this type"
 msgstr "No es posible agregar un secreto de este tipo"
 
-#: lib/volume_luks.c:553 lib/volume_luks.c:653 lib/volume_luks.c:848
+#: lib/volume_luks.c:555 lib/volume_luks.c:655 lib/volume_luks.c:850
 msgid "Data encryption key unknown"
 msgstr "Clave de encriptado de datos desconocida"
 
-#: lib/volume_luks.c:559
+#: lib/volume_luks.c:561
 msgid "The passphrase must be a string"
 msgstr "La frase de acceso debe ser una cadena"
 
-#: lib/volume_luks.c:676
+#: lib/volume_luks.c:678
 msgid "Passphrase unknown"
 msgstr "Frase de acceso desconocida"
 
-#: lib/volume_luks.c:736
+#: lib/volume_luks.c:738
 msgid "Unsupported key length %"
 msgstr "Longitud de clave no soportada %"
 
-#: lib/volume_luks.c:749
+#: lib/volume_luks.c:751
 msgid "Key length mismatch"
 msgstr "No hay coincidencia en la longitud de la clave"
 
-#: lib/volume_luks.c:773
+#: lib/volume_luks.c:775
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "Número de ranura inválido `%s'"
 
-#: lib/volume_luks.c:784
+#: lib/volume_luks.c:786
 msgid "NUL byte in passphrase"
 msgstr "NUL byte en la frase de acceso"
 
-#: lib/volume_luks.c:856
+#: lib/volume_luks.c:858
 msgid "Error opening LUKS volume: "
 msgstr "Error al intentar abrir el volumen LUKS"
 
@@ -388,33 +388,33 @@ msgstr "Error al intentar abrir el volumen LUKS"
 msgid "Error decoding certificate"
 msgstr "Error al intentar decodificar el certificado"
 
-#: src/volume_key.c:52 src/volume_key.c:437 src/volume_key.c:489
+#: src/volume_key.c:53 src/volume_key.c:495 src/volume_key.c:550
 #, c-format
 msgid "%s: "
 msgstr "%s:"
 
-#: src/volume_key.c:82
+#: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "
 msgstr "%s (y/n)"
 
-#: src/volume_key.c:175
+#: src/volume_key.c:176
 msgid "Show version"
 msgstr "Mostrar versión"
 
-#: src/volume_key.c:180
+#: src/volume_key.c:181
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr ""
 "Guardar los secretos del volúmen en un paquete. Se esperan los operandos "
 "VOLUMEN [PAQUETE]."
 
-#: src/volume_key.c:185
+#: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
 "Restituir secretos del volúmen desde un paquete. Se esperan los operandos "
 "VOLUMEN PAQUETE."
 
-#: src/volume_key.c:190
+#: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
@@ -422,92 +422,92 @@ msgstr ""
 "Define un volumen encriptado utilizando secretos de un paquete. Se esperan "
 "los operandos VOLUMEN PAQUETE NOMBRE."
 
-#: src/volume_key.c:195
+#: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
 msgstr "Volver a encriptar un paquete escrow. Se espera el operando PAQUETE."
 
-#: src/volume_key.c:199
+#: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
 msgstr ""
 "Muestra la información contenida en un paquete. Se espera el operando "
 "PAQUETE."
 
-#: src/volume_key.c:204
+#: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
 msgstr ""
 "Muestra los secretos contenidos en un paquete. Se espera el operando PAQUETE."
 
-#: src/volume_key.c:209
+#: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
 msgstr "Utiliza la base de datos NSS en DIR"
 
-#: src/volume_key.c:209
+#: src/volume_key.c:210
 msgid "DIR"
 msgstr "DIR"
 
-#: src/volume_key.c:212
+#: src/volume_key.c:213
 msgid "Run in batch mode"
 msgstr "Ejecutar en modo sincronizado"
 
-#: src/volume_key.c:218
+#: src/volume_key.c:219
 msgid "Write the default secret to PACKET"
 msgstr "Escribe el secreto establecido por defecto en PACKET"
 
-#: src/volume_key.c:218 src/volume_key.c:223 src/volume_key.c:227
-#: src/volume_key.c:232
+#: src/volume_key.c:219 src/volume_key.c:224 src/volume_key.c:228
+#: src/volume_key.c:233
 msgid "PACKET"
 msgstr "PAQUETE"
 
-#: src/volume_key.c:222
+#: src/volume_key.c:223
 msgid "Write data encryption key to PACKET"
 msgstr "Escribe la clave de encriptado de datos en PACKET"
 
-#: src/volume_key.c:227
+#: src/volume_key.c:228
 msgid "Write passphrase to PACKET"
 msgstr "Escribir la frase de acceso en el paquete"
 
-#: src/volume_key.c:232
+#: src/volume_key.c:233
 msgid "Create a random passphrase and write it to PACKET"
 msgstr "Crea una frase de acceso aleatoria y la escribe en PACKET"
 
-#: src/volume_key.c:240
+#: src/volume_key.c:241
 msgid "Encrypt for the certificate in CERT"
 msgstr "Encriptado para el certificado en CERT"
 
-#: src/volume_key.c:240
+#: src/volume_key.c:241
 msgid "CERT"
 msgstr "CERT"
 
-#: src/volume_key.c:244
+#: src/volume_key.c:245
 msgid "Use FORMAT for all output packets"
 msgstr "Use formato para todos los paquetes de salida"
 
-#: src/volume_key.c:244
+#: src/volume_key.c:245
 msgid "FORMAT"
 msgstr "FORMATO"
 
-#: src/volume_key.c:248
+#: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
 msgstr "Solo incluir información sin cifrar, si todo, en --dump"
 
-#: src/volume_key.c:252
+#: src/volume_key.c:253
 msgid "Include secrets in --dump output"
 msgstr "Incluir secretos en la salida --dump"
 
-#: src/volume_key.c:267
+#: src/volume_key.c:268
 msgid "OPERANDS"
 msgstr "OPERANDOS"
 
-#: src/volume_key.c:269
+#: src/volume_key.c:270
 msgid "Manages encrypted volume keys and passphrases."
 msgstr "Administra claves de volumenes encriptadas y frases de acceso."
 
-#: src/volume_key.c:270
+#: src/volume_key.c:271
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Reportar errores a %s"
 
-#: src/volume_key.c:278
+#: src/volume_key.c:279
 #, c-format
 msgid ""
 "%s: %s\n"
@@ -516,7 +516,7 @@ msgstr ""
 "%s: %s\n"
 "Ejecute `%s --help' para más información.\n"
 
-#: src/volume_key.c:289
+#: src/volume_key.c:290
 msgid ""
 "Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
 "This software is distributed under the GPL v.2.\n"
@@ -530,187 +530,187 @@ msgstr ""
 "El siguiente programa se ofrece SIN GARANTIAS, hasta donde sea permitido por "
 "la ley."
 
-#: src/volume_key.c:301
+#: src/volume_key.c:302
 msgid "Operation mode not specified"
 msgstr "No se ha especificado un modo de operación"
 
-#: src/volume_key.c:307
+#: src/volume_key.c:308
 msgid "Ambiguous operation mode"
 msgstr "Modo de operación ambiguo"
 
-#: src/volume_key.c:311 src/volume_key.c:313 src/volume_key.c:366
+#: src/volume_key.c:312 src/volume_key.c:314 src/volume_key.c:367
 #, c-format
 msgid "`--%s' is only valid with `--%s'"
 msgstr "`--%s' sólo es válido con `--%s'"
 
-#: src/volume_key.c:319
+#: src/volume_key.c:320
 msgid "Output can be specified only with `--save' or `--reencrypt'"
 msgstr "La salida puede ser especificada solo con `--save' o `--reencrypt'"
 
-#: src/volume_key.c:326
+#: src/volume_key.c:327
 msgid "No output specified"
 msgstr "No se ha especificado una salida"
 
-#: src/volume_key.c:328
+#: src/volume_key.c:329
 msgid "Ambiguous output format"
 msgstr "Formato de salida ambiguo"
 
-#: src/volume_key.c:343
+#: src/volume_key.c:344
 #, c-format
 msgid "Unknown packet format `%s'"
 msgstr "Formato de paquete desconocido `%s'"
 
-#: src/volume_key.c:353
+#: src/volume_key.c:354
 msgid "Output format does not match other options"
 msgstr "Formato de salida sin comparación con otras opciones"
 
-#: src/volume_key.c:404
+#: src/volume_key.c:469 src/volume_key.c:549
 #, c-format
 msgid "Error, try again.\n"
 msgstr "Error, inténtelo de nuevo.\n"
 
-#: src/volume_key.c:405
+#: src/volume_key.c:470
 #, c-format
 msgid "Enter password for `%s': "
 msgstr "Introduzca su contraseña para `%s':"
 
-#: src/volume_key.c:522 src/volume_key.c:561
+#: src/volume_key.c:584 src/volume_key.c:623
 #, c-format
 msgid "Error reading `%s': "
 msgstr "Error al intentar leer `%s':"
 
-#: src/volume_key.c:529 src/volume_key.c:569
+#: src/volume_key.c:591 src/volume_key.c:631
 #, c-format
 msgid "Error decoding `%s': "
 msgstr "Error al intentar decodificar `%s':"
 
-#: src/volume_key.c:588
+#: src/volume_key.c:666
 msgid "New packet passphrase"
 msgstr "Nueva frase de acceso de paquete"
 
-#: src/volume_key.c:589
+#: src/volume_key.c:667
 msgid "Passphrases do not match.  New packet passphrase"
 msgstr ""
 "Las frases de acceso no coinciden. Nueva frase de aaceso para el paquete"
 
-#: src/volume_key.c:594
+#: src/volume_key.c:674
 msgid "Repeat new packet passphrase"
 msgstr "Repetir la nueva frase de acceso de paquete"
 
-#: src/volume_key.c:658
+#: src/volume_key.c:737
 #, c-format
 msgid "Error creating `%s': "
 msgstr "Error al crear `%s':"
 
-#: src/volume_key.c:708
+#: src/volume_key.c:787
 #, c-format
 msgid "Error generating passphrase: %s"
 msgstr "Error al intentar generar la frase de acceso: %s"
 
-#: src/volume_key.c:742
+#: src/volume_key.c:821
 #, c-format
 msgid "Usage: %s --save VOLUME [PACKET]"
 msgstr "Uso: %s --save VOLUME [PACKET]"
 
-#: src/volume_key.c:747 src/volume_key.c:762 src/volume_key.c:875
-#: src/volume_key.c:913
+#: src/volume_key.c:829 src/volume_key.c:844 src/volume_key.c:957
+#: src/volume_key.c:995
 #, c-format
 msgid "Error opening `%s': %s"
 msgstr "Error al abrir `%s': %s"
 
-#: src/volume_key.c:758
+#: src/volume_key.c:840
 #, c-format
 msgid "Error loading `%s': %s"
 msgstr "Error al cargar `%s': %s"
 
-#: src/volume_key.c:776
+#: src/volume_key.c:858
 #, c-format
 msgid "Error creating a passphrase: %s"
 msgstr "Error al intentar crear la frase de acceso: %s"
 
-#: src/volume_key.c:808
+#: src/volume_key.c:890
 #, c-format
 msgid "`%s' does not match `%s': "
 msgstr "`%s' no coincide `%s':"
 
-#: src/volume_key.c:817
+#: src/volume_key.c:899
 #, c-format
 msgid "`%s' perhaps does not match `%s'\n"
 msgstr "Tal vez `%s' no coincide `%s'\n"
 
-#: src/volume_key.c:832
+#: src/volume_key.c:914
 msgid "Are you sure you want to use this packet?"
 msgstr "¿Está seguro que quiere utilizar este paquete?"
 
-#: src/volume_key.c:844
+#: src/volume_key.c:926
 msgid "Error getting a yes/no answer"
 msgstr "Error al intentar obtener una respuesta de tipo si/no"
 
-#: src/volume_key.c:870
+#: src/volume_key.c:952
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET"
 msgstr "Uso: %s --%s VOLUMEN PAQUETE"
 
-#: src/volume_key.c:891
+#: src/volume_key.c:973
 #, c-format
 msgid "Error restoring access to `%s': %s"
 msgstr "Error al intentar restituir acceso a `%s': %s"
 
-#: src/volume_key.c:907
+#: src/volume_key.c:989
 #, c-format
 msgid "Usage: %s --%s VOLUME PACKET NAME"
 msgstr "Uso: %s --%s VOLUMEN PAQUETE NOMBRE"
 
-#: src/volume_key.c:929
+#: src/volume_key.c:1011
 #, c-format
 msgid "Error setting up `%s': %s"
 msgstr "Error al definir `%s': %s"
 
-#: src/volume_key.c:944 src/volume_key.c:972
+#: src/volume_key.c:1026 src/volume_key.c:1057
 #, c-format
 msgid "Usage: %s --%s PACKET"
 msgstr "Uso: %s --%s PAQUETE"
 
-#: src/volume_key.c:977
+#: src/volume_key.c:1062
 #, c-format
 msgid "Error reading `%s': %s"
 msgstr "Error al leer `%s': %s"
 
-#: src/volume_key.c:982
+#: src/volume_key.c:1067
 #, c-format
 msgid "Invalid packet: %s"
 msgstr "Paquete inválido: %s"
 
-#: src/volume_key.c:985
+#: src/volume_key.c:1070
 msgid "Unencrypted"
 msgstr "No encriptado"
 
-#: src/volume_key.c:989
+#: src/volume_key.c:1074
 msgid "Public key-encrypted"
 msgstr "Clave-encriptada pública"
 
-#: src/volume_key.c:993
+#: src/volume_key.c:1078
 msgid "Passphrase-encrypted"
 msgstr "Frase de acceso-encriptada"
 
-#: src/volume_key.c:997
+#: src/volume_key.c:1082
 msgid "Only secrets public key-encrypted"
 msgstr "Solo claves-encriptada públicas"
 
-#: src/volume_key.c:1001
+#: src/volume_key.c:1086
 msgid "Only secrets symmetric key-encrypted"
 msgstr "Solo claves-encriptadas simétricas"
 
-#: src/volume_key.c:1008 src/volume_key.c:1037
+#: src/volume_key.c:1093 src/volume_key.c:1122
 #, c-format
 msgid "%s:\t%s\n"
 msgstr "%s:\t%s\n"
 
-#: src/volume_key.c:1008
+#: src/volume_key.c:1093
 msgid "Packet format"
 msgstr "Formato de paquetes"
 
-#: src/volume_key.c:1022
+#: src/volume_key.c:1107
 #, c-format
 msgid "Error decoding `%s': %s"
 msgstr "Error al decodificar `%s': %s"

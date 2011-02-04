@@ -170,7 +170,8 @@ struct libvk_ui {};
     $1 = $input;
   %}
   %typemap(out) PyObject * %{
-      SWIG_exception (SWIG_AttributeError, "unreadable attribute");
+    (void)$1;
+    SWIG_exception (SWIG_AttributeError, "unreadable attribute");
   %}
   PyObject *generic_cb, *passphrase_cb;
   %typemap(in) PyObject *;

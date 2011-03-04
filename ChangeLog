@@ -1,3 +1,7 @@
+2011-03-04  Miloslav Trmač  <mitr@redhat.com>
+
+	* po/volume_key.pot: Add for Transifex.
+
 2011-02-04  Miloslav Trmač  <mitr@redhat.com>
 
 	* python/volume_key.i (libvk_ui): Silence a compiler warning.

@@ -1,3 +1,6 @@
+Changes in version 0.3.6:
+- Updated translations.
+
 Changes in version 0.3.5:
 - Fix password-encrypted packet handling with gpgme 1.2.
 - Allow aborting password prompts in volume_key(1).

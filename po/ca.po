@@ -1,34 +1,21 @@
-# Catalan translations for volume-key package.
-# Copyright (C) 2009 Red Hat, Inc.
-# This file is distributed under the same license as the
-#  volume-key package.
-#
-# Josep Torné Llavall <josep.torne@gmail.com>, 2009
-#
-# This file is translated according to the glossary and style guide of
-#   Softcatalà. If you plan to modify this file, please read first the page
-#   of the Catalan translation team for the Fedora project at:
-#   http://www.softcatala.org/projectes/fedora/
-#   and contact the previous translator
-#
-# Aquest fitxer s'ha de traduir d'acord amb el recull de termes i la guia
-#   d'estil de Softcatalà. Si voleu modificar aquest fitxer, llegiu si
-#   us plau la pàgina de catalanització del projecte Fedora a:
-#   http://www.softcatala.org/projectes/fedora/
-#   i contacteu l'anterior traductor/a.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-11-24 16:08+0100\n"
-"PO-Revision-Date: 2009-09-12 23:15+0100\n"
-"Last-Translator: Josep Torné Llavall <josep.torne@gmail.com>\n"
-"Language-Team: Catalan <fedora@softcatala.net>\n"
+"POT-Creation-Date: 2011-03-31 23:37+0200\n"
+"PO-Revision-Date: 2011-03-22 15:22+0000\n"
+"Last-Translator: mitr <mitr@volny.cz>\n"
+"Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -116,23 +103,21 @@ msgid "Unsupported packet type %"
 msgstr "Tipus de paquet % no admès"
 
 #: lib/kmip.c:1641 lib/kmip.c:1831
-#, fuzzy, c-format
+#, c-format
 msgid "Unsupported mechanism %lu"
-msgstr "Valor enum % no admès"
+msgstr ""
 
 #: lib/kmip.c:1724 lib/kmip.c:1747 lib/kmip.c:1901
-#, fuzzy
 msgid "Unexpected wrapped key format"
-msgstr "Final de dades inesperat"
+msgstr ""
 
 #: lib/kmip.c:1737 lib/kmip.c:1914
 msgid "Unsupported wrapping mechanism"
 msgstr ""
 
 #: lib/libvolume_key.c:204
-#, fuzzy
 msgid "Unsupported asymmetric encryption format"
-msgstr "Format % de clau simètrica no admès"
+msgstr ""
 
 #: lib/libvolume_key.c:323
 msgid "Input packet is too small"
@@ -146,7 +131,6 @@ msgstr "L'entrada no és un paquet de custòdia del volume_key"
 msgid "Unsupported packet format"
 msgstr "Format de paquet no admès"
 
-# http://en.wikipedia.org/wiki/Key_escrow
 #: lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
 msgstr "Contrasenya del paquet de custòdia"
@@ -156,9 +140,8 @@ msgid "Too many attempts to get a valid passphrase"
 msgstr "Massa intents per obtenir una contrasenya vàlida"
 
 #: lib/libvolume_key.c:462
-#, fuzzy
 msgid "Too many attempts to get a valid symmetric key"
-msgstr "Massa intents per obtenir una contrasenya vàlida"
+msgstr ""
 
 #: lib/libvolume_key.c:514
 msgid "The packet metadata is encrypted"
@@ -173,14 +156,12 @@ msgid "Passphrase not provided"
 msgstr "No s'ha proporcionat la contrasenya"
 
 #: lib/ui.c:169
-#, fuzzy
 msgid "Symmetric key callback not provided"
-msgstr "No s'ha proporcionat la crida de retorn d'interfície d'usuari"
+msgstr ""
 
 #: lib/ui.c:176
-#, fuzzy
 msgid "Symmetric key not provided"
-msgstr "No s'ha proporcionat la contrasenya"
+msgstr ""
 
 #: lib/volume.c:92
 msgid "The key is too long"
@@ -391,7 +372,7 @@ msgstr "Byte NUL a la contrasenya"
 msgid "Error opening LUKS volume: "
 msgstr "S'ha produït un error en obrir el volum LUKS: "
 
-#: python/volume_key.i:368
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "S'ha produït un error en la descodificació del certificat"
 
@@ -558,9 +539,9 @@ msgid "Ambiguous output format"
 msgstr "Format de sortida ambigu"
 
 #: src/volume_key.c:344
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown packet format `%s'"
-msgstr "Format de paquet no admès"
+msgstr ""
 
 #: src/volume_key.c:354
 msgid "Output format does not match other options"
@@ -695,14 +676,12 @@ msgid "Passphrase-encrypted"
 msgstr "Contrasenya-xifrada"
 
 #: src/volume_key.c:1082
-#, fuzzy
 msgid "Only secrets public key-encrypted"
-msgstr "Clau pública - xifrada"
+msgstr ""
 
 #: src/volume_key.c:1086
-#, fuzzy
 msgid "Only secrets symmetric key-encrypted"
-msgstr "Clau pública - xifrada"
+msgstr ""
 
 #: src/volume_key.c:1093 src/volume_key.c:1122
 #, c-format

@@ -1,25 +1,21 @@
-# translation of volume_key.master.po to Hindi
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Rajesh Ranjan <rajesh672@gmail.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key.master\n"
+"Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-11-24 16:08+0100\n"
-"PO-Revision-Date: 2009-11-13 15:46+0530\n"
-"Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
-"Language-Team: Hindi <hindi.sf.net>\n"
+"POT-Creation-Date: 2011-03-31 23:37+0200\n"
+"PO-Revision-Date: 2011-03-22 15:22+0000\n"
+"Last-Translator: rajeshr <rranjan@redhat.com>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -149,7 +145,7 @@ msgstr "वैध सममितीय कुंजी पाने के ल�
 
 #: lib/libvolume_key.c:514
 msgid "The packet metadata is encrypted"
-msgstr ""
+msgstr "पैकेट मेटाडेटा गोपित है"
 
 #: lib/ui.c:148
 msgid "User interface callbacks not provided"
@@ -376,7 +372,7 @@ msgstr "NUL बाइट कूटशब्द में"
 msgid "Error opening LUKS volume: "
 msgstr "LUKS वॉल्यूम खोलने में त्रुटि: "
 
-#: python/volume_key.i:368
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "प्रणामपत्र डिकोड करने में त्रुटि"
 
@@ -474,7 +470,7 @@ msgstr "प्रारूप"
 
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
-msgstr ""
+msgstr "केवल विगोपित सूचना शामिल करें यदि कोई है तो --dump में"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"

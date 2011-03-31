@@ -1,23 +1,21 @@
-# translation of volume_key.master.ko.po to Korean
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Eunju Kim <eukim@redhat.com>, 2009.
-# Hyunsok Oh <hoh@redhat.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key.master.ko\n"
+"Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-11-24 16:08+0100\n"
-"PO-Revision-Date: 2010-04-01 08:53+1000\n"
-"Last-Translator: Hyunsok Oh <hoh@redhat.com>\n"
-"Language-Team: Korean <ko@li.org>\n"
+"POT-Creation-Date: 2011-03-31 23:37+0200\n"
+"PO-Revision-Date: 2011-03-22 15:22+0000\n"
+"Last-Translator: mitr <mitr@volny.cz>\n"
+"Language-Team: Korean <>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -374,7 +372,7 @@ msgstr "암호구에 NUL 바이트가 있음"
 msgid "Error opening LUKS volume: "
 msgstr "LUKS 볼륨을 여는 중 발생:"
 
-#: python/volume_key.i:368
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "인증서 디코딩 오류 발생"
 

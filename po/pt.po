@@ -1,21 +1,21 @@
-# Rui Gouveia <rui.gouveia@gmail.com>, 2010.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key.master\n"
+"Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-11-24 16:08+0100\n"
-"PO-Revision-Date: 2010-03-17 00:20+0100\n"
-"Last-Translator: Rui Gouveia <rui.gouveia@gmail.com>\n"
-"Language-Team: trans-pt@fedoraproject.org\n"
+"POT-Creation-Date: 2011-03-31 23:37+0200\n"
+"PO-Revision-Date: 2011-03-22 15:22+0000\n"
+"Last-Translator: ruigo <rui.gouveia@gmail.com>\n"
+"Language-Team: Portuguese <trans-pt@lists.fedoraproject.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.5.2\n"
-"X-Poedit-Language: Portuguese\n"
-"X-Poedit-Country: PORTUGAL\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -145,7 +145,7 @@ msgstr "Demasiadas tentativas para obter uma chave simétrica válida"
 
 #: lib/libvolume_key.c:514
 msgid "The packet metadata is encrypted"
-msgstr ""
+msgstr "Os metadados do pacote estão cifrados"
 
 #: lib/ui.c:148
 msgid "User interface callbacks not provided"
@@ -372,7 +372,7 @@ msgstr "Byte NUL na frase-senha"
 msgid "Error opening LUKS volume: "
 msgstr "Erro ao abrir o volume LUKS: "
 
-#: python/volume_key.i:368
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "Erro ao descodificar o certificado"
 
@@ -471,7 +471,7 @@ msgstr "FORMAT"
 
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
-msgstr ""
+msgstr "Incluir apenas informações não cifradas, se houver, em --dump"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"

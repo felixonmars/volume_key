@@ -1,25 +1,21 @@
-# volume-key translation to Hungarian (hu_HU)
-# Copyright (C) 2010 Fedora Project
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# Nikolas Slivka <snicore@gmail.com>, 2010.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: volume-key\n"
+"Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2010-11-24 16:08+0100\n"
-"PO-Revision-Date: 2010-03-08 14:06+0100\n"
-"Last-Translator: Nikolas Slivka <snicore@gmail.com>\n"
-"Language-Team: Fedora Hungarian Translation Team <fedora-trans-hu@redhat."
-"org>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-03-31 23:37+0200\n"
+"PO-Revision-Date: 2011-03-22 15:22+0000\n"
+"Last-Translator: zoltanh721 <hopparz@gmail.com>\n"
+"Language-Team: Hungarian <trans-hu@lists.fedoraproject.org>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Poedit-Language: Hungarian\n"
-"X-Poedit-Country: HUNGARY\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -40,38 +36,38 @@ msgstr "A bináris adat túl hosszú"
 
 #: lib/kmip.c:391
 msgid "A KMIP structure is too long"
-msgstr ""
+msgstr "A KMIP szerkezet túl hosszú"
 
 #: lib/kmip.c:738 lib/kmip.c:853 lib/kmip.c:916
 msgid "Unexpected end of data"
-msgstr ""
+msgstr "Váratlan adatvég"
 
 #: lib/kmip.c:763 lib/kmip.c:839 lib/kmip.c:896 lib/kmip.c:943
 #, c-format
 msgid "Unexpected item tag 0x%08lX"
-msgstr ""
+msgstr "Váratlan tétel tag 0x%08lX"
 
 #: lib/kmip.c:770 lib/kmip.c:903 lib/kmip.c:950
 #, c-format
 msgid "Unexpected item type 0x%02X"
-msgstr ""
+msgstr "Nem várt elem típusa 0x%02X"
 
 #: lib/kmip.c:776
 msgid "Unexpected item size"
-msgstr ""
+msgstr "Váratlan elem méret"
 
 #: lib/kmip.c:814 lib/kmip.c:1268
 msgid "Unsupported enum value %"
-msgstr ""
+msgstr "Nem támogatott enum érték%"
 
 #: lib/kmip.c:846
 #, c-format
 msgid "String item expected, got %02X"
-msgstr ""
+msgstr "String elem várható, %02X fogadva "
 
 #: lib/kmip.c:958
 msgid "Structure does not fit in its container"
-msgstr ""
+msgstr "Szerkezet nem illik bele a tárolójába"
 
 #: lib/kmip.c:974
 msgid "Unexpected data in structure"
@@ -83,7 +79,7 @@ msgstr "Kulcsbitek száma nem pozitív"
 
 #: lib/kmip.c:1305
 msgid "Wrapped key is not opaque"
-msgstr ""
+msgstr "Betördelt kulcs nem átlátható"
 
 #: lib/kmip.c:1340 lib/kmip.c:1374
 msgid "Unsupported symmetric key format %"
@@ -99,7 +95,7 @@ msgstr "Nem támogatott objektumtípus %"
 
 #: lib/kmip.c:1516
 msgid "Unexpected data after packet"
-msgstr ""
+msgstr "Váratlan adat a csomag után"
 
 #: lib/kmip.c:1623 lib/kmip.c:1709 lib/kmip.c:1812 lib/kmip.c:1888
 #: lib/volume.c:700 lib/volume_luks.c:798
@@ -113,7 +109,7 @@ msgstr "Nem támogatott mechanizmus %lu"
 
 #: lib/kmip.c:1724 lib/kmip.c:1747 lib/kmip.c:1901
 msgid "Unexpected wrapped key format"
-msgstr ""
+msgstr "Váratlan tördelt kulcs formátum"
 
 #: lib/kmip.c:1737 lib/kmip.c:1914
 msgid "Unsupported wrapping mechanism"
@@ -121,11 +117,11 @@ msgstr "Nem támogatott csomagolómechanizmus"
 
 #: lib/libvolume_key.c:204
 msgid "Unsupported asymmetric encryption format"
-msgstr ""
+msgstr "Nem támogatott aszimmetrikus titkosítási formátum"
 
 #: lib/libvolume_key.c:323
 msgid "Input packet is too small"
-msgstr ""
+msgstr "Bemeneti csomag túl kicsi"
 
 #: lib/libvolume_key.c:333
 msgid "Input is not a volume_key escrow packet"
@@ -141,31 +137,31 @@ msgstr ""
 
 #: lib/libvolume_key.c:418 lib/volume_luks.c:311
 msgid "Too many attempts to get a valid passphrase"
-msgstr ""
+msgstr "Túl sok próbálkozás, hogy egy érvényes jelszót kapjon"
 
 #: lib/libvolume_key.c:462
 msgid "Too many attempts to get a valid symmetric key"
-msgstr ""
+msgstr "Túl sok próbálkozás, hogy egy érvényes szimmetrikus kulcsot kapjon"
 
 #: lib/libvolume_key.c:514
 msgid "The packet metadata is encrypted"
-msgstr ""
+msgstr "A csomag metaadatok titkosítottak"
 
 #: lib/ui.c:148
 msgid "User interface callbacks not provided"
-msgstr ""
+msgstr "A felhasználói felület visszahívások nem biztosítottak"
 
 #: lib/ui.c:154 src/volume_key.c:700
 msgid "Passphrase not provided"
-msgstr ""
+msgstr "Nem adott meg jelszót"
 
 #: lib/ui.c:169
 msgid "Symmetric key callback not provided"
-msgstr ""
+msgstr "Szimmetrikus kulcs visszahívás nem biztosított"
 
 #: lib/ui.c:176
 msgid "Symmetric key not provided"
-msgstr ""
+msgstr "Szimmetrikus kulcs nem biztosított"
 
 #: lib/volume.c:92
 msgid "The key is too long"
@@ -179,7 +175,7 @@ msgstr "A szükséges `%s' attribútum nem található"
 #: lib/volume.c:314
 #, c-format
 msgid "Cannot get attributes of `%s'"
-msgstr ""
+msgstr "Az '%s' -nek nem találhatóak az attribútumai"
 
 #: lib/volume.c:421
 msgid "Host name"
@@ -230,7 +226,7 @@ msgstr "Kötetcímke eltérő (`%s' csomag, `%s' kötet)"
 #: lib/volume.c:535
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "Kötet útvonal eltérések (csomag `%s ', kötet`%s')"
 
 #: lib/volume.c:736
 #, c-format
@@ -254,11 +250,11 @@ msgstr ""
 
 #: lib/volume_luks.c:211
 msgid "LUKS cipher name"
-msgstr ""
+msgstr "LUKS titkosító neve"
 
 #: lib/volume_luks.c:214
 msgid "LUKS cipher mode"
-msgstr ""
+msgstr "LUKS titkosító mód"
 
 #: lib/volume_luks.c:217
 msgid "Key size (bits)"
@@ -270,20 +266,20 @@ msgstr "Adattitkosítási kulcs"
 
 #: lib/volume_luks.c:241
 msgid "Passphrase"
-msgstr ""
+msgstr "Jelszó"
 
 #: lib/volume_luks.c:244
 msgid "Passphrase slot"
-msgstr ""
+msgstr "Jelszó slot"
 
 #: lib/volume_luks.c:275 lib/volume_luks.c:456 lib/volume_luks.c:697
 msgid "Encryption information type unsupported in LUKS"
-msgstr ""
+msgstr "Titkosítás információk típusa nem támogatott LUKS-ban"
 
 #: lib/volume_luks.c:283
 #, c-format
 msgid "Passphrase for `%s'"
-msgstr ""
+msgstr "Jelszó az '%s' -hez"
 
 #: lib/volume_luks.c:306 lib/volume_luks.c:842
 msgid "Error getting LUKS data encryption key: "
@@ -292,7 +288,7 @@ msgstr "Hiba a LUKS adattitkosító kulcs lekérdezésénél: "
 #: lib/volume_luks.c:353
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
-msgstr ""
+msgstr "Titkosítási név eltér (csomag '%s', kötet '%s')"
 
 #: lib/volume_luks.c:360
 #, c-format
@@ -306,11 +302,11 @@ msgstr ""
 
 #: lib/volume_luks.c:398
 msgid "LUKS data encryption key in packet is invalid: "
-msgstr ""
+msgstr "LUKS adattitkosítási kulcs csomagban érvénytelen:  "
 
 #: lib/volume_luks.c:423
 msgid "LUKS passphrase in packet is invalid: "
-msgstr ""
+msgstr "LUKS jelszó a csomagban érvénytelen: "
 
 #: lib/volume_luks.c:462
 msgid "Escrow packet does not contain the LUKS data encryption key"
@@ -319,12 +315,12 @@ msgstr ""
 #: lib/volume_luks.c:467
 #, c-format
 msgid "New passphrase for `%s'"
-msgstr ""
+msgstr "Új jelszó az '%s'-nek"
 
 #: lib/volume_luks.c:468
 #, c-format
 msgid "Repeat new passphrase for `%s'"
-msgstr ""
+msgstr "Ismételje meg az új jelszót az '%s'-nek"
 
 #: lib/volume_luks.c:469
 #, c-format
@@ -333,15 +329,15 @@ msgstr ""
 
 #: lib/volume_luks.c:496 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
-msgstr ""
+msgstr "Túl sok próbálkozás, a jelszó megadására"
 
 #: lib/volume_luks.c:511 lib/volume_luks.c:573
 msgid "Error adding a LUKS passphrase"
-msgstr ""
+msgstr "Hiba történt a LUKS jelszó hozzáadásakor"
 
 #: lib/volume_luks.c:549
 msgid "Can not add a secret of this type"
-msgstr ""
+msgstr "Nem titkosítható ez a típus"
 
 #: lib/volume_luks.c:555 lib/volume_luks.c:655 lib/volume_luks.c:850
 msgid "Data encryption key unknown"
@@ -364,9 +360,9 @@ msgid "Key length mismatch"
 msgstr "Kulcs hosszúság különböző"
 
 #: lib/volume_luks.c:775
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid slot number `%s'"
-msgstr "`%s' érvénytelen slot szám"
+msgstr ""
 
 #: lib/volume_luks.c:786
 msgid "NUL byte in passphrase"
@@ -376,7 +372,7 @@ msgstr ""
 msgid "Error opening LUKS volume: "
 msgstr "Hiba a LUKS kötet megnyitásakor: "
 
-#: python/volume_key.i:368
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "A tanúsítványt nem lehet dekódolni"
 
@@ -425,9 +421,8 @@ msgid "Use the NSS database in DIR"
 msgstr ""
 
 #: src/volume_key.c:210
-#, fuzzy
 msgid "DIR"
-msgstr "DIR"
+msgstr ""
 
 #: src/volume_key.c:213
 msgid "Run in batch mode"
@@ -439,9 +434,8 @@ msgstr ""
 
 #: src/volume_key.c:219 src/volume_key.c:224 src/volume_key.c:228
 #: src/volume_key.c:233
-#, fuzzy
 msgid "PACKET"
-msgstr "CSOMAG"
+msgstr ""
 
 #: src/volume_key.c:223
 msgid "Write data encryption key to PACKET"
@@ -542,9 +536,9 @@ msgid "Output format does not match other options"
 msgstr ""
 
 #: src/volume_key.c:469 src/volume_key.c:549
-#, fuzzy, c-format
+#, c-format
 msgid "Error, try again.\n"
-msgstr "Hiba. Próbálja újból!\n"
+msgstr ""
 
 #: src/volume_key.c:470
 #, c-format

@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([volume_key], [0.3.5], [mitr@redhat.com], ,
+AC_INIT([volume_key], [0.3.6], [mitr@redhat.com], ,
         [https://fedorahosted.org/volume_key/])
 AC_COPYRIGHT(
 [Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.

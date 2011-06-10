@@ -1,3 +1,8 @@
+2011-06-10  Miloslav Trmač  <mitr@redhat.com>
+
+	* doc/volume_key.8: Fix a typo reported by Jacquelynn East
+	<jeast@redhat.com>.
+
 2011-03-31  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Release 0.3.6.

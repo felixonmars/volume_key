@@ -1,3 +1,17 @@
+2011-08-24  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/kmip.c (get_enum, kmip_decode_key_block)
+	(kmip_decode_object_symmetric_key)
+	(kmip_decode_object_secret_data, kmip_decode_protocol_version)
+	(kmip_decode_libvk_packet)
+	(kmip_libvk_packet_wrap_secret_asymmetric)
+	(kmip_libvk_packet_unwrap_secret_asymmetric)
+	(kmip_libvk_packet_wrap_secret_symmetric)
+	(kmip_libvk_packet_unwrap_secret_symmetric)
+	* lib/volume.c (volume_load_escrow_packet)
+	* lib/volume_luks.c (luks_parse_escrow_packet): Don't use
+	G_G*INT*_FORMAT inside xgettext-handled format strings.
+
 2011-06-10  Miloslav Trmač  <mitr@redhat.com>
 
 	* doc/volume_key.8: Fix a typo reported by Jacquelynn East

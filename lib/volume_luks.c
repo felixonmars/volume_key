@@ -1,6 +1,6 @@
 /* LUKS volume handling.
 
-Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010, 2011 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -17,6 +17,7 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <config.h>
 
 #include <errno.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -734,9 +735,11 @@ luks_parse_escrow_packet (struct libvk_volume *vol,
 	goto err;
       if (a->v.int32_value <= 0 || a->v.int32_value % 8 != 0)
 	{
+	  gchar num[sizeof (a->v.int32_value) * CHAR_BIT + 1];
+
+	  g_snprintf (num, sizeof (num), "%" G_GINT32_FORMAT, a->v.int32_value);
 	  g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		       _("Unsupported key length %" G_GINT32_FORMAT),
-		       a->v.int32_value);
+		       _("Unsupported key length %s"), num);
 	  goto err;
 	}
       {
@@ -794,9 +797,14 @@ luks_parse_escrow_packet (struct libvk_volume *vol,
       break;
 
     default:
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported packet type %" G_GUINT32_FORMAT), pack->type);
-      goto err;
+      {
+	gchar num[sizeof (pack->type) * CHAR_BIT + 1];
+
+	g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, pack->type);
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		     _("Unsupported packet type %s"), num);
+	goto err;
+      }
     }
   return 0;
 

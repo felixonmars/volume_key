@@ -1,6 +1,6 @@
 /* Volume handling.
 
-Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2011 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -16,6 +16,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 Author: Miloslav Trmač <mitr@redhat.com> */
 #include <config.h>
 
+#include <limits.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
@@ -679,10 +680,15 @@ volume_load_escrow_packet (struct kmip_libvk_packet *packet, GError **error)
   if (packet->version->major != KMIP_VERSION_MAJOR
       || packet->version->minor != KMIP_VERSION_MINOR)
     {
+      gchar major[sizeof (packet->version->major) * CHAR_BIT + 1];
+      gchar minor[sizeof (packet->version->minor) * CHAR_BIT + 1];
+
+      g_snprintf (major, sizeof (major), "%" G_GINT32_FORMAT,
+		  packet->version->major);
+      g_snprintf (minor, sizeof (minor), "%" G_GINT32_FORMAT,
+		  packet->version->minor);
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported KMIP version %" G_GINT32_FORMAT ".%"
-		     G_GINT32_FORMAT), packet->version->major,
-		   packet->version->minor);
+		   _("Unsupported KMIP version %s.%s"), major, minor);
       goto err;
     }
   switch (packet->type)
@@ -696,10 +702,14 @@ volume_load_escrow_packet (struct kmip_libvk_packet *packet, GError **error)
       break;
 
     default:
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported packet type %" G_GUINT32_FORMAT),
-		   packet->type);
-      goto err;
+      {
+	gchar num[sizeof (packet->type) * CHAR_BIT + 1];
+
+	g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, packet->type);
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		     _("Unsupported packet type %s"), num);
+	goto err;
+      }
     }
   vol = g_new0 (struct libvk_volume, 1);
   vol->source = VOLUME_SOURCE_PACKET;

@@ -1,6 +1,6 @@
 /* KMIP handling.
 
-Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
+Copyright (C) 2009, 2010, 2011 Red Hat, Inc. All rights reserved.
 This copyrighted material is made available to anyone wishing to use, modify,
 copy, or redistribute it subject to the terms and conditions of the GNU General
 Public License v.2.
@@ -16,6 +16,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 Author: Miloslav Trmač <mitr@redhat.com> */
 #include <config.h>
 
+#include <limits.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -810,8 +811,11 @@ get_enum (struct kmip_decoding_state *kmip, guint32 *val, guint32 tag,
   v = GUINT32_FROM_BE (val_be);
   if (v < min || v >= end)
     {
+      gchar num[sizeof (v) * CHAR_BIT + 1];
+
+      g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, v);
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported enum value %" G_GUINT32_FORMAT), v);
+		   _("Unsupported enum value %s"), num);
       return -1;
     }
   *val = v;
@@ -1264,8 +1268,11 @@ kmip_decode_key_block (struct kmip_decoding_state *kmip,
   if (res->type != KMIP_KEY_OPAQUE
       && res->type != KMIP_KEY_TRANSPARENT_SYMMETRIC)
     {
+      gchar num[sizeof (res->type) * CHAR_BIT + 1];
+
+      g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, res->type);
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported enum value %" G_GUINT32_FORMAT), res->type);
+		   _("Unsupported enum value %s"), num);
       goto err;
     }
   if (kmip_decode_key_value (&k, &res->value, KMIP_TAG_KEY_VALUE, res->type,
@@ -1336,9 +1343,11 @@ kmip_decode_object_symmetric_key (struct kmip_decoding_state *kmip,
   if (res->block->wrapping == NULL
       && res->block->type != KMIP_KEY_TRANSPARENT_SYMMETRIC)
     {
+      gchar num[sizeof (res->block->type) * CHAR_BIT + 1];
+
+      g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, res->block->type);
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported symmetric key format %" G_GUINT32_FORMAT),
-		   res->block->type);
+		   _("Unsupported symmetric key format %s"), num);
       return -1;
     }
   *obj = res;
@@ -1370,9 +1379,11 @@ kmip_decode_object_secret_data (struct kmip_decoding_state *kmip,
     goto err;
   if (res->block->wrapping == NULL && res->block->type != KMIP_KEY_OPAQUE)
     {
+      gchar num[sizeof (res->block->type) * CHAR_BIT + 1];
+
+      g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, res->block->type);
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported symmetric key format %" G_GUINT32_FORMAT),
-		   res->block->type);
+		   _("Unsupported symmetric key format %s"), num);
       return -1;
     }
   *obj = res;
@@ -1403,9 +1414,13 @@ kmip_decode_protocol_version (struct kmip_decoding_state *kmip,
     goto err;
   if (res->major != KMIP_VERSION_MAJOR || res->minor != KMIP_VERSION_MINOR)
     {
+      gchar major[sizeof (res->major) * CHAR_BIT + 1];
+      gchar minor[sizeof (res->minor) * CHAR_BIT + 1];
+
+      g_snprintf (major, sizeof (major), "%" G_GINT32_FORMAT, res->major);
+      g_snprintf (minor, sizeof (minor), "%" G_GINT32_FORMAT, res->minor);
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported KMIP version %" G_GINT32_FORMAT ".%"
-		     G_GINT32_FORMAT), res->major, res->minor);
+		   _("Unsupported KMIP version %s.%s"), major, minor);
       goto err;
     }
   *version = res;
@@ -1450,9 +1465,14 @@ kmip_decode_libvk_packet (struct kmip_decoding_state *kmip,
       break;
 
     default:
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported object type %" G_GUINT32_FORMAT), res->type);
-      goto err;
+      {
+	gchar num[sizeof (res->type) * CHAR_BIT + 1];
+
+	g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, res->type);
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		   _("Unsupported object type %s"), num);
+	goto err;
+      }
     }
   if (sd_end (&k, error) != 0)
     goto err;
@@ -1619,10 +1639,14 @@ kmip_libvk_packet_wrap_secret_asymmetric (struct kmip_libvk_packet *packet,
       break;
 
     default:
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported packet type %" G_GUINT32_FORMAT),
-		   packet->type);
-      goto err;
+      {
+	gchar num[sizeof (packet->type) * CHAR_BIT + 1];
+
+	g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, packet->type);
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		     _("Unsupported packet type %s"), num);
+	goto err;
+      }
     }
   g_return_val_if_fail (key_block->wrapping == NULL, -1);
 
@@ -1705,10 +1729,14 @@ kmip_libvk_packet_unwrap_secret_asymmetric (struct kmip_libvk_packet *packet,
       break;
 
     default:
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported packet type %" G_GUINT32_FORMAT),
-		   packet->type);
-      goto err;
+      {
+	gchar num[sizeof (packet->type) * CHAR_BIT + 1];
+
+	g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, packet->type);
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		     _("Unsupported packet type %s"), num);
+	goto err;
+      }
     }
   g_return_val_if_fail (key_block->wrapping != NULL, -1);
 
@@ -1808,10 +1836,14 @@ kmip_libvk_packet_wrap_secret_symmetric (struct kmip_libvk_packet *packet,
       break;
 
     default:
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported packet type %" G_GUINT32_FORMAT),
-		   packet->type);
-      goto err;
+      {
+	gchar num[sizeof (packet->type) * CHAR_BIT + 1];
+
+	g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, packet->type);
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		     _("Unsupported packet type %s"), num);
+	goto err;
+      }
     }
   g_return_val_if_fail (key_block->wrapping == NULL, -1);
 
@@ -1884,10 +1916,14 @@ kmip_libvk_packet_unwrap_secret_symmetric (struct kmip_libvk_packet *packet,
       break;
 
     default:
-      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
-		   _("Unsupported packet type %" G_GUINT32_FORMAT),
-		   packet->type);
-      goto err;
+      {
+	gchar num[sizeof (packet->type) * CHAR_BIT + 1];
+
+	g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, packet->type);
+	g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
+		     _("Unsupported packet type %s"), num);
+	goto err;
+      }
     }
   g_return_val_if_fail (key_block->wrapping != NULL, -1);
 

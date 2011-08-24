@@ -1,5 +1,7 @@
 2011-08-24  Miloslav Trmač  <mitr@redhat.com>
 
+	* po/volume_key.pot: Update.
+
 	* lib/kmip.c (get_enum, kmip_decode_key_block)
 	(kmip_decode_object_symmetric_key)
 	(kmip_decode_object_secret_data, kmip_decode_protocol_version)

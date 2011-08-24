@@ -1,5 +1,7 @@
 2011-08-24  Miloslav Trmač  <mitr@redhat.com>
 
+	* COPYING: Update (new FSF address, s/Library GPL/Lesser GPL/).
+
 	* configure.ac: Release 0.3.7.
 	* NEWS: Update.
 	* po/LINGUAS: Update.

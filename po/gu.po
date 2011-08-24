@@ -1,15 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# mitr <mitr@volny.cz>, 2011.
+# Sweta Kothari <swkothar@redhat.com>, 2009.
+# sweta <swkothar@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-03-31 23:37+0200\n"
-"PO-Revision-Date: 2011-03-22 15:22+0000\n"
-"Last-Translator: sweta <swkothar@redhat.com>\n"
+"POT-Creation-Date: 2011-08-24 21:30+0200\n"
+"PO-Revision-Date: 2011-08-24 19:13+0000\n"
+"Last-Translator: mitr <mitr@volny.cz>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
 "Language: gu\n"
 "MIME-Version: 1.0\n"
@@ -22,96 +24,101 @@ msgstr ""
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: lib/kmip.c:255 lib/kmip.c:371
+#: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
 msgstr "KMIP પેકેટને સંગ્રહ કરવા માટે પૂરી પાડેલ પૂરતી જગ્યા નથી"
 
-#: lib/kmip.c:322 lib/kmip.c:866
+#: lib/kmip.c:323 lib/kmip.c:870
 msgid "A string is too long"
 msgstr "શબ્દમાળા ઘણી લાંબી છે"
 
-#: lib/kmip.c:340 lib/kmip.c:910
+#: lib/kmip.c:341 lib/kmip.c:914
 msgid "Binary data is too long"
 msgstr "બાઇનરી માહિતી ઘણી લાંબી છે"
 
-#: lib/kmip.c:391
+#: lib/kmip.c:392
 msgid "A KMIP structure is too long"
 msgstr "KMIP બંધારણ ઘણુ લાંબુ છે"
 
-#: lib/kmip.c:738 lib/kmip.c:853 lib/kmip.c:916
+#: lib/kmip.c:739 lib/kmip.c:857 lib/kmip.c:920
 msgid "Unexpected end of data"
 msgstr "માહિતીનો અનિચ્છનીય અંત"
 
-#: lib/kmip.c:763 lib/kmip.c:839 lib/kmip.c:896 lib/kmip.c:943
+#: lib/kmip.c:764 lib/kmip.c:843 lib/kmip.c:900 lib/kmip.c:947
 #, c-format
 msgid "Unexpected item tag 0x%08lX"
 msgstr "અનિચ્છનીય વસ્તુ ટેગ 0x%08lX"
 
-#: lib/kmip.c:770 lib/kmip.c:903 lib/kmip.c:950
+#: lib/kmip.c:771 lib/kmip.c:907 lib/kmip.c:954
 #, c-format
 msgid "Unexpected item type 0x%02X"
 msgstr "અનિચ્છનિય વસ્તુ પ્રકાર 0x%02X"
 
-#: lib/kmip.c:776
+#: lib/kmip.c:777
 msgid "Unexpected item size"
 msgstr "અનિચ્છનિય વસ્તુ માપ"
 
-#: lib/kmip.c:814 lib/kmip.c:1268
-msgid "Unsupported enum value %"
-msgstr "બિનઆધારભૂત enum કિંમત %"
+#: lib/kmip.c:818 lib/kmip.c:1275
+#, c-format
+msgid "Unsupported enum value %s"
+msgstr ""
 
-#: lib/kmip.c:846
+#: lib/kmip.c:850
 #, c-format
 msgid "String item expected, got %02X"
 msgstr "શબ્દમાળા વસ્તુ ઇચ્છિત છે, %02X મળ્યુ"
 
-#: lib/kmip.c:958
+#: lib/kmip.c:962
 msgid "Structure does not fit in its container"
 msgstr "બંધારણ એ તેનાં પાત્રમાં બંધબેસતુ નથી"
 
-#: lib/kmip.c:974
+#: lib/kmip.c:978
 msgid "Unexpected data in structure"
 msgstr "બંધારણમાં અનિચ્છનીય માહિતી"
 
-#: lib/kmip.c:1060 lib/kmip.c:1290
+#: lib/kmip.c:1064 lib/kmip.c:1297
 msgid "Number of key bits is not positive"
 msgstr "કી બીટોની સંખ્યા હકારાત્મક નથી"
 
-#: lib/kmip.c:1305
+#: lib/kmip.c:1312
 msgid "Wrapped key is not opaque"
 msgstr "આવરેલ કી પારદર્શક નથી"
 
-#: lib/kmip.c:1340 lib/kmip.c:1374
-msgid "Unsupported symmetric key format %"
-msgstr "બિનઆધારભૂત સમપ્રમાણ કી બંધારણ %"
+#: lib/kmip.c:1350 lib/kmip.c:1386
+#, c-format
+msgid "Unsupported symmetric key format %s"
+msgstr ""
 
-#: lib/kmip.c:1407 lib/volume.c:683
-msgid "Unsupported KMIP version %"
-msgstr "બિનઆધારભૂત KMIP આવૃત્તિ %"
+#: lib/kmip.c:1423 lib/volume.c:691
+#, c-format
+msgid "Unsupported KMIP version %s.%s"
+msgstr ""
 
-#: lib/kmip.c:1454
-msgid "Unsupported object type %"
-msgstr "બિનઆધારભૂત ઓબ્જેક્ટ પ્રકાર %"
+#: lib/kmip.c:1473
+#, c-format
+msgid "Unsupported object type %s"
+msgstr ""
 
-#: lib/kmip.c:1516
+#: lib/kmip.c:1536
 msgid "Unexpected data after packet"
 msgstr "પેકેટ પછી અનઇચ્છનીય માહિતી"
 
-#: lib/kmip.c:1623 lib/kmip.c:1709 lib/kmip.c:1812 lib/kmip.c:1888
-#: lib/volume.c:700 lib/volume_luks.c:798
-msgid "Unsupported packet type %"
-msgstr "બિનઆધારભૂત પેકેટ પ્રકાર %"
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
+#: lib/volume.c:710 lib/volume_luks.c:805
+#, c-format
+msgid "Unsupported packet type %s"
+msgstr ""
 
-#: lib/kmip.c:1641 lib/kmip.c:1831
+#: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
 msgid "Unsupported mechanism %lu"
 msgstr "બિનઆધારભૂત મિકેનીઝમ %lu"
 
-#: lib/kmip.c:1724 lib/kmip.c:1747 lib/kmip.c:1901
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
 msgid "Unexpected wrapped key format"
 msgstr "અનિચ્છનીય આવરેસ કી બંધારણ"
 
-#: lib/kmip.c:1737 lib/kmip.c:1914
+#: lib/kmip.c:1765 lib/kmip.c:1950
 msgid "Unsupported wrapping mechanism"
 msgstr "બિનઆધારભૂત વીંટેલ મિકેનીઝમ"
 
@@ -135,7 +142,7 @@ msgstr "બિનઆધારભૂત પેકેટ બંધારણ"
 msgid "Escrow packet passphrase"
 msgstr "Escrow પેકેટ પાસફ્રેજ"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:311
+#: lib/libvolume_key.c:418 lib/volume_luks.c:312
 msgid "Too many attempts to get a valid passphrase"
 msgstr "યોગ્ય પાસફ્રેજને મેળવવા માચે ઘણા બધા પ્રયત્ન કરે છે"
 
@@ -163,212 +170,213 @@ msgstr "સમપ્રમાણ કી કોલબેક પૂરા પા�
 msgid "Symmetric key not provided"
 msgstr "સમપ્રમાણ કીને પૂરુ પાડેલ નથી"
 
-#: lib/volume.c:92
+#: lib/volume.c:93
 msgid "The key is too long"
 msgstr "કી ઘણી લાંબી છે"
 
-#: lib/volume.c:171 lib/volume.c:192
+#: lib/volume.c:172 lib/volume.c:193
 #, c-format
 msgid "Required attribute `%s' not found"
 msgstr "જરૂરી ગુણધર્મ `%s' મળ્યુ નથી"
 
-#: lib/volume.c:314
+#: lib/volume.c:315
 #, c-format
 msgid "Cannot get attributes of `%s'"
 msgstr "`%s' નાં ગુણધર્મો મેળવી શકાતા નથી"
 
-#: lib/volume.c:421
+#: lib/volume.c:422
 msgid "Host name"
 msgstr "યજમાન નામ"
 
-#: lib/volume.c:423
+#: lib/volume.c:424
 msgid "Volume format"
 msgstr "વોલ્યુમ બંધારણ"
 
-#: lib/volume.c:426
+#: lib/volume.c:427
 msgid "Volume UUID"
 msgstr "વોલ્યુમ UUID"
 
-#: lib/volume.c:429
+#: lib/volume.c:430
 msgid "Volume label"
 msgstr "વોલ્યુમ લેબલ"
 
-#: lib/volume.c:431
+#: lib/volume.c:432
 msgid "Volume path"
 msgstr "વોલ્યુમ પાથ"
 
-#: lib/volume.c:457 lib/volume.c:566 lib/volume.c:600 lib/volume.c:629
-#: lib/volume.c:662 lib/volume.c:759
+#: lib/volume.c:458 lib/volume.c:567 lib/volume.c:601 lib/volume.c:630
+#: lib/volume.c:663 lib/volume.c:769
 #, c-format
 msgid "Volume `%s' has unsupported format"
 msgstr "વોલ્યુમ `%s' પાસે બિનઆધારિત બંધારણ છે"
 
-#: lib/volume.c:487
+#: lib/volume.c:488
 #, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
 msgstr "વોલ્યુમ બંધારણ બંધબેસતુ નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
-#: lib/volume.c:515
+#: lib/volume.c:516
 #, c-format
 msgid "UUID mismatch (packet `%s', volume `%s')"
 msgstr "UUID બંધબેસતુ નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
-#: lib/volume.c:521
+#: lib/volume.c:522
 #, c-format
 msgid "Host name mismatch (packet `%s', volume `%s')"
 msgstr "યજમાન નામ બંધબેસતુ નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
-#: lib/volume.c:528
+#: lib/volume.c:529
 #, c-format
 msgid "Volume label mismatch (packet `%s', volume `%s')"
 msgstr "વોલ્યુમ લેબલ બંધબેસતુ નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
-#: lib/volume.c:535
+#: lib/volume.c:536
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
 msgstr "વોલ્યુમ પાથ બંધબેસતુ નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
-#: lib/volume.c:736
+#: lib/volume.c:746
 #, c-format
 msgid "Unsupported volume format `%s'"
 msgstr "બિનઆધારભૂત વોલ્યુમ બંધારણ `%s'"
 
-#: lib/volume_luks.c:54
+#: lib/volume_luks.c:55
 #, c-format
 msgid "Unknown error %d"
 msgstr "અજ્ઞાત ભૂલ %d"
 
-#: lib/volume_luks.c:104
+#: lib/volume_luks.c:105
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "વોલ્યુમ `%s' વિશે જાણકારી મેળવી રહ્યા હોય ત્યારે ભૂલ: "
 
-#: lib/volume_luks.c:186
+#: lib/volume_luks.c:187
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr "libblkid અને libcryptsetup વચ્ચે UUID બંધબેસતુ નથી: `%s' vs. `%s'"
 
-#: lib/volume_luks.c:211
+#: lib/volume_luks.c:212
 msgid "LUKS cipher name"
 msgstr "LUKS સાઇફર નામ"
 
-#: lib/volume_luks.c:214
+#: lib/volume_luks.c:215
 msgid "LUKS cipher mode"
 msgstr "LUKS સાઇફર સ્થિતિ"
 
-#: lib/volume_luks.c:217
+#: lib/volume_luks.c:218
 msgid "Key size (bits)"
 msgstr "કી માપ (બીટો)"
 
-#: lib/volume_luks.c:237
+#: lib/volume_luks.c:238
 msgid "Data encryption key"
 msgstr "માહિતી એનક્રિપ્શન કી"
 
-#: lib/volume_luks.c:241
+#: lib/volume_luks.c:242
 msgid "Passphrase"
 msgstr "પાસફ્રેઝ"
 
-#: lib/volume_luks.c:244
+#: lib/volume_luks.c:245
 msgid "Passphrase slot"
 msgstr "પાસફ્રેજ સ્લોટ"
 
-#: lib/volume_luks.c:275 lib/volume_luks.c:456 lib/volume_luks.c:697
+#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
 msgid "Encryption information type unsupported in LUKS"
 msgstr "LUKS માં બિનઆધારભૂત એનક્રિપ્શન જાણકારી પ્રકાર"
 
-#: lib/volume_luks.c:283
+#: lib/volume_luks.c:284
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "`%s' માટે પાસફ્રેઝ"
 
-#: lib/volume_luks.c:306 lib/volume_luks.c:842
+#: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
 msgstr "LUKS માહિતી એનક્રિપ્શન કીને મેળવી રહ્યા હોય ત્યારે ભૂલ: "
 
-#: lib/volume_luks.c:353
+#: lib/volume_luks.c:354
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "સાઇફર નામ બંધબેસતુ નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
-#: lib/volume_luks.c:360
+#: lib/volume_luks.c:361
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "સાઇફર સ્થિતિ બંધબેસતી નથી (પેકેટ `%s', વોલ્યુમ `%s')"
 
-#: lib/volume_luks.c:367
+#: lib/volume_luks.c:368
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "કી માપ બંધબેસતુ નથી (પેકેટ %zu, વોલ્યુમ %zu)"
 
-#: lib/volume_luks.c:398
+#: lib/volume_luks.c:399
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "પેકેટ માં LUKS માહિતી એનક્રિપ્શન કી અયોગ્ય છે: "
 
-#: lib/volume_luks.c:423
+#: lib/volume_luks.c:424
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "પેકેટમાં LUKS પાસફ્રેજ અયોગ્ય છે: "
 
-#: lib/volume_luks.c:462
+#: lib/volume_luks.c:463
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "Escrow પેકેટ LUKS માહિતી એનક્રિપ્શન કીને સમાવતુ નથી"
 
-#: lib/volume_luks.c:467
+#: lib/volume_luks.c:468
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "`%s' માટે નવો પાસફ્રેજ"
 
-#: lib/volume_luks.c:468
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "`%s' માટે નવા પાસફ્રેજને ફરીથી લખો"
 
-#: lib/volume_luks.c:469
+#: lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "પાસફ્રેજો બંધબેસતા નથી.  `%s' માટે નવો પાસફ્રેજ"
 
-#: lib/volume_luks.c:496 src/volume_key.c:690
+#: lib/volume_luks.c:497 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "પાસફ્રેજને મેળવવા માટે ઘણા બધા પ્રયત્ન કરે છે"
 
-#: lib/volume_luks.c:511 lib/volume_luks.c:573
+#: lib/volume_luks.c:512 lib/volume_luks.c:574
 msgid "Error adding a LUKS passphrase"
 msgstr "LUKS પાસફ્રેજને ઉમેરી રહ્યા હોય ત્યારે ભૂલ"
 
-#: lib/volume_luks.c:549
+#: lib/volume_luks.c:550
 msgid "Can not add a secret of this type"
 msgstr "આ પ્રકારની ગુપ્તતાને ઉમેરી શકાતી નથી"
 
-#: lib/volume_luks.c:555 lib/volume_luks.c:655 lib/volume_luks.c:850
+#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
 msgid "Data encryption key unknown"
 msgstr "માહિતી એનક્રિપ્શન કી અજ્ઞાત"
 
-#: lib/volume_luks.c:561
+#: lib/volume_luks.c:562
 msgid "The passphrase must be a string"
 msgstr "પાસફ્રેજ એ શબ્દમાળા જ હોવી જોઇએ"
 
-#: lib/volume_luks.c:678
+#: lib/volume_luks.c:679
 msgid "Passphrase unknown"
 msgstr "પાસફ્રેજ અજ્ઞાત"
 
-#: lib/volume_luks.c:738
-msgid "Unsupported key length %"
-msgstr "બિનઆધારભૂત કી લંબાઇ %"
+#: lib/volume_luks.c:742
+#, c-format
+msgid "Unsupported key length %s"
+msgstr ""
 
-#: lib/volume_luks.c:751
+#: lib/volume_luks.c:754
 msgid "Key length mismatch"
 msgstr "કી લંબાઇ બંધબેસતી નથી"
 
-#: lib/volume_luks.c:775
+#: lib/volume_luks.c:778
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "અયોગ્ય સ્લોટ નંબર `%s'"
 
-#: lib/volume_luks.c:786
+#: lib/volume_luks.c:789
 msgid "NUL byte in passphrase"
 msgstr "પાસફ્રેજ માં NUL બાઇટ"
 
-#: lib/volume_luks.c:858
+#: lib/volume_luks.c:866
 msgid "Error opening LUKS volume: "
 msgstr "LUKS વોલ્યુમને ખોલી રહ્યા હોય ત્યારે ભૂલ: "
 

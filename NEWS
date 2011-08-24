@@ -1,3 +1,8 @@
+Changes in version 0.3.7:
+- Made some error messages translatable.
+- Updated translations.
+- Fixed a man page typo.
+
 Changes in version 0.3.6:
 - Updated translations.
 

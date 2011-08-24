@@ -1,14 +1,15 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Yulia <ypoyarko@redhat.com>, 2009.
+# mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-03-31 23:37+0200\n"
-"PO-Revision-Date: 2011-03-22 15:22+0000\n"
+"POT-Creation-Date: 2011-08-24 21:30+0200\n"
+"PO-Revision-Date: 2011-08-24 19:13+0000\n"
 "Last-Translator: mitr <mitr@volny.cz>\n"
 "Language-Team: Russian <trans-ru@lists.fedoraproject.org>\n"
 "Language: ru\n"
@@ -23,96 +24,101 @@ msgstr ""
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: lib/kmip.c:255 lib/kmip.c:371
+#: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
 msgstr "Недостаточно места для хранения пакета KMIP"
 
-#: lib/kmip.c:322 lib/kmip.c:866
+#: lib/kmip.c:323 lib/kmip.c:870
 msgid "A string is too long"
 msgstr "Слишком длинная строка"
 
-#: lib/kmip.c:340 lib/kmip.c:910
+#: lib/kmip.c:341 lib/kmip.c:914
 msgid "Binary data is too long"
 msgstr "Длина двоичных данных слишком велика"
 
-#: lib/kmip.c:391
+#: lib/kmip.c:392
 msgid "A KMIP structure is too long"
 msgstr "Длина структуры KMIP слишком велика"
 
-#: lib/kmip.c:738 lib/kmip.c:853 lib/kmip.c:916
+#: lib/kmip.c:739 lib/kmip.c:857 lib/kmip.c:920
 msgid "Unexpected end of data"
 msgstr "Неожиданный конец данных"
 
-#: lib/kmip.c:763 lib/kmip.c:839 lib/kmip.c:896 lib/kmip.c:943
+#: lib/kmip.c:764 lib/kmip.c:843 lib/kmip.c:900 lib/kmip.c:947
 #, c-format
 msgid "Unexpected item tag 0x%08lX"
 msgstr "Непредвиденный тег элемента 0x%08lX"
 
-#: lib/kmip.c:770 lib/kmip.c:903 lib/kmip.c:950
+#: lib/kmip.c:771 lib/kmip.c:907 lib/kmip.c:954
 #, c-format
 msgid "Unexpected item type 0x%02X"
 msgstr "Неожиданный тип элемента 0x%02X"
 
-#: lib/kmip.c:776
+#: lib/kmip.c:777
 msgid "Unexpected item size"
 msgstr "Непредвиденный размер элемента"
 
-#: lib/kmip.c:814 lib/kmip.c:1268
-msgid "Unsupported enum value %"
-msgstr "enum-значение % не поддерживается"
+#: lib/kmip.c:818 lib/kmip.c:1275
+#, c-format
+msgid "Unsupported enum value %s"
+msgstr ""
 
-#: lib/kmip.c:846
+#: lib/kmip.c:850
 #, c-format
 msgid "String item expected, got %02X"
 msgstr "Ожидается строка, получено %02X"
 
-#: lib/kmip.c:958
+#: lib/kmip.c:962
 msgid "Structure does not fit in its container"
 msgstr "Структура не помещается в контейнер"
 
-#: lib/kmip.c:974
+#: lib/kmip.c:978
 msgid "Unexpected data in structure"
 msgstr "Непредвиденные данные в структуре"
 
-#: lib/kmip.c:1060 lib/kmip.c:1290
+#: lib/kmip.c:1064 lib/kmip.c:1297
 msgid "Number of key bits is not positive"
 msgstr "Число бит ключа не является положительным"
 
-#: lib/kmip.c:1305
+#: lib/kmip.c:1312
 msgid "Wrapped key is not opaque"
 msgstr "Зашифрованный ключ не является непрозрачным"
 
-#: lib/kmip.c:1340 lib/kmip.c:1374
-msgid "Unsupported symmetric key format %"
-msgstr "Не поддерживается формат симметричного ключа %"
+#: lib/kmip.c:1350 lib/kmip.c:1386
+#, c-format
+msgid "Unsupported symmetric key format %s"
+msgstr ""
 
-#: lib/kmip.c:1407 lib/volume.c:683
-msgid "Unsupported KMIP version %"
-msgstr "Не поддерживается версия KMIP %"
+#: lib/kmip.c:1423 lib/volume.c:691
+#, c-format
+msgid "Unsupported KMIP version %s.%s"
+msgstr ""
 
-#: lib/kmip.c:1454
-msgid "Unsupported object type %"
-msgstr "Не поддерживается тип объекта %"
+#: lib/kmip.c:1473
+#, c-format
+msgid "Unsupported object type %s"
+msgstr ""
 
-#: lib/kmip.c:1516
+#: lib/kmip.c:1536
 msgid "Unexpected data after packet"
 msgstr "Непредвиденные данные после пакета"
 
-#: lib/kmip.c:1623 lib/kmip.c:1709 lib/kmip.c:1812 lib/kmip.c:1888
-#: lib/volume.c:700 lib/volume_luks.c:798
-msgid "Unsupported packet type %"
-msgstr "Не поддерживается тип пакета %"
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
+#: lib/volume.c:710 lib/volume_luks.c:805
+#, c-format
+msgid "Unsupported packet type %s"
+msgstr ""
 
-#: lib/kmip.c:1641 lib/kmip.c:1831
+#: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
 msgid "Unsupported mechanism %lu"
 msgstr "Не поддерживается механизм %lu"
 
-#: lib/kmip.c:1724 lib/kmip.c:1747 lib/kmip.c:1901
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
 msgid "Unexpected wrapped key format"
 msgstr "Непредвиденный формат шифрования ключа"
 
-#: lib/kmip.c:1737 lib/kmip.c:1914
+#: lib/kmip.c:1765 lib/kmip.c:1950
 msgid "Unsupported wrapping mechanism"
 msgstr "Механизм шифрования ключа не поддерживается"
 
@@ -136,7 +142,7 @@ msgstr "Формат пакета не поддерживается"
 msgid "Escrow packet passphrase"
 msgstr "Парольная фраза пакета escrow"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:311
+#: lib/libvolume_key.c:418 lib/volume_luks.c:312
 msgid "Too many attempts to get a valid passphrase"
 msgstr "Превышено число попыток получения парольной фразы"
 
@@ -164,212 +170,213 @@ msgstr "Обратный вызов симметричного ключа не �
 msgid "Symmetric key not provided"
 msgstr "Не указан симметричный ключ"
 
-#: lib/volume.c:92
+#: lib/volume.c:93
 msgid "The key is too long"
 msgstr "Слишком длинный ключ"
 
-#: lib/volume.c:171 lib/volume.c:192
+#: lib/volume.c:172 lib/volume.c:193
 #, c-format
 msgid "Required attribute `%s' not found"
 msgstr "Не найден обязательный атрибут «%s»"
 
-#: lib/volume.c:314
+#: lib/volume.c:315
 #, c-format
 msgid "Cannot get attributes of `%s'"
 msgstr "Не удалось получить атрибуты «%s»"
 
-#: lib/volume.c:421
+#: lib/volume.c:422
 msgid "Host name"
 msgstr "Имя узла"
 
-#: lib/volume.c:423
+#: lib/volume.c:424
 msgid "Volume format"
 msgstr "Формат тома"
 
-#: lib/volume.c:426
+#: lib/volume.c:427
 msgid "Volume UUID"
 msgstr "UUID тома"
 
-#: lib/volume.c:429
+#: lib/volume.c:430
 msgid "Volume label"
 msgstr "Метка тома"
 
-#: lib/volume.c:431
+#: lib/volume.c:432
 msgid "Volume path"
 msgstr "Путь к тому"
 
-#: lib/volume.c:457 lib/volume.c:566 lib/volume.c:600 lib/volume.c:629
-#: lib/volume.c:662 lib/volume.c:759
+#: lib/volume.c:458 lib/volume.c:567 lib/volume.c:601 lib/volume.c:630
+#: lib/volume.c:663 lib/volume.c:769
 #, c-format
 msgid "Volume `%s' has unsupported format"
 msgstr "Формат тома «%s» не поддерживается"
 
-#: lib/volume.c:487
+#: lib/volume.c:488
 #, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
 msgstr "Несоответствие формата тома (пакет «%s», том «%s»)"
 
-#: lib/volume.c:515
+#: lib/volume.c:516
 #, c-format
 msgid "UUID mismatch (packet `%s', volume `%s')"
 msgstr "Несоответствие UUID (пакет «%s», том «%s»)"
 
-#: lib/volume.c:521
+#: lib/volume.c:522
 #, c-format
 msgid "Host name mismatch (packet `%s', volume `%s')"
 msgstr "Несоответствие имени узла (пакет «%s», том «%s»)"
 
-#: lib/volume.c:528
+#: lib/volume.c:529
 #, c-format
 msgid "Volume label mismatch (packet `%s', volume `%s')"
 msgstr "Несоответствие метки тома (пакет «%s», том «%s»)"
 
-#: lib/volume.c:535
+#: lib/volume.c:536
 #, c-format
 msgid "Volume path mismatch (packet `%s', volume `%s')"
 msgstr "Несоответствие пути к тому (пакет «%s», том «%s»)"
 
-#: lib/volume.c:736
+#: lib/volume.c:746
 #, c-format
 msgid "Unsupported volume format `%s'"
 msgstr "Формат тома «%s» не поддерживается"
 
-#: lib/volume_luks.c:54
+#: lib/volume_luks.c:55
 #, c-format
 msgid "Unknown error %d"
 msgstr "Неизвестная ошибка %d"
 
-#: lib/volume_luks.c:104
+#: lib/volume_luks.c:105
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "Ошибка получения сведений тома «%s»:"
 
-#: lib/volume_luks.c:186
+#: lib/volume_luks.c:187
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr "Несоответствие UUID между libblkid и libcryptsetup: «%s» и «%s»"
 
-#: lib/volume_luks.c:211
+#: lib/volume_luks.c:212
 msgid "LUKS cipher name"
 msgstr "Имя шифра LUKS"
 
-#: lib/volume_luks.c:214
+#: lib/volume_luks.c:215
 msgid "LUKS cipher mode"
 msgstr "Режим шифрования LUKS"
 
-#: lib/volume_luks.c:217
+#: lib/volume_luks.c:218
 msgid "Key size (bits)"
 msgstr "Размер ключа (бит)"
 
-#: lib/volume_luks.c:237
+#: lib/volume_luks.c:238
 msgid "Data encryption key"
 msgstr "Ключ шифрования данных"
 
-#: lib/volume_luks.c:241
+#: lib/volume_luks.c:242
 msgid "Passphrase"
 msgstr "Парольная фраза"
 
-#: lib/volume_luks.c:244
+#: lib/volume_luks.c:245
 msgid "Passphrase slot"
 msgstr "Слот парольной фразы"
 
-#: lib/volume_luks.c:275 lib/volume_luks.c:456 lib/volume_luks.c:697
+#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
 msgid "Encryption information type unsupported in LUKS"
 msgstr "Тип информации о шифровании не поддерживается в LUKS"
 
-#: lib/volume_luks.c:283
+#: lib/volume_luks.c:284
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "Парольная фраза для «%s»"
 
-#: lib/volume_luks.c:306 lib/volume_luks.c:842
+#: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
 msgstr "Ошибка получения ключа шифрования данных LUKS:"
 
-#: lib/volume_luks.c:353
+#: lib/volume_luks.c:354
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "Несоответствие имени шифра (пакет «%s», том «%s»)"
 
-#: lib/volume_luks.c:360
+#: lib/volume_luks.c:361
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "Несоответствие режима шифрования  (пакет «%s», том «%s»)"
 
-#: lib/volume_luks.c:367
+#: lib/volume_luks.c:368
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "Несоответствие размера ключа (пакет «%zu», том «%zu»)"
 
-#: lib/volume_luks.c:398
+#: lib/volume_luks.c:399
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "Неверный ключ шифрования LUKS в пакете:"
 
-#: lib/volume_luks.c:423
+#: lib/volume_luks.c:424
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "Неверная парольная фраза LUKS в пакете:"
 
-#: lib/volume_luks.c:462
+#: lib/volume_luks.c:463
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "Пакет escrow не содержит ключ шифрования LUKS"
 
-#: lib/volume_luks.c:467
+#: lib/volume_luks.c:468
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "Новая парольная фраза для «%s»"
 
-#: lib/volume_luks.c:468
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "Повторите парольную фразу для «%s»"
 
-#: lib/volume_luks.c:469
+#: lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "Пароли не совпадают. Новая парольная фраза для «%s»"
 
-#: lib/volume_luks.c:496 src/volume_key.c:690
+#: lib/volume_luks.c:497 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "Превышено число попыток получения парольной фразы"
 
-#: lib/volume_luks.c:511 lib/volume_luks.c:573
+#: lib/volume_luks.c:512 lib/volume_luks.c:574
 msgid "Error adding a LUKS passphrase"
 msgstr "Ошибка добавления парольной фразы LUKS"
 
-#: lib/volume_luks.c:549
+#: lib/volume_luks.c:550
 msgid "Can not add a secret of this type"
 msgstr "Не удаётся добавить секрет этого типа"
 
-#: lib/volume_luks.c:555 lib/volume_luks.c:655 lib/volume_luks.c:850
+#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
 msgid "Data encryption key unknown"
 msgstr "Ключ шифрования данных неизвестен"
 
-#: lib/volume_luks.c:561
+#: lib/volume_luks.c:562
 msgid "The passphrase must be a string"
 msgstr "Парольная фраза должна представлять собой строку"
 
-#: lib/volume_luks.c:678
+#: lib/volume_luks.c:679
 msgid "Passphrase unknown"
 msgstr "Парольная фраза неизвестна"
 
-#: lib/volume_luks.c:738
-msgid "Unsupported key length %"
-msgstr "Не поддерживается длина ключа %"
+#: lib/volume_luks.c:742
+#, c-format
+msgid "Unsupported key length %s"
+msgstr ""
 
-#: lib/volume_luks.c:751
+#: lib/volume_luks.c:754
 msgid "Key length mismatch"
 msgstr "Несоответствие длины ключа"
 
-#: lib/volume_luks.c:775
+#: lib/volume_luks.c:778
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "Неверный номер слота «%s»"
 
-#: lib/volume_luks.c:786
+#: lib/volume_luks.c:789
 msgid "NUL byte in passphrase"
 msgstr "Парольная фраза содержит байт NUL"
 
-#: lib/volume_luks.c:858
+#: lib/volume_luks.c:866
 msgid "Error opening LUKS volume: "
 msgstr "Ошибка открытия тома LUKS:"
 

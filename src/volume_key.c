@@ -78,7 +78,7 @@ yes_or_no (const char *question)
     {
       ssize_t len;
 
-      /* TRASLATORS: The "(y/n)" part should indicate to the user that input
+      /* TRANSLATORS: The "(y/n)" part should indicate to the user that input
 	 matching (locale yesexpr) and (locale noexpr) is expected. */
       fprintf (stderr, _("%s (y/n) "), question);
       fflush (stderr);

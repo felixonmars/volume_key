@@ -1,3 +1,8 @@
+2012-02-29  Miloslav Trmač  <mitr@redhat.com>
+
+	* src/volume_key.c (yes_or_no): Fix translator comment marker.
+	* po/volume_key.pot: Regenerate.
+
 2011-08-24  Miloslav Trmač  <mitr@redhat.com>
 
 	* COPYING: Update (new FSF address, s/Library GPL/Lesser GPL/).

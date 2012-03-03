@@ -1,3 +1,9 @@
+2012-03-03  Miloslav Trmač  <mitr@redhat.com>
+
+	* configure.ac: Release 0.3.8.
+	* NEWS: Update.
+	* po/*: Update.
+
 2012-02-29  Miloslav Trmač  <mitr@redhat.com>
 
 	* src/volume_key.c (yes_or_no): Fix translator comment marker.

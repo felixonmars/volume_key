@@ -2,16 +2,17 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # mitr <mitr@volny.cz>, 2011.
 # Sweta Kothari <swkothar@redhat.com>, 2009.
-# sweta <swkothar@redhat.com>, 2011.
+# sweta <swkothar@redhat.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-20 06:49+0000\n"
+"Last-Translator: sweta <swkothar@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
 "Language: gu\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +62,7 @@ msgstr "અનિચ્છનિય વસ્તુ માપ"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "બિનઆધારભૂત enum કિંમત %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -87,17 +88,17 @@ msgstr "આવરેલ કી પારદર્શક નથી"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "બિનઆધારભૂત સમાન કી બંધારણ %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "બિનઆધારભૂત KMIP આવૃત્તિ %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "બિનઆધારભૂત ઑબ્જેક્ટ પ્રકાર %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -107,7 +108,7 @@ msgstr "પેકેટ પછી અનઇચ્છનીય માહિતી
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "બિનઆધારભૂત પેકેટ પ્રકાર %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -361,7 +362,7 @@ msgstr "પાસફ્રેજ અજ્ઞાત"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "બિનઆધારભૂત કી લંબાઇ %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -389,6 +390,8 @@ msgstr "પ્રમાણપત્રને ડિકોડ કરી રહ્
 msgid "%s: "
 msgstr "%s: "
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "

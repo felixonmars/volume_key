@@ -2,16 +2,18 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Domingo Becker <domingobecker@gmail.com>, 2009.
+#   <domingobecker@gmail.com>, 2011.
 # Fernando Gonzalez Blanco <fgonz@fedoraproject.org>, 2009.
 # mitr <mitr@volny.cz>, 2011.
-# Domingo Becker <domingobecker@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-14 08:19+0000\n"
+"Last-Translator: beckerde <domingobecker@gmail.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +63,7 @@ msgstr "Tamaño inesperado del elemento"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "Valor de enumeración %s no soportado"
 
 #: lib/kmip.c:850
 #, c-format
@@ -87,17 +89,17 @@ msgstr "La llave envuelta no es opaca"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "Formato de clave simétrica no soportado %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "Versión KMIP no soportado %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "Tipo de objeto no soportado %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -107,7 +109,7 @@ msgstr "Datos inesperados luego del paquete"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "Tipo de paquete no soportado %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -372,7 +374,7 @@ msgstr "Frase de acceso desconocida"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "Longitud de clave no soportado %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -400,6 +402,8 @@ msgstr "Error al intentar decodificar el certificado"
 msgid "%s: "
 msgstr "%s:"
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "

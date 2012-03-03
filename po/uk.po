@@ -2,15 +2,16 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # mitr <mitr@volny.cz>, 2011.
-# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-14 08:19+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +62,7 @@ msgstr "Неочікуваний розмір елемента"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "Підтримки enum-значення %s не передбачено"
 
 #: lib/kmip.c:850
 #, c-format
@@ -87,17 +88,17 @@ msgstr "Шифрований ключ не є непрозорим"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "Підтримки формату симетричних ключів %s не передбачено"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "Підтримки версії KMIP %s.%s не передбачено"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "Підтримки типів об’єктів %s не передбачено"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -107,7 +108,7 @@ msgstr "Неочікувані дані після пакета"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "Підтримки типу пакета %s не передбачено"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -361,7 +362,7 @@ msgstr "Невідомий пароль"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "Підтримки довжини ключа %s не передбачено"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -389,6 +390,8 @@ msgstr "Помилка під час спроби декодування сер�
 msgid "%s: "
 msgstr "%s: "
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "

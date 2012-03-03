@@ -2,15 +2,16 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
-# mitr <mitr@volny.cz>, 2011.
+# Translators:
 # Fabian Affolter <fab@fedoraproject.org>, 2009.
+# mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-14 08:19+0000\n"
+"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de_CH\n"
 "MIME-Version: 1.0\n"
@@ -389,6 +390,8 @@ msgstr ""
 msgid "%s: "
 msgstr "%s: "
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "

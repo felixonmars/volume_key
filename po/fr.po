@@ -2,14 +2,16 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Bribanick dominique <chepioq@gmail.com>, 2011.
 # mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-14 08:19+0000\n"
+"Last-Translator: dominique bribanick <chepioq@gmail.com>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +61,7 @@ msgstr "Taille d'élément inattendue"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "Valeur enum %s non prise en charge"
 
 #: lib/kmip.c:850
 #, c-format
@@ -85,17 +87,17 @@ msgstr "La clé de renvoi à la ligne n'est pas opaque"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "Format de clé symétrique %s non pris en charge"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "Version KMIP %s.%s non prise en charge"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "Objet de type %s non pris en charge"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -105,7 +107,7 @@ msgstr "Données inattendue après le paquet"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "Type de paquets %s non pris en charge"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -150,7 +152,7 @@ msgstr "Nombre de tentatives d'obtention de la clé symétrique trop élevé"
 
 #: lib/libvolume_key.c:514
 msgid "The packet metadata is encrypted"
-msgstr ""
+msgstr "Le paquet de métadonnées est chiffré"
 
 #: lib/ui.c:148
 msgid "User interface callbacks not provided"
@@ -361,7 +363,7 @@ msgstr "Mot de passe inconnu"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "Longueur de la clé %s non prise en charge"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -389,6 +391,8 @@ msgstr "Erreur lors du décodage du certificat"
 msgid "%s: "
 msgstr "%s: "
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "
@@ -484,6 +488,7 @@ msgstr "FORMAT"
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
 msgstr ""
+"Intégrer seulement les informations chiffrées, le cas échéant, dans --dump"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"

@@ -2,18 +2,20 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Leah Liu <lliu@redhat.com>, 2009.
-# mitr <mitr@volny.cz>, 2011.
+#   <lovenemesis@gmail.com>, 2011.
 # Mike Ma <zhtx10@gmail.com>, 2011.
+# mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-14 08:19+0000\n"
+"Last-Translator: Tommy He <lovenemesis@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.net/projects/p/fedora/"
-"team/zh_CN/)\n"
+"language/zh_CN/)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,7 +64,7 @@ msgstr "意外项目大小"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "不支持的 enum 值 %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -88,17 +90,17 @@ msgstr "打包密钥不透明"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "不支持的对称密钥格式 %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "不支持的 KMIP 版本 %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "不支持的对象类型 %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -108,7 +110,7 @@ msgstr "数据包后的意外数据"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "不支持的数据包类型 %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -362,7 +364,7 @@ msgstr "未知密码短语"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "不支持的密钥长度 %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -390,6 +392,8 @@ msgstr "解码证书时出错"
 msgid "%s: "
 msgstr "%s: "
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "

@@ -2,15 +2,16 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
-# mitr <mitr@volny.cz>, 2011.
+# Translators:
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2011.
+# mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-14 08:19+0000\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <trans-zh_TW@lists.fedoraproject.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +61,7 @@ msgstr "非預期的項目大小"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "未支援的 emum 值 %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -86,17 +87,17 @@ msgstr "Wrapped key 非不透明"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "未支援的對稱格式 %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "未支援的 KMIP 版本 %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "未支援的物件類型 %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -106,7 +107,7 @@ msgstr "非預期的封包後資料"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "未支援的封包類型 %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -127,7 +128,7 @@ msgstr "不受支援的非對稱式加密格式"
 
 #: lib/libvolume_key.c:323
 msgid "Input packet is too small"
-msgstr "輸入封包太小了"
+msgstr "輸入封包太小"
 
 #: lib/libvolume_key.c:333
 msgid "Input is not a volume_key escrow packet"
@@ -360,7 +361,7 @@ msgstr "密碼不明"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "未支援的金鑰長度 %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -388,6 +389,8 @@ msgstr "解碼憑證時發生錯誤"
 msgid "%s: "
 msgstr "%s："
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "

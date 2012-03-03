@@ -2,16 +2,18 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Geert Warrink <geert.warrink@onsnet.nu>, 2009, 2011.
 # mitr <mitr@volny.cz>, 2011.
-# Geert Warrink <geert.warrink@onsnet.nu>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
-"Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-14 08:19+0000\n"
+"Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
+"Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/language/"
+"nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,7 +62,7 @@ msgstr "Onverwachte item grootte"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "Niet ondersteunde enum waarde %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -86,17 +88,17 @@ msgstr "Verpakte sleutel is niet doorlatend"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "Niet ondersteund symmetrisch sleutel formaat %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "Niet ondersteund KMIP versie %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "Niet ondersteund object type %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -106,12 +108,12 @@ msgstr "Onverwachte data na het pakket"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "Niet ondersteund pakket type %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
 msgid "Unsupported mechanism %lu"
-msgstr "Niet-ondersteund mechanisme %lu"
+msgstr "Niet ondersteund mechanisme %lu"
 
 #: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
 msgid "Unexpected wrapped key format"
@@ -119,11 +121,11 @@ msgstr "Onverwacht verpakte sleutel formaat"
 
 #: lib/kmip.c:1765 lib/kmip.c:1950
 msgid "Unsupported wrapping mechanism"
-msgstr "Niet-ondersteund verpakking mechanisme"
+msgstr "Niet ondersteund verpakking mechanisme"
 
 #: lib/libvolume_key.c:204
 msgid "Unsupported asymmetric encryption format"
-msgstr "Niet-ondersteund asymmetrisch encryptie formaat"
+msgstr "Niet ondersteund asymmetrisch encryptie formaat"
 
 #: lib/libvolume_key.c:323
 msgid "Input packet is too small"
@@ -135,7 +137,7 @@ msgstr "Input is geen volume_key escrow pakket"
 
 #: lib/libvolume_key.c:339
 msgid "Unsupported packet format"
-msgstr "Niet-ondersteund pakket formaat"
+msgstr "Niet ondersteund pakket formaat"
 
 #: lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
@@ -207,7 +209,7 @@ msgstr "Volume pad"
 #: lib/volume.c:663 lib/volume.c:769
 #, c-format
 msgid "Volume `%s' has unsupported format"
-msgstr "Volume `%s' heeft niet-ondersteund formaat"
+msgstr "Volume `%s' heeft niet ondersteund formaat"
 
 #: lib/volume.c:488
 #, c-format
@@ -237,7 +239,7 @@ msgstr "Verkeerde pad combinatie (pakket `%s', volume `%s')"
 #: lib/volume.c:746
 #, c-format
 msgid "Unsupported volume format `%s'"
-msgstr "Niet-ondersteund volume formaat `%s'"
+msgstr "Niet ondersteund volume formaat `%s'"
 
 #: lib/volume_luks.c:55
 #, c-format
@@ -361,7 +363,7 @@ msgstr "Wachtzin onbekend"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "niet ondersteunde sleutel lengte %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -389,6 +391,8 @@ msgstr "Fout bij decoderen van certificaat"
 msgid "%s: "
 msgstr "%s: "
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "
@@ -431,11 +435,11 @@ msgstr "Laat geheimen van een pakket zien.  Verwacht operator PAKKET"
 
 #: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
-msgstr "Gebruik de NSS database in DIR"
+msgstr "Gebruik de NSS database in MAP"
 
 #: src/volume_key.c:210
 msgid "DIR"
-msgstr "DIR"
+msgstr "MAP"
 
 #: src/volume_key.c:213
 msgid "Run in batch mode"
@@ -481,7 +485,7 @@ msgstr "FORMAT"
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
 msgstr ""
-"Voeg alleen niet-versleutelde informatie, als die er is, toe met --dump"
+"Voeg alleen niet versleutelde informatie, als die er is, toe met --dump"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"
@@ -519,8 +523,8 @@ msgstr ""
 "Copyright (C) 2009 Red Hat, Inc. All rights reserved.\n"
 "Deze software wordt verspreid onder de  GPL v.2.\n"
 "\n"
-"Dit programma wordt aangeboden ZONDER GARANTIE, is program is provided with "
-"NO WARRANTY, voor zover de wet toelaat."
+"Dit programma wordt aangeboden ZONDER GARANTIE, voor zover de wet dat "
+"toelaat."
 
 #: src/volume_key.c:302
 msgid "Operation mode not specified"

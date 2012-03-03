@@ -2,15 +2,16 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Göran Uddeborg <goeran@uddeborg.se>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
-"Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/team/"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-14 08:19+0000\n"
+"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
+"Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/language/"
 "sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +61,7 @@ msgstr "Oväntade objektstorlek"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "Ej stött enum-värde %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -86,17 +87,17 @@ msgstr "Inslagen nyckel är inte ogenomskinlig"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "Symmetriskt nyckelformat som inte stödjs %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "KMIP-version som inte stödjs %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "Objekttyp som inte stödjs %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -106,7 +107,7 @@ msgstr "Oväntade data efter paket"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "Pakettyp som inte stödjs %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -280,7 +281,7 @@ msgstr "Lösenfrasplats"
 
 #: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
 msgid "Encryption information type unsupported in LUKS"
-msgstr "Typen av krypteringsinformations stödjs inte i LUKS"
+msgstr "Typen av krypteringsinformation stödjs inte i LUKS"
 
 #: lib/volume_luks.c:284
 #, c-format
@@ -360,7 +361,7 @@ msgstr "Lösenfrasen okänd"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "Nyckellängd som ej stödjs %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -388,6 +389,8 @@ msgstr "Fel vid avkodning av certifikat"
 msgid "%s: "
 msgstr "%s: "
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "
@@ -590,7 +593,7 @@ msgstr "Upprepa ny paketlösenfras"
 #: src/volume_key.c:737
 #, c-format
 msgid "Error creating `%s': "
-msgstr "Fel vid skapanda av ”%s”: "
+msgstr "Fel vid skapande av ”%s”: "
 
 #: src/volume_key.c:787
 #, c-format

@@ -2,17 +2,18 @@
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # mitr <mitr@volny.cz>, 2011.
-# Sandeep Shedmake <sshedmak@redhat.com>, 2009.
+# Sandeep Shedmake <sshedmak@redhat.com>, 2009, 2012.
 # sandeeps <sshedmak@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2011-08-24 21:30+0200\n"
-"PO-Revision-Date: 2011-08-24 19:13+0000\n"
-"Last-Translator: mitr <mitr@volny.cz>\n"
-"Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
+"POT-Creation-Date: 2012-03-03 07:33+0100\n"
+"PO-Revision-Date: 2012-02-16 23:52+0000\n"
+"Last-Translator: sandeeps <sshedmak@redhat.com>\n"
+"Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
 "mr/)\n"
 "Language: mr\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +63,7 @@ msgstr "अनपेक्षीत घटकाचे आकार"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "असमर्थीत enum मूल्य %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -88,17 +89,17 @@ msgstr "व्रॅप्ड् कि ओपेक् नाही"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "असमर्थीत सिमेट्रिक कि रूपण %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "असमर्थीत KMIP आवृत्ती %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "असमर्थीत ऑब्जेक्ट प्रकार %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -108,7 +109,7 @@ msgstr "पॅकेट नंतर अनपेक्षीत डाटा �
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "असमर्थीत पॅकेट प्रकार %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -362,7 +363,7 @@ msgstr "गोपणीयवाक्य अपरिचीत"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "असमर्थीत किची लांबी %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -390,6 +391,8 @@ msgstr "प्रमाणपत्र डिकोड करतेवेळी 
 msgid "%s: "
 msgstr "%s: "
 
+#. TRANSLATORS: The "(y/n)" part should indicate to the user that input
+#. matching (locale yesexpr) and (locale noexpr) is expected.
 #: src/volume_key.c:83
 #, c-format
 msgid "%s (y/n) "

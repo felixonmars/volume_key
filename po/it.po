@@ -4,20 +4,22 @@
 #
 # Translators:
 # Francesco D'Aluisio <fdaluisio@fedoraproject.org>, 2011.
+#   <fvalen@redhat.com>, 2012.
 # mitr <mitr@volny.cz>, 2011.
+# silvio pierro <perplesso82@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2012-03-03 07:33+0100\n"
-"PO-Revision-Date: 2012-02-14 08:19+0000\n"
-"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"PO-Revision-Date: 2012-03-11 22:27+0000\n"
+"Last-Translator: Silvio Pierro <perplesso82@gmail.com>\n"
 "Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -62,7 +64,7 @@ msgstr "Dimensione oggetto inatteso"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "Valore enum %s non supportato"
 
 #: lib/kmip.c:850
 #, c-format
@@ -88,17 +90,17 @@ msgstr "Chiave cifrata non è opaca"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "Formato chiave simmetrica %s non supportato"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "Versione KMIP %s non supportata.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "Tipo di oggetto %s non supportato"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -108,7 +110,7 @@ msgstr "Dati inattesi dopo il pacchetto"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "Tipo di pacchetto %s non supportato"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -267,7 +269,7 @@ msgstr "Modalità cifratore LUKS"
 
 #: lib/volume_luks.c:218
 msgid "Key size (bits)"
-msgstr "Dimensione chiave (bits)"
+msgstr "Dimensione chiave (bit)"
 
 #: lib/volume_luks.c:238
 msgid "Data encryption key"
@@ -292,7 +294,7 @@ msgstr "Frase di accesso per `%s'"
 
 #: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
-msgstr "Errore durante l'acquisizione della chiave di cifratura dei dati LUKS"
+msgstr "Errore durante l'acquisizione della chiave di cifratura dei dati LUKS:"
 
 #: lib/volume_luks.c:354
 #, c-format
@@ -365,7 +367,7 @@ msgstr "Frase segreta sconosciuta "
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "Lunghezza chiave %s non supportata"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -407,35 +409,35 @@ msgstr "Mostra versione"
 #: src/volume_key.c:181
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr ""
-"Salvare i segreti del volume su di un pacchetto. Attesi operandi VOLUME "
-"[PACKET]."
+"Salva i segreti del volume su di un pacchetto. Attesi operandi VOLUME "
+"[PACCHETTO]."
 
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"Rirpistina i segreti del volume da un pacchetto. Attesi operandi VOLUME "
-"PACKET."
+"Ripristina i segreti del volume da un pacchetto. Attesi operandi VOLUME "
+"PACCHETTO."
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"Impostare un volume cifrato utilizzando i segreti di un pacchetto. Attesi "
-"operandi VOLUME PACKET NAME."
+"Imposta un volume cifrato utilizzando i segreti di un pacchetto. Attesi "
+"operandi VOLUME PACCHETTO NOME."
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "Cifrare nuovamente un pacchetto escrow. Attesa operando PACKET."
+msgstr "Cifra nuovamente un pacchetto escrow. Atteso operando PACCHETTO."
 
 #: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
 msgstr ""
-"Mostra le informazioni contenute in un pacchetto. Atteso operando PACKET."
+"Mostra le informazioni contenute in un pacchetto. Atteso operando PACCHETTO."
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr "Mostra segreti contenuti in un pacchetto. Atteso operando PACKET."
+msgstr "Mostra segreti contenuti in un pacchetto. Atteso operando PACCHETTO."
 
 #: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
@@ -451,7 +453,7 @@ msgstr "Esecuzione in modalità batch"
 
 #: src/volume_key.c:219
 msgid "Write the default secret to PACKET"
-msgstr "Scrivere il segreto predefinito sul PACCHETTO"
+msgstr "Scrive il segreto predefinito sul PACCHETTO"
 
 #: src/volume_key.c:219 src/volume_key.c:224 src/volume_key.c:228
 #: src/volume_key.c:233
@@ -492,7 +494,7 @@ msgstr "Include solo informazioni non cifrate, se ve ne sono, in --dump"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"
-msgstr "Includere i segreti nell'output --dump"
+msgstr "Include i segreti nell'output --dump"
 
 #: src/volume_key.c:268
 msgid "OPERANDS"
@@ -505,7 +507,7 @@ msgstr "Gestisce le chiavi del volume cifrato e le frasi di accesso."
 #: src/volume_key.c:271
 #, c-format
 msgid "Report bugs to %s"
-msgstr "Riportare i bug su %s"
+msgstr "Riporta i bug su %s"
 
 #: src/volume_key.c:279
 #, c-format
@@ -590,7 +592,7 @@ msgstr "Nuova frase di accesso del pacchetto"
 #: src/volume_key.c:667
 msgid "Passphrases do not match.  New packet passphrase"
 msgstr ""
-"Le frasi di accesso sono discordanti, Nuova frase di accesso del pacchetto"
+"Le frasi di accesso sono discordanti.  Nuova frase di accesso del pacchetto"
 
 #: src/volume_key.c:674
 msgid "Repeat new packet passphrase"
@@ -639,7 +641,7 @@ msgstr "`%s' forse non corrisponde a `%s'\n"
 
 #: src/volume_key.c:914
 msgid "Are you sure you want to use this packet?"
-msgstr "Sei sicuro di voler utilizzare questo pacchetto?"
+msgstr "Si è sicuri di voler utilizzare questo pacchetto?"
 
 #: src/volume_key.c:926
 msgid "Error getting a yes/no answer"

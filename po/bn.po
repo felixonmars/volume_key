@@ -3,17 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ayesha Akhtar <ayesha@ankur.org.bd>, 2012.
+# Mahay Alam Khan <mak@ankur.org.bd>, 2012.
 # mitr <mitr@volny.cz>, 2011.
+# Newton Baidya <newton@ankur.org.bd>, 2012.
+# Robin Mehdee <robin@ankur.org.bd>, 2012.
 # Runa Bhattacharjee <runab@redhat.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-02-14 08:19+0000\n"
-"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
-"Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
-"Language: bn_IN\n"
+"PO-Revision-Date: 2012-04-18 03:11+0000\n"
+"Last-Translator: Robin Mehdee <robin@ankur.org.bd>\n"
+"Language-Team: Bengali <info@ankur.org.bd>\n"
+"Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,7 +65,7 @@ msgstr "বস্তুর অপ্রত্যাশিত মাপ"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "অসমর্থিত enum মান %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -87,17 +91,17 @@ msgstr "র‍্যাপ করা কি-টি নিরেট নয়"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "অসমর্থিত symmetric কী ফরম্যাট %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "অসমর্থিত KMIP সংস্করণ %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "অসমর্থিত অবজেক্টের ধরণ %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -107,7 +111,7 @@ msgstr "প্যাকেটের পরে অপ্রত্যাশিত 
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "অসমর্থিত প্যাকেটের ধরণ %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -152,7 +156,7 @@ msgstr "বৈধ সিমেট্রিক প্রাপ্ত করার
 
 #: lib/libvolume_key.c:514
 msgid "The packet metadata is encrypted"
-msgstr ""
+msgstr "প্যাকেটের মেটাডাটা এনক্রিপ্টকৃত"
 
 #: lib/ui.c:148
 msgid "User interface callbacks not provided"
@@ -361,7 +365,7 @@ msgstr "পরিচয়-পংক্তি অজানা"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "অসমর্থিত কী এর দৈর্ঘ্য %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -484,7 +488,7 @@ msgstr "FORMAT"
 
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
-msgstr ""
+msgstr "শুধুমাত্র এনক্রিপটকৃত তথ্য সংযুক্ত করা হবে, if any, in --dump"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"

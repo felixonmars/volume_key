@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+#   <eukim@redhat.com>, 2012.
 # Eunju Kim <eukim@redhat.com>, 2009.
 # Hyunsok Oh <hoh@redhat.com>, 2010.
 # mitr <mitr@volny.cz>, 2011.
@@ -10,16 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2012-03-03 07:33+0100\n"
-"PO-Revision-Date: 2012-02-14 08:19+0000\n"
-"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
-"Language-Team: Korean (http://www.transifex.net/projects/p/fedora/language/"
+"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"PO-Revision-Date: 2012-08-14 00:10+0000\n"
+"Last-Translator: eukim <eukim@redhat.com>\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
 "ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -63,7 +64,7 @@ msgstr "예기치 않은 항목 크기  "
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "지원되지 않는 열거형 값 %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -89,17 +90,17 @@ msgstr "래핑된 키가 불투명하지 않음"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "지원하지 않는 대칭 키 포맷 %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "지원하지 않는 KMIP 버전 %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "지원하지 않는 객체 형식 %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -109,7 +110,7 @@ msgstr "패킷 뒤에 예상치 못한 데이터"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "지원하지 않는 패킷 형식 %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -154,7 +155,7 @@ msgstr "바른 대칭키를 얻기 위해 너무 많은 횟수 시도"
 
 #: lib/libvolume_key.c:514
 msgid "The packet metadata is encrypted"
-msgstr ""
+msgstr "패킷 메타데이터는 암호화되어 있음"
 
 #: lib/ui.c:148
 msgid "User interface callbacks not provided"
@@ -363,7 +364,7 @@ msgstr "암호구가 알려져 있지 않음"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "지원되지 않는 키 길이 %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"
@@ -480,7 +481,7 @@ msgstr "FORMAT"
 
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
-msgstr ""
+msgstr "암호화되지 않은 정보가 있을 경우에만 --dump에 포함됨"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"

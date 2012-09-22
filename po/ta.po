@@ -5,19 +5,20 @@
 # Translators:
 # Felix I <ifelix25@gmail.com>, 2011.
 # mitr <mitr@volny.cz>, 2011.
+# Shantha kumar <shkumar@redhat.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2012-03-03 07:33+0100\n"
-"PO-Revision-Date: 2012-02-14 08:19+0000\n"
-"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"PO-Revision-Date: 2012-09-07 12:25+0000\n"
+"Last-Translator: shkumar <shkumar@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -61,7 +62,7 @@ msgstr "எதிர்பாராத உருப்படி அளவு"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "ஆதரிக்கப்படாத enum மதிப்பு %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -87,17 +88,17 @@ msgstr "மடிப்பு விசை ஊடுருவலாக இல்
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "ஆதரிக்கப்படாத சமச்சீர் விசை வடிவம் %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "ஆதரிக்கப்படாத KMIP பதிப்பு %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "ஆதரிக்கப்படாத பொருள் வகை %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -107,7 +108,7 @@ msgstr "பாக்கெட்டுக்கு பின் எதிர்�
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "ஆதரிக்கப்படாத பாக்கெட் வகை %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -361,7 +362,7 @@ msgstr "தெரியாத கடவுச்சொல்"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "ஆதரவில்லா விசை நீளம் %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"

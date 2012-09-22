@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Adriano Laranjeira <adriano@argl.eng.br>, 2012.
 # Igor Pires Soares <igor@projetofedora.org>, 2009.
 # mitr <mitr@volny.cz>, 2011.
 # Rafael Gomes <rafaelgomes@techfree.com.br>, 2009.
@@ -10,15 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2012-03-03 07:33+0100\n"
-"PO-Revision-Date: 2012-02-14 08:19+0000\n"
-"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
+"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"PO-Revision-Date: 2012-07-10 16:50+0000\n"
+"Last-Translator: Adriano Laranjeira <adriano@argl.eng.br>\n"
 "Language-Team: Portuguese (Brazil) <trans-pt_br@lists.fedoraproject.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -62,7 +63,7 @@ msgstr "Tamanho do item inesperado"
 #: lib/kmip.c:818 lib/kmip.c:1275
 #, c-format
 msgid "Unsupported enum value %s"
-msgstr ""
+msgstr "Valor enum não suportado %s"
 
 #: lib/kmip.c:850
 #, c-format
@@ -88,17 +89,17 @@ msgstr "A chave obtida não é opaca"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr ""
+msgstr "Formato de chave simétrica não suportado: %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
 msgid "Unsupported KMIP version %s.%s"
-msgstr ""
+msgstr "Versão KMIP não suportada %s.%s"
 
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr ""
+msgstr "Tipo de objeto não suportado %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -108,7 +109,7 @@ msgstr "Dados inesperados depois do pacote"
 #: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
-msgstr ""
+msgstr "Tipo de pacote não suportado %s"
 
 #: lib/kmip.c:1665 lib/kmip.c:1863
 #, c-format
@@ -362,7 +363,7 @@ msgstr "Frase secreta desconhecida"
 #: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
-msgstr ""
+msgstr "Comprimento de chave não suportado %s"
 
 #: lib/volume_luks.c:754
 msgid "Key length mismatch"

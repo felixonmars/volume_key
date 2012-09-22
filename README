@@ -17,7 +17,7 @@ by individual users as well.
 volume_key currently supports only the LUKS volume encryption format.  Support
 for other formats is possible, some formats are planned for future releases.
 
-The project is home page is at https://fedorahosted.org/volume_key/ .
+The project's home page is at https://fedorahosted.org/volume_key/ .
 
 Using volume_key stand-alone
 ============================

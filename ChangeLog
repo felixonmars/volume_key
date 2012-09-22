@@ -1,3 +1,7 @@
+2012-09-22  Miloslav Trmač  <mitr@redhat.com>
+
+	* README: Fix a typo.
+
 2012-03-03  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Release 0.3.8.

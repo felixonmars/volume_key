@@ -1,3 +1,8 @@
+2012-10-24  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/kmip.c (kmip_libvk_packet_wrap_secret_symmetric): Fix a memory
+	leak.
+
 2012-09-22  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Release 0.3.9.

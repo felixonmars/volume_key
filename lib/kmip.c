@@ -1884,10 +1884,12 @@ kmip_libvk_packet_wrap_secret_symmetric (struct kmip_libvk_packet *packet,
   key_block->wrapping->iv = g_memdup (iv, iv_len);
   key_block->wrapping->iv_len = iv_len;
 
+  g_free (iv);
   g_free (wrapped_secret);
   return 0;
 
  err_wrapped_secret:
+  g_free (iv);
   g_free (wrapped_secret);
  err:
   return -1;

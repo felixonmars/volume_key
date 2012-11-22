@@ -1,3 +1,8 @@
+2012-11-22  Miloslav Trmač  <mitr@redhat.com>
+
+	* lib/crypto.c (encrypt_with_passphrase)
+	(decrypt_with_passphrase): Add missing error handling.
+
 2012-10-24  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/kmip.c (kmip_libvk_packet_wrap_secret_symmetric): Fix a memory

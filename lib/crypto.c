@@ -709,6 +709,12 @@ encrypt_with_passphrase (size_t *res_size, const void *data, size_t size,
     }
   gpgme_data_release (src_data);
   gpgme_res = gpgme_data_release_and_get_mem (dest_data, res_size);
+  if (gpgme_res == NULL)
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_CRYPTO,
+		   _("Unknown error getting encryption result"));
+      goto err_ctx;
+    }
   res = g_memdup (gpgme_res, *res_size);
   gpgme_free (gpgme_res);
 
@@ -759,6 +765,12 @@ decrypt_with_passphrase (size_t *res_size, const void *data, size_t size,
     }
   gpgme_data_release (src_data);
   gpgme_res = gpgme_data_release_and_get_mem (dest_data, res_size);
+  if (gpgme_res == NULL)
+    {
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_CRYPTO,
+		   _("Unknown error getting decryption result"));
+      goto err_ctx;
+    }
   res = g_memdup (gpgme_res, *res_size);
   gpgme_free (gpgme_res);
 

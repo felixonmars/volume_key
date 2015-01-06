@@ -18,8 +18,6 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #ifndef LIBVOLUME_KEY_H__
 #define LIBVOLUME_KEY_H__
 
-#include <config.h>
-
 #include <cert.h>
 #include <glib.h>
 

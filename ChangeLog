@@ -1,3 +1,9 @@
+2015-01-06  Miloslav Trmač  <mitr@redhat.com>
+
+	* configure.ac: Update gettext version, which avoids autoconf warnings.
+
+	* configure.ac: Use AM_PROG_AR to shut up automake.
+
 2012-11-22  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/crypto.c (encrypt_with_passphrase)

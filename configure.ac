@@ -26,6 +26,7 @@ AM_INIT_AUTOMAKE([no-dist-gzip dist-xz no-define subdir-objects -Wall])
 # Checks for programs.
 AC_PROG_CC
 AM_PROG_CC_C_O
+AM_PROG_AR
 LT_INIT([disable-static])
 AM_PATH_PYTHON
 
@@ -45,7 +46,7 @@ PKG_CHECK_MODULES(nss, [nss])
 AM_PATH_GPGME
 
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.17])
+AM_GNU_GETTEXT_VERSION([0.18.2])
 AC_DEFINE([GETTEXT_PACKAGE], ["volume_key"], [Package name for <gi18n-lib.h>])
 
 # Checks for header files.

@@ -1,3 +1,8 @@
+2015-01-06  Vratislav Podzimek  <vpodzime@redhat.com>
+
+	* lib/libvolume_key.h: Stop including <config.h>, which we don't
+	distribute.
+
 2015-01-06  Miloslav Trmač  <mitr@redhat.com>
 
 	* configure.ac: Update gettext version, which avoids autoconf warnings.

@@ -1,3 +1,4 @@
+/ar-lib
 /compile
 /config.guess
 /config.rpath
@@ -7,3 +8,4 @@
 /ltmain.sh
 /missing
 /py-compile
+/test-driver

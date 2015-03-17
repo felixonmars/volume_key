@@ -1,8 +1,0 @@
-[main]
-host = https://www.transifex.net
-
-[volume_key.master]
-file_filter = po/<lang>.po
-source_file = po/volume_key.pot
-source_lang = en
-

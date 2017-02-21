@@ -17,7 +17,7 @@ by individual users as well.
 volume_key currently supports only the LUKS volume encryption format.  Support
 for other formats is possible, some formats are planned for future releases.
 
-The project's home page is at https://fedorahosted.org/volume_key/ .
+The project's home page is at https://pagure.io/volume_key .
 
 Using volume_key stand-alone
 ============================
@@ -153,5 +153,5 @@ Bugs
 ====
 Please consider reporting the bug to your distribution's bug tracking system.
 
-Otherwise, please report bugs at https://fedorahosted.org/volume_key/ .  Bug
-reports with patches are especially welcome.
+Otherwise, please report bugs at https://pagure.io/volume_key .  Pull requests
+are especially welcome.

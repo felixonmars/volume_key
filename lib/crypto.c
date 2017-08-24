@@ -390,7 +390,9 @@ unwrap_asymmetric (size_t *clear_secret_size, const void *wrapped_secret_data,
   cert = CERT_FindCertByIssuerAndSN (CERT_GetDefaultCertDB (), &isn);
   if (cert == NULL)
     {
-      error_from_pr (error);
+      g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_CRYPTO,
+		   _("Unable to find the certificate necessary for "
+		     "decryption"));
       goto err;
     }
 

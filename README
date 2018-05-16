@@ -29,7 +29,7 @@ this:
   You will be prompted for an escrow packet passphrase to protect the key.
 
   In all examples in this file, /path/to/volume is a LUKS device, not the
-  plaintext device containted within: (blkid -s TYPE /path/to/volume) should
+  plaintext device contained within: (blkid -s TYPE /path/to/volume) should
   report TYPE="crypto_LUKS".
 
 * Save the generated `escrow-packet' file, make sure you won't forget the
@@ -81,7 +81,7 @@ A little preparation is necessary before saving encryption keys:
 * Distribute the certificate to everyone who will be installing systems or
   saving keys on existing systems.
 * Prepare storage for the saved private keys, that allows you to look them up
-  by machine and volume..  This can be e.g. a simple directory with one
+  by machine and volume.  This can be e.g. a simple directory with one
   subdirectory per machine, or a database that you use for other system
   management tasks as well.
 
@@ -94,7 +94,7 @@ Saving encryption keys
   phase.
 
   In all examples in this file, /path/to/volume is a LUKS device, not the
-  plaintext device containted within: (blkid -s TYPE /path/to/volume) should
+  plaintext device contained within: (blkid -s TYPE /path/to/volume) should
   report TYPE="crypto_LUKS".
 * Save the generated `escrow-packet' file in the prepared storage, associating
   it with the system and the volume.

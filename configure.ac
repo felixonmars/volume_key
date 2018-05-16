@@ -30,10 +30,9 @@ AM_PROG_AR
 LT_INIT([disable-static])
 AM_PATH_PYTHON
 
-dnl Not gpg2, it cannot receive passphrases from gpgme
-AC_PATH_PROG([GPG], [gpg])
+AC_PATH_PROG([GPG], [gpg2])
 AC_ARG_VAR([GPG])
-AC_DEFINE_UNQUOTED([GPG_PATH], "$GPG", [Path to the gpg executable])
+AC_DEFINE_UNQUOTED([GPG_PATH], "$GPG", [Path to the gpg2 executable])
 
 # Checks for libraries.
 PKG_CHECK_MODULES(blkid, [blkid])

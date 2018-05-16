@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Francesco D'Aluisio <fdaluisio@fedoraproject.org>, 2011.
 #   <fvalen@redhat.com>, 2012.
@@ -9,17 +9,18 @@
 # silvio pierro <perplesso82@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-03-11 22:27+0000\n"
-"Last-Translator: Silvio Pierro <perplesso82@gmail.com>\n"
-"Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-14 08:39-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -294,7 +295,8 @@ msgstr "Frase di accesso per `%s'"
 
 #: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
-msgstr "Errore durante l'acquisizione della chiave di cifratura dei dati LUKS:"
+msgstr ""
+"Errore durante l'acquisizione della chiave di cifratura dei dati LUKS:"
 
 #: lib/volume_luks.c:354
 #, c-format
@@ -304,7 +306,8 @@ msgstr "Discordanza nome cifratore (pacchetto `%s', volume `%s')"
 #: lib/volume_luks.c:361
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
-msgstr "Discordanza della modalità del cifratore (pacchetto `%s', volume `%s')"
+msgstr ""
+"Discordanza della modalità del cifratore (pacchetto `%s', volume `%s')"
 
 #: lib/volume_luks.c:368
 #, c-format
@@ -511,11 +514,9 @@ msgstr "Riporta i bug su %s"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "Eseguire `%s --help' per maggiori informazioni.\n"
 
 #: src/volume_key.c:290

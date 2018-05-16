@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Fabian Affolter <fab@fedoraproject.org>, 2009.
 # mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-02-14 08:19+0000\n"
-"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: de_CH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-14 08:38-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de-CH\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -213,7 +214,8 @@ msgstr ""
 #: lib/volume.c:488
 #, c-format
 msgid "Volume format mismatch (packet `%s', volume `%s')"
-msgstr "Datenträger-Format stimmt nicht überein (Paket `%s', Datenträger `%s')"
+msgstr ""
+"Datenträger-Format stimmt nicht überein (Paket `%s', Datenträger `%s')"
 
 #: lib/volume.c:516
 #, c-format
@@ -499,8 +501,7 @@ msgstr ""
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
 msgstr ""
 

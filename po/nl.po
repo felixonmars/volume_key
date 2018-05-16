@@ -1,24 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Geert Warrink <geert.warrink@onsnet.nu>, 2009, 2011.
 # mitr <mitr@volny.cz>, 2011.
+# Patrick Uiterwijk <puiterwijk@redhat.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-02-14 08:19+0000\n"
-"Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
-"nl/)\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-01-27 08:25-0500\n"
+"Last-Translator: Patrick Uiterwijk <puiterwijk@redhat.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/nl/"
+")\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -27,7 +29,7 @@ msgstr "%s: %s"
 
 #: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
-msgstr "Niet voldoende ruimte aangeboden op een KMIP pakket op te slaan"
+msgstr "Niet voldoende ruimte aangeboden om een KMIP pakket op te slaan"
 
 #: lib/kmip.c:323 lib/kmip.c:870
 msgid "A string is too long"
@@ -88,7 +90,7 @@ msgstr "Verpakte sleutel is niet doorlatend"
 #: lib/kmip.c:1350 lib/kmip.c:1386
 #, c-format
 msgid "Unsupported symmetric key format %s"
-msgstr "Niet ondersteund symmetrisch sleutel formaat %s"
+msgstr "Niet ondersteund symmetrisch sleutelformaat %s"
 
 #: lib/kmip.c:1423 lib/volume.c:691
 #, c-format
@@ -98,7 +100,7 @@ msgstr "Niet ondersteund KMIP versie %s.%s"
 #: lib/kmip.c:1473
 #, c-format
 msgid "Unsupported object type %s"
-msgstr "Niet ondersteund object type %s"
+msgstr "Niet ondersteund objecttype %s"
 
 #: lib/kmip.c:1536
 msgid "Unexpected data after packet"
@@ -506,11 +508,9 @@ msgstr "Rapporteren van bugs aan %s"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "Voer `%s --help' uit voor meer informatie.\n"
 
 #: src/volume_key.c:290

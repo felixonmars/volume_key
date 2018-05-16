@@ -1,25 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Krishna Babu K <kkrothap@redhat.com>, 2010.
 # Krishnababu Krothapalli <krisnababu@gmail.com>, 2011, 2012.
 # mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-03-07 15:33+0000\n"
-"Last-Translator: Krishnababu Krothapalli <krisnababu@gmail.com>\n"
-"Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
-"te/)\n"
-"Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-14 08:41-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
+"te/)\n"
+"Language: te\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -404,23 +405,28 @@ msgstr "వర్షన్ చూపుము"
 
 #: src/volume_key.c:181
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
-msgstr "వాల్యూమ్ రహస్యాలను పాకెట్‌నకు దాయుము.  VOLUME [PACKET] ఆపరెండ్లు కావలసివుంది."
+msgstr ""
+"వాల్యూమ్ రహస్యాలను పాకెట్‌నకు దాయుము.  VOLUME [PACKET] ఆపరెండ్లు కావలసివుంది."
+""
 
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
-msgstr "పాకెట్‌నుంది వాల్యూమ్ రహస్యాలను తిరిగివుంచుము.  VOLUME PACKET ఆపరెండ్లు కావలసివుంది."
+msgstr ""
+"పాకెట్‌నుంది వాల్యూమ్ రహస్యాలను తిరిగివుంచుము.  VOLUME PACKET ఆపరెండ్లు "
+"కావలసివుంది."
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"పాకెట్ నుండి రహస్యాలను వుపయోగిస్తూ ఎన్క్రిప్షన్ వాల్యూమ్‌ను అమర్చుము.  VOLUME PACKET NAME "
-"ఆపరెండ్లు కావలసివుంది."
+"పాకెట్ నుండి రహస్యాలను వుపయోగిస్తూ ఎన్క్రిప్షన్ వాల్యూమ్‌ను అమర్చుము.  "
+"VOLUME PACKET NAME ఆపరెండ్లు కావలసివుంది."
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "escrow పాకెట్‌ను తిరిగి-ఎన్క్రిప్టు చేయుము.  PACKET ఆపరెండ్‌ కావలసివుంది."
+msgstr ""
+"escrow పాకెట్‌ను తిరిగి-ఎన్క్రిప్టు చేయుము.  PACKET ఆపరెండ్‌ కావలసివుంది."
 
 #: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
@@ -481,7 +487,8 @@ msgstr "FORMAT"
 
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
-msgstr "ఏదైనా వుంటే, ఆ అన్‌యెన్క్రిప్టెడ్ సమాచారమును మాత్రమే చేర్చును, --dump నందు"
+msgstr ""
+"ఏదైనా వుంటే, ఆ అన్‌యెన్క్రిప్టెడ్ సమాచారమును మాత్రమే చేర్చును, --dump నందు"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"
@@ -502,11 +509,9 @@ msgstr "బగ్‌లను %sకు నివేదించుము"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "అధిక సమాచారము కొరకు `%s --help' నడుపుము.\n"
 
 #: src/volume_key.c:290
@@ -519,7 +524,8 @@ msgstr ""
 "Copyright (C) 2009 Red Hat, Inc. అన్ని హక్కులు చెందివున్నవి.\n"
 "ఈ సాఫ్టువేరు GPL v.2 క్రింద పంపిణీ చేయబడింది.\n"
 "\n"
-"చట్టబద్దంగా అనుమతించబడినంత వరకు, ఈ ప్రోగ్రామ్ యెటువంటి హామీ లేకుండా అందించబడుతోంది."
+"చట్టబద్దంగా అనుమతించబడినంత వరకు, ఈ ప్రోగ్రామ్ యెటువంటి హామీ లేకుండా "
+"అందించబడుతోంది."
 
 #: src/volume_key.c:302
 msgid "Operation mode not specified"

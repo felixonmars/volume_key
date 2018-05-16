@@ -1,23 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Bribanick dominique <chepioq@gmail.com>, 2011.
 # mitr <mitr@volny.cz>, 2011.
+# Jérôme Fenal <jfenal@gmail.com>, 2015. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-02-14 08:19+0000\n"
-"Last-Translator: dominique bribanick <chepioq@gmail.com>\n"
-"Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-12-30 12:45-0500\n"
+"Last-Translator: Jérôme Fenal <jfenal@gmail.com>\n"
+"Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -140,11 +142,11 @@ msgstr "Format de paquet non pris en charge"
 
 #: lib/libvolume_key.c:406
 msgid "Escrow packet passphrase"
-msgstr "Mot de passe du paquet escrow"
+msgstr "Phrase de passe du paquet escrow"
 
 #: lib/libvolume_key.c:418 lib/volume_luks.c:312
 msgid "Too many attempts to get a valid passphrase"
-msgstr "Nombre de tentatives d'obtention du mot de passe trop élevé"
+msgstr "Nombre de tentatives d'obtention de la phrase de passe trop élevé"
 
 #: lib/libvolume_key.c:462
 msgid "Too many attempts to get a valid symmetric key"
@@ -160,7 +162,7 @@ msgstr "Rappels de l'interface utilisateur non fournis"
 
 #: lib/ui.c:154 src/volume_key.c:700
 msgid "Passphrase not provided"
-msgstr "Mot de passe non fourni"
+msgstr "Phrase de passe non fourni"
 
 #: lib/ui.c:169
 msgid "Symmetric key callback not provided"
@@ -249,7 +251,8 @@ msgstr "Erreur inconnue %d"
 #: lib/volume_luks.c:105
 #, c-format
 msgid "Error getting information about volume `%s': "
-msgstr "Erreur lors de l'obtention des informations sur le volume `%s'&nbsp;: "
+msgstr ""
+"Erreur lors de l'obtention des informations sur le volume `%s'&nbsp;: "
 
 #: lib/volume_luks.c:187
 #, c-format
@@ -274,11 +277,11 @@ msgstr "Clé de chiffrement des données"
 
 #: lib/volume_luks.c:242
 msgid "Passphrase"
-msgstr "Mot de passe"
+msgstr "Phrase de passe"
 
 #: lib/volume_luks.c:245
 msgid "Passphrase slot"
-msgstr "Fente du mot de passe"
+msgstr "Emplacement de la phrase de passe"
 
 #: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
 msgid "Encryption information type unsupported in LUKS"
@@ -287,7 +290,7 @@ msgstr "Type d'informations de chiffrement non pris en charge sur LUKS"
 #: lib/volume_luks.c:284
 #, c-format
 msgid "Passphrase for `%s'"
-msgstr "Mot de passe pour `%s'"
+msgstr "Phrase de passe pour « %s »"
 
 #: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
@@ -315,34 +318,37 @@ msgstr "La clé de chiffrement de données LUKS du paquet est invalide&nbsp;:"
 
 #: lib/volume_luks.c:424
 msgid "LUKS passphrase in packet is invalid: "
-msgstr "Le mot de passe LUKS du paquet est invalide&nbsp;:"
+msgstr "La phrase de passe LUKS du paquet est invalide&nbsp;:"
 
 #: lib/volume_luks.c:463
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr "Le paquet escrow ne contient pas la clé de chiffrement de données LUKS"
+msgstr ""
+"Le paquet escrow ne contient pas la clé de chiffrement de données LUKS"
 
 #: lib/volume_luks.c:468
 #, c-format
 msgid "New passphrase for `%s'"
-msgstr "Nouveau mot de passe pour `%s'"
+msgstr "Nouvelle phrase de passe pour « %s »"
 
 #: lib/volume_luks.c:469
 #, c-format
 msgid "Repeat new passphrase for `%s'"
-msgstr "Répéterle nouveau mot de passe pour `%s'"
+msgstr "Répéter la nouvelle phrase de passe pour « %s »"
 
 #: lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
-msgstr "Les mots de passe ne correspondent pas. Nouveau mot de passe pour `%s'"
+msgstr ""
+"Les phrases de passe ne correspondent pas. Nouvelle phrase de passe pour "
+"« %s »"
 
 #: lib/volume_luks.c:497 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
-msgstr "Nombre de tentatives d'obtention du mot de passe trop élevé"
+msgstr "Nombre de tentatives d'obtention de la phrase de passe trop élevé"
 
 #: lib/volume_luks.c:512 lib/volume_luks.c:574
 msgid "Error adding a LUKS passphrase"
-msgstr "Erreur lors de l'ajout du mot de passe LUKS"
+msgstr "Erreur lors de l'ajout de la phrase de passe LUKS"
 
 #: lib/volume_luks.c:550
 msgid "Can not add a secret of this type"
@@ -354,11 +360,11 @@ msgstr "Clé de chiffrement de données inconnue"
 
 #: lib/volume_luks.c:562
 msgid "The passphrase must be a string"
-msgstr "Le mot de passe doit être une chaîne"
+msgstr "La phrase de passe doit être une chaîne"
 
 #: lib/volume_luks.c:679
 msgid "Passphrase unknown"
-msgstr "Mot de passe inconnu"
+msgstr "Phrase de passe inconnue"
 
 #: lib/volume_luks.c:742
 #, c-format
@@ -376,7 +382,7 @@ msgstr "Numéro de fente invalide `%s'"
 
 #: lib/volume_luks.c:789
 msgid "NUL byte in passphrase"
-msgstr "Octet NUL dans le mot de passe"
+msgstr "Octet NUL dans la phrase de passe"
 
 #: lib/volume_luks.c:866
 msgid "Error opening LUKS volume: "
@@ -430,6 +436,7 @@ msgstr "Rechiffrer un paquet escrow. Prévoir l'opérande PACKET."
 msgid "Show information contained in a packet.  Expects operand PACKET."
 msgstr ""
 "Afficher les information contenues dans un paquet. Prévoir l'opérande PACKET."
+""
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
@@ -463,11 +470,11 @@ msgstr "Écrire la clé de chiffrement des données sur PACKET"
 
 #: src/volume_key.c:228
 msgid "Write passphrase to PACKET"
-msgstr "Écrire le mot de passe sur PACKET"
+msgstr "Écrire la phrase de passe dans PACKET"
 
 #: src/volume_key.c:233
 msgid "Create a random passphrase and write it to PACKET"
-msgstr "Créer un mot de passe généré au hasard et l'écrire sur PACKET"
+msgstr "Créer une phrase de passe générée au hasard et l'écrire dans PACKET"
 
 #: src/volume_key.c:241
 msgid "Encrypt for the certificate in CERT"
@@ -500,7 +507,7 @@ msgstr "OPERANDS"
 
 #: src/volume_key.c:270
 msgid "Manages encrypted volume keys and passphrases."
-msgstr "Gère les clés et mots de passe de volumes chiffrés."
+msgstr "Gère les clés et phrases de passe de volumes chiffrés."
 
 #: src/volume_key.c:271
 #, c-format
@@ -509,11 +516,9 @@ msgstr "Rapporter les bogues à %s"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "Exécuter `%s --help' pour plus d'informations.\n"
 
 #: src/volume_key.c:290
@@ -544,7 +549,8 @@ msgstr "`--%s' n'est valide qu'avec `--%s'"
 
 #: src/volume_key.c:320
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr "La sortie peut seulement être spécifiée avec `--save' ou `--reencrypt'"
+msgstr ""
+"La sortie peut seulement être spécifiée avec `--save' ou `--reencrypt'"
 
 #: src/volume_key.c:327
 msgid "No output specified"
@@ -585,11 +591,13 @@ msgstr "Erreur lors du décodage de `%s'&nbsp;: "
 
 #: src/volume_key.c:666
 msgid "New packet passphrase"
-msgstr "Nouveau mot de passe du paquet"
+msgstr "Nouvelle de phrase de passe de paquet"
 
 #: src/volume_key.c:667
 msgid "Passphrases do not match.  New packet passphrase"
-msgstr "Les mots de passe ne correspondent pas. Nouveau mot de passe du paquet"
+msgstr ""
+"Les phrases de passe ne correspondent pas. Nouvelle phrase de passe du "
+"paquet"
 
 #: src/volume_key.c:674
 msgid "Repeat new packet passphrase"
@@ -603,7 +611,7 @@ msgstr "Erreur lors de la création de `%s'&nbsp;: "
 #: src/volume_key.c:787
 #, c-format
 msgid "Error generating passphrase: %s"
-msgstr "Erreur lors de la génération du mot de passe&nbsp;: %s"
+msgstr "Erreur lors de la génération de la phrase de passe : %s"
 
 #: src/volume_key.c:821
 #, c-format
@@ -624,7 +632,7 @@ msgstr "Erreur lors du chargement de `%s'&nbsp;: %s"
 #: src/volume_key.c:858
 #, c-format
 msgid "Error creating a passphrase: %s"
-msgstr "Erreur lors de la création du mot de passe&nbsp;: %s"
+msgstr "Erreur lors de la création de la phrase de passe : %s"
 
 #: src/volume_key.c:890
 #, c-format
@@ -689,7 +697,7 @@ msgstr "Clé chiffrée publique"
 
 #: src/volume_key.c:1078
 msgid "Passphrase-encrypted"
-msgstr "Mot de passe chiffré"
+msgstr "Chiffré par phrase de passe"
 
 #: src/volume_key.c:1082
 msgid "Only secrets public key-encrypted"

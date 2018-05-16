@@ -1,24 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # mitr <mitr@volny.cz>, 2011.
 # Sweta Kothari <swkothar@redhat.com>, 2009.
 # sweta <swkothar@redhat.com>, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-02-20 06:49+0000\n"
-"Last-Translator: sweta <swkothar@redhat.com>\n"
-"Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
-"Language: gu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-14 08:38-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
+"Language: gu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -403,19 +404,23 @@ msgstr "આવૃત્તિ બતાવો"
 
 #: src/volume_key.c:181
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
-msgstr "પેકેટમાં વોલ્યુમ ખાનગીઓનો સંગ્રહ કરો.  ઓપરેન્ડો VOLUME [PACKET] ની ઇચ્છા રાખે છે."
+msgstr ""
+"પેકેટમાં વોલ્યુમ ખાનગીઓનો સંગ્રહ કરો.  ઓપરેન્ડો VOLUME [PACKET] ની ઇચ્છા "
+"રાખે છે."
 
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
-msgstr "પેકેટ માંથી વોલ્યુમ ખાનગીઓને પુન:સંગ્રહો.  ઓપરેન્ડો VOLUME PACKET ની ઇચ્છા રાખે છે."
+msgstr ""
+"પેકેટ માંથી વોલ્યુમ ખાનગીઓને પુન:સંગ્રહો.  ઓપરેન્ડો VOLUME PACKET ની ઇચ્છા "
+"રાખે છે."
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"પેકેટ માંથી ખાનગીઓની મદદથી એનક્રિપ્ટ થયેલ વોલ્યુમને સુયોજિત કરો.  ઓપરેન્ડો VOLUME PACKET "
-"NAME ની ઇચ્છા રાખે છે."
+"પેકેટ માંથી ખાનગીઓની મદદથી એનક્રિપ્ટ થયેલ વોલ્યુમને સુયોજિત કરો.  ઓપરેન્ડો "
+"VOLUME PACKET NAME ની ઇચ્છા રાખે છે."
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
@@ -501,11 +506,9 @@ msgstr "%s માં ભૂલોનો અહેવાલ કરો"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "વધારે જાણકારી માટે `%s --help' ને ચલાવો.\n"
 
 #: src/volume_key.c:290

@@ -1,25 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Adriano Laranjeira <adriano@argl.eng.br>, 2012.
 # Igor Pires Soares <igor@projetofedora.org>, 2009.
 # mitr <mitr@volny.cz>, 2011.
 # Rafael Gomes <rafaelgomes@techfree.com.br>, 2009.
+# Daniel Lara <danniel@fedoraproject.org>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-07-10 16:50+0000\n"
-"Last-Translator: Adriano Laranjeira <adriano@argl.eng.br>\n"
-"Language-Team: Portuguese (Brazil) <trans-pt_br@lists.fedoraproject.org>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-03-21 01:45-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Portuguese (Brazil) <trans-pt_br@lists.fedoraproject.org>\n"
+"Language: pt-BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -319,7 +321,8 @@ msgstr "A frase secreta LUKS no pacote é inválida: "
 
 #: lib/volume_luks.c:463
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr "O pacote de contrato não contém a chave de criptografia dos dados LUKS"
+msgstr ""
+"O pacote de contrato não contém a chave de criptografia dos dados LUKS"
 
 #: lib/volume_luks.c:468
 #, c-format
@@ -433,7 +436,8 @@ msgstr ""
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr "Mostrar segredos contidos em um pacote. Um operando PACKET é esperado."
+msgstr ""
+"Mostrar segredos contidos em um pacote. Um operando PACKET é esperado."
 
 #: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
@@ -507,11 +511,9 @@ msgstr "Relatar erros para %s"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "Execute \"%s --help\" para maiores informações.\n"
 
 #: src/volume_key.c:290

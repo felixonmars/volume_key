@@ -1,24 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # mitr <mitr@volny.cz>, 2011.
 # Rajesh Ranjan <rajesh672@gmail.com>, 2009.
 # Rajesh Ranjan <rranjan@redhat.com>, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-02-22 08:56+0000\n"
-"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
-"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
-"Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-14 08:38-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
+"Language: hi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -403,20 +404,22 @@ msgstr "संस्करण दिखाएं"
 
 #: src/volume_key.c:181
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
-msgstr "पैकेट में आयतन गुप्त बातें सहेजें.  operands VOLUME [PACKET] की आशा है."
+msgstr ""
+"पैकेट में आयतन गुप्त बातें सहेजें.  operands VOLUME [PACKET] की आशा है."
 
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"किसी पैकेट से आयतन गोपित पुनर्बहाल करें.  operands VOLUME PACKET की आशा करता है."
+"किसी पैकेट से आयतन गोपित पुनर्बहाल करें.  operands VOLUME PACKET की आशा करता "
+"है."
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"किसी पैकेट से गुप्त चीजों के प्रयोग से गोपित आयतन सेटअप करता है.  operands VOLUME "
-"PACKET NAME की आशा करता है."
+"किसी पैकेट से गुप्त चीजों के प्रयोग से गोपित आयतन सेटअप करता है.  operands "
+"VOLUME PACKET NAME की आशा करता है."
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
@@ -428,7 +431,8 @@ msgstr "किसी पैकेट में समाहित सूचन�
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr "किसी पैकेट में समाहित गुप्त चीजें दिखाता है.  operand PACKET की आशा है."
+msgstr ""
+"किसी पैकेट में समाहित गुप्त चीजें दिखाता है.  operand PACKET की आशा है."
 
 #: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
@@ -502,11 +506,9 @@ msgstr "%s में बग रिपोर्ट करें"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "`%s --help' को अधिक सूचना के लिए चलाएँ.\n"
 
 #: src/volume_key.c:290

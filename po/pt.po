@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # mitr <mitr@volny.cz>, 2011.
 # Rui Gouveia <rui.gouveia@gmail.com>, 2010, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-03-19 21:48+0000\n"
-"Last-Translator: Rui Gouveia <rui.gouveia@gmail.com>\n"
-"Language-Team: Portuguese <trans-pt@lists.fedoraproject.org>\n"
-"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-14 08:40-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Portuguese <trans-pt@lists.fedoraproject.org>\n"
+"Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -502,11 +503,9 @@ msgstr "Reportar erros para %s"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "Execute `%s --help' para mais informação.\n"
 
 #: src/volume_key.c:290
@@ -536,7 +535,8 @@ msgstr "`--%s' só é válida com `--%s'"
 
 #: src/volume_key.c:320
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr "Os resultados só podem ser especificados com `--save' ou `--reencrypt'"
+msgstr ""
+"Os resultados só podem ser especificados com `--save' ou `--reencrypt'"
 
 #: src/volume_key.c:327
 msgid "No output specified"

@@ -1,24 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jaswinder Singh <j.phulewala@gmail.com>, 2011.
 # Jaswinder Singh <jsingh@redhat.com>, 2009, 2012.
 # mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-03-07 09:16+0000\n"
-"Last-Translator: Jaswinder Singh <j.phulewala@gmail.com>\n"
-"Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
-"Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-14 08:40-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
+"Language: pa\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -414,8 +415,8 @@ msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"ਪੈਕੇਟ ਤੋਂ ਸੀਕਰੇਟ ਵਰਤ ਕੇ ਇੱਕ ਇਨਕ੍ਰਿਪਟਡ ਵਾਲੀਅਮ ਨਿਰਧਾਰਤ ਕਰੋ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ ਹਨ VOLUME PACKET "
-"NAME।"
+"ਪੈਕੇਟ ਤੋਂ ਸੀਕਰੇਟ ਵਰਤ ਕੇ ਇੱਕ ਇਨਕ੍ਰਿਪਟਡ ਵਾਲੀਅਮ ਨਿਰਧਾਰਤ ਕਰੋ।  ਲੋੜੀਂਦੇ ਓਪਰੈਂਡ ਹਨ "
+"VOLUME PACKET NAME।"
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
@@ -501,11 +502,9 @@ msgstr "%s ਤੇ ਬੱਗ ਰਿਪੋਰਟ ਕਰੋ"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ `%s --help' ਚਲਾਓ।\n"
 
 #: src/volume_key.c:290

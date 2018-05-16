@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Ayesha Akhtar <ayesha@ankur.org.bd>, 2012.
 # Mahay Alam Khan <mak@ankur.org.bd>, 2012.
@@ -11,17 +11,18 @@
 # Runa Bhattacharjee <runab@redhat.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: volume_key\n"
+"Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
 "POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"PO-Revision-Date: 2012-04-18 03:11+0000\n"
-"Last-Translator: Robin Mehdee <robin@ankur.org.bd>\n"
-"Language-Team: Bengali <info@ankur.org.bd>\n"
-"Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-03-14 08:37-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Bengali <info@ankur.org.bd>\n"
+"Language: bn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
@@ -413,29 +414,32 @@ msgstr ""
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"ভলিউম সংক্রান্ত গোপনীয় তথ্যগুলি প্যাকেট থেকে পুনরুদ্ধার করা হবে।  VOLUME PACKET "
-"অপারেন্ড প্রত্যাশিত।"
+"ভলিউম সংক্রান্ত গোপনীয় তথ্যগুলি প্যাকেট থেকে পুনরুদ্ধার করা হবে।  VOLUME "
+"PACKET অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"প্যাকেটের মধ্যে উপস্থিত গোপনীয় তথ্য প্রয়োগ করে একটি এনক্রিপ্ট করা ভলিউম নির্ধারণ করা "
-"হবে।  VOLUME PACKET NAME অপারেন্ড প্রত্যাশিত।"
+"প্যাকেটের মধ্যে উপস্থিত গোপনীয় তথ্য প্রয়োগ করে একটি এনক্রিপ্ট করা ভলিউম "
+"নির্ধারণ করা হবে।  VOLUME PACKET NAME অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "একটি escrow প্যাকেট পুনরায় এনক্রিপ্ট করুন।  PACKET অপারেন্ড প্রত্যাশিত।"
+msgstr ""
+"একটি escrow প্যাকেট পুনরায় এনক্রিপ্ট করুন।  PACKET অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr "প্যাকেটের মধ্যে উপস্থিত তথ্য প্রদর্শন করা হবে।  PACKET অপারেন্ড প্রত্যাশিত।"
+msgstr ""
+"প্যাকেটের মধ্যে উপস্থিত তথ্য প্রদর্শন করা হবে।  PACKET অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
 msgstr ""
-"প্যাকেটের মধ্যে উপস্থিত গোপনীয় তথ্য প্রদর্শন করা হবে।  PACKET অপারেন্ড প্রত্যাশিত।"
+"প্যাকেটের মধ্যে উপস্থিত গোপনীয় তথ্য প্রদর্শন করা হবে।  PACKET অপারেন্ড "
+"প্রত্যাশিত।"
 
 #: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
@@ -509,11 +513,9 @@ msgstr "%s-এ বাগ দায়ের করুন"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "অধিক বিবরণের জন্য `%s --help' দেখুন।\n"
 
 #: src/volume_key.c:290
@@ -526,8 +528,8 @@ msgstr ""
 "স্বত্বাধিকার (C) ২০০৯ Red Hat, Inc. সর্বস্বত্ব সংরক্ষিত।\n"
 "এই সফ্টওয়্যারটি GPL v.2-র অধীন বিতরণ করা হয়েছে।\n"
 "\n"
-"আইনী বিধি নিষেধের সীমার এক্তিয়ার উলঙ্ঘন না করে, এই প্রোগ্রামটির জন্য কোনো ধরনের "
-"ওয়ারেন্টি দেওয়া হয় না।"
+"আইনী বিধি নিষেধের সীমার এক্তিয়ার উলঙ্ঘন না করে, এই প্রোগ্রামটির জন্য কোনো "
+"ধরনের ওয়ারেন্টি দেওয়া হয় না।"
 
 #: src/volume_key.c:302
 msgid "Operation mode not specified"

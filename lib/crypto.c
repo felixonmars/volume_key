@@ -664,6 +664,7 @@ init_gpgme (gpgme_ctx_t *res, const char *passphrase, GError **error)
       error_from_gpgme (error, e);
       goto err_ctx;
     }
+  gpgme_set_pinentry_mode (ctx, GPGME_PINENTRY_MODE_LOOPBACK);
   gpgme_set_passphrase_cb (ctx, gpgme_passphrase_cb, (void *)passphrase);
   *res = ctx;
   return 0;

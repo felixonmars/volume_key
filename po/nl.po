@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Geert Warrink <geert.warrink@onsnet.nu>, 2009, 2011.
 # mitr <mitr@volny.cz>, 2011.
@@ -9,23 +9,37 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
-"Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
+"POT-Creation-Date: 2018-05-17 11:43+0200\n"
+"PO-Revision-Date: 2016-01-27 08:25-0500\n"
+"Last-Translator: Patrick Uiterwijk <puiterwijk@redhat.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-01-27 08:25-0500\n"
-"Last-Translator: Patrick Uiterwijk <puiterwijk@redhat.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/nl/"
-")\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: lib/crypto.c:65 lib/crypto.c:592
+#: lib/crypto.c:65 lib/crypto.c:594
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
+
+#: lib/crypto.c:394
+msgid "Unable to find the certificate necessary for decryption"
+msgstr ""
+
+#: lib/crypto.c:718
+#, fuzzy
+msgid "Unknown error getting encryption result"
+msgstr "Fout bij het verkrijgen van LUKS data encryptie sleutel: "
+
+#: lib/crypto.c:774
+#, fuzzy
+msgid "Unknown error getting decryption result"
+msgstr "Fout bij het verkrijgen van LUKS data encryptie sleutel: "
 
 #: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
@@ -106,8 +120,8 @@ msgstr "Niet ondersteund objecttype %s"
 msgid "Unexpected data after packet"
 msgstr "Onverwachte data na het pakket"
 
-#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
-#: lib/volume.c:710 lib/volume_luks.c:805
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1926
+#: lib/volume.c:710 lib/volume_luks.c:838
 #, c-format
 msgid "Unsupported packet type %s"
 msgstr "Niet ondersteund pakket type %s"
@@ -117,11 +131,11 @@ msgstr "Niet ondersteund pakket type %s"
 msgid "Unsupported mechanism %lu"
 msgstr "Niet ondersteund mechanisme %lu"
 
-#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1939
 msgid "Unexpected wrapped key format"
 msgstr "Onverwacht verpakte sleutel formaat"
 
-#: lib/kmip.c:1765 lib/kmip.c:1950
+#: lib/kmip.c:1765 lib/kmip.c:1952
 msgid "Unsupported wrapping mechanism"
 msgstr "Niet ondersteund verpakking mechanisme"
 
@@ -145,7 +159,7 @@ msgstr "Niet ondersteund pakket formaat"
 msgid "Escrow packet passphrase"
 msgstr "Escrow pakket wachtzin"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:312
+#: lib/libvolume_key.c:418 lib/volume_luks.c:330
 msgid "Too many attempts to get a valid passphrase"
 msgstr "Te veel pogingen om een geldige wachtzin te krijgen"
 
@@ -248,139 +262,139 @@ msgstr "Niet ondersteund volume formaat `%s'"
 msgid "Unknown error %d"
 msgstr "Onbekende fout %d"
 
-#: lib/volume_luks.c:105
+#: lib/volume_luks.c:118
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "Fout bij het verkrijgen van informatie over volume `%s': "
 
-#: lib/volume_luks.c:187
+#: lib/volume_luks.c:203
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr ""
 "Verkeerde UUID combinatie tussen libblkid en libcryptsetup: `%s' vs. `%s'"
 
-#: lib/volume_luks.c:212
+#: lib/volume_luks.c:230
 msgid "LUKS cipher name"
 msgstr "LUKS sleutel naam"
 
-#: lib/volume_luks.c:215
+#: lib/volume_luks.c:233
 msgid "LUKS cipher mode"
 msgstr "LUKS sleutel mode"
 
-#: lib/volume_luks.c:218
+#: lib/volume_luks.c:236
 msgid "Key size (bits)"
 msgstr "Sleutel grootte (bits)"
 
-#: lib/volume_luks.c:238
+#: lib/volume_luks.c:256
 msgid "Data encryption key"
 msgstr "Data encryptie sleutel"
 
-#: lib/volume_luks.c:242
+#: lib/volume_luks.c:260
 msgid "Passphrase"
 msgstr "Wachtzin"
 
-#: lib/volume_luks.c:245
+#: lib/volume_luks.c:263
 msgid "Passphrase slot"
 msgstr "Wachtzin ruimte"
 
-#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
+#: lib/volume_luks.c:294 lib/volume_luks.c:485 lib/volume_luks.c:731
 msgid "Encryption information type unsupported in LUKS"
 msgstr "Encryptie informatie type niet ondersteund in LUKS"
 
-#: lib/volume_luks.c:284
+#: lib/volume_luks.c:302
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "Wachtzin voor `%s'"
 
-#: lib/volume_luks.c:307 lib/volume_luks.c:850
+#: lib/volume_luks.c:325 lib/volume_luks.c:884
 msgid "Error getting LUKS data encryption key: "
 msgstr "Fout bij het verkrijgen van LUKS data encryptie sleutel: "
 
-#: lib/volume_luks.c:354
+#: lib/volume_luks.c:374
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "Verkeerde sleutel naam combinatie (pakket `%s', volume `%s')"
 
-#: lib/volume_luks.c:361
+#: lib/volume_luks.c:381
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "Verkeerde sleutel mode combinatie (pakket `%s', volume `%s')"
 
-#: lib/volume_luks.c:368
+#: lib/volume_luks.c:388
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "Verkeurde sleutel grootte combinatie (pakket %zu, volume %zu)"
 
-#: lib/volume_luks.c:399
+#: lib/volume_luks.c:421
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "LUKS data encryptie sleutel in pakket is ongeldig: "
 
-#: lib/volume_luks.c:424
+#: lib/volume_luks.c:450
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "LUKS wachtzin in pakket is ongeldig: "
 
-#: lib/volume_luks.c:463
+#: lib/volume_luks.c:491
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "Escrow pakket bevat geen LUKS data encryptie sleutel"
 
-#: lib/volume_luks.c:468
+#: lib/volume_luks.c:496
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "Nieuwe wachtzin voor `%s'"
 
-#: lib/volume_luks.c:469
+#: lib/volume_luks.c:497
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "Herhaal nieuwe wachtzin voor `%s'"
 
-#: lib/volume_luks.c:470
+#: lib/volume_luks.c:498
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "Wachtzinnen komen niet overeen.  Nieuwe wachtzin voor `%s'"
 
-#: lib/volume_luks.c:497 src/volume_key.c:690
+#: lib/volume_luks.c:525 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "Te veel pogingen om een wachtzin te verkrijgen"
 
-#: lib/volume_luks.c:512 lib/volume_luks.c:574
+#: lib/volume_luks.c:540 lib/volume_luks.c:605
 msgid "Error adding a LUKS passphrase"
 msgstr "Fout in het toevoegen van een LUKS wachtzin"
 
-#: lib/volume_luks.c:550
+#: lib/volume_luks.c:581
 msgid "Can not add a secret of this type"
 msgstr "Kan geen geheim van dit type toevoegen"
 
-#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
+#: lib/volume_luks.c:587 lib/volume_luks.c:689 lib/volume_luks.c:892
 msgid "Data encryption key unknown"
 msgstr "Data encryptie sleutel onbekend"
 
-#: lib/volume_luks.c:562
+#: lib/volume_luks.c:593
 msgid "The passphrase must be a string"
 msgstr "De wachtzin moet een reeks karakters zijn."
 
-#: lib/volume_luks.c:679
+#: lib/volume_luks.c:712
 msgid "Passphrase unknown"
 msgstr "Wachtzin onbekend"
 
-#: lib/volume_luks.c:742
+#: lib/volume_luks.c:775
 #, c-format
 msgid "Unsupported key length %s"
 msgstr "niet ondersteunde sleutel lengte %s"
 
-#: lib/volume_luks.c:754
+#: lib/volume_luks.c:787
 msgid "Key length mismatch"
 msgstr "Sleutel lengte komt niet overeen"
 
-#: lib/volume_luks.c:778
+#: lib/volume_luks.c:811
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "Ongeldig ruimte nummer `%s'"
 
-#: lib/volume_luks.c:789
+#: lib/volume_luks.c:822
 msgid "NUL byte in passphrase"
 msgstr "NUL byte in wachtzin"
 
-#: lib/volume_luks.c:866
+#: lib/volume_luks.c:900
 msgid "Error opening LUKS volume: "
 msgstr "Fout bij het openen van LUKS volume: "
 
@@ -508,9 +522,11 @@ msgstr "Rapporteren van bugs aan %s"
 
 #: src/volume_key.c:279
 #, c-format
-msgid "%s: %s\n"
+msgid ""
+"%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr "%s: %s\n"
+msgstr ""
+"%s: %s\n"
 "Voer `%s --help' uit voor meer informatie.\n"
 
 #: src/volume_key.c:290

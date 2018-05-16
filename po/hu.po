@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Máté Gelei <gelei.mate1@gmail.com>, 2011.
 # mitr <mitr@volny.cz>, 2011.
@@ -11,22 +11,36 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
-"Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
+"POT-Creation-Date: 2018-05-17 11:43+0200\n"
 "PO-Revision-Date: 2016-03-08 03:45-0500\n"
 "Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <trans-hu@lists.fedoraproject.org>\n"
 "Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: lib/crypto.c:65 lib/crypto.c:592
+#: lib/crypto.c:65 lib/crypto.c:594
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
+
+#: lib/crypto.c:394
+msgid "Unable to find the certificate necessary for decryption"
+msgstr ""
+
+#: lib/crypto.c:718
+#, fuzzy
+msgid "Unknown error getting encryption result"
+msgstr "Hiba a LUKS adattitkosító kulcs lekérdezése során: "
+
+#: lib/crypto.c:774
+#, fuzzy
+msgid "Unknown error getting decryption result"
+msgstr "Hiba a LUKS adattitkosító kulcs lekérdezése során: "
 
 #: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
@@ -107,8 +121,8 @@ msgstr "Nem támogatott %s objektumtípus"
 msgid "Unexpected data after packet"
 msgstr "Váratlan adat a csomag után"
 
-#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
-#: lib/volume.c:710 lib/volume_luks.c:805
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1926
+#: lib/volume.c:710 lib/volume_luks.c:838
 #, c-format
 msgid "Unsupported packet type %s"
 msgstr "Nem támogatott %s csomagtípus"
@@ -118,11 +132,11 @@ msgstr "Nem támogatott %s csomagtípus"
 msgid "Unsupported mechanism %lu"
 msgstr "Nem támogatott %lu mechanizmus"
 
-#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1939
 msgid "Unexpected wrapped key format"
 msgstr "Váratlan csomagolt kulcs formátum"
 
-#: lib/kmip.c:1765 lib/kmip.c:1950
+#: lib/kmip.c:1765 lib/kmip.c:1952
 msgid "Unsupported wrapping mechanism"
 msgstr "Nem támogatott csomagolómechanizmus"
 
@@ -146,7 +160,7 @@ msgstr "Nem támogatott csomagformátum"
 msgid "Escrow packet passphrase"
 msgstr "Letéti csomag jelszó"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:312
+#: lib/libvolume_key.c:418 lib/volume_luks.c:330
 msgid "Too many attempts to get a valid passphrase"
 msgstr "Túl sok próbálkozás, hogy egy érvényes jelszót kapjon"
 
@@ -249,138 +263,138 @@ msgstr "Nem támogatott `%s' kötetformátum"
 msgid "Unknown error %d"
 msgstr "Ismeretlen hiba %d"
 
-#: lib/volume_luks.c:105
+#: lib/volume_luks.c:118
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "Hiba a(z) `%s' kötet információinak lekérdezése során: "
 
-#: lib/volume_luks.c:187
+#: lib/volume_luks.c:203
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr "UUID különbség a libblkid és libcryptsetup között: `%s' vs. `%s'"
 
-#: lib/volume_luks.c:212
+#: lib/volume_luks.c:230
 msgid "LUKS cipher name"
 msgstr "LUKS titkosító neve"
 
-#: lib/volume_luks.c:215
+#: lib/volume_luks.c:233
 msgid "LUKS cipher mode"
 msgstr "LUKS titkosító mód"
 
-#: lib/volume_luks.c:218
+#: lib/volume_luks.c:236
 msgid "Key size (bits)"
 msgstr "Kulcsméret (bit)"
 
-#: lib/volume_luks.c:238
+#: lib/volume_luks.c:256
 msgid "Data encryption key"
 msgstr "Adattitkosítási kulcs"
 
-#: lib/volume_luks.c:242
+#: lib/volume_luks.c:260
 msgid "Passphrase"
 msgstr "Jelszó"
 
-#: lib/volume_luks.c:245
+#: lib/volume_luks.c:263
 msgid "Passphrase slot"
 msgstr "Jelszó kulcsnyílás"
 
-#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
+#: lib/volume_luks.c:294 lib/volume_luks.c:485 lib/volume_luks.c:731
 msgid "Encryption information type unsupported in LUKS"
 msgstr "A titkosítási információk típusa nem támogatott LUKS-ban"
 
-#: lib/volume_luks.c:284
+#: lib/volume_luks.c:302
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "Jelszó ehhez: `%s'"
 
-#: lib/volume_luks.c:307 lib/volume_luks.c:850
+#: lib/volume_luks.c:325 lib/volume_luks.c:884
 msgid "Error getting LUKS data encryption key: "
 msgstr "Hiba a LUKS adattitkosító kulcs lekérdezése során: "
 
-#: lib/volume_luks.c:354
+#: lib/volume_luks.c:374
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "A titkosító neve eltér ('%s' csomag, '%s' kötet)"
 
-#: lib/volume_luks.c:361
+#: lib/volume_luks.c:381
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "A titkosító módja eltér ('%s' csomag, '%s' kötet)"
 
-#: lib/volume_luks.c:368
+#: lib/volume_luks.c:388
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "A kulcsméret nem egyezik (%zu csomag, %zu kötet)"
 
-#: lib/volume_luks.c:399
+#: lib/volume_luks.c:421
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "A LUKS adattitkosítási kulcs érvénytelen a csomagban: "
 
-#: lib/volume_luks.c:424
+#: lib/volume_luks.c:450
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "A LUKS jelszó érvénytelen a csomagban: "
 
-#: lib/volume_luks.c:463
+#: lib/volume_luks.c:491
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "A letéti csomag nem tartalmazza a LUKS adattitkosítási kulcsot"
 
-#: lib/volume_luks.c:468
+#: lib/volume_luks.c:496
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "Új jelszó ehhez: `%s'"
 
-#: lib/volume_luks.c:469
+#: lib/volume_luks.c:497
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "Ismételje meg az új jelszót ehhez: `%s'"
 
-#: lib/volume_luks.c:470
+#: lib/volume_luks.c:498
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "A jelszavak nem egyeznek.  Új jelszó a következőhöz: `%s'"
 
-#: lib/volume_luks.c:497 src/volume_key.c:690
+#: lib/volume_luks.c:525 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "Túl sok próbálkozás a jelszó megadására"
 
-#: lib/volume_luks.c:512 lib/volume_luks.c:574
+#: lib/volume_luks.c:540 lib/volume_luks.c:605
 msgid "Error adding a LUKS passphrase"
 msgstr "Hiba történt a LUKS jelszó hozzáadásakor"
 
-#: lib/volume_luks.c:550
+#: lib/volume_luks.c:581
 msgid "Can not add a secret of this type"
 msgstr "Nem adható hozzá ilyen típusú titok"
 
-#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
+#: lib/volume_luks.c:587 lib/volume_luks.c:689 lib/volume_luks.c:892
 msgid "Data encryption key unknown"
 msgstr "Az adattitkosítási kulcs ismeretlen"
 
-#: lib/volume_luks.c:562
+#: lib/volume_luks.c:593
 msgid "The passphrase must be a string"
 msgstr "A jelszónak egy karakterláncnak kell lennie"
 
-#: lib/volume_luks.c:679
+#: lib/volume_luks.c:712
 msgid "Passphrase unknown"
 msgstr "Ismeretlen jelszó"
 
-#: lib/volume_luks.c:742
+#: lib/volume_luks.c:775
 #, c-format
 msgid "Unsupported key length %s"
 msgstr "Nem támogatott kulcshossz %s"
 
-#: lib/volume_luks.c:754
+#: lib/volume_luks.c:787
 msgid "Key length mismatch"
 msgstr "A kulcshossz különbözik"
 
-#: lib/volume_luks.c:778
+#: lib/volume_luks.c:811
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "Érvénytelen foglalatszám `%s'"
 
-#: lib/volume_luks.c:789
+#: lib/volume_luks.c:822
 msgid "NUL byte in passphrase"
 msgstr "A jelszó NUL bájtot tartalmaz"
 
-#: lib/volume_luks.c:866
+#: lib/volume_luks.c:900
 msgid "Error opening LUKS volume: "
 msgstr "Hiba a LUKS kötet megnyitásakor: "
 
@@ -413,8 +427,8 @@ msgstr ""
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"A kötet titkok helyreállítása egy csomagból. A következő operandusokat várja:"
-" KÖTET CSOMAG."
+"A kötet titkok helyreállítása egy csomagból. A következő operandusokat "
+"várja: KÖTET CSOMAG."
 
 #: src/volume_key.c:191
 msgid ""
@@ -426,8 +440,7 @@ msgstr ""
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr ""
-"A letéti csomag újratitkosítása. A következő operandust várja: CSOMAG."
+msgstr "A letéti csomag újratitkosítása. A következő operandust várja: CSOMAG."
 
 #: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
@@ -493,8 +506,7 @@ msgstr "FORMÁTUM"
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
 msgstr ""
-"A titkosítatlan információk, ha vannak, csak --dump esetén legyenek "
-"beleértve"
+"A titkosítatlan információk, ha vannak, csak --dump esetén legyenek beleértve"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"
@@ -515,9 +527,11 @@ msgstr "A hibák bejelentése ide: %s"
 
 #: src/volume_key.c:279
 #, c-format
-msgid "%s: %s\n"
+msgid ""
+"%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr "%s: %s\n"
+msgstr ""
+"%s: %s\n"
 "További információkért futtassa ezt: `%s --help'\n"
 
 #: src/volume_key.c:290
@@ -570,7 +584,7 @@ msgstr "A kimeneti formátum nem illeszkedik más opciókkal"
 #: src/volume_key.c:469 src/volume_key.c:549
 #, c-format
 msgid "Error, try again.\n"
-msgstr "Hiba, próbálja újra."
+msgstr "Hiba, próbálja újra.\n"
 
 #: src/volume_key.c:470
 #, c-format

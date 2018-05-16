@@ -1,3 +1,11 @@
+Changes in version 0.3.10:
+- Updated translations.
+- Switched to gpg2.
+- Fixed typo in man page.
+- Fixed error reporting.
+- Added gpgme error handling.
+- Fixed memory leaks.
+
 Changes in version 0.3.9:
 - Updated translations.
 

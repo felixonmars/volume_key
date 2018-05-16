@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([volume_key], [0.3.9], [https://pagure.io/volume_key], ,
+AC_INIT([volume_key], [0.3.10], [https://pagure.io/volume_key], ,
         [https://pagure.io/volume_key])
 AC_COPYRIGHT(
 [Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
@@ -28,7 +28,8 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AM_PROG_AR
 LT_INIT([disable-static])
-AM_PATH_PYTHON
+AC_PATH_PROGS(PYTHON, python2.7 python2.6 python2 python, [Python is required])
+AM_PATH_PYTHON([2.6], [], AC_MSG_ERROR([Python 2.6 or 2.7 is required]))
 
 AC_PATH_PROG([GPG], [gpg2])
 AC_ARG_VAR([GPG])

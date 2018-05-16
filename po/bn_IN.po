@@ -1,29 +1,43 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # mitr <mitr@volny.cz>, 2011.
 # Runa Bhattacharjee <runab@redhat.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
-"Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
-"POT-Creation-Date: 2012-09-22 21:31+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
+"POT-Creation-Date: 2018-05-17 11:43+0200\n"
 "PO-Revision-Date: 2015-03-14 08:37-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
-"Language: bn-IN\n"
+"Language: bn_IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: lib/crypto.c:65 lib/crypto.c:592
+#: lib/crypto.c:65 lib/crypto.c:594
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
+
+#: lib/crypto.c:394
+msgid "Unable to find the certificate necessary for decryption"
+msgstr ""
+
+#: lib/crypto.c:718
+#, fuzzy
+msgid "Unknown error getting encryption result"
+msgstr "LUKS-র তথ্য এনক্রিপশনের কি প্রাপ্ত করতে ত্রুটি: "
+
+#: lib/crypto.c:774
+#, fuzzy
+msgid "Unknown error getting decryption result"
+msgstr "LUKS-র তথ্য এনক্রিপশনের কি প্রাপ্ত করতে ত্রুটি: "
 
 #: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
@@ -104,8 +118,8 @@ msgstr ""
 msgid "Unexpected data after packet"
 msgstr "প্যাকেটের পরে অপ্রত্যাশিত তথ্য"
 
-#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
-#: lib/volume.c:710 lib/volume_luks.c:805
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1926
+#: lib/volume.c:710 lib/volume_luks.c:838
 #, c-format
 msgid "Unsupported packet type %s"
 msgstr ""
@@ -115,11 +129,11 @@ msgstr ""
 msgid "Unsupported mechanism %lu"
 msgstr "অসমর্থিত প্রণালী %lu"
 
-#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1939
 msgid "Unexpected wrapped key format"
 msgstr "র‍্যাপ করা কি-র অপ্রত্যাশিত বিন্যাস"
 
-#: lib/kmip.c:1765 lib/kmip.c:1950
+#: lib/kmip.c:1765 lib/kmip.c:1952
 msgid "Unsupported wrapping mechanism"
 msgstr "র‍্যাপ করার অসমর্থিত প্রণালী"
 
@@ -143,7 +157,7 @@ msgstr "প্যাকেজেট বিন্যাস সমর্থিত 
 msgid "Escrow packet passphrase"
 msgstr "Escrow প্যাকেটের পরিচয় পংক্তি"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:312
+#: lib/libvolume_key.c:418 lib/volume_luks.c:330
 msgid "Too many attempts to get a valid passphrase"
 msgstr "বৈধ পরিচয়-পংক্তি প্রাপ্ত করার অত্যাধিক প্রচেষ্টা করা হয়েছে"
 
@@ -246,138 +260,138 @@ msgstr "অসমর্থিত ভলিউমের বিন্যাস `%s
 msgid "Unknown error %d"
 msgstr "অজানা ত্রুটি %d"
 
-#: lib/volume_luks.c:105
+#: lib/volume_luks.c:118
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "ভলিউম `%s' সম্পর্কে তথ্য প্রাপ্ত করতে সমস্যা: "
 
-#: lib/volume_luks.c:187
+#: lib/volume_luks.c:203
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr "libblkid ও libcryptsetup-র মধ্যে UUID-তে গরমিল: `%s' vs. `%s'"
 
-#: lib/volume_luks.c:212
+#: lib/volume_luks.c:230
 msgid "LUKS cipher name"
 msgstr "LUKS সাইফারের নাম"
 
-#: lib/volume_luks.c:215
+#: lib/volume_luks.c:233
 msgid "LUKS cipher mode"
 msgstr "LUKS সাইফারের মোড"
 
-#: lib/volume_luks.c:218
+#: lib/volume_luks.c:236
 msgid "Key size (bits)"
 msgstr "কি-র মাপ (বিট অনুযায়ী)"
 
-#: lib/volume_luks.c:238
+#: lib/volume_luks.c:256
 msgid "Data encryption key"
 msgstr "তথ্য এনক্রিপশনের কি"
 
-#: lib/volume_luks.c:242
+#: lib/volume_luks.c:260
 msgid "Passphrase"
 msgstr "পরিচয়-পংক্তি"
 
-#: lib/volume_luks.c:245
+#: lib/volume_luks.c:263
 msgid "Passphrase slot"
 msgstr "পরিচয় পংক্তির স্লট"
 
-#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
+#: lib/volume_luks.c:294 lib/volume_luks.c:485 lib/volume_luks.c:731
 msgid "Encryption information type unsupported in LUKS"
 msgstr "এনক্রিপশন তথ্যের ধরন LUKS দ্বারা সমর্থিত নয়"
 
-#: lib/volume_luks.c:284
+#: lib/volume_luks.c:302
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "`%s'-র পরিচয় পংক্তি"
 
-#: lib/volume_luks.c:307 lib/volume_luks.c:850
+#: lib/volume_luks.c:325 lib/volume_luks.c:884
 msgid "Error getting LUKS data encryption key: "
 msgstr "LUKS-র তথ্য এনক্রিপশনের কি প্রাপ্ত করতে ত্রুটি: "
 
-#: lib/volume_luks.c:354
+#: lib/volume_luks.c:374
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "সাইফারের নামে গরমিল (প্যাকেট `%s', ভলিউম `%s')"
 
-#: lib/volume_luks.c:361
+#: lib/volume_luks.c:381
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "সাইফার মোডে গরমিল (প্যাকেট `%s', ভলিউম `%s')"
 
-#: lib/volume_luks.c:368
+#: lib/volume_luks.c:388
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "কি-র মাপে গরমিল (প্যাকেট %zu, ভলিউম %zu)"
 
-#: lib/volume_luks.c:399
+#: lib/volume_luks.c:421
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "প্যাকেটের মধ্যে উপস্থিত LUKS তথ্য এনক্রিপশনের কি বৈধ নয়: "
 
-#: lib/volume_luks.c:424
+#: lib/volume_luks.c:450
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "প্যাকেটের মধ্যে উপস্থিত LUKS পরিচয়-পংক্তি বৈধ নয়: "
 
-#: lib/volume_luks.c:463
+#: lib/volume_luks.c:491
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "Escrow প্যাকেটের মধ্যে LUKS তথ্য এনক্রিপশনের কি অনুপস্থিত"
 
-#: lib/volume_luks.c:468
+#: lib/volume_luks.c:496
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "`%s'-র জন্য নতুন পরিচয় পংক্তি"
 
-#: lib/volume_luks.c:469
+#: lib/volume_luks.c:497
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "`%s'-র পরিচয়-পংক্তি পুনরায় লিখুন"
 
-#: lib/volume_luks.c:470
+#: lib/volume_luks.c:498
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "পরিচয়-পংক্তির মধ্যে গরমিল।  `%s'-র জন্য নতুন পরিচয় পংক্তি"
 
-#: lib/volume_luks.c:497 src/volume_key.c:690
+#: lib/volume_luks.c:525 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "পরিচয়-পংক্তি প্রাপ্ত করার অতিরিক্ত প্রচেষ্টা করা হয়েছে"
 
-#: lib/volume_luks.c:512 lib/volume_luks.c:574
+#: lib/volume_luks.c:540 lib/volume_luks.c:605
 msgid "Error adding a LUKS passphrase"
 msgstr "LUKS পরিচয়-পংক্তি যোগ করতে ত্রুটি"
 
-#: lib/volume_luks.c:550
+#: lib/volume_luks.c:581
 msgid "Can not add a secret of this type"
 msgstr "এই ধরনের গোপনীয় তথ্য যোগ করা সম্ভব নয়"
 
-#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
+#: lib/volume_luks.c:587 lib/volume_luks.c:689 lib/volume_luks.c:892
 msgid "Data encryption key unknown"
 msgstr "তথ্য এনক্রিপশনের অজানা কি"
 
-#: lib/volume_luks.c:562
+#: lib/volume_luks.c:593
 msgid "The passphrase must be a string"
 msgstr "পরিচয়-পংক্তির ক্ষেত্রে পংক্তি উল্লেখ করা আবশ্যক"
 
-#: lib/volume_luks.c:679
+#: lib/volume_luks.c:712
 msgid "Passphrase unknown"
 msgstr "পরিচয়-পংক্তি অজানা"
 
-#: lib/volume_luks.c:742
+#: lib/volume_luks.c:775
 #, c-format
 msgid "Unsupported key length %s"
 msgstr ""
 
-#: lib/volume_luks.c:754
+#: lib/volume_luks.c:787
 msgid "Key length mismatch"
 msgstr "কি-র দৈর্ঘ্যে গরমিল"
 
-#: lib/volume_luks.c:778
+#: lib/volume_luks.c:811
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "স্লট সংখ্যা `%s' বৈধ নয়"
 
-#: lib/volume_luks.c:789
+#: lib/volume_luks.c:822
 msgid "NUL byte in passphrase"
 msgstr "পরিচয়-পংক্তির মধ্যে NUL বাইট"
 
-#: lib/volume_luks.c:866
+#: lib/volume_luks.c:900
 msgid "Error opening LUKS volume: "
 msgstr "LUKS ভলিউম খুলতে ত্রুটি: "
 
@@ -410,32 +424,29 @@ msgstr ""
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"ভলিউম সংক্রান্ত গোপনীয় তথ্যগুলি প্যাকেট থেকে পুনরুদ্ধার করা হবে।  VOLUME "
-"PACKET অপারেন্ড প্রত্যাশিত।"
+"ভলিউম সংক্রান্ত গোপনীয় তথ্যগুলি প্যাকেট থেকে পুনরুদ্ধার করা হবে।  VOLUME PACKET "
+"অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"প্যাকেটের মধ্যে উপস্থিত গোপনীয় তথ্য প্রয়োগ করে একটি এনক্রিপ্ট করা ভলিউম "
-"নির্ধারণ করা হবে।  VOLUME PACKET NAME অপারেন্ড প্রত্যাশিত।"
+"প্যাকেটের মধ্যে উপস্থিত গোপনীয় তথ্য প্রয়োগ করে একটি এনক্রিপ্ট করা ভলিউম নির্ধারণ করা "
+"হবে।  VOLUME PACKET NAME অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr ""
-"একটি escrow প্যাকেট পুনরায় এনক্রিপ্ট করুন।  PACKET অপারেন্ড প্রত্যাশিত।"
+msgstr "একটি escrow প্যাকেট পুনরায় এনক্রিপ্ট করুন।  PACKET অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr ""
-"প্যাকেটের মধ্যে উপস্থিত তথ্য প্রদর্শন করা হবে।  PACKET অপারেন্ড প্রত্যাশিত।"
+msgstr "প্যাকেটের মধ্যে উপস্থিত তথ্য প্রদর্শন করা হবে।  PACKET অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
 msgstr ""
-"প্যাকেটের মধ্যে উপস্থিত গোপনীয় তথ্য প্রদর্শন করা হবে।  PACKET অপারেন্ড "
-"প্রত্যাশিত।"
+"প্যাকেটের মধ্যে উপস্থিত গোপনীয় তথ্য প্রদর্শন করা হবে।  PACKET অপারেন্ড প্রত্যাশিত।"
 
 #: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
@@ -509,9 +520,11 @@ msgstr "%s-এ বাগ দায়ের করুন"
 
 #: src/volume_key.c:279
 #, c-format
-msgid "%s: %s\n"
+msgid ""
+"%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr "%s: %s\n"
+msgstr ""
+"%s: %s\n"
 "অধিক বিবরণের জন্য `%s --help' দেখুন।\n"
 
 #: src/volume_key.c:290
@@ -524,8 +537,8 @@ msgstr ""
 "স্বত্বাধিকার (C) ২০০৯ Red Hat, Inc. সর্বস্বত্ব সংরক্ষিত।\n"
 "এই সফ্টওয়্যারটি GPL v.2-র অধীন বিতরণ করা হয়েছে।\n"
 "\n"
-"আইনী বিধি নিষেধের সীমার এক্তিয়ার উলঙ্ঘন না করে, এই প্রোগ্রামটির জন্য কোনো "
-"ধরনের ওয়ারেন্টি দেওয়া হয় না।"
+"আইনী বিধি নিষেধের সীমার এক্তিয়ার উলঙ্ঘন না করে, এই প্রোগ্রামটির জন্য কোনো ধরনের "
+"ওয়ারেন্টি দেওয়া হয় না।"
 
 #: src/volume_key.c:302
 msgid "Operation mode not specified"

@@ -1,3 +1,22 @@
+2018-05-16  Jiri Kucera  <jkucera@redhat.com>
+
+	* configure.ac: Release 0.3.10.
+	* NEWS: Update.
+	* Makefile.am (lib_libvolume_key_la_LDFLAGS): Update version info.
+
+	* configure.ac: Specify the Python interpreter version to suppress
+	warnings when building Fedora package.
+	* configure.ac: Switch to gpg2.
+	* README: Fix a typos.
+	* docs/volume_key.8: Fix a typo.
+	* po/*.po: Update.
+	* po/zanata.xml: Recent Zanata does not need <locales/>.
+	* lib/crypto.c: Merged pull request #17 (Iain Lane: crypto: Set
+	pinentry-mode to LOOPBACK); for GnuPG >= 2.1 this is needed to enable
+	the passphrase callback mechanism in GPGME.
+	* contrib/email/escrow-receive
+	* contrib/email/escrow-transit: #!/usr/bin/{env python -> python2}
+
 2017-11-07  Miloslav Trmač  <mitr@redhat.com>
 
 	* lib/volume_luks.c (my_strerror): Stop using crypt_get_error as it has

@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([volume_key], [0.3.10], [https://pagure.io/volume_key], ,
+AC_INIT([volume_key], [0.3.11], [https://pagure.io/volume_key], ,
         [https://pagure.io/volume_key])
 AC_COPYRIGHT(
 [Copyright (C) 2009, 2010 Red Hat, Inc. All rights reserved.
@@ -30,6 +30,7 @@ AM_PROG_AR
 LT_INIT([disable-static])
 AC_PATH_PROGS(PYTHON, python3.5 python3.6 python3 python, [Python is required])
 AM_PATH_PYTHON([3.5], [], AC_MSG_ERROR([Python 3.5 or later is required]))
+AC_PATH_PROG([PYTHON3_CONFIG], [python3-config])
 
 AC_PATH_PROG([GPG], [gpg2])
 AC_ARG_VAR([GPG])
@@ -90,6 +91,16 @@ if test "$GCC" = yes ; then
      fi
      AC_MSG_RESULT([$enable_Werror])
 fi
+
+# Gather Python 3 package configuration.
+PYTHON3_INCLUDES=`$PYTHON3_CONFIG --includes 2> /dev/null`
+PYTHON3_CFLAGS=`$PYTHON3_CONFIG --cflags 2> /dev/null`
+PYTHON3_LIBS=`$PYTHON3_CONFIG --libs 2> /dev/null`
+PYTHON3_LDFLAGS=`$PYTHON3_CONFIG --ldflags 2> /dev/null`
+AC_SUBST(PYTHON3_INCLUDES)
+AC_SUBST(PYTHON3_CFLAGS)
+AC_SUBST(PYTHON3_LIBS)
+AC_SUBST(PYTHON3_LDFLAGS)
 
 dnl po/Makefile
 AC_CONFIG_FILES([Makefile po/Makefile.in])

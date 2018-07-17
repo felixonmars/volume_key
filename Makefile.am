@@ -20,7 +20,6 @@ ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = $(blkid_CFLAGS) $(glib_CFLAGS) $(GPGME_CFLAGS) \
 	$(libcryptsetup_CFLAGS) $(nss_CFLAGS)
 LOCALEDIR_CPPFLAGS = -DLOCALEDIR='"$(localedir)"'
-PYTHON_CPPFLAGS = -I/usr/include/python$(PYTHON_VERSION)
 
 ## Targets
 SUBDIRS = po
@@ -38,13 +37,20 @@ TESTS = tests/packet_roundtrips.sh
 
 EXTRA_DIST = contrib/email/README contrib/email/escrow-receive \
 	contrib/email/escrow-transit \
+	contrib/email/tests/test-escrow-receive \
+	contrib/email/tests/test-escrow-transit \
+	contrib/email/tests/utest.sh \
+	contrib/email/tests/mailsrv.py \
+	contrib/email/tests/sendpkt.py \
 	python/volume_key.i \
 	tests/packet_roundtrips.sh tests/packet_roundtrips_luks_passphrase \
 	tests/packet_roundtrips_luks_symmetric
 
 ## Rules
 python/volume_key_wrap.c python/volume_key.py: python/volume_key.i
-	swig -Wall -python -I$(top_srcdir) -o python/volume_key_wrap.c \
+	swig -Wall -python -py3 -modern \
+		-I$(top_srcdir) $(PYTHON3_INCLUDES) \
+		-o python/volume_key_wrap.c \
 		$(top_srcdir)/python/volume_key.i
 
 python/volume_key.py: python/volume_key_wrap.c
@@ -63,9 +69,9 @@ lib_libvolume_key_la_LIBADD = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \
 	$(LTLIBINTL) $(libcryptsetup_LIBS) $(nss_LIBS)
 
 python__volume_key_la_SOURCES = python/volume_key_wrap.c
-python__volume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(PYTHON_CPPFLAGS)
-python__volume_key_la_LDFLAGS = -module -avoid-version $(glib_LIBS)
-python__volume_key_la_LIBADD = lib/libvolume_key.la -lpython$(PYTHON_VERSION) \
+python__volume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(PYTHON3_CFLAGS)
+python__volume_key_la_LDFLAGS = -module -avoid-version $(glib_LIBS) $(PYTHON3_LDFLAGS)
+python__volume_key_la_LIBADD = lib/libvolume_key.la $(PYTHON3_LIBS) \
 	$(glib_LIBS) $(nss_LIBS)
 
 src_volume_key_SOURCES = src/volume_key.c

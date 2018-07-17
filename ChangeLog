@@ -1,3 +1,21 @@
+2018-07-17  Jiri Kucera  <jkucera@redhat.com>
+
+	* configure.ac: Release 0.3.11.
+	* NEWS: Update.
+	* Makefile.am (EXTRA_DIST): Added tests for contrib/email scripts.
+
+	* configure.ac: Switch to Python 3.
+	* Makefile.am (-PYTHON_CPPFLAGS)
+	(python__volume_key_la_{{CPP,LD}FLAGS,LIBADD}): Switch to Python 3.
+	* contrib/email/escrow-receive
+	* contrib/email/escrow-transit: Port to Python 3.
+	* contrib/email/tests/test-escrow-receive
+	* contrib/email/tests/test-escrow-transit
+	* contrib/email/tests/utest.sh
+	* contrib/email/tests/mailsrv.py
+	* contrib/email/tests/sendpkt.py: Added tests for contrib/email
+	scripts.
+
 2018-05-16  Jiri Kucera  <jkucera@redhat.com>
 
 	* configure.ac: Release 0.3.10.

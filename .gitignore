@@ -6,6 +6,7 @@
 /build
 /configure
 /config.h.in
+/contrib/email/tests/*.log
 Makefile.in
 *~
 *.py[co]

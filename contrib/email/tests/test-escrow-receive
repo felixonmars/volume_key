@@ -1,0 +1,285 @@
+#!/bin/bash
+#
+# A script that tests escrow-receive functionality.
+#
+# Copyright (C) 2018 Jiří Kučera <jkucera@redhat.com>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+#
+
+. $(dirname $0)/utest.sh
+
+initialize $0
+
+SMTP_HOST=localhost
+SMTP_PORT=2525
+LOCALADDR=$SMTP_HOST:$SMTP_PORT
+export SMTP_HOST SMTP_PORT LOCALADDR
+
+SINK_FILE=$HERE/email$TEST_PID.msg
+LOGFILE=$HERE/escrow.log
+ESCROW_DIR=$HERE/escrows
+TIME_LIMIT=5
+DATE_RE="[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2} [[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}"
+export SINK_FILE LOGFILE ESCROW_DIR TIME_LIMIT DATE_RE
+
+COMPANY='company.com'
+ADMIN_EMAIL="root@$COMPANY"
+ALICE_EMAIL="alice@$COMPANY"
+ALICE="Alice <$ALICE_EMAIL>"
+BOB_EMAIL="bob@$COMPANY"
+BOB="Bob <$BOB_EMAIL>"
+BOB_PACKET_RE="$(re_escape $BOB_EMAIL)-[[:digit:]]{4}(-[[:digit:]][[:digit:]]){5}"
+BOB_VALID_PACKET_RE="$BOB_PACKET_RE-VALID-PACKET"
+BOB_VALID_PACKET_UNKNOWN_SENDER_RE="$BOB_VALID_PACKET_RE-UNKNOWN-SENDER"
+BOB_CHECKSUM_ERROR_RE="$BOB_PACKET_RE-CHECKSUM-ERROR"
+export COMPANY ADMIN_EMAIL ALICE_EMAIL ALICE
+export BOB_EMAIL BOB BOB_PACKET_RE BOB_VALID_PACKET_RE
+export BOB_VALID_PACKET_UNKNOWN_SENDER_RE BOB_CHECKSUM_ERROR_RE
+
+##
+# setup
+#
+# Prepare test environment.
+function setup() {
+  banner "::$FUNCNAME"
+  runcmd "Creating $ESCROW_DIR" \
+         "mkdir -p $ESCROW_DIR"
+  runcmd "Creating an image $TEST_IMG (10 x 1024kB)" \
+         "dd if=/dev/urandom of=$TEST_IMG bs=1024k count=10"
+  runcmd "Format the image $TEST_IMG as LUKS" \
+         "echo -n $TEST_PASSWD | cryptsetup -q luksFormat $TEST_IMG -"
+  runcmd "Get escrow packet $TEST_PACKET from LUKS image $TEST_IMG" \
+         "printf %b '$TEST_PASSWD\\0$TEST_PASSWD\\0$TEST_PASSWD\\0' | volume_key --batch --save $TEST_IMG --output=$TEST_PACKET"
+}
+
+##
+# test_escrow_receive
+#
+# Basic escrow-receive test.
+function test_escrow_receive() {
+  banner "::$FUNCNAME"
+  # Ensure there is no old products/processes:
+  kill_smtp_server
+  sweep_escrow_receive_products
+  sleep 1
+  # Do the test:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $LOCALADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  runcmd "Sending packet $TEST_PACKET" \
+         "$HERE/sendpkt.py --from \"$BOB\" --to \"$ALICE\" --packet $TEST_PACKET --dump | $HERE/../escrow-receive -H $LOCALADDR -a $ADMIN_EMAIL -d $ESCROW_DIR -l $LOGFILE"
+  runcmd "Waiting for response (max ${TIME_LIMIT}s)" \
+         "wait_file $SINK_FILE $TIME_LIMIT"
+  kill_smtp_server
+  # Verify the response:
+  assert_linematch $SINK_FILE "$(re_escape 'Subject: Your backup passphrase has been successfully received.')"
+  assert_linematch $SINK_FILE "$(re_escape "From: $ADMIN_EMAIL")"
+  assert_linematch $SINK_FILE "$(re_escape "To: $BOB_EMAIL")"
+  assert_linematch $SINK_FILE "$(re_escape 'Your backup passphrase has been successfully received.')"
+  assert_linematch $SINK_FILE "$(re_escape 'You should now remove the escrow packet file from your computer.')"
+  # Verify the received packet:
+  FILES=( $(enumerate_files $ESCROW_DIR "$BOB_VALID_PACKET_RE") )
+  assert_equal ${#FILES[@]} 1 "number of files in $ESCROW_DIR matching $BOB_VALID_PACKET_RE is 1"
+  assert_identical ${FILES[0]} $TEST_PACKET
+  # Verify the log:
+  assert_linematch $LOGFILE "INFO: Starting to process an email escrow packet on $DATE_RE"
+  assert_linematch $LOGFILE "INFO: Received valid escrow packet from $(re_escape "$BOB_EMAIL")"
+  assert_linematch $LOGFILE "INFO: Marking escrow packet valid: $(re_escape "$ESCROW_DIR")/$BOB_PACKET_RE"
+  assert_linematch $LOGFILE "INFO: Processing completed on $DATE_RE"
+  # Remove products:
+  sweep_escrow_receive_products
+}
+TESTS+=( test_escrow_receive )
+
+##
+# test_escrow_receive_missing_md5_checksum
+#
+# Test the reaction on malformed email (missing MD5 checksum).
+function test_escrow_receive_missing_md5_checksum() {
+  banner "::$FUNCNAME"
+  # Ensure there is no old products:
+  sweep_escrow_receive_products
+  # Do the test:
+  runcmd "Sending packet $TEST_PACKET" \
+         "$HERE/sendpkt.py --from \"$BOB\" --to \"$ALICE\" --packet $TEST_PACKET --dump | sed -e '/^MD5 checksum:/d' | $HERE/../escrow-receive -H $LOCALADDR -a $ADMIN_EMAIL -d $ESCROW_DIR -l $LOGFILE" 1
+  # Verify the received packet:
+  FILES=( $(enumerate_files $ESCROW_DIR "$BOB_PACKET_RE") )
+  assert_equal ${#FILES[@]} 1 "number of files in $ESCROW_DIR matching $BOB_PACKET_RE is 1"
+  assert_identical ${FILES[0]} $TEST_PACKET
+  # Verify the log:
+  assert_linematch $LOGFILE "INFO: Starting to process an email escrow packet on $DATE_RE"
+  assert_linematch $LOGFILE "$(re_escape 'ERROR: Malformed email escrow packet received.')"
+  assert_linematch $LOGFILE "INFO: Processing completed on $DATE_RE"
+  # Remove products:
+  sweep_escrow_receive_products
+}
+TESTS+=( test_escrow_receive_missing_md5_checksum )
+
+##
+# test_escrow_receive_missing_sender
+#
+# Test the reaction on malformed email (missing sender).
+function test_escrow_receive_missing_sender() {
+  banner "::$FUNCNAME"
+  # Ensure there is no old products:
+  sweep_escrow_receive_products
+  # Do the test:
+  runcmd "Sending packet $TEST_PACKET" \
+         "$HERE/sendpkt.py --from \"$BOB\" --to \"$ALICE\" --packet $TEST_PACKET --dump | sed -e '/^packet from:/d' | $HERE/../escrow-receive -H $LOCALADDR -a $ADMIN_EMAIL -d $ESCROW_DIR -l $LOGFILE" 1
+  # Verify there are no escrows:
+  assert_empty_dir $ESCROW_DIR
+  # Verify the log:
+  assert_linematch $LOGFILE "INFO: Starting to process an email escrow packet on $DATE_RE"
+  assert_linematch $LOGFILE "$(re_escape 'ERROR: Malformed email escrow packet received.')"
+  assert_linematch $LOGFILE "INFO: Processing completed on $DATE_RE"
+  # Remove products:
+  sweep_escrow_receive_products
+}
+TESTS+=( test_escrow_receive_missing_sender )
+
+##
+# test_escrow_receive_missing_both
+#
+# Test the reaction on malformed email (both MD5 checksum and sender are
+# missing).
+function test_escrow_receive_missing_both() {
+  banner "::$FUNCNAME"
+  # Ensure there is no old products:
+  sweep_escrow_receive_products
+  # Do the test:
+  runcmd "Sending packet $TEST_PACKET" \
+         "$HERE/sendpkt.py --from \"$BOB\" --to \"$ALICE\" --packet $TEST_PACKET --dump | sed -e '/^MD5 checksum:/d' -e '/^packet from:/d' | $HERE/../escrow-receive -H $LOCALADDR -a $ADMIN_EMAIL -d $ESCROW_DIR -l $LOGFILE" 1
+  # Verify there are no escrows:
+  assert_empty_dir $ESCROW_DIR
+  # Verify the log:
+  assert_linematch $LOGFILE "INFO: Starting to process an email escrow packet on $DATE_RE"
+  assert_linematch $LOGFILE "$(re_escape 'ERROR: Malformed email escrow packet received.')"
+  assert_linematch $LOGFILE "INFO: Processing completed on $DATE_RE"
+  # Remove products:
+  sweep_escrow_receive_products
+}
+TESTS+=( test_escrow_receive_missing_both )
+
+##
+# test_escrow_receive_bad_md5_checksum
+#
+# Test the reaction on bad MD5 checksum.
+function test_escrow_receive_bad_md5_checksum() {
+  banner "::$FUNCNAME"
+  # Ensure there is no old products/processes:
+  kill_smtp_server
+  sweep_escrow_receive_products
+  sleep 1
+  # Do the test:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $LOCALADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  runcmd "Sending packet $TEST_PACKET" \
+         "$HERE/sendpkt.py --from \"$BOB\" --to \"$ALICE\" --packet $TEST_PACKET --dump | sed -e '/^MD5 checksum:/ y/0123456789abcdef/fedcba9876543210/' | sed -e 's/^MDa 3h13ksum:/MD5 checksum:/' | $HERE/../escrow-receive -H $LOCALADDR -a $ADMIN_EMAIL -d $ESCROW_DIR -l $LOGFILE"
+  runcmd "Waiting for response (max ${TIME_LIMIT}s)" \
+         "wait_file $SINK_FILE $TIME_LIMIT"
+  kill_smtp_server
+  # Verify the response:
+  assert_linematch $SINK_FILE "$(re_escape 'Subject: Error receiving your backup passphrase packet!')"
+  assert_linematch $SINK_FILE "$(re_escape "From: $ADMIN_EMAIL")"
+  assert_linematch $SINK_FILE "$(re_escape "To: $BOB_EMAIL")"
+  assert_linematch $SINK_FILE "$(re_escape 'Error receiving your backup passphrase packet!')"
+  # Verify the received packet:
+  FILES=( $(enumerate_files $ESCROW_DIR "$BOB_CHECKSUM_ERROR_RE") )
+  assert_equal ${#FILES[@]} 1 "number of files in $ESCROW_DIR matching $BOB_CHECKSUM_ERROR_RE is 1"
+  assert_identical ${FILES[0]} $TEST_PACKET
+  # Verify the log:
+  assert_linematch $LOGFILE "INFO: Starting to process an email escrow packet on $DATE_RE"
+  assert_linematch $LOGFILE "WARNING: Received invalid email escrow packet from $(re_escape "$BOB_EMAIL")"
+  assert_linematch $LOGFILE "WARNING: Marking escrow packet invalid: $(re_escape "$ESCROW_DIR")/$BOB_PACKET_RE"
+  assert_linematch $LOGFILE "INFO: Processing completed on $DATE_RE"
+  # Remove products:
+  sweep_escrow_receive_products
+}
+TESTS+=( test_escrow_receive_bad_md5_checksum )
+
+##
+# test_escrow_receive_recipients_refused
+#
+# Test the reaction on refused email.
+function test_escrow_receive_recipients_refused() {
+  banner "::$FUNCNAME"
+  # Ensure there is no old products/processes:
+  kill_smtp_server
+  sweep_escrow_receive_products
+  sleep 1
+  # Do the test:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -b $COMPANY -s $SINK_FILE $LOCALADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  runcmd "Sending packet $TEST_PACKET" \
+         "$HERE/sendpkt.py --from \"$BOB\" --to \"$ALICE\" --packet $TEST_PACKET --dump | $HERE/../escrow-receive -H $LOCALADDR -a $ADMIN_EMAIL -d $ESCROW_DIR -l $LOGFILE"
+  kill_smtp_server
+  # Verify the received packet:
+  FILES=( $(enumerate_files $ESCROW_DIR "$BOB_VALID_PACKET_UNKNOWN_SENDER_RE") )
+  assert_equal ${#FILES[@]} 1 "number of files in $ESCROW_DIR matching $BOB_VALID_PACKET_UNKNOWN_SENDER_RE is 1"
+  assert_identical ${FILES[0]} $TEST_PACKET
+  # Verify the log:
+  assert_linematch $LOGFILE "INFO: Starting to process an email escrow packet on $DATE_RE"
+  assert_linematch $LOGFILE "INFO: Received valid escrow packet from $(re_escape "$BOB_EMAIL")"
+  assert_linematch $LOGFILE "WARNING: Invalid escrow packet sender: $(re_escape "$BOB_EMAIL")"
+  assert_linematch $LOGFILE "WARNING: Marking escrow packet invalid: $(re_escape "$ESCROW_DIR")/$BOB_PACKET_RE"
+  assert_linematch $LOGFILE "INFO: Processing completed on $DATE_RE"
+  # Remove products:
+  sweep_escrow_receive_products
+}
+TESTS+=( test_escrow_receive_recipients_refused )
+
+##
+# kill_smtp_server
+#
+# Stops SMTP server.
+function kill_smtp_server() {
+  local V
+
+  V=$(read_var MAILSRV_PID 0)
+  if [[ $V -ne 0 ]]; then
+    runcmd -s "Stopping SMTP server (pid: $V)" \
+              "kill -9 $V && write_var MAILSRV_PID 0"
+  fi
+}
+
+##
+# sweep_escrow_receive_products
+#
+# Remove escrow-receive products.
+function sweep_escrow_receive_products() {
+  remove_file ${SINK_FILE/[0-9]*./*.}
+  empty_dir $ESCROW_DIR
+  remove_file $LOGFILE
+}
+
+##
+# cleanup
+#
+# Remove auxiliary files and processes.
+function cleanup() {
+  banner "::$FUNCNAME"
+  kill_smtp_server
+  sweep_escrow_receive_products
+  remove_file $TEST_PACKET
+  remove_file $TEST_IMG
+  remove_dir $ESCROW_DIR
+}
+
+runtests "$@"

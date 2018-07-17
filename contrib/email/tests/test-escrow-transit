@@ -1,0 +1,923 @@
+#!/bin/bash
+#
+# A script that tests escrow-transit functionality.
+#
+# Copyright (C) 2018 Jiří Kučera <jkucera@redhat.com>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+#
+
+. $(dirname $0)/utest.sh
+
+initialize $0
+
+STDIN=$HERE/stdin.$TEST_PID
+STDOUT=$HERE/stdout.$TEST_PID
+NONEXISTING_FILE=$HERE/.nonexisting-file
+export STDIN STDOUT NONEXISTING_FILE
+
+TESTROOT=$HERE/testroot
+BIN=$TESTROOT/bin
+DEV=$TESTROOT/dev
+PROC=$TESTROOT/proc
+PARTITIONS=$PROC/partitions
+FAKESDA=$DEV/fakesda
+FAKESDA1=$DEV/fakesda1
+FAKESDA2=$DEV/fakesda2
+FAKESDA3=$DEV/fakesda3
+FAKEDM_0=$DEV/fakedm-0
+FAKEDM_1=$DEV/fakedm-1
+FAKEDM_2=$DEV/fakedm-2
+FAKEDM_3=$DEV/fakedm-3
+VOLUME_KEY=$BIN/volume_key
+BLOCKSIZE=1024k
+NBLOCKS=10
+export TESTROOT BIN DEV PROC PARTITIONS
+export FAKESDA FAKESDA1 FAKESDA2 FAKESDA3
+export FAKEDM_0 FAKEDM_1 FAKEDM_2 FAKEDM_3
+export VOLUME_KEY
+export BLOCKSIZE NBLOCKS
+
+FAKESDA_LIST=( $FAKESDA $FAKESDA1 $FAKESDA2 $FAKESDA3 )
+FAKEDM_LIST=( $FAKEDM_0 $FAKEDM_1 $FAKEDM_2 $FAKEDM_3 )
+
+CERTBITS=4096
+CERTPASS=k1773ns
+CERTDAYS=2
+PRIVKEY=$HERE/privkey.pem
+PRIVKEY_PASSLESS=${PRIVKEY%.*}-passless.pem
+OPENSSL_CNF=$HERE/openssl.cnf
+CERT=$HERE/cert.pem
+export CERTBITS CERTPASS CERTDAYS PRIVKEY PRIVKEY_PASSLESS OPENSSL_CNF CERT
+
+BAD_HOST='foo?bar?baz?'
+GOOD_HOST=localhost
+BAD_PORT=foo
+GOOD_PORT=2525
+MAILSRV_ADDR=$GOOD_HOST:$GOOD_PORT
+MAILSRV_PID=0
+SINK_FILE=$HERE/email$TEST_PID.msg
+TIME_LIMIT=5
+BANNED_SERVER=$GOOD_HOST.localdomain
+export BAD_HOST GOOD_HOST BAD_PORT GOOD_PORT
+export MAILSRV_ADDR MAILSRV_PID SINK_FILE TIME_LIMIT BANNED_SERVER
+
+ET_NAME=escrow-transit
+ET_VERSION=0.1
+ET_MAIL_RECIP=$(cat $HERE/../$ET_NAME | grep -E '^MAIL_RECIP = ' | sed -E -e 's/^MAIL_RECIP = "(.*)"$/\1/g')
+ESCROW_DIR=$HERE/escrows
+ENCRYPTED_FAKESDA2_PACKET_RE="escrow$(re_escape $(echo -n $FAKESDA2 | sed -e s,/,-,g))-backup-passphrase-[[:alnum:]]{6}"
+COMPANY=company.com
+ALICE=alice@$COMPANY
+BOB=bob@$COMPANY
+export ET_NAME ET_VERSION ET_MAIL_RECIP
+export ESCROW_DIR
+export ENCRYPTED_FAKESDA2_PACKET_RE
+export COMPANY ALICE BOB
+
+##
+# create_openssl_cnf
+#
+# Create an OpenSSL configuration file.
+function create_openssl_cnf() {
+  (
+    echo "RANDFILE               = \$ENV::HOME/.rnd"
+    echo ""
+    echo "[ ca ]"
+    echo "default_ca             = CA_default"
+    echo ""
+    echo "[ CA_default ]"
+    echo "default_md             = sha256"
+    echo ""
+    echo "[ req ]"
+    echo "default_bits           = $CERTBITS"
+    echo "default_keyfile        = $PRIVKEY"
+    echo "distinguished_name     = req_distinguished_name"
+    echo "attributes             = req_attributes"
+    echo "prompt                 = no"
+    echo "output_password        = $CERTPASS"
+    echo ""
+    echo "[ req_distinguished_name ]"
+    echo "C                      = NN"
+    echo "ST                     = Narnia"
+    echo "L                      = Cair Paravel"
+    echo "O                      = Wardrobe, Inc."
+    echo "OU                     = Magic Portal"
+    echo "CN                     = Caspian X"
+    echo "emailAddress           = princecaspian@cairparavel.nn"
+    echo ""
+    echo "[ req_attributes ]"
+    echo "challengePassword      = A challenge password"
+  ) > $OPENSSL_CNF
+}
+
+##
+# create_partitions_file
+#
+# Create $TESTROOT/proc/partitions.
+function create_partitions_file() {
+  local T
+  local N
+  (
+    echo "major minor  #blocks  name"
+    echo ""
+    for P in ${FAKESDA_LIST[@]}; do
+      T=${P##*/}
+      N=${T//[a-z]/}; N=${N:-0}
+      echo "   8        ${N}         ${NBLOCKS} ${T}"
+    done
+    for P in ${FAKEDM_LIST[@]}; do
+      T=${P##*/}
+      N=${T//[a-z-]/}
+      echo " 253        ${N}         ${NBLOCKS} ${T}"
+    done
+  ) > $PARTITIONS
+}
+
+##
+# make_me_luks FAKE_PARTITION
+#
+# Make FAKE_PARTITION a LUKS device by copying the LUKS formated image over it.
+function make_me_luks() {
+  runcmd "Making $1 LUKS" \
+         "cp $TEST_IMG $1"
+}
+
+##
+# restore_me FAKE_PARTITION
+#
+# Restore FAKE_PARTITION.
+function restore_me() {
+  runcmd "Restoring $1 back" \
+         "cp $TEST_IMG_BK $1"
+}
+
+##
+# setup
+#
+# Prepare test environment.
+function setup() {
+  banner "::$FUNCNAME"
+  runcmd "Creating $ESCROW_DIR" \
+         "mkdir -p $ESCROW_DIR"
+  info "Creating certificates:"
+  runcmd "- generating RSA private key $PRIVKEY" \
+         "openssl genrsa -aes256 -passout pass:$CERTPASS -out $PRIVKEY $CERTBITS"
+  runcmd "- removing pass phrase from $PRIVKEY" \
+         "openssl rsa -passin pass:$CERTPASS -in $PRIVKEY -out $PRIVKEY_PASSLESS && mv $PRIVKEY_PASSLESS $PRIVKEY"
+  runcmd "- creating $OPENSSL_CNF" \
+         "create_openssl_cnf"
+  runcmd "- creating $CERT" \
+         "openssl req -config $OPENSSL_CNF -key $PRIVKEY -new -x509 -days $CERTDAYS -sha256 -out $CERT"
+  info "Preparing $TESTROOT:"
+  runcmd "- creating $BIN" \
+         "mkdir -p $BIN"
+  runcmd "- creating $DEV" \
+         "mkdir -p $DEV"
+  runcmd "- creating $PROC" \
+         "mkdir -p $PROC"
+  runcmd "- creating an image $TEST_IMG ($NBLOCKS x ${BLOCKSIZE}B)" \
+         "dd if=/dev/urandom of=$TEST_IMG bs=$BLOCKSIZE count=$NBLOCKS"
+  runcmd "- creating a backup of $TEST_IMG ($TEST_IMG_BK)" \
+         "cp $TEST_IMG $TEST_IMG_BK"
+  runcmd "- format the image $TEST_IMG as LUKS" \
+         "echo -n $TEST_PASSWD | cryptsetup -q luksFormat $TEST_IMG -"
+  runcmd "- get escrow packet $TEST_PACKET from LUKS image $TEST_IMG" \
+         "printf %b '$TEST_PASSWD\\0$TEST_PASSWD\\0$TEST_PASSWD\\0' | volume_key --batch --save $TEST_IMG --output=$TEST_PACKET"
+  runcmd "- creating fake volume_key" \
+         "create_fake_script $VOLUME_KEY 1"
+  for P in ${FAKESDA_LIST[@]}; do
+    runcmd "- copying $TEST_IMG_BK to $P" \
+           "cp $TEST_IMG_BK $P"
+  done
+  for P in ${FAKEDM_LIST[@]}; do
+    runcmd "- copying $TEST_IMG_BK to $P" \
+           "cp $TEST_IMG_BK $P"
+  done
+  runcmd "- creating $PARTITIONS" \
+         "create_partitions_file"
+}
+
+##
+# test_escrow_transit_version
+#
+# Test -V option.
+function test_escrow_transit_version() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Run the test:
+  C="$HERE/../$ET_NAME -V --only-stdout"
+  runcmd "Running $C" \
+         "$C"
+  cp $TEST_TEMP $STDOUT
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "$ET_NAME $ET_VERSION")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+}
+TESTS+=( test_escrow_transit_version )
+
+##
+# test_escrow_transit_redundant_options
+#
+# Test escrow-transit reaction on redundant options.
+function test_escrow_transit_redundant_options() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Run the test:
+  C="$HERE/../$ET_NAME --only-stdout -f $TEST_PACKET --foo -c $CERT --bar baz"
+  runcmd "Running $C" \
+         "$C" 1
+  cp $TEST_TEMP $STDOUT
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "$ET_NAME: use -h for help")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+}
+TESTS+=( test_escrow_transit_redundant_options )
+
+##
+# test_escrow_transit_both_file_and_cert_are_present
+#
+# Test escrow-transit reaction on both -f and -c options.
+function test_escrow_transit_both_file_and_cert_are_present() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -f $TEST_PACKET -c $CERT --only-stdout"
+  runcmd "Running $C" \
+         "$C" 1
+  cp $TEST_TEMP $STDOUT
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "$ET_NAME: use -h for help")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+}
+TESTS+=( test_escrow_transit_both_file_and_cert_are_present )
+
+##
+# test_escrow_transit_both_file_and_cert_are_missing
+#
+# Test escrow-transit reaction on missing both -f and -c options.
+function test_escrow_transit_both_file_and_cert_are_missing() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Run the test:
+  C="$HERE/../$ET_NAME -v --only-stdout"
+  runcmd "Running $C" \
+         "$C" 1
+  cp $TEST_TEMP $STDOUT
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "$ET_NAME: use -h for help")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+}
+TESTS+=( test_escrow_transit_both_file_and_cert_are_missing )
+
+##
+# test_escrow_transit_intraconn_unknown_host
+#
+# Test escrow-transit reaction on unknown intranet host.
+function test_escrow_transit_intraconn_unknown_host() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -I $BAD_HOST -f $TEST_PACKET --only-stdout"
+  runcmd "Runnig $C" \
+         "$C" 1
+  cp $TEST_TEMP $STDOUT
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $BAD_HOST... failed.")"
+  assert_linematch $STDOUT "$(re_escape "You must be connected to intranet in order to use this tool.")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+}
+TESTS+=( test_escrow_transit_intraconn_unknown_host )
+
+##
+# test_escrow_transit_intraconn_bad_port
+#
+# Test escrow-transit reaction on bad intranet host port.
+function test_escrow_transit_intraconn_bad_port() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -I $GOOD_HOST:$BAD_PORT -f $TEST_PACKET --only-stdout"
+  runcmd "Runnig $C" \
+         "$C" 1
+  cp $TEST_TEMP $STDOUT
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST:$BAD_PORT... failed.")"
+  assert_linematch $STDOUT "$(re_escape "You must be connected to intranet in order to use this tool.")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+}
+TESTS+=( test_escrow_transit_intraconn_bad_port )
+
+##
+# test_escrow_transit_get_and_verify_email
+#
+# Test escrow-transit reaction on email retrieval.
+function test_escrow_transit_get_and_verify_email() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -B vrfy -b $BANNED_SERVER -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  # sender:
+  #   Using sender address '$BOB' - is this ok? (y/n/c) n
+  #   Please enter sender e-mail address: $ALICE
+  #   Using sender address '$ALICE' - is this ok? (y/n/c) y
+  # receiver:
+  #   Using recipient address '$ET_MAIL_RECIP' - is this ok? (y/n/c) y
+  #   # $ET_MAIL_RECIP is banned
+  #   Please enter recipient e-mail address: $ET_MAIL_RECIP
+  #   Using recipient address '$ET_MAIL_RECIP' - is this ok? (y/n/c) d
+  #   Incorrect answer 'd'. Using recipient address '$ET_MAIL_RECIP' - is this ok? (y/n/c) c
+  runcmd "Preparing STDIN" \
+         "fecho $STDIN n $ALICE y y $ET_MAIL_RECIP d c"
+  # Run the test:
+  C="cat $STDIN | $HERE/../$ET_NAME -v -f $NONEXISTING_FILE -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r \"\" -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 1
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Using sender address '$BOB' - is this ok? ([y]es/[n]o/[c]ancel) Please enter sender e-mail address: Using sender address '$ALICE' - is this ok? ([y]es/[n]o/[c]ancel) Tentatively verified sender address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "Using recipient address '$ET_MAIL_RECIP' - is this ok? ([y]es/[n]o/[c]ancel) $MAILSRV_ADDR reply: 550 user <$ET_MAIL_RECIP> is banned")"
+  assert_linematch $STDOUT "$(re_escape "$ET_MAIL_RECIP: verification failed - address unknown.")"
+  assert_linematch $STDOUT "$(re_escape "Please enter recipient e-mail address: Using recipient address '$ET_MAIL_RECIP' - is this ok? ([y]es/[n]o/[c]ancel) Incorrect answer 'd'. Using recipient address '$ET_MAIL_RECIP' - is this ok? ([y]es/[n]o/[c]ancel) $ET_NAME: missing recipient e-mail address (canceled by user)")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_get_and_verify_email )
+
+##
+# test_escrow_transit_nonexisting_escrow_packet
+#
+# Test escrow-transit reaction on nonexisting escrow packet.
+function test_escrow_transit_nonexisting_escrow_packet() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -f $NONEXISTING_FILE -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -y -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 1
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "FileNotFoundError: [Errno 2] No such file or directory: '$NONEXISTING_FILE'")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_nonexisting_escrow_packet )
+
+##
+# test_escrow_transit_access_to_partition_denied
+#
+# Test escrow-transit reaction on no access rights to partition.
+function test_escrow_transit_access_to_partition_denied() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  runcmd "Marking $FAKESDA2 as read only" \
+         "chmod a-w $FAKESDA2"
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -p $TESTROOT -c $NONEXISTING_FILE -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -y -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 2
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions permissions:
+  runcmd "Restoring $FAKESDA2 permissions" \
+         "chmod 664 $FAKESDA2"
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "Only root can add new backup passphrases.")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_access_to_partition_denied )
+
+##
+# test_escrow_transit_no_luks_device
+#
+# Test escrow-transit reaction on no luks device on system.
+function test_escrow_transit_no_luks_device() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -p $TESTROOT -c $NONEXISTING_FILE -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -y -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 2
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "No LUKS partitions detected.")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_no_luks_device )
+
+##
+# test_escrow_transit_multiple_luks_devices
+#
+# Test escrow-transit reaction on multiple luks devices on the system.
+function test_escrow_transit_multiple_luks_devices() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  make_me_luks $FAKESDA2
+  make_me_luks $FAKESDA3
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -p $TESTROOT -c $NONEXISTING_FILE -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -y -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 2
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions:
+  restore_me $FAKESDA2
+  restore_me $FAKESDA3
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "Multiple LUKS partitions detected.")"
+  assert_linematch $STDOUT "$(re_escape "Create the escrow packet(s) manually with volume_key(1) and use the -f option.")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_multiple_luks_devices )
+
+##
+# test_escrow_transit_nonexisting_certificate
+#
+# Test escrow-transit reaction on nonexisting certificate.
+function test_escrow_transit_nonexisting_certificate() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  make_me_luks $FAKESDA2
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -p $TESTROOT -c $NONEXISTING_FILE -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -y -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 1
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions:
+  restore_me $FAKESDA2
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "About to add a random backup passphrase to LUKS partition $FAKESDA2.")"
+  assert_linematch $STDOUT "$(re_escape "FileNotFoundError: [Errno 2] No such file or directory: '$NONEXISTING_FILE'")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_nonexisting_certificate )
+
+##
+# test_escrow_transit_abort_operation
+#
+# Test escrow-transit reaction on aborting the operation by user.
+function test_escrow_transit_abort_operation() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  make_me_luks $FAKESDA2
+  runcmd "Preparing STDIN" \
+         "fecho $STDIN y y n"
+  # Run the test:
+  C="cat $STDIN | $HERE/../$ET_NAME -v -p $TESTROOT -c $CERT -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 3
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions:
+  restore_me $FAKESDA2
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Using sender address '$BOB' - is this ok? ([y]es/[n]o/[c]ancel) Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Using recipient address '$ALICE' - is this ok? ([y]es/[n]o/[c]ancel) Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "About to add a random backup passphrase to LUKS partition $FAKESDA2.")"
+  assert_linematch $STDOUT "$(re_escape "Is this ok? (y/n) Operation aborted.")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_abort_operation )
+
+##
+# test_escrow_transit_volume_key_fails
+#
+# Test escrow-transit reaction on volume_key error.
+function test_escrow_transit_volume_key_fails() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -b $COMPANY -B rcpt -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  make_me_luks $FAKESDA2
+  # Run the test:
+  C="PATH=$BIN${PATH:+:$PATH} $HERE/../$ET_NAME -v -p $TESTROOT -c $CERT -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -y -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 4
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions:
+  restore_me $FAKESDA2
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "About to add a random backup passphrase to LUKS partition $FAKESDA2.")"
+  assert_linematch $STDOUT "$(re_escape "Current passphrase for $FAKESDA2 needed to unlock the device.")"
+  assert_linematch $STDOUT "$(re_escape "Operation failed.")"
+  # Check that no packet was created:
+  assert_empty_dir $ESCROW_DIR
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_volume_key_fails )
+
+##
+# test_escrow_transit_volume_key_makes_packet
+#
+# Test if escrow-transit can make an escrow packet using volume_key.
+function test_escrow_transit_volume_key_makes_packet() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -b $COMPANY -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  make_me_luks $FAKESDA2
+  # Run the test:
+  C="printf %b '$TEST_PASSWD\\0' | $HERE/../$ET_NAME -v -b -p $TESTROOT -c $CERT -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C" 5
+  cp $TEST_TEMP $STDOUT
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions:
+  restore_me $FAKESDA2
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "About to add a random backup passphrase to LUKS partition $FAKESDA2.")"
+  assert_linematch $STDOUT "$(re_escape "Current passphrase for $FAKESDA2 needed to unlock the device.")"
+  assert_linematch $STDOUT "$(re_escape "Random passphrase has been successfully added to $FAKESDA2.")"
+  assert_linematch $STDOUT "Encrypted packet stored at $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE\."
+  assert_linematch $STDOUT "Using escrow packet $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE\."
+  # Check that a packet was created:
+  FILES=( $(enumerate_files $ESCROW_DIR "$ENCRYPTED_FAKESDA2_PACKET_RE") )
+  assert_equal ${#FILES[@]} 1 "number of files in $ESCROW_DIR matching $ENCRYPTED_FAKESDA2_PACKET_RE is 1"
+  # Check that no email was received:
+  assert_nofile $SINK_FILE
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_volume_key_makes_packet )
+
+##
+# test_escrow_transit_create_and_send_packet
+#
+# Test if escrow-transit creates and sends a packet.
+function test_escrow_transit_create_and_send_packet() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  make_me_luks $FAKESDA2
+  # Run the test:
+  C="printf %b 'y\\ny\\ny\\n$TEST_PASSWD\\0n\\n' | $HERE/../$ET_NAME -v -b -y -x -p $TESTROOT -c $CERT -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C"
+  cp $TEST_TEMP $STDOUT
+  runcmd "Waiting for response (max ${TIME_LIMIT}s)" \
+         "wait_file $SINK_FILE $TIME_LIMIT"
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions:
+  restore_me $FAKESDA2
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Using sender address '$BOB' - is this ok? ([y]es/[n]o/[c]ancel) Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Using recipient address '$ALICE' - is this ok? ([y]es/[n]o/[c]ancel) Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "About to add a random backup passphrase to LUKS partition $FAKESDA2.")"
+  assert_linematch $STDOUT "$(re_escape "Is this ok? (y/n) Current passphrase for $FAKESDA2 needed to unlock the device.")"
+  assert_linematch $STDOUT "$(re_escape "Random passphrase has been successfully added to $FAKESDA2.")"
+  assert_linematch $STDOUT "Encrypted packet stored at $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE\."
+  assert_linematch $STDOUT "Using escrow packet $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE\."
+  assert_linematch $STDOUT "$(re_escape "Escrow packet successfully sent to $ALICE.")"
+  assert_linematch $STDOUT "Removing escrow packet $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE - is this ok\? \(y/n\) Escrow packet not removed\."
+  assert_linematch $STDOUT "$(re_escape "Remove the escrow packet after receiving confirmation e-mail.")"
+  # Check the packet:
+  FILES=( $(enumerate_files $ESCROW_DIR "$ENCRYPTED_FAKESDA2_PACKET_RE") )
+  assert_equal ${#FILES[@]} 1 "number of files in $ESCROW_DIR matching $ENCRYPTED_FAKESDA2_PACKET_RE is 1"
+  CHECKSUM=$(md5sum ${FILES[0]} | sed -E -e 's/^([0-9A-Fa-f]+).*$/\1/g')
+  # Check the email:
+  assert_linematch $SINK_FILE "Subject: Backup Passphrase Escrow Packet from $BOB"
+  assert_linematch $SINK_FILE "From: $BOB"
+  assert_linematch $SINK_FILE "To: $ALICE"
+  assert_linematch $SINK_FILE "Backup passphrase escrow packet from: $BOB"
+  assert_linematch $SINK_FILE "Packet MD5 checksum: $CHECKSUM"
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_create_and_send_packet )
+
+##
+# test_escrow_transit_create_send_and_remove_packet
+#
+# Test if escrow-transit creates, sends, and removes a packet.
+function test_escrow_transit_create_send_and_remove_packet() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  make_me_luks $FAKESDA2
+  # Run the test:
+  C="printf %b 'y\\ny\\ny\\n$TEST_PASSWD\\0y\\n' | $HERE/../$ET_NAME -v -b -y -x -p $TESTROOT -c $CERT -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C"
+  cp $TEST_TEMP $STDOUT
+  runcmd "Waiting for response (max ${TIME_LIMIT}s)" \
+         "wait_file $SINK_FILE $TIME_LIMIT"
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions:
+  restore_me $FAKESDA2
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Using sender address '$BOB' - is this ok? ([y]es/[n]o/[c]ancel) Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Using recipient address '$ALICE' - is this ok? ([y]es/[n]o/[c]ancel) Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "About to add a random backup passphrase to LUKS partition $FAKESDA2.")"
+  assert_linematch $STDOUT "$(re_escape "Is this ok? (y/n) Current passphrase for $FAKESDA2 needed to unlock the device.")"
+  assert_linematch $STDOUT "$(re_escape "Random passphrase has been successfully added to $FAKESDA2.")"
+  assert_linematch $STDOUT "Encrypted packet stored at $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE\."
+  assert_linematch $STDOUT "Using escrow packet $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE\."
+  assert_linematch $STDOUT "$(re_escape "Escrow packet successfully sent to $ALICE.")"
+  assert_linematch $STDOUT "Removing escrow packet $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE - is this ok\? \(y/n\) Escrow packet $(re_escape $ESCROW_DIR)/$ENCRYPTED_FAKESDA2_PACKET_RE removed\."
+  # Check there are no packets:
+  assert_empty_dir $ESCROW_DIR
+  # Check the email:
+  assert_linematch $SINK_FILE "Subject: Backup Passphrase Escrow Packet from $BOB"
+  assert_linematch $SINK_FILE "From: $BOB"
+  assert_linematch $SINK_FILE "To: $ALICE"
+  assert_linematch $SINK_FILE "Backup passphrase escrow packet from: $BOB"
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_create_send_and_remove_packet )
+
+##
+# test_escrow_transit_send_packet
+#
+# Test if escrow-transit sends a packet.
+function test_escrow_transit_send_packet() {
+  local C
+
+  banner "::$FUNCNAME"
+  # Clean previous garbage:
+  kill_smtp_server
+  sweep_escrow_transit_products
+  sleep 1
+  # Prepare data & processes:
+  runcmd "Launching SMTP server" \
+         "$HERE/mailsrv.py -s $SINK_FILE $MAILSRV_ADDR & write_var MAILSRV_PID \$!"
+  sleep 1
+  info "SMTP server pid: $(read_var MAILSRV_PID 0)"
+  make_me_luks $FAKESDA2
+  # Run the test:
+  C="$HERE/../$ET_NAME -v -y -p $TESTROOT -f $TEST_PACKET -I $GOOD_HOST -H $MAILSRV_ADDR -s $BOB -r $ALICE -d $ESCROW_DIR --only-stdout"
+  runcmd "Running $C" \
+         "$C"
+  cp $TEST_TEMP $STDOUT
+  runcmd "Waiting for response (max ${TIME_LIMIT}s)" \
+         "wait_file $SINK_FILE $TIME_LIMIT"
+  # Kill unused processes:
+  kill_smtp_server
+  # Restore fake partitions:
+  restore_me $FAKESDA2
+  # Check the output:
+  assert_linematch $STDOUT "$(re_escape "Testing intranet connectivity against $GOOD_HOST... ok.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified sender address $BOB.")"
+  assert_linematch $STDOUT "$(re_escape "Tentatively verified recipient address $ALICE.")"
+  assert_linematch $STDOUT "$(re_escape "Using escrow packet $TEST_PACKET.")"
+  assert_linematch $STDOUT "$(re_escape "Escrow packet successfully sent to $ALICE.")"
+  # Check there are no packets:
+  assert_empty_dir $ESCROW_DIR
+  # Check the email:
+  assert_linematch $SINK_FILE "Subject: Backup Passphrase Escrow Packet from $BOB"
+  assert_linematch $SINK_FILE "From: $BOB"
+  assert_linematch $SINK_FILE "To: $ALICE"
+  assert_linematch $SINK_FILE "Backup passphrase escrow packet from: $BOB"
+  assert_linematch $SINK_FILE "Packet MD5 checksum: $(md5sum $TEST_PACKET | sed -E -e 's/^([0-9A-Fa-f]+).*$/\1/g')"
+  # Remove this test products:
+  sweep_escrow_transit_products
+}
+TESTS+=( test_escrow_transit_send_packet )
+
+##
+# kill_smtp_server
+#
+# Stops SMTP server.
+function kill_smtp_server() {
+  local V
+
+  V=$(read_var MAILSRV_PID 0)
+  if [[ $V -ne 0 ]]; then
+    runcmd -s "Stopping SMTP server (pid: $V)" \
+              "kill -9 $V && write_var MAILSRV_PID 0"
+  fi
+}
+
+##
+# sweep_escrow_transit_products
+#
+# Remove escrow-transit products.
+function sweep_escrow_transit_products() {
+  remove_file ${SINK_FILE/[0-9]*./*.}
+  empty_dir $ESCROW_DIR
+}
+
+##
+# cleanup
+#
+# Remove auxiliary files and processes.
+function cleanup() {
+  banner "::$FUNCNAME"
+  kill_smtp_server
+  sweep_escrow_transit_products
+  remove_file ${STDIN/.[0-9]*/.*}
+  remove_file ${STDOUT/.[0-9]*/.*}
+  remove_file $PRIVKEY
+  remove_file $PRIVKEY_PASSLESS
+  remove_file $CERT
+  remove_file $OPENSSL_CNF
+  remove_file $TEST_IMG
+  remove_file $TEST_IMG_BK
+  remove_file $TEST_PACKET
+  remove_dir $TESTROOT
+  remove_dir $ESCROW_DIR
+}
+
+runtests "$@"

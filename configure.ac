@@ -28,8 +28,8 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AM_PROG_AR
 LT_INIT([disable-static])
-AC_PATH_PROGS(PYTHON, python2.7 python2.6 python2 python, [Python is required])
-AM_PATH_PYTHON([2.6], [], AC_MSG_ERROR([Python 2.6 or 2.7 is required]))
+AC_PATH_PROGS(PYTHON, python3.6 python3 python, [Python is required])
+AM_PATH_PYTHON([3.1], [], AC_MSG_ERROR([Python 3.1 or later is required]))
 
 AC_PATH_PROG([GPG], [gpg2])
 AC_ARG_VAR([GPG])

@@ -1,3 +1,26 @@
+2018-10-07  Jiri Kucera  <jkucera@redhat.com>
+
+	* configure.ac: Release 0.3.12.
+	* configure.ac: Added `--with-python' and `--with-python3' flags.
+	* NEWS: Update.
+	* Makefile.am
+	* contrib/Makefile.am
+	* doc/Makefile.am
+	* lib/Makefile.am
+	* python/Makefile.am
+	* python/python/Makefile.am
+	* python/python3/Makefile.am
+	* src/Makefile.am
+	* tests/Makefile.am: Makefile.am in the top source directory was splitted
+	to smaller parts per subdirectory as there has been conflicts in rules due
+	to adding back the Python 2 support.
+	* python/volume_key.i: Adding PyString_AsStringAndSize and
+	PyString_FromStringAndSize functions/macros to resolve compatibility issues
+	between Python 2 and Python 3 C API.
+	* po/*.po: Update line numbers.
+	* tests/packet_roundtrips.c
+	* tests/packet_roundtrips.sh: Path fix.
+
 2018-07-17  Jiri Kucera  <jkucera@redhat.com>
 
 	* configure.ac: Release 0.3.11.

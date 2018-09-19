@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-05-17 11:43+0200\n"
+"POT-Creation-Date: 2018-10-04 10:30+0200\n"
 "PO-Revision-Date: 2015-03-14 08:38-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -396,7 +396,7 @@ msgstr "NUL बाइट कूटशब्द में"
 msgid "Error opening LUKS volume: "
 msgstr "LUKS वॉल्यूम खोलने में त्रुटि: "
 
-#: python/volume_key.i:369
+#: python/volume_key.i:384
 msgid "Error decoding certificate"
 msgstr "प्रणामपत्र डिकोड करने में त्रुटि"
 

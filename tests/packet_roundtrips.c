@@ -111,7 +111,7 @@ test (const char *test_packet, enum libvk_secret secret_type,
   size_t size2;
 
   error = NULL;
-  file_name = g_strconcat (getenv ("srcdir"), "/tests/", test_packet, NULL);
+  file_name = g_strconcat (getenv ("srcdir"), "/", test_packet, NULL);
   if (g_file_get_contents (file_name, &orig_packet, &orig_size,
 			   &error) == FALSE)
     {

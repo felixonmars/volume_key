@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-05-17 11:43+0200\n"
+"POT-Creation-Date: 2018-10-04 10:30+0200\n"
 "PO-Revision-Date: 2016-01-27 08:25-0500\n"
 "Last-Translator: Patrick Uiterwijk <puiterwijk@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -398,7 +398,7 @@ msgstr "NUL byte in wachtzin"
 msgid "Error opening LUKS volume: "
 msgstr "Fout bij het openen van LUKS volume: "
 
-#: python/volume_key.i:369
+#: python/volume_key.i:384
 msgid "Error decoding certificate"
 msgstr "Fout bij decoderen van certificaat"
 

@@ -1,3 +1,6 @@
+Changes in version 0.3.12:
+- Added back the Python 2 support.
+
 Changes in version 0.3.11:
 - Switched to Python 3.
 

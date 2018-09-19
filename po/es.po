@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-05-17 11:43+0200\n"
+"POT-Creation-Date: 2018-10-04 10:30+0200\n"
 "PO-Revision-Date: 2016-09-08 07:39-0400\n"
 "Last-Translator: William  Moreno Reyes <williamjmorenor@gmail.com>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -409,7 +409,7 @@ msgstr "NUL byte en la frase de acceso"
 msgid "Error opening LUKS volume: "
 msgstr "Error al intentar abrir el volumen LUKS"
 
-#: python/volume_key.i:369
+#: python/volume_key.i:384
 msgid "Error decoding certificate"
 msgstr "Error al intentar decodificar el certificado"
 

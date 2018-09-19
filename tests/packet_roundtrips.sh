@@ -35,4 +35,4 @@ certutil -d "$workdir/nss_db" -S -f "$workdir/pass_file" -n my_cert \
 	-s 'CN=recipient' -t TCu,TCu,TCu -x < /dev/urandom
 certutil -d "$workdir/nss_db" -L -a -n my_cert > "$workdir/cert.pem"
 
-(cd "$workdir"; ../tests/packet_roundtrips)
+(cd "$workdir"; ../packet_roundtrips)

@@ -1,4 +1,4 @@
-# Copyright (C) 2009 Red Hat, Inc. All rights reserved.
+# Copyright (C) 2009 - 2018 Red Hat, Inc. All rights reserved.
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
 # General Public License v.2.
@@ -12,14 +12,28 @@
 # Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 # Author: Miloslav Trmač <mitr@redhat.com>
+#         Jiří Kučera <jkucera@redhat.com>
 
 ## Process this file with automake to produce Makefile.in
-
-## Settings
 ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = $(blkid_CFLAGS) $(glib_CFLAGS) $(GPGME_CFLAGS) \
 	$(libcryptsetup_CFLAGS) $(nss_CFLAGS)
 LOCALEDIR_CPPFLAGS = -DLOCALEDIR='"$(localedir)"'
 
-## Targets
-SUBDIRS = contrib doc lib po python src tests
+VERSION_INFO = 3:3:2
+
+lib_LTLIBRARIES = libvolume_key.la
+pkginclude_HEADERS = libvolume_key.h
+
+libvolume_key_la_SOURCES = SECerrs.h SSLerrs.h \
+	crypto.c crypto.h \
+	kmip.c kmip.h \
+	libvolume_key.c libvolume_key.h \
+	nss_error.c nss_error.h \
+	ui.c ui.h \
+	volume.c volume.h \
+	volume_luks.c volume_luks.h
+libvolume_key_la_CPPFLAGS = $(AM_CPPFLAGS) $(LOCALEDIR_CPPFLAGS)
+libvolume_key_la_LDFLAGS = -version-info $(VERSION_INFO)
+libvolume_key_la_LIBADD = $(blkid_LIBS) $(glib_LIBS) $(GPGME_LIBS) \
+	$(LTLIBINTL) $(libcryptsetup_LIBS) $(nss_LIBS)

@@ -27,7 +27,22 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include <glib/gi18n-lib.h>
 #include <libintl.h>
 
-#include "lib/libvolume_key.h"
+#include "../../lib/libvolume_key.h"
+
+#if PY_VERSION_HEX >= 0x03000000
+#undef PyString_AsStringAndSize
+#undef PyString_FromStringAndSize
+static int
+PyString_AsStringAndSize(PyObject *obj, char **buffer, Py_ssize_t *length)
+{
+  const char *b = PyUnicode_AsUTF8AndSize(obj, length);
+  if (b == NULL)
+    return -1;
+  *buffer = b;
+  return 0;
+}
+#define PyString_FromStringAndSize(u, len) PyUnicode_FromStringAndSize(u, len)
+#endif
 
 /* Drop a reference to a Python object. */
 static void

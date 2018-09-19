@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-05-17 11:43+0200\n"
+"POT-Creation-Date: 2018-10-04 10:30+0200\n"
 "PO-Revision-Date: 2015-03-14 08:39-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
@@ -398,7 +398,7 @@ msgstr "암호구에 NUL 바이트가 있음"
 msgid "Error opening LUKS volume: "
 msgstr "LUKS 볼륨을 여는 중 발생:"
 
-#: python/volume_key.i:369
+#: python/volume_key.i:384
 msgid "Error decoding certificate"
 msgstr "인증서 디코딩 오류 발생"
 

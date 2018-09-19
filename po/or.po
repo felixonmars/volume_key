@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
 "Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-05-17 11:43+0200\n"
+"POT-Creation-Date: 2018-10-04 10:30+0200\n"
 "PO-Revision-Date: 2015-03-14 08:40-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
@@ -396,7 +396,7 @@ msgstr "ପ୍ରବେଶ ସଂକେତରେ NUL ବାଇଟ"
 msgid "Error opening LUKS volume: "
 msgstr "LUKS ଭଲ୍ୟୁମ ଖୋଲିବାରେ ତ୍ରୁଟି: "
 
-#: python/volume_key.i:369
+#: python/volume_key.i:384
 msgid "Error decoding certificate"
 msgstr "ପ୍ରମାଣପତ୍ର ଅବସଂକେତନ କରିବାରେ ତ୍ରୁଟି"
 

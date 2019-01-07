@@ -101,7 +101,7 @@ if test "x$use_python3" = xno; then
 else
     AC_MSG_RESULT([testing])
     # Try to find Python 3 interpreter:
-    AC_PATH_PROGS([PYTHON3], [python3.6 python3.5 python3 python], [no])
+    AC_PATH_PROGS([PYTHON3], [python3.7 python3.6 python3.5 python3 python], [no])
     if test "x$PYTHON3" != xno; then
         AC_MSG_CHECKING([whether $PYTHON3 version is >= 3.5])
         python3_found=old

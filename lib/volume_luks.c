@@ -30,6 +30,10 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include "volume.h"
 #include "volume_luks.h"
 
+#ifndef CRYPT_LUKS
+#define CRYPT_LUKS NULL
+#endif
+
 /* LUKS - specific code */
 
 /* Return an error message for ERR_NO, for g_free (). */
@@ -105,7 +109,7 @@ open_crypt_device (const char *path, char **last_log_entry, GError **error)
   if (r < 0)
     goto err;
   crypt_set_log_callback(cd, record_cryptsetup_log_entry, last_log_entry);
-  r = crypt_load (cd, CRYPT_LUKS1, NULL);
+  r = crypt_load (cd, CRYPT_LUKS, NULL);
   if (r < 0)
     goto err_cd;
   return cd;

@@ -16,16 +16,11 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA.
 Author: Miloslav Trmač <mitr@redhat.com> */
 #include <config.h>
 
-#include <stdlib.h>
 #include <errno.h>
 #include <locale.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdint.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <signal.h>
-#include <syslog.h>
 
 #include <cert.h>
 #include <cms.h>
@@ -42,10 +37,6 @@ Author: Miloslav Trmač <mitr@redhat.com> */
 #include "crypto.h"
 #include "nss_error.h"
 #include "libvolume_key.h"
-
-#define PROC_BASE "/proc"
-#define GPG_AGENT "gpg-agent"
-#define COMMAND_SIZE 64
 
  /* NSS utils */
 
@@ -634,142 +625,6 @@ gpgme_passphrase_cb (void *hook, const char *uid_hint,
   return 0;
 }
 
-static gchar *
-read_command(FILE *fd)
-{
-  gchar *command = NULL;
-  gsize command_size = COMMAND_SIZE; /* Including \0 */
-  gsize command_len = 0;
-
-  command = g_try_malloc(command_size);
-  if (command == NULL)
-    return NULL;
-
-  for (;;)
-    {
-      int c;
-
-      c = fgetc(fd);
-      if (c == EOF || c == '\0')
-        break;
-      if (command_len >= command_size - 1)
-        {
-          gchar *p = NULL;
-
-          /* Handle possible overflow */
-          if (command_size > SIZE_MAX / 2)
-            {
-              g_free(command);
-              return NULL;
-            }
-          command_size *= 2;
-          p = g_try_realloc(command, command_size);
-          if (p == NULL)
-            {
-              g_free(command);
-              return NULL;
-            }
-          command = p;
-        }
-      command[command_len++] = (gchar)c;
-    }
-  command[command_len] = '\0';
-  return command;
-}
-
-static gboolean
-is_gpg_agent(pid_t pid)
-{
-  gchar *cmdline = NULL, *command = NULL, *basename = NULL;
-  FILE *file = NULL;
-  gboolean okay = FALSE;
-
-  if ((cmdline = g_strdup_printf(PROC_BASE "/%d/cmdline", pid)) == NULL)
-    return FALSE;
-
-  file = fopen(cmdline, "rb");
-  g_free(cmdline);
-
-  if (file == NULL)
-    return FALSE;
-
-  command = read_command(file);
-  fclose(file);
-
-  if (command == NULL)
-    return FALSE;
-
-  basename = g_strrstr(command, "/");
-  if (basename == NULL)
-    basename = command;
-  else
-    basename = basename + 1;
-
-  okay = (g_strcmp0(basename, GPG_AGENT) == 0);
-  g_free(command);
-
-  return okay;
-}
-
-static pid_t
-get_gpg_agent_pid(void)
-{
-  GDir *proc_dir = NULL;
-  const gchar *dir_item = NULL;
-  pid_t gpg_agent_pid = -1;
-
-  if ((proc_dir = g_dir_open(PROC_BASE, 0, NULL)) == NULL)
-    return -1;
-
-  while ((dir_item = g_dir_read_name(proc_dir)) != NULL)
-    {
-      pid_t pid = 0;
-
-      pid = (pid_t)atoi(dir_item);
-      if (is_gpg_agent(pid))
-        {
-          gpg_agent_pid = pid;
-          break;
-        }
-    }
-
-  g_dir_close(proc_dir);
-
-  return gpg_agent_pid;
-}
-
-/* Clear gpg-agent's passphrase cache by sendig SIGHUP to him.
-
-   As a default, gpg-agent caches passphrases for 10 minutes
-   and prefers them, ignoring anything else.
-
-   NB: There exists CLEAR_PASSPHRASE command with cache id as its
-       mandatory argument, but it seems there is no documentation
-       how to use it. Having something like gpgme_clear_passphrase_cache
-       for removing just passphrases associated only with volume_key
-       would be nice as the current solution removes all passphrases from
-       cache.
-*/
-static void
-clear_passphrase_cache(void)
-{
-  pid_t gpg_agent_pid;
-
-  if ((gpg_agent_pid = get_gpg_agent_pid()) < 0)
-    return;
-  if (kill(gpg_agent_pid, SIGHUP) < 0)
-    {
-      int errnosv = errno;
-
-      openlog("lib" PACKAGE_NAME, LOG_PID, LOG_USER);
-      syslog(
-        LOG_MAKEPRI(LOG_USER, LOG_WARNING), "kill(%d, SIGHUP): %s",
-        gpg_agent_pid, strerror(errnosv)
-      );
-      closelog();
-    }
-}
-
 /* Create and configure a gpgme context, to use PASSPHRASE.
    Return 0 if OK, -1 on error. */
 static int
@@ -779,7 +634,6 @@ init_gpgme (gpgme_ctx_t *res, const char *passphrase, GError **error)
   gpgme_error_t e;
 
   (void)gpgme_check_version (NULL);
-  clear_passphrase_cache();
   e = gpgme_new (&ctx);
   if (e != GPG_ERR_NO_ERROR)
     {

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Eva Vranici <eva_vranici_13@hotmail.com>\n"
 "Language-Team: Albanian\n"
 "Language: sq\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: lib/crypto.c:65 lib/crypto.c:592

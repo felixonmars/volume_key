@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # mitr <mitr@volny.cz>, 2011.
 #   <prasad.mvs@gmail.com>, 2012.
@@ -10,41 +10,28 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
-"Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-10-04 10:30+0200\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
+"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2015-03-14 08:39-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
 "kn/)\n"
 "Language: kn\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
-#: lib/crypto.c:65 lib/crypto.c:594
+#: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: lib/crypto.c:394
-msgid "Unable to find the certificate necessary for decryption"
-msgstr ""
-
-#: lib/crypto.c:718
-#, fuzzy
-msgid "Unknown error getting encryption result"
-msgstr "LUKS ದತ್ತಾಂಶ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಪಡೆಯುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ: "
-
-#: lib/crypto.c:774
-#, fuzzy
-msgid "Unknown error getting decryption result"
-msgstr "LUKS ದತ್ತಾಂಶ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಪಡೆಯುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ: "
-
 #: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
-msgstr "ಒಂದು KMIP ಪ್ಯಾಕೆಟ್ ಅನ್ನು ಶೇಖರಿಸಿಡಲು ಸಾಕಷ್ಟು ಸ್ಥಳಾವಕಾಶವನ್ನು ಒದಗಿಸಲಾಗಿಲ್ಲ"
+msgstr ""
+"ಒಂದು KMIP ಪ್ಯಾಕೆಟ್ ಅನ್ನು ಶೇಖರಿಸಿಡಲು ಸಾಕಷ್ಟು ಸ್ಥಳಾವಕಾಶವನ್ನು ಒದಗಿಸಲಾಗಿಲ್ಲ"
 
 #: lib/kmip.c:323 lib/kmip.c:870
 msgid "A string is too long"
@@ -121,8 +108,8 @@ msgstr "ಬೆಂಬಲವಿರದ ವಸ್ತುವಿನ ಬಗೆ %s"
 msgid "Unexpected data after packet"
 msgstr "ಪ್ಯಾಕೆಟ್‌ನ ನಂತರ ಅನಿರೀಕ್ಷಿತ ದತ್ತಾಂಶ"
 
-#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1926
-#: lib/volume.c:710 lib/volume_luks.c:838
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
+#: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
 msgstr "ಬೆಂಬಲವಿರದ ಪ್ಯಾಕೆಟ್ ಬಗೆ %s"
@@ -132,11 +119,11 @@ msgstr "ಬೆಂಬಲವಿರದ ಪ್ಯಾಕೆಟ್ ಬಗೆ %s"
 msgid "Unsupported mechanism %lu"
 msgstr "ಬೆಂಬಲವಿರದ %lu ವಿಧಾನ"
 
-#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1939
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
 msgid "Unexpected wrapped key format"
 msgstr "ಅನಿರೀಕ್ಷಿತ ಆವರಿಸಲಾದ ಕೀಲಿಯ ವಿನ್ಯಾಸ"
 
-#: lib/kmip.c:1765 lib/kmip.c:1952
+#: lib/kmip.c:1765 lib/kmip.c:1950
 msgid "Unsupported wrapping mechanism"
 msgstr "ಬೆಂಬಲವಿರದ ಆವರಿಕೆ ವಿಧಾನ"
 
@@ -160,7 +147,7 @@ msgstr "ಬೆಂಬಲವಿರದ ಪ್ಯಾಕೆಟ್ ವಿನ್ಯಾ�
 msgid "Escrow packet passphrase"
 msgstr "ಎಸ್ಕ್ರೊ ಪ್ಯಾಕೆಟ್ ಗುಪ್ತವಾಕ್ಯ"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:330
+#: lib/libvolume_key.c:418 lib/volume_luks.c:312
 msgid "Too many attempts to get a valid passphrase"
 msgstr "ಮಾನ್ಯವಾದ ಗುಪ್ತವಾಕ್ಯವನ್ನು ಪಡೆಯಲು ಬಹಳ ಪ್ರಯತ್ನ ಮಾಡಲಾಗಿದೆ"
 
@@ -263,142 +250,143 @@ msgstr "ಬೆಂಬಲವಿರದ ವಾಲ್ಯೂಮ್ ಬಗೆ `%s'"
 msgid "Unknown error %d"
 msgstr "ಅಜ್ಞಾತ ದೋಷ %d"
 
-#: lib/volume_luks.c:118
+#: lib/volume_luks.c:105
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "ವಾಲ್ಯೂಮ್ `%s' ಬಗೆಗೆ ಮಾಹಿತಿಯನ್ನು ಪಡೆಯುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ: "
 
-#: lib/volume_luks.c:203
+#: lib/volume_luks.c:187
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
-msgstr "libblkid ಹಾಗು libcryptsetup ಯ ನಡುವೆ UUID ತಾಳೆಯುಗುತ್ತಿಲ್ಲ: `%s' vs. `%s'"
+msgstr ""
+"libblkid ಹಾಗು libcryptsetup ಯ ನಡುವೆ UUID ತಾಳೆಯುಗುತ್ತಿಲ್ಲ: `%s' vs. `%s'"
 
-#: lib/volume_luks.c:230
+#: lib/volume_luks.c:212
 msgid "LUKS cipher name"
 msgstr "LUKS ಸಿಫರ್ ಹೆಸರು"
 
-#: lib/volume_luks.c:233
+#: lib/volume_luks.c:215
 msgid "LUKS cipher mode"
 msgstr "LUKS ಸಿಫರ್ ವಿಧಾನ"
 
-#: lib/volume_luks.c:236
+#: lib/volume_luks.c:218
 msgid "Key size (bits)"
 msgstr "ಕೀಲಿ ಗಾತ್ರ (ಬಿಟ್‌ಗಳು)"
 
-#: lib/volume_luks.c:256
+#: lib/volume_luks.c:238
 msgid "Data encryption key"
 msgstr "ದತ್ತಾಂಶದ ಗೂಢಲಿಪೀಕರಣ ಕೀಲಿ"
 
-#: lib/volume_luks.c:260
+#: lib/volume_luks.c:242
 msgid "Passphrase"
 msgstr "ಗುಪ್ತವಾಕ್ಯ"
 
-#: lib/volume_luks.c:263
+#: lib/volume_luks.c:245
 msgid "Passphrase slot"
 msgstr "ಗುಪ್ತವಾಕ್ಯ ಸ್ಥಳ"
 
-#: lib/volume_luks.c:294 lib/volume_luks.c:485 lib/volume_luks.c:731
+#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
 msgid "Encryption information type unsupported in LUKS"
 msgstr "LUKS ನಲ್ಲಿ ಬೆಂಬಲವಿರದ ಗೂಢಲಿಪೀಕರಣದ ಮಾಹಿತಿಯ ಬಗೆ"
 
-#: lib/volume_luks.c:302
+#: lib/volume_luks.c:284
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "`%s' ಗಾಗಿನ ಗುಪ್ತವಾಕ್ಯ"
 
-#: lib/volume_luks.c:325 lib/volume_luks.c:884
+#: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
 msgstr "LUKS ದತ್ತಾಂಶ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಪಡೆಯುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ: "
 
-#: lib/volume_luks.c:374
+#: lib/volume_luks.c:354
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "ಸಿಫರ್ ಹೆಸರು ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ (ಪ್ಯಾಕೆಟ್ `%s', ವಾಲ್ಯೂಮ್ `%s')"
 
-#: lib/volume_luks.c:381
+#: lib/volume_luks.c:361
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "ಸಿಫರ್ ವಿಧಾನ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ (ಪ್ಯಾಕೆಟ್ `%s', ವಾಲ್ಯೂಮ್ `%s')"
 
-#: lib/volume_luks.c:388
+#: lib/volume_luks.c:368
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "ಕೀಲಿ ಗಾತ್ರ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ (ಪ್ಯಾಕೆಟ್ %zu, ವಾಲ್ಯೂಮ್ %zu)"
 
-#: lib/volume_luks.c:421
+#: lib/volume_luks.c:399
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "ಪ್ಯಾಕೆಟ್‌ನಲ್ಲಿನ LUKS ದತ್ತಾಂಶ ಗೂಢಲಿಪೀಕರಣ ಕೀಲಿಯು ಅಮಾನ್ಯವಾಗಿದೆ: "
 
-#: lib/volume_luks.c:450
+#: lib/volume_luks.c:424
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "ಪ್ಯಾಕೆಟ್‌ನಲ್ಲಿನ LUKS ಗುಪ್ತವಾಕ್ಯವು ಅಮಾನ್ಯವಾಗಿದೆ: "
 
-#: lib/volume_luks.c:491
+#: lib/volume_luks.c:463
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "ಎಸ್ಕ್ರೊ ಪ್ಯಾಕೆಟ್ LUKS ದತ್ತಾಂಶ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಹೊಂದಿಲ್ಲ"
 
-#: lib/volume_luks.c:496
+#: lib/volume_luks.c:468
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "`%s' ಗಾಗಿನ ಹೊಸ ಗುಪ್ತವಾಕ್ಯ"
 
-#: lib/volume_luks.c:497
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "`%s' ಗಾಗಿ ಹೊಸ ಗುಪ್ತವಾಕ್ಯವನ್ನು ಪುನರಾವರ್ತಿಸು"
 
-#: lib/volume_luks.c:498
+#: lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "ಗುಪ್ತವಾಕ್ಯಗಳು ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ.  `%s' ಗಾಗಿನ ಹೊಸ ಗುಪ್ತವಾಕ್ಯ"
 
-#: lib/volume_luks.c:525 src/volume_key.c:690
+#: lib/volume_luks.c:497 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "ಒಂದು ಗುಪ್ತವಾಕ್ಯವನ್ನು ಪಡೆಯಲು ಬಹಳ ಪ್ರಯತ್ನ ಮಾಡಲಾಗಿದೆ"
 
-#: lib/volume_luks.c:540 lib/volume_luks.c:605
+#: lib/volume_luks.c:512 lib/volume_luks.c:574
 msgid "Error adding a LUKS passphrase"
 msgstr "ಒಂದು LUKS ಗುಪ್ತವಾಕ್ಯವನ್ನು ಸೇರಿಸುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ"
 
-#: lib/volume_luks.c:581
+#: lib/volume_luks.c:550
 msgid "Can not add a secret of this type"
 msgstr "ಈ ಬಗೆಗೆ ಒಂದು ಸಿಕ್ರೆಟ್ ಕೀಲಿಯನ್ನು ಸೇರಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: lib/volume_luks.c:587 lib/volume_luks.c:689 lib/volume_luks.c:892
+#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
 msgid "Data encryption key unknown"
 msgstr "ದತ್ತಾಂಶ ಗೂಢಲಿಪೀಕರಣ ಕೀಲಿಯು ತಿಳಿದಿಲ್ಲ"
 
-#: lib/volume_luks.c:593
+#: lib/volume_luks.c:562
 msgid "The passphrase must be a string"
 msgstr "ಗುಪ್ತವಾಕ್ಯವು ಕನಿಷ್ಟ ಒಂದು ವಾಕ್ಯದಷ್ಟಾದರೂ ಉದ್ದವಿರಬೇಕು"
 
-#: lib/volume_luks.c:712
+#: lib/volume_luks.c:679
 msgid "Passphrase unknown"
 msgstr "ಗುಪ್ತವಾಕ್ಯವು ತಿಳಿದಿಲ್ಲ"
 
-#: lib/volume_luks.c:775
+#: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
 msgstr "ಬೆಂಬಲವಿರದ ಕೀಲಿಯ ಉದ್ದ %s"
 
-#: lib/volume_luks.c:787
+#: lib/volume_luks.c:754
 msgid "Key length mismatch"
 msgstr "ಕೀಲಿಯ ಉದ್ದ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ"
 
-#: lib/volume_luks.c:811
+#: lib/volume_luks.c:778
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "ಅಮಾನ್ಯವಾದ ಸ್ಲಾಟ್ ಸಂಖ್ಯೆ `%s'"
 
-#: lib/volume_luks.c:822
+#: lib/volume_luks.c:789
 msgid "NUL byte in passphrase"
 msgstr "ಗುಪ್ತವಾಕ್ಯದಲ್ಲಿ NUL ಬೈಟ್"
 
-#: lib/volume_luks.c:900
+#: lib/volume_luks.c:866
 msgid "Error opening LUKS volume: "
 msgstr "LUKS ವಾಲ್ಯೂಮ್ ಅನ್ನು ತೆರೆಯುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ: "
 
-#: python/volume_key.i:384
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "ಪ್ರಮಾಣಪತ್ರವನ್ನು ಡೀಕೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ"
 
@@ -421,37 +409,40 @@ msgstr "ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸು"
 #: src/volume_key.c:181
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr ""
-"ಒಂದು ಪ್ಯಾಕೆಟ್‌ಗೆ ವಾಲ್ಯೂಮ್ ಸಿಕ್ರೆಟ್‌ಗಳನ್ನು ಉಳಿಸಿ. operands VOLUME [PACKET] ಅನ್ನು "
-"ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತದೆ."
+"ಒಂದು ಪ್ಯಾಕೆಟ್‌ಗೆ ವಾಲ್ಯೂಮ್ ಸಿಕ್ರೆಟ್‌ಗಳನ್ನು ಉಳಿಸಿ. operands VOLUME [PACKET] "
+"ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತದೆ."
 
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"ಒಂದು ಪ್ಯಾಕೆಟ್‌ನಿಂದ ವಾಲ್ಯೂಮ್ ಸಿಕ್ರೆಟ್‌ಗಳನ್ನು ಮರಳಿ ಸ್ಥಾಪಿಸಿ.  operands VOLUME PACKET "
-"ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತದೆ."
+"ಒಂದು ಪ್ಯಾಕೆಟ್‌ನಿಂದ ವಾಲ್ಯೂಮ್ ಸಿಕ್ರೆಟ್‌ಗಳನ್ನು ಮರಳಿ ಸ್ಥಾಪಿಸಿ.  operands VOLUME "
+"PACKET ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತದೆ."
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"ಒಂದು ಪ್ಯಾಕೆಟ್‌ನಲ್ಲಿನ ಸಿಕ್ರೆಟ್‌ಗಳನ್ನು ಬಳಸಿಕೊಂಡು ಒಂದು ಗೂಢಲಿಪೀಕರಣ ವಾಲ್ಯೂಮ್ ಅನ್ನು "
-"ಸಿದ್ಧಗೊಳಿಸಿ.  operands VOLUME PACKET NAME ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತದೆ."
+"ಒಂದು ಪ್ಯಾಕೆಟ್‌ನಲ್ಲಿನ ಸಿಕ್ರೆಟ್‌ಗಳನ್ನು ಬಳಸಿಕೊಂಡು ಒಂದು ಗೂಢಲಿಪೀಕರಣ ವಾಲ್ಯೂಮ್ "
+"ಅನ್ನು ಸಿದ್ಧಗೊಳಿಸಿ.  operands VOLUME PACKET NAME ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತದೆ."
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
 msgstr ""
-"ಒಂದು ಎಸ್ಕ್ರೊ ಪ್ಯಾಕೆಟ್‌ ಅನ್ನು ಮರಳಿ ಗೂಢಲಿಪೀಕರಿಸು. operand PACKET ಅನ್ನು ನಿರೀಕ್ಚಿಸುತ್ತದೆ."
+"ಒಂದು ಎಸ್ಕ್ರೊ ಪ್ಯಾಕೆಟ್‌ ಅನ್ನು ಮರಳಿ ಗೂಢಲಿಪೀಕರಿಸು. operand PACKET ಅನ್ನು "
+"ನಿರೀಕ್ಚಿಸುತ್ತದೆ."
 
 #: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
 msgstr ""
-"ಒಂದು ಪ್ಯಾಕೆಟ್‌ನಲ್ಲಿ ಇರುವ ಮಾಹಿತಿಯನ್ನು ತೋರಿಸು. operand PACKET ಅನ್ನು ನಿರೀಕ್ಚಿಸುತ್ತದೆ."
+"ಒಂದು ಪ್ಯಾಕೆಟ್‌ನಲ್ಲಿ ಇರುವ ಮಾಹಿತಿಯನ್ನು ತೋರಿಸು. operand PACKET ಅನ್ನು "
+"ನಿರೀಕ್ಚಿಸುತ್ತದೆ."
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
 msgstr ""
-"ಒಂದು ಪ್ಯಾಕೆಟ್‌ನಲ್ಲಿ ಇರುವ ಸಿಕ್ರೆಟ್‌ ಅನ್ನು ತೋರಿಸು. operand PACKET ಅನ್ನು ನಿರೀಕ್ಚಿಸುತ್ತದೆ."
+"ಒಂದು ಪ್ಯಾಕೆಟ್‌ನಲ್ಲಿ ಇರುವ ಸಿಕ್ರೆಟ್‌ ಅನ್ನು ತೋರಿಸು. operand PACKET ಅನ್ನು "
+"ನಿರೀಕ್ಚಿಸುತ್ತದೆ."
 
 #: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
@@ -505,7 +496,8 @@ msgstr "FORMAT"
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
 msgstr ""
-"ಯಾವುದಾದರೂ ಗೂಢಲಿಪೀಕರಿಸದೆ ಇರುವ ಮಾಹಿತಿ ಇದ್ದಲ್ಲಿ ಅದನ್ನು ಮಾತ್ರ --dump ನಲ್ಲಿ ಸೇರ್ಪಡಿಸಿ"
+"ಯಾವುದಾದರೂ ಗೂಢಲಿಪೀಕರಿಸದೆ ಇರುವ ಮಾಹಿತಿ ಇದ್ದಲ್ಲಿ ಅದನ್ನು ಮಾತ್ರ --dump ನಲ್ಲಿ "
+"ಸೇರ್ಪಡಿಸಿ"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"
@@ -517,7 +509,8 @@ msgstr "OPERANDS"
 
 #: src/volume_key.c:270
 msgid "Manages encrypted volume keys and passphrases."
-msgstr "ಗೂಢಲಿಪೀಕರಿಸಲಾದ ಪರಿಮಾಣ ಕೀಲಿಗಳನ್ನು ಹಾಗು ಗುಪ್ತವಾಕ್ಯಗಳನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ."
+msgstr ""
+"ಗೂಢಲಿಪೀಕರಿಸಲಾದ ಪರಿಮಾಣ ಕೀಲಿಗಳನ್ನು ಹಾಗು ಗುಪ್ತವಾಕ್ಯಗಳನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ."
 
 #: src/volume_key.c:271
 #, c-format
@@ -526,11 +519,9 @@ msgstr "ದೋಷಗಳನ್ನು %s ಗೆ ವರದಿ ಮಾಡಿ"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ `%s --help' ಅನ್ನು ಚಲಾಯಿಸಿ.\n"
 
 #: src/volume_key.c:290
@@ -560,7 +551,8 @@ msgstr "`--%s' ಕೇವಲ `--%s' ನೊಂದಿಗೆ ಮಾತ್ರ ಮಾ�
 
 #: src/volume_key.c:320
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr "ಔಟ್‌ಪುಟ್ ಅನ್ನು ಕೇವಲ `--save' ಅಥವ `--reencrypt' ನೊಂದಿಗೆ ಮಾತ್ರ ಸೂಚಿಸಬಹುದಾಗಿದೆ"
+msgstr ""
+"ಔಟ್‌ಪುಟ್ ಅನ್ನು ಕೇವಲ `--save' ಅಥವ `--reencrypt' ನೊಂದಿಗೆ ಮಾತ್ರ ಸೂಚಿಸಬಹುದಾಗಿದೆ"
 
 #: src/volume_key.c:327
 msgid "No output specified"

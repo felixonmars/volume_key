@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Krishna Babu K <kkrothap@redhat.com>, 2010.
 # Krishnababu Krothapalli <krisnababu@gmail.com>, 2011, 2012.
@@ -9,37 +9,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
-"Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-10-04 10:30+0200\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
+"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2015-03-14 08:41-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
 "te/)\n"
 "Language: te\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
-#: lib/crypto.c:65 lib/crypto.c:594
+#: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
-
-#: lib/crypto.c:394
-msgid "Unable to find the certificate necessary for decryption"
-msgstr ""
-
-#: lib/crypto.c:718
-#, fuzzy
-msgid "Unknown error getting encryption result"
-msgstr "LUKS డాటా ఎన్క్రిప్షన్ కీను పొందుటలో దోషము: "
-
-#: lib/crypto.c:774
-#, fuzzy
-msgid "Unknown error getting decryption result"
-msgstr "LUKS డాటా ఎన్క్రిప్షన్ కీను పొందుటలో దోషము: "
 
 #: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
@@ -120,8 +106,8 @@ msgstr "తోడ్పాటులేని ఆబ్జక్ట్ రకం 
 msgid "Unexpected data after packet"
 msgstr "పాకెట్ తర్వాత వూహించని డాటా"
 
-#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1926
-#: lib/volume.c:710 lib/volume_luks.c:838
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
+#: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
 msgstr "తోడ్పాటులేని ప్యాకెట్ రకం %s"
@@ -131,11 +117,11 @@ msgstr "తోడ్పాటులేని ప్యాకెట్ రకం 
 msgid "Unsupported mechanism %lu"
 msgstr "మద్దతీయని మెకానిజం %lu"
 
-#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1939
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
 msgid "Unexpected wrapped key format"
 msgstr "చుట్టబడిన కీ అనుకోని ఫార్మాట్"
 
-#: lib/kmip.c:1765 lib/kmip.c:1952
+#: lib/kmip.c:1765 lib/kmip.c:1950
 msgid "Unsupported wrapping mechanism"
 msgstr "మద్దతీయని వ్రాపింగ్ మెకానిజం"
 
@@ -159,7 +145,7 @@ msgstr "మద్దతీయని పాకెట్ ఫార్మాట్"
 msgid "Escrow packet passphrase"
 msgstr "Escrow పాకెట్ సంకేతపదము"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:330
+#: lib/libvolume_key.c:418 lib/volume_luks.c:312
 msgid "Too many attempts to get a valid passphrase"
 msgstr "విలువైన సంకేతపదము పొందుటకు చాలా యెక్కువ ప్రయత్నాలు"
 
@@ -262,142 +248,142 @@ msgstr "మద్దతీయని వాల్యూమ్ ఫార్మా�
 msgid "Unknown error %d"
 msgstr "తెలియని దోషము %d"
 
-#: lib/volume_luks.c:118
+#: lib/volume_luks.c:105
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "వాల్యూమ్ `%s' గురించి సమాచారమును పొందుటలో దోషము: "
 
-#: lib/volume_luks.c:203
+#: lib/volume_luks.c:187
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr "libblkid మరియు libcryptsetup మధ్యన UUID ఆసమానత: `%s' vs. `%s'"
 
-#: lib/volume_luks.c:230
+#: lib/volume_luks.c:212
 msgid "LUKS cipher name"
 msgstr "LUKS సైఫర్ నామము"
 
-#: lib/volume_luks.c:233
+#: lib/volume_luks.c:215
 msgid "LUKS cipher mode"
 msgstr "LUKS సైఫర్ రీతి"
 
-#: lib/volume_luks.c:236
+#: lib/volume_luks.c:218
 msgid "Key size (bits)"
 msgstr "కీ పరిమాణము (బిట్స్)"
 
-#: lib/volume_luks.c:256
+#: lib/volume_luks.c:238
 msgid "Data encryption key"
 msgstr "డాటా యెన్క్రిప్షన్ కీ"
 
-#: lib/volume_luks.c:260
+#: lib/volume_luks.c:242
 msgid "Passphrase"
 msgstr "సంకేతపదము"
 
-#: lib/volume_luks.c:263
+#: lib/volume_luks.c:245
 msgid "Passphrase slot"
 msgstr "సంకేతపదము స్లాట్"
 
-#: lib/volume_luks.c:294 lib/volume_luks.c:485 lib/volume_luks.c:731
+#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
 msgid "Encryption information type unsupported in LUKS"
 msgstr "LUKS నందు ఎన్క్రిప్షన్ సమాచారము రకము మద్దతీయనిది"
 
-#: lib/volume_luks.c:302
+#: lib/volume_luks.c:284
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "`%s' కొరకు సంకేతపదము"
 
-#: lib/volume_luks.c:325 lib/volume_luks.c:884
+#: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
 msgstr "LUKS డాటా ఎన్క్రిప్షన్ కీను పొందుటలో దోషము: "
 
-#: lib/volume_luks.c:374
+#: lib/volume_luks.c:354
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "సైఫర్ నామము అసమానత (పాకెట్ `%s', వాల్యూమ్ `%s')"
 
-#: lib/volume_luks.c:381
+#: lib/volume_luks.c:361
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "సైఫర్ రీతి అసమానత (పాకెట్ `%s', వాల్యూమ్ `%s')"
 
-#: lib/volume_luks.c:388
+#: lib/volume_luks.c:368
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "కీ పరిమాణము అసమానత (పాకెట్ %zu, వాల్యూమ్ %zu)"
 
-#: lib/volume_luks.c:421
+#: lib/volume_luks.c:399
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "పాకెట్ నందలి LUKS డాటా ఎన్క్రిప్షన్ కీ చెల్లనిది: "
 
-#: lib/volume_luks.c:450
+#: lib/volume_luks.c:424
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "పాకెట్ నందలి LUKS సంకేతపదము చెల్లనిది: "
 
-#: lib/volume_luks.c:491
+#: lib/volume_luks.c:463
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "Escrow పాకెట్ అనునది LUKS డాటా ఎన్క్రిప్షన్ కీను కలిగిలేదు"
 
-#: lib/volume_luks.c:496
+#: lib/volume_luks.c:468
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "`%s' కొరకు కొత్త సంకేతపదము"
 
-#: lib/volume_luks.c:497
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "`%s' కొరకు కొత్త సంకేతపదమును మరియొకసారి యివ్వు"
 
-#: lib/volume_luks.c:498
+#: lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "సంకేతపదము సరిపోలలేదు.  `%s' కొరకు కొత్త సంకేతపదము"
 
-#: lib/volume_luks.c:525 src/volume_key.c:690
+#: lib/volume_luks.c:497 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "సంకేతపదమును పొందుటకు చాలా ప్రయత్నాలు"
 
-#: lib/volume_luks.c:540 lib/volume_luks.c:605
+#: lib/volume_luks.c:512 lib/volume_luks.c:574
 msgid "Error adding a LUKS passphrase"
 msgstr "LUKS సంకేతపదమును జతచేయుటలో దోషము"
 
-#: lib/volume_luks.c:581
+#: lib/volume_luks.c:550
 msgid "Can not add a secret of this type"
 msgstr "ఈ రకము యొక్క రహస్యాన్ని జతచేయలేము"
 
-#: lib/volume_luks.c:587 lib/volume_luks.c:689 lib/volume_luks.c:892
+#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
 msgid "Data encryption key unknown"
 msgstr "డాటా ఎన్క్రిప్షన్ కీ తెలియనిది"
 
-#: lib/volume_luks.c:593
+#: lib/volume_luks.c:562
 msgid "The passphrase must be a string"
 msgstr "సంకతపదము తప్పక స్ట్రింగు కావలెను"
 
-#: lib/volume_luks.c:712
+#: lib/volume_luks.c:679
 msgid "Passphrase unknown"
 msgstr "సంకేతపదము తెలియనిది"
 
-#: lib/volume_luks.c:775
+#: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
 msgstr "తోడ్పాటులేని కీ పొడవు %s"
 
-#: lib/volume_luks.c:787
+#: lib/volume_luks.c:754
 msgid "Key length mismatch"
 msgstr "కీ పొడవు అసమానత"
 
-#: lib/volume_luks.c:811
+#: lib/volume_luks.c:778
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "చెల్లని స్లాట్ సంఖ్య `%s'"
 
-#: lib/volume_luks.c:822
+#: lib/volume_luks.c:789
 msgid "NUL byte in passphrase"
 msgstr "సంకేతపదమునందు NUL బైట్"
 
-#: lib/volume_luks.c:900
+#: lib/volume_luks.c:866
 msgid "Error opening LUKS volume: "
 msgstr "LUKS వాల్యూమ్ తెరుచుటలో దోషము: "
 
-#: python/volume_key.i:384
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "ధృవీకరణపత్రమును డీకోడ్ చేయుటలో దోషము"
 
@@ -419,23 +405,28 @@ msgstr "వర్షన్ చూపుము"
 
 #: src/volume_key.c:181
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
-msgstr "వాల్యూమ్ రహస్యాలను పాకెట్‌నకు దాయుము.  VOLUME [PACKET] ఆపరెండ్లు కావలసివుంది."
+msgstr ""
+"వాల్యూమ్ రహస్యాలను పాకెట్‌నకు దాయుము.  VOLUME [PACKET] ఆపరెండ్లు కావలసివుంది."
+""
 
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
-msgstr "పాకెట్‌నుంది వాల్యూమ్ రహస్యాలను తిరిగివుంచుము.  VOLUME PACKET ఆపరెండ్లు కావలసివుంది."
+msgstr ""
+"పాకెట్‌నుంది వాల్యూమ్ రహస్యాలను తిరిగివుంచుము.  VOLUME PACKET ఆపరెండ్లు "
+"కావలసివుంది."
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"పాకెట్ నుండి రహస్యాలను వుపయోగిస్తూ ఎన్క్రిప్షన్ వాల్యూమ్‌ను అమర్చుము.  VOLUME PACKET NAME "
-"ఆపరెండ్లు కావలసివుంది."
+"పాకెట్ నుండి రహస్యాలను వుపయోగిస్తూ ఎన్క్రిప్షన్ వాల్యూమ్‌ను అమర్చుము.  "
+"VOLUME PACKET NAME ఆపరెండ్లు కావలసివుంది."
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "escrow పాకెట్‌ను తిరిగి-ఎన్క్రిప్టు చేయుము.  PACKET ఆపరెండ్‌ కావలసివుంది."
+msgstr ""
+"escrow పాకెట్‌ను తిరిగి-ఎన్క్రిప్టు చేయుము.  PACKET ఆపరెండ్‌ కావలసివుంది."
 
 #: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
@@ -496,7 +487,8 @@ msgstr "FORMAT"
 
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
-msgstr "ఏదైనా వుంటే, ఆ అన్‌యెన్క్రిప్టెడ్ సమాచారమును మాత్రమే చేర్చును, --dump నందు"
+msgstr ""
+"ఏదైనా వుంటే, ఆ అన్‌యెన్క్రిప్టెడ్ సమాచారమును మాత్రమే చేర్చును, --dump నందు"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"
@@ -517,11 +509,9 @@ msgstr "బగ్‌లను %sకు నివేదించుము"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "అధిక సమాచారము కొరకు `%s --help' నడుపుము.\n"
 
 #: src/volume_key.c:290
@@ -534,7 +524,8 @@ msgstr ""
 "Copyright (C) 2009 Red Hat, Inc. అన్ని హక్కులు చెందివున్నవి.\n"
 "ఈ సాఫ్టువేరు GPL v.2 క్రింద పంపిణీ చేయబడింది.\n"
 "\n"
-"చట్టబద్దంగా అనుమతించబడినంత వరకు, ఈ ప్రోగ్రామ్ యెటువంటి హామీ లేకుండా అందించబడుతోంది."
+"చట్టబద్దంగా అనుమతించబడినంత వరకు, ఈ ప్రోగ్రామ్ యెటువంటి హామీ లేకుండా "
+"అందించబడుతోంది."
 
 #: src/volume_key.c:302
 msgid "Operation mode not specified"

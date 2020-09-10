@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Bribanick dominique <chepioq@gmail.com>, 2011.
 # mitr <mitr@volny.cz>, 2011.
@@ -9,38 +9,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
-"Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-10-04 10:30+0200\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
+"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2015-12-30 12:45-0500\n"
 "Last-Translator: Jérôme Fenal <jfenal@gmail.com>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
 "Language: fr\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
-#: lib/crypto.c:65 lib/crypto.c:594
+#: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
-
-#: lib/crypto.c:394
-msgid "Unable to find the certificate necessary for decryption"
-msgstr ""
-
-#: lib/crypto.c:718
-#, fuzzy
-msgid "Unknown error getting encryption result"
-msgstr ""
-"Erreur lors de l'obtention de la clé de chiffrement de données LUKS&nbsp;:"
-
-#: lib/crypto.c:774
-#, fuzzy
-msgid "Unknown error getting decryption result"
-msgstr ""
-"Erreur lors de l'obtention de la clé de chiffrement de données LUKS&nbsp;:"
 
 #: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
@@ -121,8 +105,8 @@ msgstr "Objet de type %s non pris en charge"
 msgid "Unexpected data after packet"
 msgstr "Données inattendue après le paquet"
 
-#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1926
-#: lib/volume.c:710 lib/volume_luks.c:838
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
+#: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
 msgstr "Type de paquets %s non pris en charge"
@@ -132,11 +116,11 @@ msgstr "Type de paquets %s non pris en charge"
 msgid "Unsupported mechanism %lu"
 msgstr "Mécanisme %lu non pris en charge"
 
-#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1939
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
 msgid "Unexpected wrapped key format"
 msgstr "Format de clé de renvoi à la ligne inattendu"
 
-#: lib/kmip.c:1765 lib/kmip.c:1952
+#: lib/kmip.c:1765 lib/kmip.c:1950
 msgid "Unsupported wrapping mechanism"
 msgstr "Mécanisme de renvoi à la ligne non pris en charge"
 
@@ -160,7 +144,7 @@ msgstr "Format de paquet non pris en charge"
 msgid "Escrow packet passphrase"
 msgstr "Phrase de passe du paquet escrow"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:330
+#: lib/libvolume_key.c:418 lib/volume_luks.c:312
 msgid "Too many attempts to get a valid passphrase"
 msgstr "Nombre de tentatives d'obtention de la phrase de passe trop élevé"
 
@@ -264,145 +248,147 @@ msgstr "Format de volume `%s' non pris en charge"
 msgid "Unknown error %d"
 msgstr "Erreur inconnue %d"
 
-#: lib/volume_luks.c:118
+#: lib/volume_luks.c:105
 #, c-format
 msgid "Error getting information about volume `%s': "
-msgstr "Erreur lors de l'obtention des informations sur le volume `%s'&nbsp;: "
+msgstr ""
+"Erreur lors de l'obtention des informations sur le volume `%s'&nbsp;: "
 
-#: lib/volume_luks.c:203
+#: lib/volume_luks.c:187
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr "Incompatibilité d'UUID entre libblkid et libcryptsetup: `%s' vs. `%s'"
 
-#: lib/volume_luks.c:230
+#: lib/volume_luks.c:212
 msgid "LUKS cipher name"
 msgstr "Nom de chiffrement LUKS"
 
-#: lib/volume_luks.c:233
+#: lib/volume_luks.c:215
 msgid "LUKS cipher mode"
 msgstr "Mode de chiffrement LUKS"
 
-#: lib/volume_luks.c:236
+#: lib/volume_luks.c:218
 msgid "Key size (bits)"
 msgstr "Taille de la clé (octets)"
 
-#: lib/volume_luks.c:256
+#: lib/volume_luks.c:238
 msgid "Data encryption key"
 msgstr "Clé de chiffrement des données"
 
-#: lib/volume_luks.c:260
+#: lib/volume_luks.c:242
 msgid "Passphrase"
 msgstr "Phrase de passe"
 
-#: lib/volume_luks.c:263
+#: lib/volume_luks.c:245
 msgid "Passphrase slot"
 msgstr "Emplacement de la phrase de passe"
 
-#: lib/volume_luks.c:294 lib/volume_luks.c:485 lib/volume_luks.c:731
+#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
 msgid "Encryption information type unsupported in LUKS"
 msgstr "Type d'informations de chiffrement non pris en charge sur LUKS"
 
-#: lib/volume_luks.c:302
+#: lib/volume_luks.c:284
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "Phrase de passe pour « %s »"
 
-#: lib/volume_luks.c:325 lib/volume_luks.c:884
+#: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
 msgstr ""
 "Erreur lors de l'obtention de la clé de chiffrement de données LUKS&nbsp;:"
 
-#: lib/volume_luks.c:374
+#: lib/volume_luks.c:354
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "Incompatiibilité de nom de chiffrement (paquet `%s', volume `%s')"
 
-#: lib/volume_luks.c:381
+#: lib/volume_luks.c:361
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "Incompatibilité du mode de chiffrement (paquet `%s', volume `%s')"
 
-#: lib/volume_luks.c:388
+#: lib/volume_luks.c:368
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "Incompatibilité de la taille de la clé (paquet %zu, volume %zu)"
 
-#: lib/volume_luks.c:421
+#: lib/volume_luks.c:399
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "La clé de chiffrement de données LUKS du paquet est invalide&nbsp;:"
 
-#: lib/volume_luks.c:450
+#: lib/volume_luks.c:424
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "La phrase de passe LUKS du paquet est invalide&nbsp;:"
 
-#: lib/volume_luks.c:491
+#: lib/volume_luks.c:463
 msgid "Escrow packet does not contain the LUKS data encryption key"
-msgstr "Le paquet escrow ne contient pas la clé de chiffrement de données LUKS"
+msgstr ""
+"Le paquet escrow ne contient pas la clé de chiffrement de données LUKS"
 
-#: lib/volume_luks.c:496
+#: lib/volume_luks.c:468
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "Nouvelle phrase de passe pour « %s »"
 
-#: lib/volume_luks.c:497
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "Répéter la nouvelle phrase de passe pour « %s »"
 
-#: lib/volume_luks.c:498
+#: lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr ""
 "Les phrases de passe ne correspondent pas. Nouvelle phrase de passe pour "
 "« %s »"
 
-#: lib/volume_luks.c:525 src/volume_key.c:690
+#: lib/volume_luks.c:497 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "Nombre de tentatives d'obtention de la phrase de passe trop élevé"
 
-#: lib/volume_luks.c:540 lib/volume_luks.c:605
+#: lib/volume_luks.c:512 lib/volume_luks.c:574
 msgid "Error adding a LUKS passphrase"
 msgstr "Erreur lors de l'ajout de la phrase de passe LUKS"
 
-#: lib/volume_luks.c:581
+#: lib/volume_luks.c:550
 msgid "Can not add a secret of this type"
 msgstr "Impossible d'ajouter un secret de ce type"
 
-#: lib/volume_luks.c:587 lib/volume_luks.c:689 lib/volume_luks.c:892
+#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
 msgid "Data encryption key unknown"
 msgstr "Clé de chiffrement de données inconnue"
 
-#: lib/volume_luks.c:593
+#: lib/volume_luks.c:562
 msgid "The passphrase must be a string"
 msgstr "La phrase de passe doit être une chaîne"
 
-#: lib/volume_luks.c:712
+#: lib/volume_luks.c:679
 msgid "Passphrase unknown"
 msgstr "Phrase de passe inconnue"
 
-#: lib/volume_luks.c:775
+#: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
 msgstr "Longueur de la clé %s non prise en charge"
 
-#: lib/volume_luks.c:787
+#: lib/volume_luks.c:754
 msgid "Key length mismatch"
 msgstr "Incompatibilité de longueur de clé"
 
-#: lib/volume_luks.c:811
+#: lib/volume_luks.c:778
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "Numéro de fente invalide `%s'"
 
-#: lib/volume_luks.c:822
+#: lib/volume_luks.c:789
 msgid "NUL byte in passphrase"
 msgstr "Octet NUL dans la phrase de passe"
 
-#: lib/volume_luks.c:900
+#: lib/volume_luks.c:866
 msgid "Error opening LUKS volume: "
 msgstr "Erreur lors de l'ouverture du volume LUKS&nbsp;:"
 
-#: python/volume_key.i:384
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "Erreur lors du décodage du certificat"
 
@@ -450,6 +436,7 @@ msgstr "Rechiffrer un paquet escrow. Prévoir l'opérande PACKET."
 msgid "Show information contained in a packet.  Expects operand PACKET."
 msgstr ""
 "Afficher les information contenues dans un paquet. Prévoir l'opérande PACKET."
+""
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
@@ -529,11 +516,9 @@ msgstr "Rapporter les bogues à %s"
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "Exécuter `%s --help' pour plus d'informations.\n"
 
 #: src/volume_key.c:290
@@ -564,7 +549,8 @@ msgstr "`--%s' n'est valide qu'avec `--%s'"
 
 #: src/volume_key.c:320
 msgid "Output can be specified only with `--save' or `--reencrypt'"
-msgstr "La sortie peut seulement être spécifiée avec `--save' ou `--reencrypt'"
+msgstr ""
+"La sortie peut seulement être spécifiée avec `--save' ou `--reencrypt'"
 
 #: src/volume_key.c:327
 msgid "No output specified"
@@ -610,7 +596,8 @@ msgstr "Nouvelle de phrase de passe de paquet"
 #: src/volume_key.c:667
 msgid "Passphrases do not match.  New packet passphrase"
 msgstr ""
-"Les phrases de passe ne correspondent pas. Nouvelle phrase de passe du paquet"
+"Les phrases de passe ne correspondent pas. Nouvelle phrase de passe du "
+"paquet"
 
 #: src/volume_key.c:674
 msgid "Repeat new packet passphrase"

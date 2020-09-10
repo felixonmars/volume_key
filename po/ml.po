@@ -1,43 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Ani Peter <apeter@redhat.com>, 2012.
 # mitr <mitr@volny.cz>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: volume_key 0.3.9\n"
-"Report-Msgid-Bugs-To: https://pagure.io/volume_key\n"
-"POT-Creation-Date: 2018-10-04 10:30+0200\n"
+"Report-Msgid-Bugs-To: https://fedorahosted.org/volume_key/\n"
+"POT-Creation-Date: 2012-09-22 21:31+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2015-03-14 08:39-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
 "Language: ml\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
-#: lib/crypto.c:65 lib/crypto.c:594
+#: lib/crypto.c:65 lib/crypto.c:592
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
-
-#: lib/crypto.c:394
-msgid "Unable to find the certificate necessary for decryption"
-msgstr ""
-
-#: lib/crypto.c:718
-#, fuzzy
-msgid "Unknown error getting encryption result"
-msgstr "LUKS ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ ലഭ്യമാക്കുന്നതില്‍ പിശക്: "
-
-#: lib/crypto.c:774
-#, fuzzy
-msgid "Unknown error getting decryption result"
-msgstr "LUKS ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ ലഭ്യമാക്കുന്നതില്‍ പിശക്: "
 
 #: lib/kmip.c:256 lib/kmip.c:372
 msgid "Not enough space provided to store a KMIP packet"
@@ -118,8 +104,8 @@ msgstr "പിന്തുണയില്ലാത്ത വസ്തു രീ�
 msgid "Unexpected data after packet"
 msgstr "പാക്കറ്റിനു് ശേഷം അപ്രതീക്ഷിതമായ ഡേറ്റാ"
 
-#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1926
-#: lib/volume.c:710 lib/volume_luks.c:838
+#: lib/kmip.c:1647 lib/kmip.c:1737 lib/kmip.c:1844 lib/kmip.c:1924
+#: lib/volume.c:710 lib/volume_luks.c:805
 #, c-format
 msgid "Unsupported packet type %s"
 msgstr "പിന്തുണയില്ലാത്ത പാക്കറ്റ് രീതി %s"
@@ -129,11 +115,11 @@ msgstr "പിന്തുണയില്ലാത്ത പാക്കറ്�
 msgid "Unsupported mechanism %lu"
 msgstr "പിന്തുണയില്ലാത്ത സംവിധാനം %lu"
 
-#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1939
+#: lib/kmip.c:1752 lib/kmip.c:1775 lib/kmip.c:1937
 msgid "Unexpected wrapped key format"
 msgstr "അപ്രതീക്ഷിതമായ റാപ്പ്ഡ് കീ ആകൃതി"
 
-#: lib/kmip.c:1765 lib/kmip.c:1952
+#: lib/kmip.c:1765 lib/kmip.c:1950
 msgid "Unsupported wrapping mechanism"
 msgstr "പിന്തുണലഭ്യമല്ലാത്ത റാപ്പിങ് സംവിധാനം"
 
@@ -157,7 +143,7 @@ msgstr "പിന്തുണയില്ലാത്ത പാക്കറ്�
 msgid "Escrow packet passphrase"
 msgstr "എസ്ക്രോ പാക്കറ്റ് പാസ്ഫ്രെയിസ്"
 
-#: lib/libvolume_key.c:418 lib/volume_luks.c:330
+#: lib/libvolume_key.c:418 lib/volume_luks.c:312
 msgid "Too many attempts to get a valid passphrase"
 msgstr "ശരിയായ ഒരു പാസ്ഫ്രെയിസിനായി അനവധി ശ്രമങ്ങള്‍ നടത്തിയിരിക്കുന്നു"
 
@@ -260,142 +246,142 @@ msgstr "പിന്തുണയില്ലാത്ത വോള്യം മ�
 msgid "Unknown error %d"
 msgstr "അപരിചിതമായ പിശക് %d"
 
-#: lib/volume_luks.c:118
+#: lib/volume_luks.c:105
 #, c-format
 msgid "Error getting information about volume `%s': "
 msgstr "വോള്യം `%s'-നെപ്പറ്റിയുള്ള വിവരം ലഭ്യമാകുന്നതില്‍ പിശക്: "
 
-#: lib/volume_luks.c:203
+#: lib/volume_luks.c:187
 #, c-format
 msgid "UUID mismatch between libblkid and libcryptsetup: `%s' vs. `%s'"
 msgstr "libblkid, libcryptsetup എന്നിവയുടെ UUID ചേരുന്നില്ല: `%s' vs. `%s'"
 
-#: lib/volume_luks.c:230
+#: lib/volume_luks.c:212
 msgid "LUKS cipher name"
 msgstr "LUKS സിഫര്‍ നാമം"
 
-#: lib/volume_luks.c:233
+#: lib/volume_luks.c:215
 msgid "LUKS cipher mode"
 msgstr "LUKS സിഫര്‍ മോഡ്"
 
-#: lib/volume_luks.c:236
+#: lib/volume_luks.c:218
 msgid "Key size (bits)"
 msgstr "കീയുടെ വ്യാപ്തി (ബിറ്റുകള്‍)"
 
-#: lib/volume_luks.c:256
+#: lib/volume_luks.c:238
 msgid "Data encryption key"
 msgstr "ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ"
 
-#: lib/volume_luks.c:260
+#: lib/volume_luks.c:242
 msgid "Passphrase"
 msgstr "പാസ്ഫ്രെയിസ്"
 
-#: lib/volume_luks.c:263
+#: lib/volume_luks.c:245
 msgid "Passphrase slot"
 msgstr "പാസ്ഫ്രെയിസ് സ്ലോട്ട്"
 
-#: lib/volume_luks.c:294 lib/volume_luks.c:485 lib/volume_luks.c:731
+#: lib/volume_luks.c:276 lib/volume_luks.c:457 lib/volume_luks.c:698
 msgid "Encryption information type unsupported in LUKS"
 msgstr "LUKS-ല്‍ പിന്തുണയില്ലാത്ത തരത്തിലുള്ള എന്‍ക്രിപ്ഷന്‍ വിവരം"
 
-#: lib/volume_luks.c:302
+#: lib/volume_luks.c:284
 #, c-format
 msgid "Passphrase for `%s'"
 msgstr "`%s'-നുള്ള പാസ്ഫ്രെയിസ്"
 
-#: lib/volume_luks.c:325 lib/volume_luks.c:884
+#: lib/volume_luks.c:307 lib/volume_luks.c:850
 msgid "Error getting LUKS data encryption key: "
 msgstr "LUKS ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ ലഭ്യമാക്കുന്നതില്‍ പിശക്: "
 
-#: lib/volume_luks.c:374
+#: lib/volume_luks.c:354
 #, c-format
 msgid "Cipher name mismatch (packet `%s', volume `%s')"
 msgstr "സിഫര്‍ നാമം ചേരുന്നില്ല (പാക്കറ്റ് `%s', വോള്യം `%s')"
 
-#: lib/volume_luks.c:381
+#: lib/volume_luks.c:361
 #, c-format
 msgid "Cipher mode mismatch (packet `%s', volume `%s')"
 msgstr "സിഫര്‍ മോഡ് ചേരുന്നില്ല (പാക്കറ്റ് `%s', വോള്യം `%s')"
 
-#: lib/volume_luks.c:388
+#: lib/volume_luks.c:368
 #, c-format
 msgid "Key size mismatch (packet %zu, volume %zu)"
 msgstr "കീയുടെ വ്യാപ്തി ചേരുന്നില്ല (പാക്കറ്റ് %zu, വോള്യം %zu)"
 
-#: lib/volume_luks.c:421
+#: lib/volume_luks.c:399
 msgid "LUKS data encryption key in packet is invalid: "
 msgstr "പാക്കറ്റിലുള്ള LUKS ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ അസാധുവാണു്: "
 
-#: lib/volume_luks.c:450
+#: lib/volume_luks.c:424
 msgid "LUKS passphrase in packet is invalid: "
 msgstr "പാക്കറ്റിലുള്ള LUKS പാസ്ഫ്രെയിസ് അസാധുവാണു്: "
 
-#: lib/volume_luks.c:491
+#: lib/volume_luks.c:463
 msgid "Escrow packet does not contain the LUKS data encryption key"
 msgstr "എസ്ക്രോ പാക്കറ്റില്‍ LUKS ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ ലഭ്യമല്ല"
 
-#: lib/volume_luks.c:496
+#: lib/volume_luks.c:468
 #, c-format
 msgid "New passphrase for `%s'"
 msgstr "`%s'-നുള്ള പുതിയ പാസ്ഫ്രെയിസ്"
 
-#: lib/volume_luks.c:497
+#: lib/volume_luks.c:469
 #, c-format
 msgid "Repeat new passphrase for `%s'"
 msgstr "`%s'-നുള്ള പുതിയ പാസ്ഫ്രെയിസ് ആവര്‍ത്തിക്കുക"
 
-#: lib/volume_luks.c:498
+#: lib/volume_luks.c:470
 #, c-format
 msgid "Passphrases do not match.  New passphrase for `%s'"
 msgstr "പാസ്ഫ്രെയിസുകള്‍ തമ്മില്‍ ചേരുന്നില്ല.  `%s'-നുള്ള പുതിയ പാസ്ഫ്രെയിസ്"
 
-#: lib/volume_luks.c:525 src/volume_key.c:690
+#: lib/volume_luks.c:497 src/volume_key.c:690
 msgid "Too many attempts to get a passphrase"
 msgstr "ഒരു പാസ്ഫ്രെയിസിനായി അനവധി ശ്രമങ്ങള്‍ നടത്തിയിരിക്കുന്നു"
 
-#: lib/volume_luks.c:540 lib/volume_luks.c:605
+#: lib/volume_luks.c:512 lib/volume_luks.c:574
 msgid "Error adding a LUKS passphrase"
 msgstr "ഒരു LUKS പാസ്ഫ്രെയിസ് ചേര്‍ക്കുന്നതില്‍ പിശക്"
 
-#: lib/volume_luks.c:581
+#: lib/volume_luks.c:550
 msgid "Can not add a secret of this type"
 msgstr "ഈതരത്തിലുള്ള ഒരു രഹസ്യം ചേര്‍ക്കുവാന്‍ സാധ്യമല്ല"
 
-#: lib/volume_luks.c:587 lib/volume_luks.c:689 lib/volume_luks.c:892
+#: lib/volume_luks.c:556 lib/volume_luks.c:656 lib/volume_luks.c:858
 msgid "Data encryption key unknown"
 msgstr "ഡേറ്റാ എന്‍ക്രിപ്ഷന്‍ കീ അപരിചിതം"
 
-#: lib/volume_luks.c:593
+#: lib/volume_luks.c:562
 msgid "The passphrase must be a string"
 msgstr "പാസ്ഫ്രെയിസ് ഒരു സ്ട്രിങായിരിക്കണം"
 
-#: lib/volume_luks.c:712
+#: lib/volume_luks.c:679
 msgid "Passphrase unknown"
 msgstr "പാസ്ഫ്രെയിസ് അപരിചിതം"
 
-#: lib/volume_luks.c:775
+#: lib/volume_luks.c:742
 #, c-format
 msgid "Unsupported key length %s"
 msgstr "പിന്തുണയില്ലാത്ത കീ വ്യാപ്തി %s"
 
-#: lib/volume_luks.c:787
+#: lib/volume_luks.c:754
 msgid "Key length mismatch"
 msgstr "കീയുടെ നീളം ചേരുന്നില്ല"
 
-#: lib/volume_luks.c:811
+#: lib/volume_luks.c:778
 #, c-format
 msgid "Invalid slot number `%s'"
 msgstr "അസാധുവായ സ്ലോട്ട് നംബര്‍ `%s'"
 
-#: lib/volume_luks.c:822
+#: lib/volume_luks.c:789
 msgid "NUL byte in passphrase"
 msgstr "പാസ്ഫ്രെയിസില്‍ NUL ബൈറ്റ്"
 
-#: lib/volume_luks.c:900
+#: lib/volume_luks.c:866
 msgid "Error opening LUKS volume: "
 msgstr "LUKS വോള്യം തുറക്കുന്നതില്‍ പിശക്: "
 
-#: python/volume_key.i:384
+#: python/volume_key.i:369
 msgid "Error decoding certificate"
 msgstr "സര്‍ട്ടിഫിക്കേറ്റ് ഡീകോഡ് ചെയ്യുന്നതില്‍ പിശക്"
 
@@ -418,33 +404,38 @@ msgstr "പതിപ്പു് കാണിക്കുക"
 #: src/volume_key.c:181
 msgid "Save volume secrets to a packet.  Expects operands VOLUME [PACKET]."
 msgstr ""
-"ഒരു പാക്കറ്റിലേക്ക് വോള്യം രഹസ്യങ്ങള്‍ സൂക്ഷിക്കുക.  ഓപറണ്ടസ് VOLUME [PACKET] പ്രതീക്ഷിക്കുന്നു."
+"ഒരു പാക്കറ്റിലേക്ക് വോള്യം രഹസ്യങ്ങള്‍ സൂക്ഷിക്കുക.  ഓപറണ്ടസ് VOLUME "
+"[PACKET] പ്രതീക്ഷിക്കുന്നു."
 
 #: src/volume_key.c:186
 msgid "Restore volume secrets from a packet.  Expects operands VOLUME PACKET."
 msgstr ""
-"ഒരു പാക്കറ്റില്‍ നിന്നുമുള്ള വോള്യം രഹസ്യങ്ങള്‍ വീണ്ടെടുക്കുക.  ഓപറണ്ടസ് VOLUME PACKET "
-"പ്രതീക്ഷിക്കുന്നു."
+"ഒരു പാക്കറ്റില്‍ നിന്നുമുള്ള വോള്യം രഹസ്യങ്ങള്‍ വീണ്ടെടുക്കുക.  ഓപറണ്ടസ് "
+"VOLUME PACKET പ്രതീക്ഷിക്കുന്നു."
 
 #: src/volume_key.c:191
 msgid ""
 "Set up an encrypted volume using secrets from a packet.  Expects operands "
 "VOLUME PACKET NAME."
 msgstr ""
-"ഒരു പാക്കറ്റില്‍ നിന്നുള്ള രഹസ്യങ്ങളുപയോഗിച്ചു് ഒരു എന്‍ക്രിപ്റ്റഡ് വോള്യം സജ്ജമാക്കുക. ഓപറണ്ടസ് VOLUME "
-"PACKET NAME പ്രതീക്ഷിക്കുന്നു."
+"ഒരു പാക്കറ്റില്‍ നിന്നുള്ള രഹസ്യങ്ങളുപയോഗിച്ചു് ഒരു എന്‍ക്രിപ്റ്റഡ് വോള്യം "
+"സജ്ജമാക്കുക. ഓപറണ്ടസ് VOLUME PACKET NAME പ്രതീക്ഷിക്കുന്നു."
 
 #: src/volume_key.c:196
 msgid "Re-encrypt an escrow packet.  Expects operand PACKET."
-msgstr "ഒരു എസ്ക്രോ പാക്കറ്റ് വീണ്ടും എന്‍ക്രിപ്റ്റ് ചെയ്യുക.  ഓപറണ്ട് PACKET പ്രതീക്ഷിക്കുന്നു."
+msgstr ""
+"ഒരു എസ്ക്രോ പാക്കറ്റ് വീണ്ടും എന്‍ക്രിപ്റ്റ് ചെയ്യുക.  ഓപറണ്ട് PACKET "
+"പ്രതീക്ഷിക്കുന്നു."
 
 #: src/volume_key.c:200
 msgid "Show information contained in a packet.  Expects operand PACKET."
-msgstr "ഒരു പാക്കറ്റിലുള്ള വിവരങ്ങള്‍ കാണിക്കുക.  ഓപറണ്ട് PACKET പ്രതീക്ഷിക്കുന്നു."
+msgstr ""
+"ഒരു പാക്കറ്റിലുള്ള വിവരങ്ങള്‍ കാണിക്കുക.  ഓപറണ്ട് PACKET പ്രതീക്ഷിക്കുന്നു."
 
 #: src/volume_key.c:205
 msgid "Show secrets contained in a packet.  Expects operand PACKET."
-msgstr "ഒരു പാക്കറ്റിലുള്ള രഹസ്യങ്ങള്‍ കാണിക്കുക.  ഓപറണ്ട് PACKET പ്രതീക്ഷിക്കുന്നു."
+msgstr ""
+"ഒരു പാക്കറ്റിലുള്ള രഹസ്യങ്ങള്‍ കാണിക്കുക.  ഓപറണ്ട് PACKET പ്രതീക്ഷിക്കുന്നു."
 
 #: src/volume_key.c:210
 msgid "Use the NSS database in DIR"
@@ -497,7 +488,9 @@ msgstr "FORMAT"
 
 #: src/volume_key.c:249
 msgid "Only include unencrypted information, if any, in --dump"
-msgstr "എന്‍ക്രിപ്റ്റ് ചെയ്യാത്ത വിവരം മാത്രം ഉള്‍പ്പെടുത്തുക, ഉണ്ടെങ്കില്‍, --dump-ല്‍"
+msgstr ""
+"എന്‍ക്രിപ്റ്റ് ചെയ്യാത്ത വിവരം മാത്രം ഉള്‍പ്പെടുത്തുക, ഉണ്ടെങ്കില്‍, --dump-"
+"ല്‍"
 
 #: src/volume_key.c:253
 msgid "Include secrets in --dump output"
@@ -509,7 +502,8 @@ msgstr "OPERANDS"
 
 #: src/volume_key.c:270
 msgid "Manages encrypted volume keys and passphrases."
-msgstr "എന്‍ക്രിപ്റ്റ് ചെയ്ത വോള്യം കീകളും പാസ്ഫ്രെയിസുകളും കൈകാര്യം ചെയ്യുന്നു."
+msgstr ""
+"എന്‍ക്രിപ്റ്റ് ചെയ്ത വോള്യം കീകളും പാസ്ഫ്രെയിസുകളും കൈകാര്യം ചെയ്യുന്നു."
 
 #: src/volume_key.c:271
 #, c-format
@@ -518,11 +512,9 @@ msgstr "%s-ല്‍ ബഗുകള്‍ രേഖപ്പെടുത്ത�
 
 #: src/volume_key.c:279
 #, c-format
-msgid ""
-"%s: %s\n"
+msgid "%s: %s\n"
 "Run `%s --help' for more information.\n"
-msgstr ""
-"%s: %s\n"
+msgstr "%s: %s\n"
 "കൂടുതല്‍ വിവരങ്ങള്‍ക്കായി `%s --help' പ്രവര്‍ത്തിപ്പിക്കുക.\n"
 
 #: src/volume_key.c:290
@@ -553,7 +545,8 @@ msgstr "`--%s', `--%s'-നൊപ്പം മാത്രമേ ശരിയാ�
 #: src/volume_key.c:320
 msgid "Output can be specified only with `--save' or `--reencrypt'"
 msgstr ""
-"`--save' അല്ലെങ്കില്‍ `--reencrypt'ഉപയോഗിച്ചു് മാത്രമേ ഔട്ട്പുട്ട് വ്യക്തമാക്കുവാന്‍ പാടുള്ളൂ"
+"`--save' അല്ലെങ്കില്‍ `--reencrypt'ഉപയോഗിച്ചു് മാത്രമേ ഔട്ട്പുട്ട് "
+"വ്യക്തമാക്കുവാന്‍ പാടുള്ളൂ"
 
 #: src/volume_key.c:327
 msgid "No output specified"

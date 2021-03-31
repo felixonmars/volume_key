@@ -547,8 +547,8 @@ luks_apply_secret (struct libvk_volume *vol, const struct libvk_volume *packet,
     }
   g_free (last_log_entry);
 
-  g_return_val_if_fail (vol->v.luks->key_bytes == packet->v.luks->key_bytes,
-			-1);
+  if (vol->v.luks->key_bytes != packet->v.luks->key_bytes)
+    goto err_passphrase;
   luks_replace_key (vol, packet->v.luks->key);
   luks_replace_passphrase (vol, passphrase);
   vol->v.luks->passphrase_slot = res;

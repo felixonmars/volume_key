@@ -735,6 +735,11 @@ write_packet (struct packet_output_state *pos, const char *filename,
       || g_file_set_contents (filename, packet, size, error) == FALSE)
     {
       g_prefix_error (error, _("Error creating `%s': "), filename);
+      if (packet != NULL) {
+        if (output_format_cleartext != 0)
+          memset (packet, 0, size);
+        g_free (packet);
+      }
       return -1;
     }
   if (output_format_cleartext != 0)

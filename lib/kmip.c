@@ -1152,6 +1152,7 @@ kmip_decode_key_value (struct kmip_decoding_state *kmip,
       break;
 
     default:
+      kmip_key_value_free (res);
       g_return_val_if_reached (-1);
     }
   res->attributes = g_ptr_array_new ();
@@ -1348,6 +1349,7 @@ kmip_decode_object_symmetric_key (struct kmip_decoding_state *kmip,
       g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, res->block->type);
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
 		   _("Unsupported symmetric key format %s"), num);
+      kmip_object_symmetric_key_free (res);
       return -1;
     }
   *obj = res;
@@ -1384,6 +1386,7 @@ kmip_decode_object_secret_data (struct kmip_decoding_state *kmip,
       g_snprintf (num, sizeof (num), "%" G_GUINT32_FORMAT, res->block->type);
       g_set_error (error, LIBVK_ERROR, LIBVK_ERROR_KMIP_UNSUPPORTED_VALUE,
 		   _("Unsupported symmetric key format %s"), num);
+      kmip_object_secret_data_free (res);
       return -1;
     }
   *obj = res;
